@@ -2,6 +2,8 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App.js";
 import { HttpBankApi } from "./api/httpApi.js";
+import { MetricsBridge } from "./instrumentation/MetricsBridge.js";
+import { TaskRecorderProvider } from "./instrumentation/TaskRecorder.js";
 
 import "@minui/react/tokens.css";
 import "@minui/react/minui.css";
@@ -21,6 +23,13 @@ const api = new HttpBankApi(
 
 createRoot(container).render(
   <StrictMode>
-    <App api={api} />
+    {/*
+      계측을 실제 실행에서도 켜 둔다. 화면에는 아무것도 나타나지 않고,
+      사용자 테스트 진행자가 콘솔의 `minuiMetrics`로 과제를 여닫는다 (기획안 §12.2-A).
+    */}
+    <TaskRecorderProvider>
+      <MetricsBridge />
+      <App api={api} />
+    </TaskRecorderProvider>
   </StrictMode>,
 );
