@@ -1,0 +1,916 @@
+<title>MinUI Engine — 개인화 미니멀 금융 UI 엔진 기획안</title>
+<style>
+  /* ── 토큰: 라이트가 기본, 다크는 토큰만 재정의 ───────────────── */
+  :root {
+    --paper: #EFF1F0;
+    --surface: #FFFFFF;
+    --surface-2: #E5E9E7;
+    --ink: #141D1B;
+    --ink-2: #4A5A56;
+    --ink-3: #7C8C87;
+    --line: #D2DAD7;
+    --line-strong: #B3BFBB;
+    --accent: #0B5F52;
+    --accent-ink: #FFFFFF;
+    --accent-soft: #DCEAE6;
+    --warn: #8E5416;
+    --warn-soft: #F2E6D6;
+    --crit: #9E3324;
+    --shadow: 0 1px 2px rgba(20,29,27,.06), 0 8px 24px rgba(20,29,27,.05);
+
+    --f-sans: "Pretendard", "Pretendard Variable", -apple-system, BlinkMacSystemFont,
+              "Apple SD Gothic Neo", "Malgun Gothic", "Segoe UI", "Noto Sans KR", sans-serif;
+    --f-mono: "D2Coding", "Cascadia Mono", "Consolas", ui-monospace, SFMono-Regular,
+              "Menlo", monospace;
+
+    --step--1: clamp(.78rem, .76rem + .12vw, .84rem);
+    --step-0: clamp(.98rem, .94rem + .18vw, 1.06rem);
+    --step-1: clamp(1.16rem, 1.08rem + .35vw, 1.34rem);
+    --step-2: clamp(1.42rem, 1.28rem + .62vw, 1.8rem);
+    --step-3: clamp(1.8rem, 1.5rem + 1.35vw, 2.7rem);
+    --step-4: clamp(2.2rem, 1.6rem + 2.7vw, 4rem);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #0F1614;
+      --surface: #18211F;
+      --surface-2: #212C29;
+      --ink: #E9EEEC;
+      --ink-2: #A4B4AF;
+      --ink-3: #798A85;
+      --line: #2B3835;
+      --line-strong: #435250;
+      --accent: #5CC9B0;
+      --accent-ink: #0A1614;
+      --accent-soft: #15302B;
+      --warn: #D9A462;
+      --warn-soft: #2B2418;
+      --crit: #E2796B;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 30px rgba(0,0,0,.28);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #0F1614;
+    --surface: #18211F;
+    --surface-2: #212C29;
+    --ink: #E9EEEC;
+    --ink-2: #A4B4AF;
+    --ink-3: #798A85;
+    --line: #2B3835;
+    --line-strong: #435250;
+    --accent: #5CC9B0;
+    --accent-ink: #0A1614;
+    --accent-soft: #15302B;
+    --warn: #D9A462;
+    --warn-soft: #2B2418;
+    --crit: #E2796B;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 30px rgba(0,0,0,.28);
+  }
+
+  /* ── 기본 ───────────────────────────────────────────────── */
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--f-sans);
+    font-size: var(--step-0);
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
+  a { color: var(--accent); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 clamp(1.1rem, 4vw, 2.5rem); }
+
+  .eyebrow {
+    font-family: var(--f-mono);
+    font-size: var(--step--1);
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin: 0;
+  }
+
+  /* ── 헤더 ───────────────────────────────────────────────── */
+  .masthead { border-bottom: 1px solid var(--line); background: var(--surface); }
+  .masthead-inner {
+    display: flex; flex-wrap: wrap; gap: 1rem 2rem;
+    align-items: baseline; justify-content: space-between;
+    padding-block: 1rem;
+  }
+  .wordmark { font-weight: 800; letter-spacing: -.02em; font-size: var(--step-1); }
+  .wordmark span { color: var(--accent); }
+  .meta { display: flex; flex-wrap: wrap; gap: .4rem 1.4rem; }
+  .meta span { font-family: var(--f-mono); font-size: var(--step--1); color: var(--ink-3); }
+
+  /* ── 히어로 ─────────────────────────────────────────────── */
+  .hero { padding-block: clamp(3rem, 8vw, 6rem) clamp(2rem, 5vw, 3.5rem); }
+  .hero h1 {
+    font-size: var(--step-4);
+    line-height: 1.08;
+    letter-spacing: -.035em;
+    font-weight: 800;
+    margin: 1.2rem 0 0;
+    text-wrap: balance;
+    max-width: 17ch;
+  }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .lede {
+    margin: 1.6rem 0 0;
+    font-size: var(--step-1);
+    color: var(--ink-2);
+    max-width: 46ch;
+    line-height: 1.65;
+  }
+
+  /* ── 목업 ───────────────────────────────────────────────── */
+  .compare {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    gap: clamp(1rem, 3vw, 2rem);
+    margin-top: clamp(2rem, 5vw, 3.5rem);
+    align-items: start;
+  }
+  .phone {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    padding: .85rem;
+    box-shadow: var(--shadow);
+  }
+  .phone-label {
+    display: flex; align-items: baseline; justify-content: space-between; gap: .75rem;
+    margin-bottom: .7rem; padding: 0 .3rem;
+  }
+  .phone-label strong { font-size: var(--step--1); letter-spacing: .02em; }
+  .phone-label .tap {
+    font-family: var(--f-mono); font-size: var(--step--1); color: var(--ink-3);
+    font-variant-numeric: tabular-nums;
+  }
+  .screen {
+    background: var(--surface-2);
+    border-radius: 14px;
+    padding: .75rem;
+    display: flex; flex-direction: column; gap: .55rem;
+    min-height: 430px;
+  }
+  .screen.calm { background: var(--surface-2); }
+
+  .banner {
+    background: var(--warn-soft); color: var(--warn);
+    border-radius: 8px; padding: .55rem .6rem;
+    font-size: .68rem; line-height: 1.3; font-weight: 600;
+  }
+  .tiny-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: .3rem; }
+  .tiny {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 6px; padding: .42rem .2rem;
+    font-size: .55rem; line-height: 1.25; text-align: center;
+    color: var(--ink-2); min-height: 42px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .tiny-rows { display: flex; flex-direction: column; gap: .28rem; }
+  .tiny-row {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 6px;
+    padding: .38rem .5rem; font-size: .58rem; color: var(--ink-2);
+    display: flex; justify-content: space-between;
+  }
+
+  .bigcard {
+    background: var(--surface);
+    border: 2px solid var(--line);
+    border-radius: 14px;
+    padding: .95rem .9rem;
+    display: flex; flex-direction: column; gap: .18rem;
+    flex: 1;
+    min-height: 78px;
+    justify-content: center;
+  }
+  .bigcard .t { font-size: 1.02rem; font-weight: 800; letter-spacing: -.02em; }
+  .bigcard .s { font-size: .7rem; color: var(--ink-3); font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+  .bigcard.lead { border-color: var(--accent); background: var(--accent-soft); }
+  .bigcard.lead .s { color: var(--accent); }
+  .mic {
+    margin-top: .1rem;
+    background: var(--accent); color: var(--accent-ink);
+    border-radius: 12px; padding: .7rem;
+    text-align: center; font-weight: 700; font-size: .88rem;
+  }
+
+  .caption {
+    margin: .9rem .2rem 0; font-size: var(--step--1); color: var(--ink-3);
+    line-height: 1.6;
+  }
+
+  /* ── 본문 레이아웃 ───────────────────────────────────────── */
+  .doc { display: grid; gap: clamp(2rem, 5vw, 4rem); padding-bottom: 5rem; }
+  @media (min-width: 1000px) {
+    .doc { grid-template-columns: 190px minmax(0, 1fr); align-items: start; }
+  }
+  .rail { display: none; }
+  @media (min-width: 1000px) {
+    .rail {
+      display: block; position: sticky; top: 2rem;
+      border-left: 1px solid var(--line); padding-left: 1rem;
+    }
+    .rail ol { list-style: none; margin: 0; padding: 0; display: grid; gap: .32rem; }
+    .rail a {
+      display: block; text-decoration: none; color: var(--ink-3);
+      font-size: var(--step--1); line-height: 1.5;
+    }
+    .rail a:hover { color: var(--accent); }
+    .rail .num { font-family: var(--f-mono); margin-right: .5rem; }
+  }
+
+  .flow { display: grid; gap: clamp(2.6rem, 6vw, 4.5rem); min-width: 0; }
+  section { scroll-margin-top: 2rem; }
+  .sec-head { border-top: 2px solid var(--ink); padding-top: .8rem; margin-bottom: 1.4rem; }
+  .sec-head h2 {
+    font-size: var(--step-2); letter-spacing: -.03em; font-weight: 800;
+    margin: .3rem 0 0; text-wrap: balance;
+  }
+  .sec-head p.sub { margin: .7rem 0 0; color: var(--ink-2); max-width: 62ch; }
+  p, li { max-width: 68ch; }
+  h3 {
+    font-size: var(--step-1); letter-spacing: -.02em; margin: 2rem 0 .6rem;
+    text-wrap: balance;
+  }
+  strong { font-weight: 700; }
+  mark { background: var(--accent-soft); color: var(--ink); padding: 0 .18em; border-radius: 3px; }
+
+  .callout {
+    border-left: 3px solid var(--accent);
+    background: var(--surface);
+    padding: 1rem 1.2rem;
+    border-radius: 0 10px 10px 0;
+    margin: 1.6rem 0;
+  }
+  .callout p { margin: 0; }
+  .callout .eyebrow { margin-bottom: .45rem; color: var(--accent); }
+
+  .card {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 12px; padding: 1.1rem 1.2rem;
+  }
+  .grid-2 { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); }
+  .grid-2 .card p { margin: .4rem 0 0; font-size: var(--step--1); color: var(--ink-2); line-height: 1.65; }
+  .grid-2 .card h4 { margin: 0; font-size: var(--step-0); letter-spacing: -.01em; }
+  .grid-2 .card .tag {
+    font-family: var(--f-mono); font-size: .7rem; color: var(--accent);
+    letter-spacing: .1em; text-transform: uppercase; display: block; margin-bottom: .4rem;
+  }
+
+  .tablewrap { overflow-x: auto; margin: 1.4rem 0; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+  table { border-collapse: collapse; width: 100%; font-size: var(--step--1); }
+  th, td { text-align: left; padding: .72rem .95rem; border-bottom: 1px solid var(--line); vertical-align: top; line-height: 1.6; }
+  thead th { background: var(--surface-2); font-weight: 700; white-space: nowrap; }
+  tbody tr:last-child td { border-bottom: 0; }
+  td.num, th.num { font-family: var(--f-mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+  /* ── 아키텍처 다이어그램 ─────────────────────────────────── */
+  .arch { display: grid; gap: .5rem; margin: 1.6rem 0; }
+  .layer {
+    border: 1px solid var(--line); border-radius: 12px; background: var(--surface);
+    padding: .9rem 1rem;
+  }
+  .layer .eyebrow { margin-bottom: .55rem; }
+  .layer.contract { border-style: dashed; border-color: var(--accent); background: var(--accent-soft); }
+  .mods { display: flex; flex-wrap: wrap; gap: .45rem; }
+  .mod {
+    font-family: var(--f-mono); font-size: var(--step--1);
+    background: var(--surface-2); border: 1px solid var(--line);
+    border-radius: 7px; padding: .35rem .6rem; white-space: nowrap;
+  }
+  .layer.contract .mod { background: var(--surface); border-color: var(--accent); }
+  .arrow {
+    text-align: center; font-family: var(--f-mono); color: var(--ink-3);
+    font-size: var(--step--1); letter-spacing: .1em;
+  }
+
+  /* ── 파이프라인 ─────────────────────────────────────────── */
+  .pipe { display: grid; gap: .45rem; margin: 1.5rem 0; }
+  .step {
+    display: grid; grid-template-columns: 2.2rem 1fr; gap: .9rem; align-items: start;
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 10px; padding: .75rem .9rem;
+  }
+  .step .k {
+    font-family: var(--f-mono); font-size: var(--step--1); color: var(--accent);
+    font-weight: 700; padding-top: .1rem;
+  }
+  .step .b { font-size: var(--step--1); line-height: 1.6; }
+  .step .b b { display: block; font-size: var(--step-0); margin-bottom: .12rem; letter-spacing: -.01em; }
+  .step .b span { color: var(--ink-2); }
+
+  .formula {
+    font-family: var(--f-mono); font-size: var(--step--1); line-height: 2;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+    padding: 1rem 1.1rem; overflow-x: auto; margin: 1.4rem 0;
+    white-space: pre;
+  }
+  .formula b { color: var(--accent); font-weight: 700; }
+  .formula i { color: var(--ink-3); font-style: normal; }
+
+  ul.clean { padding-left: 1.1rem; margin: 1rem 0; display: grid; gap: .5rem; }
+  ul.clean li::marker { color: var(--accent); }
+
+  .split { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); margin: 1.5rem 0; }
+  .yes, .no { border-radius: 12px; padding: 1rem 1.2rem; border: 1px solid var(--line); background: var(--surface); }
+  .yes { border-left: 3px solid var(--accent); }
+  .no { border-left: 3px solid var(--crit); }
+  .yes h4, .no h4 { margin: 0 0 .6rem; font-size: var(--step-0); }
+  .no h4 { color: var(--crit); }
+  .yes h4 { color: var(--accent); }
+  .yes ul, .no ul { margin: 0; padding-left: 1.1rem; display: grid; gap: .35rem; font-size: var(--step--1); }
+
+  .milestones { display: grid; gap: .5rem; margin: 1.4rem 0; }
+  .ms {
+    display: grid; gap: .15rem .9rem; grid-template-columns: 3.2rem 1fr;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+    padding: .8rem .95rem;
+  }
+  .ms .id { font-family: var(--f-mono); font-weight: 700; color: var(--accent); }
+  .ms .ti { font-weight: 700; letter-spacing: -.01em; }
+  .ms .dod { grid-column: 2; font-size: var(--step--1); color: var(--ink-2); line-height: 1.6; }
+
+  footer {
+    border-top: 1px solid var(--line); background: var(--surface);
+    padding-block: 2rem 3rem; color: var(--ink-3); font-size: var(--step--1);
+  }
+  footer p { margin: .3rem 0; max-width: 70ch; }
+</style>
+
+<header class="masthead">
+  <div class="wrap masthead-inner">
+    <div class="wordmark">MinUI <span>Engine</span></div>
+    <div class="meta">
+      <span>개인 프로젝트 기획안</span>
+      <span>2026.08</span>
+      <span>TypeScript · React · Spring Boot</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <section class="hero">
+    <p class="eyebrow">개인화 미니멀 금융 UI 엔진</p>
+    <h1>사용자가 UI에 적응하는 대신, <em>UI가 사용자에게 적응</em>하게 만든다</h1>
+    <p class="lede">
+      자주 쓰는 기능만 큰 카드로 남기고, 나머지 메뉴는 음성으로 불러낸다.
+      특정 앱의 기능이 아니라 <strong>어떤 금융 앱에도 얹을 수 있는 이식형 UI 레이어</strong>로 설계하고,
+      이체 기능을 갖춘 데모 은행 앱 위에서 효과를 측정한다.
+    </p>
+
+    <div class="compare">
+      <div class="phone">
+        <div class="phone-label"><strong>기존 은행 앱 홈</strong><span class="tap">이체까지 탭 5회</span></div>
+        <div class="screen">
+          <div class="banner">지금 가입하면 우대금리 연 3.8% · 이벤트 응모하기</div>
+          <div class="tiny-rows">
+            <div class="tiny-row"><span>입출금 통장</span><span>1,240,300원</span></div>
+            <div class="tiny-row"><span>적금</span><span>8,000,000원</span></div>
+          </div>
+          <div class="tiny-grid">
+            <div class="tiny">계좌<br>조회</div>
+            <div class="tiny">계좌<br>이체</div>
+            <div class="tiny">자동<br>이체</div>
+            <div class="tiny">예약<br>이체</div>
+            <div class="tiny">거래<br>내역</div>
+            <div class="tiny">해외<br>송금</div>
+            <div class="tiny">한도<br>변경</div>
+            <div class="tiny">공과금</div>
+            <div class="tiny">예금<br>상품</div>
+            <div class="tiny">적금<br>상품</div>
+            <div class="tiny">대출<br>조회</div>
+            <div class="tiny">카드</div>
+            <div class="tiny">환전</div>
+            <div class="tiny">보험</div>
+            <div class="tiny">펀드</div>
+            <div class="tiny">퇴직<br>연금</div>
+            <div class="tiny">인증<br>센터</div>
+            <div class="tiny">알림<br>설정</div>
+            <div class="tiny">고객<br>센터</div>
+            <div class="tiny">전체<br>메뉴</div>
+          </div>
+        </div>
+        <p class="caption">모든 사용자가 같은 화면을 본다. 막히는 곳은 이체 화면이 아니라 <strong>이체 화면까지 가는 길</strong>이다.</p>
+      </div>
+
+      <div class="phone">
+        <div class="phone-label"><strong>MinUI 모드</strong><span class="tap">이체까지 탭 1회</span></div>
+        <div class="screen calm">
+          <div class="bigcard lead">
+            <span class="t">관리비 보내기</span>
+            <span class="s">매달 25일 · 우리아파트관리사무소</span>
+          </div>
+          <div class="bigcard">
+            <span class="t">잔액 보기</span>
+            <span class="s">1,240,300원</span>
+          </div>
+          <div class="bigcard">
+            <span class="t">입금 내역</span>
+            <span class="s">어제 연금 입금됨</span>
+          </div>
+          <div class="bigcard">
+            <span class="t">전화 상담</span>
+            <span class="s">1588-0000</span>
+          </div>
+          <div class="mic">🎤 찾는 메뉴를 말씀하세요</div>
+        </div>
+        <p class="caption">보이는 항목은 4개. 나머지 21개 메뉴는 <strong>사라진 게 아니라 불러내는 것</strong>이다 — “돈 부쳐야 해” 한마디면 열린다.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="doc">
+    <nav class="rail" aria-label="목차">
+      <p class="eyebrow" style="margin-bottom:.7rem;">목차</p>
+      <ol>
+        <li><a href="#s1"><span class="num">01</span>문제</a></li>
+        <li><a href="#s2"><span class="num">02</span>기존 해결책</a></li>
+        <li><a href="#s3"><span class="num">03</span>설계 원칙</a></li>
+        <li><a href="#s4"><span class="num">04</span>핵심 기능</a></li>
+        <li><a href="#s5"><span class="num">05</span>아키텍처</a></li>
+        <li><a href="#s6"><span class="num">06</span>알고리즘</a></li>
+        <li><a href="#s7"><span class="num">07</span>음성 설계</a></li>
+        <li><a href="#s8"><span class="num">08</span>데모 은행 앱</a></li>
+        <li><a href="#s9"><span class="num">09</span>검증 설계</a></li>
+        <li><a href="#s10"><span class="num">10</span>로드맵</a></li>
+        <li><a href="#s11"><span class="num">11</span>기술적 판단</a></li>
+      </ol>
+    </nav>
+
+    <main class="flow">
+      <!-- 01 -->
+      <section id="s1">
+        <div class="sec-head">
+          <p class="eyebrow">01 — 문제</p>
+          <h2>수용력은 세대마다 다른데, 인터페이스는 모두에게 같다</h2>
+          <p class="sub">젊은 사용자에게 메뉴 20개는 선택지지만, 고령 사용자에게는 장애물이다. 그런데 두 집단이 같은 화면을 본다.</p>
+        </div>
+
+        <p>
+          주목할 점은 실패 지점이 <strong>기능 수행</strong>이 아니라 <mark>기능 탐색</mark>이라는 것이다.
+          고령 사용자도 이체 화면에 도달하면 계좌번호를 넣고 금액을 입력하는 일은 해낸다.
+          막히는 곳은 그 화면까지 가는 길이다. 홈 → 전체메뉴 → 이체·출금 → 계좌이체를 지나는 동안
+          매 단계에서 “다음에 뭘 눌러야 하지”를 판단해야 하고, 판단이 쌓일수록 실수와 포기가 늘어난다.
+        </p>
+
+        <div class="callout">
+          <p class="eyebrow">문제를 발견한 계기</p>
+          <p>
+            할아버지 태블릿을 세팅해 드리면서 안 쓰는 앱을 지우고 아이콘을 키우고 홈에 4개만 남겼더니,
+            그 뒤로 전화 문의가 눈에 띄게 줄었다. 기능을 더한 게 아니라 <strong>빼기만 했는데</strong> 사용성이 올라갔다.
+            문제는 그 작업을 내가 손으로 했다는 것이다. 가족 중에 IT를 아는 사람이 없으면 못 받는 서비스고,
+            무엇보다 <strong>은행 앱 안쪽 메뉴는 사용자가 정리할 방법이 없다.</strong>
+            이 프로젝트는 그때 손으로 한 일을 앱이 스스로 하게 만드는 것이다.
+          </p>
+        </div>
+      </section>
+
+      <!-- 02 -->
+      <section id="s2">
+        <div class="sec-head">
+          <p class="eyebrow">02 — 기존 해결책의 한계</p>
+          <h2>간편 모드는 탐색 문제를 해결한 게 아니라 미뤄 뒀다</h2>
+        </div>
+
+        <div class="split">
+          <div class="no">
+            <h4>한계 1 · 고정 메뉴 세트</h4>
+            <ul>
+              <li>기획자가 미리 정한 6~8개가 모든 사용자에게 동일하게 나간다</li>
+              <li>관리비를 이체하는 사람, 연금 입금만 확인하는 사람에게 필요한 첫 화면은 서로 다르다</li>
+              <li>결과적으로 <strong>누구에게도 정확히 맞지 않는다</strong></li>
+            </ul>
+          </div>
+          <div class="no">
+            <h4>한계 2 · 세트를 벗어나면 원점</h4>
+            <ul>
+              <li>자동이체 해지, 한도 변경처럼 세트 밖 기능이 필요해지는 순간</li>
+              <li>“전체 메뉴로 돌아가기”를 눌러 원래의 복잡한 화면과 다시 마주한다</li>
+              <li>탐색 부담이 사라진 게 아니라 <strong>뒤로 미뤄진 것</strong></li>
+            </ul>
+          </div>
+        </div>
+
+        <p>그래서 두 축이 동시에 필요하다. 하나만으로는 기존 간편 모드와 같은 자리에 머문다.</p>
+
+        <div class="tablewrap">
+          <table>
+            <thead>
+              <tr><th>축</th><th>해결하는 것</th><th>없으면 생기는 일</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>개인화</strong></td><td>첫 화면이 그 사람에게 맞는다</td><td>고정 세트 — 누구에게도 안 맞음</td></tr>
+              <tr><td><strong>탐색 대체</strong></td><td>세트 밖 기능도 한 번에 도달</td><td>결국 복잡한 메뉴로 회귀</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 03 -->
+      <section id="s3">
+        <div class="sec-head">
+          <p class="eyebrow">03 — 설계 원칙</p>
+          <h2>네 가지 원칙, 그중 하나는 개인화를 일부러 느리게 만든다</h2>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <span class="tag">P1</span>
+            <h4>보이는 것은 적게</h4>
+            <p>홈 노출은 기본 4개, 최대 6개. 스크롤 없이 한 화면에 들어와야 하고, 카드 터치 영역은 최소 88×88dp.</p>
+          </div>
+          <div class="card">
+            <span class="tag">P2</span>
+            <h4>감추는 게 아니라 불러내는 것</h4>
+            <p>전체 메뉴 접근성은 100% 유지한다. 화면에서 사라진 기능도 음성·검색으로 언제든 도달 가능하다. 기능을 못 쓰게 만드는 축소가 아니다.</p>
+          </div>
+          <div class="card">
+            <span class="tag">P3</span>
+            <h4>화면은 예측 가능해야 한다</h4>
+            <p>사용 기록에 따라 카드가 매번 재배치되면 고령 사용자에게는 <strong>오히려 더 나쁘다.</strong> 어제 왼쪽 위에 있던 게 오늘 없으면 학습된 근육 기억이 무너진다.</p>
+          </div>
+          <div class="card">
+            <span class="tag">P4</span>
+            <h4>호스트 앱을 수정하지 않는다</h4>
+            <p>엔진은 라우팅·상태·인증에 관여하지 않는다. 메뉴 카탈로그와 액션 핸들러만 주입받는다. 이식 비용이 낮아야 “어떤 앱에도 적용 가능”이 성립한다.</p>
+          </div>
+        </div>
+
+        <div class="callout">
+          <p class="eyebrow">무엇을 포기했는가</p>
+          <p>P1과 P3를 함께 지키려면 “최신 사용 패턴을 즉각 반영하는 반응성”을 포기해야 한다.
+          추천 시스템 관점에서는 손해지만, 고령 사용자 대상 UI에서는 <strong>일관성이 정확도보다 중요하다</strong>고 판단했다.</p>
+        </div>
+      </section>
+
+      <!-- 04 -->
+      <section id="s4">
+        <div class="sec-head">
+          <p class="eyebrow">04 — 핵심 기능</p>
+          <h2>다섯 개 기능, 무게중심은 F3에 있다</h2>
+        </div>
+
+        <div class="tablewrap">
+          <table>
+            <thead>
+              <tr><th class="num">ID</th><th>기능</th><th>핵심 내용</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="num">F1</td><td>사용 이력 수집</td>
+                <td>메뉴 진입·완료 이벤트를 온디바이스에 기록. <strong>메뉴 ID·시각·완료 여부만</strong> 저장하고 금액·계좌·수취인은 수집하지 않는다. 들어갔다 바로 나온 메뉴에 가중치를 주지 않기 위해 완료 여부를 함께 남긴다.</td>
+              </tr>
+              <tr>
+                <td class="num">F2</td><td>개인화 랭킹</td>
+                <td>빈도·최신성·상황의 가중 합으로 상위 N개 산출 (수식은 06)</td>
+              </tr>
+              <tr>
+                <td class="num">F3</td><td><strong>배치 안정화</strong></td>
+                <td>히스테리시스 20% 마진 · 하루 1회 갱신 · 변경 시 “새로 추가됨” 배지 3일 · 사용자 수동 고정(핀). <strong>이 프로젝트에서 가장 중요한 기능.</strong></td>
+              </tr>
+              <tr>
+                <td class="num">F4</td><td>음성·텍스트 탐색</td>
+                <td>발화를 받아 후보 1~3개를 큰 버튼으로 제시. 자동 실행하지 않고 사용자가 고른다.</td>
+              </tr>
+              <tr>
+                <td class="num">F5</td><td>콜드 스타트</td>
+                <td>온보딩 2문항(이용 목적 · 글씨 크기)으로 프리셋 카드 세트 배치 후, 5~10회 사용 시점부터 실측 랭킹으로 전환</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 05 -->
+      <section id="s5">
+        <div class="sec-head">
+          <p class="eyebrow">05 — 아키텍처</p>
+          <h2>호스트 앱이 구현할 것은 두 개뿐이다</h2>
+          <p class="sub">이식성이 이 프로젝트의 존재 이유이므로, 프레임워크 의존 코드와 비의존 코드를 엄격히 분리한다.</p>
+        </div>
+
+        <div class="arch">
+          <div class="layer">
+            <p class="eyebrow">호스트 금융 앱 — 은행 / 증권 / 키오스크</p>
+            <div class="mods">
+              <span class="mod">기존 화면</span>
+              <span class="mod">앱 라우터</span>
+              <span class="mod">인증 · 세션</span>
+              <span class="mod">거래 API</span>
+            </div>
+          </div>
+          <p class="arrow">▲ ActionHandler(menuId) 로 화면 열기 &nbsp;│&nbsp; ▼ 사용 이벤트</p>
+          <div class="layer contract">
+            <p class="eyebrow" style="color:var(--accent)">이식 계약 — 호스트가 제공할 것</p>
+            <div class="mods">
+              <span class="mod">menu-catalog.json</span>
+              <span class="mod">ActionHandler</span>
+              <span class="mod">StorageAdapter (선택)</span>
+            </div>
+          </div>
+          <p class="arrow">▼</p>
+          <div class="layer">
+            <p class="eyebrow">@minui/core — 프레임워크 무관 (순수 TypeScript)</p>
+            <div class="mods">
+              <span class="mod">EventStore</span>
+              <span class="mod">RankingEngine</span>
+              <span class="mod">MenuIndex</span>
+              <span class="mod">SearchPipeline</span>
+            </div>
+          </div>
+          <p class="arrow">▼</p>
+          <div class="layer">
+            <p class="eyebrow">바인딩 계층</p>
+            <div class="mods">
+              <span class="mod">@minui/react · 카드 홈</span>
+              <span class="mod">@minui/react · 디자인 토큰</span>
+              <span class="mod">@minui/voice · SttProvider</span>
+            </div>
+          </div>
+        </div>
+
+        <p>
+          코어가 React·DOM·브라우저 API에 의존하지 않기 때문에, React Native나 다른 프레임워크용 바인딩을 추가할 때
+          코어를 재작성할 필요가 없다. 인증·세션·API 호출은 전부 호스트 앱 책임으로 남겨 두었다 —
+          엔진은 <strong>“무엇을 보여줄지”만 결정하고 “어떻게 실행할지”는 모른다.</strong>
+        </p>
+
+        <div class="formula">{
+  <b>"id"</b>: "transfer.account",
+  <b>"label"</b>: "계좌 이체",
+  <b>"synonyms"</b>: ["돈 보내기", "송금", "부치기", "이체하기"],
+  <b>"route"</b>: "/transfer/account",
+  <b>"riskLevel"</b>: "high"   <i>// high면 음성으로 실행 불가 (07 참조)</i>
+}</div>
+      </section>
+
+      <!-- 06 -->
+      <section id="s6">
+        <div class="sec-head">
+          <p class="eyebrow">06 — 알고리즘</p>
+          <h2>점수는 서버가 아니라 기기 안에서 계산된다</h2>
+        </div>
+
+        <h3>랭킹 점수</h3>
+        <div class="formula">score(m) = <b>w_f</b> · log(1 + freq(m))      <i>빈도 — 많이 쓴 것</i>
+         + <b>w_r</b> · exp(-λ · Δt(m))       <i>최신성 — 최근에 쓴 것</i>
+         + <b>w_c</b> · contextBoost(m)       <i>상황 — 지금 쓸 법한 것</i>
+         + <b>w_p</b> · isPinned(m)           <i>고정 — 사용자가 박아둔 것</i></div>
+
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th>항</th><th class="num">기본값</th><th>설계 의도</th></tr></thead>
+            <tbody>
+              <tr><td>빈도</td><td class="num">w_f = 1.0</td><td>로그를 씌워 다빈도 메뉴의 독점 방지 — 20번 쓴 메뉴가 20배 점수를 갖지 않게</td></tr>
+              <tr><td>최신성</td><td class="num">w_r = 0.6 · λ = 0.05/일</td><td>반감기 약 14일. 최근 안 쓰면 서서히 내려간다</td></tr>
+              <tr><td>상황</td><td class="num">w_c = 0.4</td><td>요일·일자 주기성과 시간대 일치. 매달 25일 관리비 이체 같은 패턴</td></tr>
+              <tr><td>고정</td><td class="num">w_p = 100</td><td>사실상 무한대. 자동화가 실패할 때의 탈출구</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>히스테리시스 — 개인화에 브레이크 걸기</h3>
+        <div class="formula">현재 카드 c를 도전자 d가 밀어내려면 <b>두 조건을 모두</b> 만족해야 한다
+
+  ① score(d) &gt; score(c) × <b>1.20</b>       <i>20% 마진</i>
+  ② 마지막 재배치로부터 <b>24시간</b> 경과
+
+교체 확정 시 즉시 반영하지 않고 <b>다음 앱 실행 시</b> 반영 · 한 번에 최대 <b>1장</b></div>
+        <p>세션 도중 화면이 바뀌는 일을 원천 차단하기 위한 구조다. 이 값들은 초기 가설이고, 사용자 테스트에서 조정 대상으로 명시해 뒀다.</p>
+
+        <h3>메뉴 검색 파이프라인</h3>
+        <div class="pipe">
+          <div class="step"><div class="k">01</div><div class="b"><b>정규화</b><span>공백·조사 제거, 자모 정규화(NFC)</span></div></div>
+          <div class="step"><div class="k">02</div><div class="b"><b>동의어 사전 — 정확 매칭</b><span>“돈 부치기 / 보내기 / 부쳐” → transfer.account. 금융 구어체는 범용 임베딩이 잘 못 잡으므로 도메인 사전을 앞에 둔다</span></div></div>
+          <div class="step"><div class="k">03</div><div class="b"><b>온디바이스 임베딩 유사도</b><span>사전에 없는 표현만 의미 매칭. 카탈로그는 빌드 타임에 전부 벡터화해 번들에 포함 — 런타임 네트워크 호출 0</span></div></div>
+          <div class="step"><div class="k">04</div><div class="b"><b>한글 자모 편집거리 보정</b><span>STT가 “이체”를 “이제·체크”로 받는 근접 오류 복구</span></div></div>
+          <div class="step"><div class="k">05</div><div class="b"><b>임계치 판정</b><span>최고 점수 0.55 미만이면 후보를 제시하지 않고 되묻는다</span></div></div>
+        </div>
+
+        <div class="callout">
+          <p class="eyebrow">왜 LLM API가 아닌가</p>
+          <p>
+            LLM을 쓰면 “엄마한테 30만원”에서 수취인·금액까지 뽑을 수 있다. 그러나 발화가 외부로 나가면 금융권 망분리·개인정보 검토를 통과하기 어렵고,
+            왕복 지연이 1초를 넘으면 음성 UX가 무너지며, 호출 비용이 들고, 네트워크가 끊기면 기능이 죽는다.
+            <strong>포기한 것</strong>은 복잡한 문장의 파라미터 추출 능력이다. 대신 “메뉴를 찾아 화면까지 데려다주고, 값 입력은 화면에서 한다”로 범위를 좁혔다 — 07의 안전 설계와도 방향이 같다.
+          </p>
+        </div>
+      </section>
+
+      <!-- 07 -->
+      <section id="s7">
+        <div class="sec-head">
+          <p class="eyebrow">07 — 음성 설계</p>
+          <h2>무료 STT로 검증하고, 유료 STT로 갈아 끼운다</h2>
+        </div>
+
+        <div class="formula">interface <b>SttProvider</b> {
+  start(): Promise&lt;void&gt;;
+  stop(): void;
+  onPartial(cb: (text: string) =&gt; void): void;
+  onFinal(cb: (text: string, confidence: number) =&gt; void): void;
+  onError(cb: (err: SttError) =&gt; void): void;
+}</div>
+
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th>단계</th><th>구현체</th><th class="num">비용</th><th>용도</th></tr></thead>
+            <tbody>
+              <tr><td>개발·데모</td><td>브라우저 Web Speech API</td><td class="num">0</td><td>프로토타이핑, 시연</td></tr>
+              <tr><td>로컬 검증</td><td>whisper.cpp 계열 로컬 모델</td><td class="num">0</td><td>오프라인 동작, 인식률 비교</td></tr>
+              <tr><td>상용 전환</td><td>상용 STT API</td><td class="num">유료</td><td>실서비스 품질</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>
+          교체 시 바뀌는 코드는 Provider 구현체 파일 하나다. 무료 STT의 낮은 인식률은 <strong>엔진 쪽에서 흡수</strong>한다 —
+          신뢰도 0.5 미만은 후보 없이 되묻기, 부분 인식 결과도 검색에 태워 체감 속도 확보, 1위만이 아니라 상위 3개 제시,
+          그리고 실패 문구는 열린 질문 대신 선택지 제시로: <em>“이체, 조회, 내역 중에 찾으시는 게 있나요?”</em>
+        </p>
+
+        <h3>안전 경계 — 음성은 어디까지 하는가</h3>
+        <div class="split">
+          <div class="yes">
+            <h4>음성으로 가능</h4>
+            <ul>
+              <li>메뉴 화면 열기</li>
+              <li>최근 수취인 프리필</li>
+              <li>조회성 기능 실행</li>
+            </ul>
+          </div>
+          <div class="no">
+            <h4>음성으로 불가</h4>
+            <ul>
+              <li>이체 실행</li>
+              <li>금액 확정</li>
+              <li>인증 통과</li>
+              <li><code>riskLevel: high</code> 메뉴의 최종 확정</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="callout">
+          <p class="eyebrow">의도적으로 그은 선</p>
+          <p>
+            잘못 인식된 송금은 되돌리기 어렵고, 음성만으로 자금이 이동하는 구조는 <strong>옆에서 시키는 대로 말하게 하는 공격</strong>에 취약하다.
+            주 사용자가 고령층인 만큼 이 리스크는 특히 무겁다. 이것은 기술적 한계가 아니라 판단이다 —
+            “AI가 다 해준다”보다 <strong>“AI가 데려다주고 사람이 확인한다”</strong>가 금융에서 옳은 자동화 수준이다.
+          </p>
+        </div>
+      </section>
+
+      <!-- 08 -->
+      <section id="s8">
+        <div class="sec-head">
+          <p class="eyebrow">08 — 데모 은행 앱</p>
+          <h2>엔진을 얹을 검증 베드를 직접 만든다</h2>
+          <p class="sub">Spring Boot + JPA로 최소 계정계를 구현한다. 목표는 기능 개수가 아니라 금융 거래 처리의 정확성이다.</p>
+        </div>
+
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th>영역</th><th>구현 내용</th></tr></thead>
+            <tbody>
+              <tr><td>원장</td><td>복식부기 — 이체 1건 = 출금 분개 + 입금 분개, 차변·대변 합 일치 검증</td></tr>
+              <tr><td>잔액</td><td>컬럼 UPDATE가 아니라 <strong>원장 합계로 산출</strong>. 실제 계정계의 방식이고 정합성 감사가 가능하다</td></tr>
+              <tr><td>이체</td><td>트랜잭션 경계 내 처리, 잔액 부족 검증, 실패 시 전체 롤백</td></tr>
+              <tr><td>멱등성</td><td>요청별 <code>Idempotency-Key</code>로 네트워크 재시도에 의한 중복 이체 차단</td></tr>
+              <tr><td>동시성</td><td>계좌 단위 락 + 재시도</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>
+          프런트는 React로 만들되 <strong>같은 앱을 두 가지 UI로 전환 가능</strong>하게 한다 —
+          전형적인 메뉴 트리(약 25개)의 <em>기본 UI 모드</em>와, 엔진이 적용된 <em>MinUI 모드</em>.
+          두 모드는 동일한 백엔드와 동일한 기능을 쓰므로 <mark>UI 외의 변수가 통제된다.</mark>
+          카드에 올라오지 않는 21개 메뉴가 그대로 음성 탐색의 검증 대상이 된다.
+        </p>
+      </section>
+
+      <!-- 09 -->
+      <section id="s9">
+        <div class="sec-head">
+          <p class="eyebrow">09 — 검증 설계</p>
+          <h2>측정 항목을 먼저 못 박아 둔다</h2>
+        </div>
+
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th>지표</th><th>정의</th><th class="num">목표</th></tr></thead>
+            <tbody>
+              <tr><td>태스크 완료 시간</td><td>“관리비 30만원 이체” 지시부터 완료까지</td><td class="num">−40%</td></tr>
+              <tr><td>탭 횟수</td><td>동일 태스크 수행 중 화면 터치 횟수</td><td class="num">−50%</td></tr>
+              <tr><td>완료율</td><td>도움 없이 태스크를 끝낸 참가자 비율</td><td class="num">≥ 90%</td></tr>
+              <tr><td>카드 적중률</td><td>홈 카드만으로 목적을 달성한 세션 비율</td><td class="num">≥ 70%</td></tr>
+              <tr><td>음성 1회 성공률</td><td>첫 발화로 올바른 메뉴에 도달한 비율</td><td class="num">≥ 75%</td></tr>
+              <tr><td>배치 안정성</td><td>주당 카드 교체 횟수</td><td class="num">≤ 1</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <ul class="clean">
+          <li><strong>모드 간 비교 측정</strong> — 동일 참가자가 두 모드로 같은 태스크를 수행하고, 순서 효과를 없애기 위해 절반은 순서를 바꾼다. 시간·탭 수는 앱에 내장한 계측으로 자동 기록.</li>
+          <li><strong>사용자 테스트</strong> — 60대 이상 5명, 40~50대 저빈도 사용자 3명. 발화 사고법으로 <em>어디서 멈추는가</em>, <em>어떤 단어로 기능을 부르는가</em>(→ 동의어 사전에 반영), <em>카드가 바뀐 걸 알아채는가</em>를 관찰.</li>
+          <li><strong>STT 벤치마크</strong> — 구어체 포함 50문장을 각 Provider에 태워 인식률·지연·검색 성공률 비교. 추상화의 실효성을 수치로 확인.</li>
+        </ul>
+
+        <div class="callout">
+          <p class="eyebrow">해석의 한계를 미리 적어 둔다</p>
+          <p>표본 8명은 통계적 검정력이 없다. 유의성을 주장하지 않고 <strong>관찰된 패턴과 개별 사례</strong>로 보고한다. 목표 수치도 가설이며, 실측 후 달성·미달을 그대로 기록하는 편이 더 가치 있다.</p>
+        </div>
+      </section>
+
+      <!-- 10 -->
+      <section id="s10">
+        <div class="sec-head">
+          <p class="eyebrow">10 — 로드맵</p>
+          <h2>단계마다 완료 기준을 숫자로 정의한다</h2>
+        </div>
+
+        <div class="milestones">
+          <div class="ms">
+            <div class="id">M1</div><div class="ti">데모 은행 앱 — Spring Boot 계정계 + 기본 UI</div>
+            <div class="dod">이체 API가 복식부기로 기록되고, 멱등성 키로 중복 요청이 차단되며, 동시 이체 테스트를 통과한다</div>
+          </div>
+          <div class="ms">
+            <div class="id">M2</div><div class="ti">core 랭킹 — EventStore · RankingEngine · 히스테리시스</div>
+            <div class="dod">이벤트를 주입하면 상위 N개가 산출되고, 20% 마진 미만 도전자는 교체를 일으키지 못한다 (단위 테스트)</div>
+          </div>
+          <div class="ms">
+            <div class="id">M3</div><div class="ti">react 카드 UI — 디자인 토큰 · 접근성</div>
+            <div class="dod">데모 앱에서 모드 토글이 동작하고, 명도 대비·터치 타깃·스크린리더 검사를 통과한다</div>
+          </div>
+          <div class="ms">
+            <div class="id">M4</div><div class="ti">검색 · 음성 — SearchPipeline · SttProvider</div>
+            <div class="dod">25개 메뉴에 대한 구어체 질의 50건 중 75% 이상이 1회 발화로 정확히 매칭된다</div>
+          </div>
+          <div class="ms">
+            <div class="id">M5</div><div class="ti">측정 · 튜닝 — 계측 내장 · 사용자 테스트</div>
+            <div class="dod">09의 지표가 실측되고, 가중치·임계치가 결과에 근거해 조정된다</div>
+          </div>
+        </div>
+
+        <h3>주요 리스크</h3>
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th>리스크</th><th>대응</th></tr></thead>
+            <tbody>
+              <tr><td><strong>개인화가 오히려 혼란을 준다</strong> — 프로젝트 전제가 무너지는 리스크</td><td>F3 배치 안정화 4종. 사용자 테스트의 최우선 검증 항목으로 지정</td></tr>
+              <tr><td>고령 발화에서 STT 인식률 급락</td><td>흡수 장치 + 텍스트 검색을 항상 동등한 대안으로 제공. 음성은 보조 경로이지 유일 경로가 아님</td></tr>
+              <tr><td>메뉴 카탈로그 유지보수 부담</td><td>앱 라우팅 테이블에서 카탈로그 초안을 생성하는 CLI, 검색 로그에서 동의어 후보 추출</td></tr>
+              <tr><td>온디바이스 임베딩 번들 크기</td><td>벡터 데이터는 작고 인코더 모델 크기가 관건 — 경량 모델 선정과 실측을 M4 확인 항목으로 명시</td></tr>
+              <tr><td>데모 앱이 커져 엔진 개발이 밀림</td><td>M1 범위를 이체·조회·원장으로 엄격히 제한. 상품 가입·대출은 메뉴만 두고 화면은 스텁</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 11 -->
+      <section id="s11">
+        <div class="sec-head">
+          <p class="eyebrow">11 — 기술적 판단</p>
+          <h2>이 프로젝트의 핵심은 기능 목록이 아니라 트레이드오프다</h2>
+        </div>
+
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th>판단</th><th>선택</th><th>포기한 것</th><th>이유</th></tr></thead>
+            <tbody>
+              <tr><td>메뉴 탐색 AI</td><td>온디바이스 임베딩 + 도메인 사전</td><td>복잡한 문장의 파라미터 추출</td><td>망분리 적합, 지연 없음, 비용 0, 오프라인 동작</td></tr>
+              <tr><td>개인화 방식</td><td>온디바이스 규칙 기반</td><td>협업 필터링의 콜드 스타트 이점</td><td>사용 패턴의 외부 전송을 피하기 위해</td></tr>
+              <tr><td>반영 속도</td><td>하루 1회 + 20% 마진</td><td>최신 패턴 즉시 반영</td><td>고령 사용자에게는 일관성 &gt; 정확도</td></tr>
+              <tr><td>음성 실행 범위</td><td>메뉴 호출 + 프리필까지</td><td>“말만 하면 송금”의 데모 임팩트</td><td>오인식·보이스피싱 리스크, 보안 심사 통과 가능성</td></tr>
+              <tr><td>패키지 구조</td><td>core(무관) / react(바인딩) 분리</td><td>단일 패키지의 단순함</td><td>이식성이 이 프로젝트의 존재 이유</td></tr>
+              <tr><td>데모 잔액 처리</td><td>원장 합계 산출</td><td>조회 성능</td><td>계정계 정합성 검증 가능성</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>확장 방향</h3>
+        <ul class="clean">
+          <li><strong>키오스크·ATM</strong> — 문제의 출발점이었던 곳. 다만 기기를 여러 사람이 공유하므로 사용 이력을 기기가 아니라 카드·계좌 인증 결과에 연결하고 세션 종료 시 폐기한다. <code>StorageAdapter</code> 교체만으로 대응 가능한 구조다.</li>
+          <li><strong>증권 앱</strong> — 메뉴가 수백 개고 용어가 어려워(예수금, 미수, 반대매매) 동의어 사전의 가치가 더 커진다. 반면 시세처럼 실시간성이 중요한 화면은 카드화가 맞지 않아, <em>무엇을 카드로 올릴 수 있는가</em>를 카탈로그 메타데이터로 표현하는 확장이 필요하다.</li>
+          <li><strong>보호자 원격 설정</strong> — 처음 태블릿을 정리해 드릴 때처럼 가족이 카드를 고정해 드리는 기능. 타인이 금융 앱 화면을 바꾸는 일이므로 본인 동의와 권한 범위 제한이 전제다 — 조회성 설정만 허용하고 거래 관련은 제외한다.</li>
+        </ul>
+      </section>
+    </main>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p><strong>MinUI Engine</strong> — 개인화 미니멀 금융 UI 엔진 기획안 · 2026.08</p>
+    <p>본 문서의 목표 수치는 검증 전 가설이며, 실측 결과로 대체될 예정입니다. 금융권 도입 시의 법령·규제 해석은 별도 검토가 필요합니다.</p>
+  </div>
+</footer>

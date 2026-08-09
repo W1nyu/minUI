@@ -1,0 +1,64 @@
+{
+  "name": "온보딩 프리셋에서 실제 사용 기반 카드로 넘어간다",
+  "profile": { "intent": "inquiry", "textScale": "large" },
+  "presets": {
+    "inquiry": ["inquiry.balance", "inquiry.history", "transfer.account", "settings.limit"],
+    "transfer": ["transfer.account", "transfer.auto", "inquiry.balance", "inquiry.history"],
+    "invest": ["product.loan", "inquiry.balance", "inquiry.history", "transfer.account"]
+  },
+  "sessions": [
+    {
+      "at": "2026-01-01T09:00:00Z",
+      "note": "설치 직후. 기록이 없으므로 온보딩 답이 그대로 화면이 된다.",
+      "expectCards": [
+        "inquiry.balance",
+        "inquiry.history",
+        "transfer.account",
+        "settings.limit"
+      ],
+      "expectNewBadges": [],
+      "use": [{ "menuId": "transfer.auto", "times": 3, "completed": true }]
+    },
+    {
+      "at": "2026-01-02T09:00:00Z",
+      "note": "아직 3회. 근거가 부족한 구간이라 재배치를 아예 막는다.",
+      "expectCards": [
+        "inquiry.balance",
+        "inquiry.history",
+        "transfer.account",
+        "settings.limit"
+      ],
+      "use": [{ "menuId": "transfer.auto", "times": 6, "completed": true }]
+    },
+    {
+      "at": "2026-01-03T09:00:00Z",
+      "note": "누적 9회로 콜드 스타트 종료. 교체가 확정되지만 이번 세션에는 보이지 않는다.",
+      "expectCards": [
+        "inquiry.balance",
+        "inquiry.history",
+        "transfer.account",
+        "settings.limit"
+      ],
+      "use": []
+    },
+    {
+      "at": "2026-01-04T09:00:00Z",
+      "note": "다음 세션에서 반영. 가장 뒤 자리(한도 변경)가 자동이체로 바뀐다.",
+      "expectCards": [
+        "inquiry.balance",
+        "inquiry.history",
+        "transfer.account",
+        "transfer.auto"
+      ],
+      "expectNewBadges": ["transfer.auto"],
+      "maxChangesFromPrevious": 1,
+      "use": []
+    },
+    {
+      "at": "2026-01-08T09:00:00Z",
+      "note": "배지 기간(3일)이 지나면 사라진다.",
+      "expectNewBadges": [],
+      "maxChangesFromPrevious": 1
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+[
+  {
+    "id": "inquiry.balance",
+    "label": "잔액 보기",
+    "synonyms": ["돈 얼마 있어", "잔고", "통장 확인"],
+    "category": "조회",
+    "icon": "wallet",
+    "route": "/inquiry/balance",
+    "riskLevel": "low"
+  },
+  {
+    "id": "inquiry.history",
+    "label": "거래 내역",
+    "synonyms": ["입금 확인", "들어온 돈", "내역 보기"],
+    "category": "조회",
+    "icon": "list",
+    "route": "/inquiry/history",
+    "riskLevel": "low"
+  },
+  {
+    "id": "transfer.account",
+    "label": "계좌 이체",
+    "synonyms": ["돈 보내기", "송금", "부치기", "이체하기"],
+    "category": "이체",
+    "icon": "transfer",
+    "route": "/transfer/account",
+    "riskLevel": "high"
+  },
+  {
+    "id": "transfer.auto",
+    "label": "자동이체 관리",
+    "synonyms": ["자동이체 해지", "매달 나가는 돈", "떼가는 거"],
+    "category": "이체",
+    "icon": "repeat",
+    "route": "/transfer/auto",
+    "riskLevel": "high"
+  },
+  {
+    "id": "settings.limit",
+    "label": "한도 변경",
+    "synonyms": ["이체 한도", "보낼 수 있는 금액"],
+    "category": "설정",
+    "icon": "gauge",
+    "route": "/settings/limit",
+    "riskLevel": "high"
+  },
+  {
+    "id": "product.loan",
+    "label": "대출 상품",
+    "synonyms": ["빌리기", "대출 알아보기"],
+    "category": "상품",
+    "icon": "bank",
+    "route": "/product/loan",
+    "riskLevel": "low"
+  },
+  {
+    "id": "support.call",
+    "label": "전화 상담",
+    "synonyms": ["상담원", "사람이랑 통화"],
+    "category": "설정",
+    "icon": "phone",
+    "route": "/support/call",
+    "riskLevel": "low"
+  }
+]

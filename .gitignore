@@ -1,0 +1,26 @@
+node_modules/
+dist/
+build/
+coverage/
+*.tsbuildinfo
+
+# Gradle / Java
+.gradle/
+backend/build/
+backend/bin/
+!backend/gradle/wrapper/gradle-wrapper.jar
+
+# env / local
+.env
+.env.local
+*.local
+
+# editors / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# 측정 산출물
+tools/out/

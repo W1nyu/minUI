@@ -1,0 +1,48 @@
+{
+  "name": "사용 패턴이 크게 바뀌어도 화면은 하루 한 장씩만 바뀐다",
+  "profile": { "intent": "inquiry", "textScale": "normal" },
+  "presets": {
+    "inquiry": ["inquiry.balance", "inquiry.history", "transfer.account", "settings.limit"],
+    "transfer": ["transfer.account", "transfer.auto", "inquiry.balance", "inquiry.history"],
+    "invest": ["product.loan", "inquiry.balance", "inquiry.history", "transfer.account"]
+  },
+  "sessions": [
+    {
+      "at": "2026-02-01T09:00:00Z",
+      "note": "온보딩 세트로 시작하면서, 프리셋에 없는 세 메뉴를 집중적으로 쓴다.",
+      "expectCards": [
+        "inquiry.balance",
+        "inquiry.history",
+        "transfer.account",
+        "settings.limit"
+      ],
+      "use": [
+        { "menuId": "product.loan", "times": 10, "completed": true },
+        { "menuId": "transfer.auto", "times": 9, "completed": true },
+        { "menuId": "support.call", "times": 8, "completed": true }
+      ]
+    },
+    { "at": "2026-02-02T09:00:00Z", "maxChangesFromPrevious": 1 },
+    { "at": "2026-02-03T09:00:00Z", "maxChangesFromPrevious": 1 },
+    { "at": "2026-02-04T09:00:00Z", "maxChangesFromPrevious": 1 },
+    { "at": "2026-02-05T09:00:00Z", "maxChangesFromPrevious": 1 },
+    { "at": "2026-02-06T09:00:00Z", "maxChangesFromPrevious": 1 },
+    {
+      "at": "2026-02-07T09:00:00Z",
+      "note": "엿새가 지나서야 실제로 쓰는 메뉴들이 화면을 차지한다. 느린 것이 의도다. 순서가 사용량 순(대출>자동이체>상담)이 아닌 것도 의도다 — 새 카드는 나간 카드의 자리에 들어갈 뿐, 화면을 점수순으로 재정렬하지 않는다. 뒤 자리부터 차례로 비워졌으므로 순서가 뒤집혀 보인다.",
+      "maxChangesFromPrevious": 1,
+      "expectCards": [
+        "inquiry.balance",
+        "support.call",
+        "transfer.auto",
+        "product.loan"
+      ]
+    },
+    {
+      "at": "2026-02-08T09:00:00Z",
+      "note": "쓰이는 메뉴가 다 올라온 뒤에는 더 이상 흔들리지 않는다.",
+      "maxChangesFromPrevious": 0
+    },
+    { "at": "2026-02-09T09:00:00Z", "maxChangesFromPrevious": 0 }
+  ]
+}
