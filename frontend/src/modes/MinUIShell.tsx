@@ -1,5 +1,7 @@
 import type { MenuId } from "@minui/core";
-import { MinUIHome } from "@minui/react";
+import { MinUIHome, type SttLike } from "@minui/react";
+import { WebSpeechSttProvider } from "@minui/voice";
+import { useMemo } from "react";
 import { useBank } from "../BankContext.js";
 import { CATALOG } from "../catalog.js";
 import { formatWon } from "../screens/ScreenFrame.js";
@@ -10,8 +12,14 @@ import { formatWon } from "../screens/ScreenFrame.js";
  * 이 파일이 짧은 것이 이식 계약의 증거다. 호스트가 하는 일은 카탈로그를 넘기고,
  * 카드가 들고 있을 답을 채워 주는 것뿐이다. 어떤 카드를 보여줄지는 엔진이 정한다.
  */
-export function MinUIShell() {
+export function MinUIShell({ stt }: { stt?: SttLike } = {}) {
   const { accounts, deposits, autoTransfers, transactions } = useBank();
+
+  /**
+   * 데모는 브라우저 Web Speech API로 검증한다 (기획안 §9.1의 개발·데모 단계).
+   * 상용 전환 시 이 한 줄만 다른 구현체로 바꾸면 된다 — 그것이 Provider를 둔 이유다.
+   */
+  const provider = useMemo<SttLike>(() => stt ?? new WebSpeechSttProvider(), [stt]);
 
   /**
    * 카드가 들고 있는 답 (기획안 S2: 잔액 확인은 탭 0회).
@@ -54,6 +62,7 @@ export function MinUIShell() {
     <MinUIHome
       catalog={CATALOG}
       renderCardDetail={renderCardDetail}
+      stt={provider}
       header={
         <header className="minui-greeting">
           <p className="minui-greeting-text">

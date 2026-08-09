@@ -10,6 +10,26 @@ export {
 } from "./LayoutStabilizer.js";
 
 export { contextBoost } from "./contextBoost.js";
+export { MenuIndex, type IndexedMenu } from "./search/MenuIndex.js";
+export {
+  SearchPipeline,
+  type MatchStage,
+  type SearchCandidate,
+  type SearchOptions,
+  type SearchOutcome,
+} from "./search/SearchPipeline.js";
+export {
+  NgramTfIdfProvider,
+  type SerializedNgramIndex,
+} from "./search/NgramTfIdfProvider.js";
+export type { EmbeddingProvider, IndexDocument } from "./search/EmbeddingProvider.js";
+export {
+  resolveVoiceAction,
+  type VoiceAction,
+  type VoiceActionInput,
+} from "./search/voiceAction.js";
+export { normalize } from "./search/normalize.js";
+export { jamoDistance, jamoSimilarity, toJamo } from "./search/hangul.js";
 export {
   calendarFields,
   circularDayDistance,

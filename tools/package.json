@@ -1,0 +1,15 @@
+{
+  "name": "tools",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "빌드·측정 스크립트. 런타임 번들에 들어가지 않는다.",
+  "scripts": {
+    "bench:search": "tsx src/bench-search.ts",
+    "build:index": "tsx src/build-search-index.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@minui/core": "workspace:*"
+  }
+}

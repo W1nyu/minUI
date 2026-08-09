@@ -14,6 +14,7 @@ const resolve = (path: string) => fileURLToPath(new URL(path, import.meta.url));
 const workspaceAliases = {
   "@minui/core": resolve("./packages/core/src/index.ts"),
   "@minui/react": resolve("./packages/react/src/index.ts"),
+  "@minui/voice": resolve("./packages/voice/src/index.ts"),
 };
 
 export default defineConfig({
@@ -24,6 +25,16 @@ export default defineConfig({
         test: {
           name: "core",
           root: "./packages/core",
+          environment: "node",
+          include: ["test/**/*.test.ts"],
+        },
+      },
+      {
+        test: {
+          name: "voice",
+          root: "./packages/voice",
+          // jsdom을 쓰지 않는다. Web Speech API는 jsdom에도 없으므로,
+          // "지원하지 않는 환경"의 동작을 검증하는 데는 node가 더 정직하다.
           environment: "node",
           include: ["test/**/*.test.ts"],
         },

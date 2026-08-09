@@ -3,6 +3,11 @@ import { LayoutStabilizer } from "./LayoutStabilizer.js";
 import { RankingEngine } from "./RankingEngine.js";
 import { DEFAULT_PROFILE, coldStartCards, isColdStart } from "./coldStart.js";
 import { type MinUIConfig, type PartialConfig, resolveConfig } from "./config.js";
+import { MenuIndex } from "./search/MenuIndex.js";
+import { NgramTfIdfProvider } from "./search/NgramTfIdfProvider.js";
+import { SearchPipeline, type SearchOutcome } from "./search/SearchPipeline.js";
+import { resolveVoiceAction, type VoiceAction } from "./search/voiceAction.js";
+import type { EmbeddingProvider } from "./search/EmbeddingProvider.js";
 import { MemoryStorageAdapter } from "./storage/MemoryStorageAdapter.js";
 import type {
   ActionHandler,
@@ -33,6 +38,11 @@ export interface MinUIEngineOptions {
   /** 시각 주입. 테스트와 결정론을 위해 엔진은 Date.now()를 직접 부르지 않는다 */
   now?: Clock;
   coldStartPresets?: ColdStartPresets;
+  /**
+   * 의미 매칭 구현체. 생략하면 카탈로그에서 n-gram 색인을 즉석에서 만든다.
+   * 빌드 타임에 만든 색인을 쓰려면 `NgramTfIdfProvider.fromJSON(...)`을 넘긴다.
+   */
+  embedding?: EmbeddingProvider;
 }
 
 /**
@@ -58,6 +68,7 @@ export class MinUIEngine {
   readonly #events: EventStore;
   readonly #ranking: RankingEngine;
   readonly #stabilizer: LayoutStabilizer;
+  readonly #search: SearchPipeline;
 
   #layout: LayoutState;
   #pinned: MenuId[];
@@ -82,6 +93,13 @@ export class MinUIEngine {
     );
     this.#ranking = new RankingEngine(this.#config, this.#events);
     this.#stabilizer = new LayoutStabilizer(this.#config);
+
+    const index = new MenuIndex(options.catalog);
+    this.#search = new SearchPipeline(
+      index,
+      this.#config,
+      options.embedding ?? NgramTfIdfProvider.build(index.documents()),
+    );
 
     this.#pinned = restored ? [...restored.pinned] : [];
     this.#profile = restored?.profile ?? DEFAULT_PROFILE;
@@ -160,6 +178,31 @@ export class MinUIEngine {
   /** 호스트가 "이 화면에서 할 일을 끝냈다"고 알리는 지점. */
   complete(menuId: MenuId): void {
     this.recordEvent({ type: "task_complete", menuId });
+  }
+
+  // ── 검색·음성 ───────────────────────────────────────────────────────────
+
+  /**
+   * 메뉴 검색. **이 함수는 어떤 화면도 열지 않는다.**
+   * 무엇을 할지는 `voiceAction()`이 정하고, 실제로 여는 것은 호스트의 탭이다.
+   */
+  search(query: string): SearchOutcome {
+    return this.#search.search(query);
+  }
+
+  /**
+   * 검색 결과를 화면 동작으로 바꾼다. 기획안 §9.3의 안전 경계가 여기서 적용된다 —
+   * `riskLevel: "high"` 메뉴는 어떤 확신 수준에서도 자동으로 열리지 않는다.
+   *
+   * @param sttConfidence 음성 인식 신뢰도. 텍스트 검색이면 생략한다.
+   */
+  voiceAction(query: string, sttConfidence?: number): VoiceAction {
+    return resolveVoiceAction({
+      outcome: this.search(query),
+      menus: this.#byId,
+      config: this.#config,
+      ...(sttConfidence !== undefined ? { sttConfidence } : {}),
+    });
   }
 
   recordEvent(event: UsageEvent): void {

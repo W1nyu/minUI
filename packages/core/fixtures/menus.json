@@ -20,7 +20,7 @@
   {
     "id": "transfer.account",
     "label": "계좌 이체",
-    "synonyms": ["돈 보내기", "송금", "부치기", "이체하기"],
+    "synonyms": ["이체", "돈 보내기", "송금", "부치기", "이체하기"],
     "category": "이체",
     "icon": "transfer",
     "route": "/transfer/account",
@@ -29,7 +29,7 @@
   {
     "id": "transfer.auto",
     "label": "자동이체 관리",
-    "synonyms": ["자동이체 해지", "매달 나가는 돈", "떼가는 거"],
+    "synonyms": ["자동이체", "자동이체 해지", "매달 나가는 돈", "떼가는 거"],
     "category": "이체",
     "icon": "repeat",
     "route": "/transfer/auto",

@@ -42,7 +42,7 @@ export const CATALOG: MenuCatalog = [
   {
     id: "inquiry.accounts",
     label: "내 계좌 모두 보기",
-    synonyms: ["통장 목록", "계좌 몇 개", "전체 계좌"],
+    synonyms: ["통장 목록", "계좌 목록", "통장 몇 개", "계좌 몇 개", "전체 계좌"],
     category: "조회",
     icon: "doc",
     route: "/inquiry/accounts",
@@ -62,7 +62,13 @@ export const CATALOG: MenuCatalog = [
   {
     id: "transfer.account",
     label: "계좌 이체",
-    synonyms: ["돈 보내기", "송금", "부치기", "이체하기", "돈 부쳐", "보내야 해"],
+    // "이체"는 카테고리 수준의 말이라 "자동이체"·"예약이체"에도 들어간다.
+    // 그래도 동의어로 두는 이유: 사용자가 "이체해줘"라고만 말하는 일이 흔하고,
+    // 그때 계좌 이체가 1순위 후보로 오는 것이 맞다. 더 구체적인 표현을 말하면
+    // 포함 범위(coverage) 점수가 그쪽을 위로 올린다.
+    // "보내야 해"는 뺐다. 정규화하면 "보내"만 남아 해외 송금·예약 이체까지 다 삼킨다.
+    // 목적어 없는 동사는 동의어로 두면 안 된다는 것이 벤치마크에서 드러났다.
+    synonyms: ["이체", "돈 보내기", "송금", "부치기", "이체하기", "돈 부쳐"],
     category: "이체",
     icon: "transfer",
     route: "/transfer/account",
@@ -81,6 +87,7 @@ export const CATALOG: MenuCatalog = [
     id: "transfer.auto",
     label: "자동이체 관리",
     synonyms: [
+      "자동이체",
       "자동이체 해지",
       "매달 나가는 돈",
       "떼가는 거",
@@ -198,7 +205,7 @@ export const CATALOG: MenuCatalog = [
   {
     id: "settings.profile",
     label: "내 정보",
-    synonyms: ["주소 변경", "전화번호 바꾸기"],
+    synonyms: ["주소 변경", "주소 바꾸기", "전화번호 바꾸기"],
     category: "설정",
     icon: "person",
     route: "/settings/profile",
@@ -236,7 +243,7 @@ export const CATALOG: MenuCatalog = [
   {
     id: "auth.password",
     label: "비밀번호 변경",
-    synonyms: ["비번 바꾸기", "암호 변경"],
+    synonyms: ["비번 바꾸기", "비밀번호 바꾸기", "암호 변경"],
     category: "인증",
     icon: "lock",
     route: "/auth/password",

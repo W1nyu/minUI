@@ -8,5 +8,10 @@ export { useMinUI } from "./useMinUI.js";
 export { MinUIHome, type MinUIHomeProps } from "./MinUIHome.js";
 export { MenuCard, type MenuCardProps } from "./MenuCard.js";
 export { AllMenuSheet, type AllMenuSheetProps } from "./AllMenuSheet.js";
+export {
+  VoiceSearchSheet,
+  type SttLike,
+  type VoiceSearchSheetProps,
+} from "./VoiceSearchSheet.js";
 export { TextScaleControl } from "./TextScaleControl.js";
 export { IndexedDbStorageAdapter } from "./storage/IndexedDbStorageAdapter.js";

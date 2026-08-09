@@ -80,6 +80,21 @@ export interface MinUIConfig {
     maxCandidates: number;
     /** STT 신뢰도가 이 아래면 검색조차 하지 않는다 (기획안 §9.2) */
     minSttConfidence: number;
+    /** 동의어가 질의 안에 통째로 들어 있을 때의 점수 */
+    containmentScore: number;
+    /** 질의가 동의어의 일부일 때(앞부분만 말한 경우)의 점수 */
+    partialScore: number;
+    /** 자모 보정이 개입하는 하한. 이 아래는 "오인식 복구"가 아니라 우연이다 */
+    phoneticFloor: number;
+    /** 자모 유사도에 곱하는 가중치 */
+    phoneticWeight: number;
+    /** 의미 유사도에 곱하는 가중치 */
+    semanticWeight: number;
+    /**
+     * 후보가 하나뿐이고 위험하지 않을 때, 확인 없이 화면을 열어도 되는 확신 수준.
+     * 조회성 화면이 잘못 열리는 비용은 낮지만, 그래도 애매하면 물어보는 편이 낫다.
+     */
+    autoOpenConfidence: number;
   };
   coldStart: {
     /** 프리셋에서 실제 사용 기록 기반 랭킹으로 넘어가는 방문 수 */
@@ -117,6 +132,12 @@ export const DEFAULT_CONFIG: MinUIConfig = {
     minConfidence: 0.55,
     maxCandidates: 3,
     minSttConfidence: 0.5,
+    containmentScore: 0.9,
+    partialScore: 0.8,
+    phoneticFloor: 0.75,
+    phoneticWeight: 0.95,
+    semanticWeight: 1.0,
+    autoOpenConfidence: 0.9,
   },
   coldStart: {
     visitsUntilPersonalized: 8,

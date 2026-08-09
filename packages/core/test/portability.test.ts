@@ -76,7 +76,7 @@ describe("@minui/core 이식성", () => {
 
     const offenders = files.flatMap(({ path, code }) =>
       forbidden
-        .filter((token) => new RegExp(`\\b${escapeRegExp(token)}`).test(code))
+        .filter((token) => tokenPattern(token).test(code))
         .map((token) => `${path} → ${token}`),
     );
 
@@ -100,6 +100,12 @@ describe("@minui/core 이식성", () => {
   });
 });
 
-function escapeRegExp(value: string): string {
-  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+/**
+ * 순수 단어 토큰은 양쪽 경계를 요구한다. 그러지 않으면 `documents()`라는
+ * 우리 메서드 이름이 브라우저의 `document`로 잡힌다.
+ * 이미 구두점을 포함한 토큰("process.", "fetch(")은 그 자체가 경계 역할을 한다.
+ */
+function tokenPattern(token: string): RegExp {
+  const escaped = token.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return /^\w+$/.test(token) ? new RegExp(`\\b${escaped}\\b`) : new RegExp(`\\b${escaped}`);
 }

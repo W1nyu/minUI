@@ -13,6 +13,7 @@
     "@minui/core": "workspace:*",
     "@minui/react": "workspace:*",
     "react": "^19.2.8",
-    "react-dom": "^19.2.8"
+    "react-dom": "^19.2.8",
+    "@minui/voice": "workspace:*"
   }
 }

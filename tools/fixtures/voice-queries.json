@@ -1,0 +1,73 @@
+{
+  "description": "구어체 질의 50건. 기획안 §12.2-C의 음성 인식 벤치마크 세트이자 M4의 DoD 기준(1회 발화 75% 이상 정확 매칭). 문장은 페르소나 A(73세)와 B(46세)가 실제로 쓸 법한 말투로 썼고, 메뉴 이름을 그대로 부르는 문장은 일부러 적게 넣었다 — 이름을 알면 애초에 검색이 필요 없기 때문이다. 이 세트는 카탈로그를 고치면서 함께 다듬으면 안 된다. 질의를 사전에 맞춰 깎으면 측정이 자기 자신을 채점하게 된다.",
+  "cases": [
+    { "query": "돈 좀 부쳐야 하는데", "expect": "transfer.account" },
+    { "query": "송금하려고", "expect": "transfer.account" },
+    { "query": "돈 보내기", "expect": "transfer.account" },
+    { "query": "계좌이체 해줘", "expect": "transfer.account" },
+
+    { "query": "잔액 얼마 남았어", "expect": "inquiry.balance" },
+    { "query": "돈 얼마 있어", "expect": "inquiry.balance" },
+    { "query": "통장 확인하고 싶어", "expect": "inquiry.balance" },
+    { "query": "잔고 좀 보자", "expect": "inquiry.balance" },
+
+    { "query": "자동이체 안 나가게 해야 하는데", "expect": "transfer.auto" },
+    { "query": "매달 나가는 돈 좀 보자", "expect": "transfer.auto" },
+    { "query": "떼가는 거 그만하고 싶어", "expect": "transfer.auto" },
+    { "query": "자동이체 해지", "expect": "transfer.auto" },
+    { "query": "빠져나가는 돈 확인", "expect": "transfer.auto" },
+
+    { "query": "입금 확인하려고", "expect": "inquiry.history" },
+    { "query": "들어온 돈 보고 싶어", "expect": "inquiry.history" },
+    { "query": "통장 정리해줘", "expect": "inquiry.history" },
+    { "query": "내역 좀 보자", "expect": "inquiry.history" },
+
+    { "query": "연금 언제 들어와", "expect": "inquiry.deposit" },
+    { "query": "월급날이 언제지", "expect": "inquiry.deposit" },
+    { "query": "들어올 돈 있나", "expect": "inquiry.deposit" },
+
+    { "query": "통장 몇 개나 있어", "expect": "inquiry.accounts" },
+    { "query": "계좌 목록 보여줘", "expect": "inquiry.accounts" },
+
+    { "query": "영수증 떼야 하는데", "expect": "inquiry.statement" },
+    { "query": "이체 확인증 필요해", "expect": "inquiry.statement" },
+
+    { "query": "전에 보낸 사람한테 또 보내려고", "expect": "transfer.recent" },
+    { "query": "지난번 그 계좌", "expect": "transfer.recent" },
+
+    { "query": "나중에 보내기", "expect": "transfer.reserve" },
+    { "query": "날짜 정해서 보내고 싶어", "expect": "transfer.reserve" },
+
+    { "query": "외국으로 보내야 해", "expect": "transfer.overseas" },
+    { "query": "달러 보내기", "expect": "transfer.overseas" },
+
+    { "query": "한번에 여러 곳 보내기", "expect": "transfer.bulk" },
+
+    { "query": "적금 들고 싶어", "expect": "product.savings" },
+    { "query": "이자 많은 거 뭐 있어", "expect": "product.savings" },
+
+    { "query": "돈 좀 빌리려고", "expect": "product.loan" },
+    { "query": "대출 알아보고 싶어", "expect": "product.loan" },
+
+    { "query": "체크카드 만들래", "expect": "product.card" },
+    { "query": "펀드 가입하려고", "expect": "product.fund" },
+    { "query": "보험 들고 싶은데", "expect": "product.insurance" },
+    { "query": "노후 준비하려고", "expect": "product.pension" },
+
+    { "query": "보낼 수 있는 금액 늘려줘", "expect": "settings.limit" },
+    { "query": "한도 올리고 싶어", "expect": "settings.limit" },
+
+    { "query": "돈 들어오면 알려줘", "expect": "settings.alarm" },
+    { "query": "문자 알림 설정", "expect": "settings.alarm" },
+
+    { "query": "주소 바꿔야 해", "expect": "settings.profile" },
+    { "query": "글씨 크게 해줘", "expect": "settings.display" },
+
+    { "query": "사람이랑 통화하고 싶어", "expect": "support.call" },
+    { "query": "상담원 연결해줘", "expect": "support.call" },
+
+    { "query": "공동인증서 갱신해야 하는데", "expect": "auth.certificate" },
+    { "query": "비밀번호 바꾸려고", "expect": "auth.password" },
+    { "query": "지문 등록하고 싶어", "expect": "auth.simple" }
+  ]
+}

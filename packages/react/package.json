@@ -14,8 +14,13 @@
     "./tokens.css": "./src/styles/tokens.css",
     "./minui.css": "./src/styles/minui.css"
   },
-  "files": ["dist", "src/styles"],
-  "sideEffects": ["*.css"],
+  "files": [
+    "dist",
+    "src/styles"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.test.json"
@@ -26,5 +31,8 @@
   "peerDependencies": {
     "react": ">=18",
     "react-dom": ">=18"
+  },
+  "devDependencies": {
+    "@minui/voice": "workspace:*"
   }
 }

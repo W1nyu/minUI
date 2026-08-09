@@ -2,16 +2,20 @@ import type { MenuCatalog, MenuId } from "@minui/core";
 import { useState, type ReactNode } from "react";
 import { AllMenuSheet } from "./AllMenuSheet.js";
 import { MenuCard } from "./MenuCard.js";
+import { VoiceSearchSheet, type SttLike } from "./VoiceSearchSheet.js";
 import { useMinUI } from "./useMinUI.js";
 
 export interface MinUIHomeProps {
   catalog: MenuCatalog;
   /** 카드가 들고 있을 답. 호스트가 채운다 — 엔진은 은행 도메인을 모른다. */
   renderCardDetail?: (menuId: MenuId) => ReactNode;
-  /** 카드 격자 위에 놓일 것 (인사말, 글씨 크기 조절 등). */
+  /** 카드 격자 위에 놓일 것 (인사말 등). */
   header?: ReactNode;
-  /** 하단 바에 추가할 것. M4에서 음성 버튼이 여기 들어온다. */
-  dockExtra?: ReactNode;
+  /**
+   * 음성 입력 Provider. 주면 하단에 "말로 찾기" 버튼이 생긴다.
+   * 주지 않아도 전체 메뉴로 모든 기능에 도달할 수 있다 (원칙 P2).
+   */
+  stt?: SttLike;
 }
 
 /**
@@ -21,14 +25,9 @@ export interface MinUIHomeProps {
  * 무엇을 보여줄지 고르지 않는다. 전부 엔진이 이미 정한 것을 그리기만 한다.
  * 여기서 한 번이라도 정렬하면 "자리를 지킨다"는 규칙이 UI 레이어에서 깨진다.
  */
-export function MinUIHome({
-  catalog,
-  renderCardDetail,
-  header,
-  dockExtra,
-}: MinUIHomeProps) {
+export function MinUIHome({ catalog, renderCardDetail, header, stt }: MinUIHomeProps) {
   const { cards, open } = useMinUI();
-  const [showAllMenus, setShowAllMenus] = useState(false);
+  const [sheet, setSheet] = useState<"none" | "menus" | "search">("none");
 
   const byId = new Map(catalog.map((menu) => [menu.id, menu]));
   const visible = cards.filter((card) => byId.has(card.menuId));
@@ -53,26 +52,48 @@ export function MinUIHome({
         })}
       </div>
 
+      {/*
+        카드에 없는 기능으로 가는 길은 항상 여기 두 개뿐이다. 원칙 P2가 말하는
+        "감추는 게 아니라 불러내는 것"이 화면에서는 이 고정된 자리로 나타난다.
+      */}
       <div className="minui-dock">
-        {dockExtra}
+        <button
+          type="button"
+          className="minui-dock-button"
+          onClick={() => setSheet("search")}
+        >
+          <span aria-hidden="true">🎤</span> 말로 찾기
+        </button>
         <button
           type="button"
           className="minui-dock-button"
           data-variant="quiet"
-          onClick={() => setShowAllMenus(true)}
+          onClick={() => setSheet("menus")}
         >
           <span aria-hidden="true">☰</span> 전체 메뉴
         </button>
       </div>
 
-      {showAllMenus && (
+      {sheet === "menus" && (
         <AllMenuSheet
           catalog={catalog}
-          onClose={() => setShowAllMenus(false)}
+          onClose={() => setSheet("none")}
           onSelect={(menuId) => {
-            setShowAllMenus(false);
+            setSheet("none");
             open(menuId);
           }}
+        />
+      )}
+
+      {sheet === "search" && (
+        <VoiceSearchSheet
+          catalog={catalog}
+          onClose={() => setSheet("none")}
+          onSelect={(menuId) => {
+            setSheet("none");
+            open(menuId);
+          }}
+          {...(stt ? { stt } : {})}
         />
       )}
     </div>

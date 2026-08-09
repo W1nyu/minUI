@@ -305,6 +305,114 @@
   color: var(--minui-accent);
 }
 
+/* ── 말로 찾기 ─────────────────────────────────────────── */
+
+.minui-mic {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  width: 100%;
+  min-height: calc(var(--minui-touch-min) * 1.4);
+  margin-bottom: 0.75rem;
+  border: 1px solid var(--minui-accent);
+  border-radius: var(--minui-radius);
+  background: var(--minui-accent);
+  color: var(--minui-accent-ink);
+  font: inherit;
+  font-size: var(--minui-text-l);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* 마이크가 열려 있다는 것은 색만으로 알리지 않는다. 버튼 글자도 함께 바뀌고
+   status 영역이 들은 말을 그대로 보여 준다 (기획안 §11.2). */
+.minui-mic[data-listening="true"] {
+  background: var(--minui-warn-soft);
+  border-color: var(--minui-warn);
+  color: var(--minui-warn);
+}
+
+.minui-status {
+  min-height: 1.6em;
+  margin: 0 0 0.75rem;
+  font-size: var(--minui-text-m);
+  color: var(--minui-ink-2);
+}
+
+.minui-search-form {
+  display: grid;
+  gap: 0.4rem;
+  margin-bottom: 1.25rem;
+}
+
+.minui-search-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.minui-search-input {
+  flex: 1;
+  min-width: 0;
+  min-height: var(--minui-touch-min);
+  padding: 0 0.9rem;
+  border: 1px solid var(--minui-line-strong);
+  border-radius: var(--minui-radius);
+  background: var(--minui-surface);
+  color: var(--minui-ink);
+  font: inherit;
+  font-size: var(--minui-text-m);
+}
+
+.minui-search-submit {
+  min-height: var(--minui-touch-min);
+  min-width: var(--minui-touch-min);
+  padding: 0 1rem;
+  border: 1px solid var(--minui-accent);
+  border-radius: var(--minui-radius);
+  background: var(--minui-surface);
+  color: var(--minui-accent);
+  font: inherit;
+  font-size: var(--minui-text-m);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* 후보는 큰 버튼으로. 자동 실행하지 않고 사용자가 고른다 (기획안 F4). */
+.minui-candidate {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  width: 100%;
+  min-height: var(--minui-touch-min);
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--minui-line-strong);
+  border-radius: var(--minui-radius);
+  background: var(--minui-surface);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.minui-candidate:focus-visible,
+.minui-search-input:focus-visible,
+.minui-search-submit:focus-visible,
+.minui-mic:focus-visible {
+  outline: 3px solid var(--minui-accent);
+  outline-offset: 2px;
+}
+
+.minui-candidate-label {
+  font-size: var(--minui-text-l);
+  font-weight: 700;
+}
+
+.minui-candidate-why {
+  font-size: var(--minui-text-s);
+  color: var(--minui-ink-3);
+}
+
 /* ── 글씨 크기 조절 ────────────────────────────────────── */
 
 .minui-scale-control {
