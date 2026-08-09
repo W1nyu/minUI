@@ -65,25 +65,22 @@ const AUTO_TRANSFERS: AutoTransfer[] = [
 
 const PAYEES: Payee[] = [
   {
-    id: "payee-1",
-    name: "행복아파트 관리사무소",
-    bank: "우리",
-    number: "1002-345-678901",
-    lastSentAt: "2026-07-25T10:03:00+09:00",
+    id: 'acc-3',
+    name: '행복아파트 관리사무소',
+    number: '1002-345-678901',
+    lastSentAt: '2026-07-25T10:03:00+09:00',
   },
   {
-    id: "payee-2",
-    name: "김미영",
-    bank: "국민",
-    number: "612-21-0987-654",
-    lastSentAt: "2026-07-18T14:40:00+09:00",
+    id: 'acc-4',
+    name: '김미영',
+    number: '612-21-0987-654',
+    lastSentAt: '2026-07-18T14:40:00+09:00',
   },
   {
-    id: "payee-3",
-    name: "박정호",
-    bank: "신한",
-    number: "110-456-789012",
-    lastSentAt: "2026-06-02T11:20:00+09:00",
+    id: 'acc-5',
+    name: '박정호',
+    number: '110-456-789012',
+    lastSentAt: '2026-06-02T11:20:00+09:00',
   },
 ];
 
@@ -142,8 +139,7 @@ export class MockBankApi implements BankApi {
     if (account.balance < request.amount) throw new Error("잔액이 부족합니다.");
 
     account.balance -= request.amount;
-    const payee =
-      PAYEES.find((p) => p.number === request.toNumber)?.name ?? request.toNumber;
+    const payee = PAYEES.find((p) => p.id === request.toAccountId)?.name ?? request.toAccountId;
 
     const result: TransferResult = {
       id: `tx-${this.#transactions.length + 1}`,

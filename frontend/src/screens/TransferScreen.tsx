@@ -40,8 +40,7 @@ export function TransferScreen({ onBack }: { onBack: () => void }) {
       const result = await api.transfer(
         {
           fromAccountId: account.id,
-          toBank: payee.bank,
-          toNumber: payee.number,
+          toAccountId: payee.id,
           amount: value,
         },
         crypto.randomUUID(),
@@ -86,7 +85,7 @@ export function TransferScreen({ onBack }: { onBack: () => void }) {
       >
         {payees.map((p) => (
           <option key={p.id} value={p.id}>
-            {p.name} ({p.bank} {p.number})
+            {p.name} ({p.number})
           </option>
         ))}
       </select>

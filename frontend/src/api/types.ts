@@ -32,17 +32,17 @@ export interface AutoTransfer {
 }
 
 export interface Payee {
+  /** 수취인의 계좌 ID. 이체 요청이 그대로 쓴다. */
   id: string;
   name: string;
-  bank: string;
   number: string;
   lastSentAt: string;
 }
 
 export interface TransferRequest {
   fromAccountId: string;
-  toBank: string;
-  toNumber: string;
+  /** 계좌번호가 아니라 계좌 ID로 지정한다. 번호는 사람이 읽는 표기일 뿐이다. */
+  toAccountId: string;
   amount: number;
   memo?: string;
 }

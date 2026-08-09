@@ -24,3 +24,7 @@ Thumbs.db
 
 # 측정 산출물
 tools/out/
+
+# Spring Boot / Gradle
+backend/.gradle/
+backend/build/

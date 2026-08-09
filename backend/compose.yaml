@@ -1,0 +1,29 @@
+# 데모 계정계용 PostgreSQL.
+#
+# SQLite가 아니라 PostgreSQL을 쓰는 이유는 기획안 §10.1이 요구하는 것을 실제로
+# 검증하기 위해서다 — 비관적 락(SELECT ... FOR UPDATE)과 동시 이체에서의 직렬화는
+# 진짜 RDBMS 위에서 재야 의미가 있다.
+services:
+  postgres:
+    image: postgres:18-alpine
+    container_name: minui-bank-db
+    environment:
+      POSTGRES_DB: minui_bank
+      POSTGRES_USER: minui
+      POSTGRES_PASSWORD: minui
+      # 로컬 데모라 신뢰 인증으로 둔다. 운영 배포(M6)에서는 바꿔야 한다.
+      POSTGRES_HOST_AUTH_METHOD: scram-sha-256
+    ports:
+      - "5433:5432"
+    volumes:
+      # Postgres 18부터는 /var/lib/postgresql에 마운트한다. 예전처럼 그 아래 data를
+      # 직접 잡으면 컨테이너가 "쓰지 않는 마운트"라며 뜨지 않는다.
+      - minui-bank-data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U minui -d minui_bank"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  minui-bank-data:
