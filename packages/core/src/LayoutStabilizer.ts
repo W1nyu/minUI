@@ -74,7 +74,11 @@ export class LayoutStabilizer {
   ): RecomputeResult {
     const cardCount = Math.min(this.#config.cards.count, this.#config.cards.max);
     const scores = new Map(ranked.map((r) => [r.menuId, r.total]));
-    const rankOrder = ranked.map((r) => r.menuId);
+
+    // 입력이 정렬돼 있다고 가정하지 않는다. 랭킹 결과를 만드는 곳이 하나가 아니어서
+    // (일반 랭킹 / 콜드 스타트 프리셋), 한쪽만 정렬해 넘기면 도전자를 잘못 고른다.
+    // 정렬은 안정적이므로 동점일 때 들어온 순서(= 카탈로그 순서)가 그대로 유지된다.
+    const rankOrder = [...ranked].sort((a, b) => b.total - a.total).map((r) => r.menuId);
 
     // ── 최초 배치: 지킬 것이 없으므로 히스테리시스가 개입하지 않는다.
     if (state.current.length === 0) {

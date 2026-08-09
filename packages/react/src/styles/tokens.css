@@ -1,0 +1,102 @@
+/*
+ * MinUI 디자인 토큰.
+ *
+ * 색과 타입 스케일은 docs/기획안-web.html에서 그대로 가져왔다. 기획 문서와 제품이
+ * 같은 시각 언어를 쓰게 하려는 것 — 포트폴리오에서 둘이 따로 놀면 설득력이 떨어진다.
+ *
+ * 여기 더해진 것은 접근성 축이다 (기획안 §11.3):
+ *   - 터치 타깃 최소 88×88dp (WCAG 권고 44px의 두 배. 고령 사용자 손떨림 고려)
+ *   - 글씨 크기 3단계 — 한 배율로 전체가 함께 커진다
+ *   - 명도 대비 본문 4.5:1, 큰 글씨 3:1 이상
+ */
+
+:root {
+  /* ── 색 ─────────────────────────────────────────────── */
+  --minui-paper: #eff1f0;
+  --minui-surface: #ffffff;
+  --minui-surface-2: #e5e9e7;
+  --minui-ink: #141d1b;
+  --minui-ink-2: #4a5a56;
+  /*
+   * 기획 문서의 값은 #7C8C87이지만 여기서는 의도적으로 어둡게 바꿨다.
+   * 원래 값은 흰 배경에서 3.52:1로, 문서의 흐린 라벨로는 몰라도 §11.3이 정한
+   * 본문 4.5:1 기준에는 미달한다. 이 색은 계좌번호·날짜처럼 작은 글자에 쓰인다.
+   * 색조는 유지하고 명도만 내려 세 배경(surface/paper/surface-2) 모두에서 4.5:1을 넘긴다.
+   */
+  --minui-ink-3: #5c6c67;
+  --minui-line: #d2dad7;
+  --minui-line-strong: #b3bfbb;
+  --minui-accent: #0b5f52;
+  --minui-accent-ink: #ffffff;
+  --minui-accent-soft: #dceae6;
+  --minui-warn: #8e5416;
+  --minui-warn-soft: #f2e6d6;
+  --minui-crit: #9e3324;
+  --minui-shadow: 0 1px 2px rgba(20, 29, 27, 0.06), 0 8px 24px rgba(20, 29, 27, 0.05);
+
+  --minui-font: "Pretendard", "Pretendard Variable", -apple-system,
+    BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Segoe UI",
+    "Noto Sans KR", sans-serif;
+
+  /* ── 글씨 크기 3단계 ─────────────────────────────────── */
+  /* 배율 하나로 카드 안의 모든 글자가 함께 움직인다. 개별 조정 항목을 늘리면
+     설정 화면 자체가 새로운 탐색 문제가 된다. */
+  --minui-scale: 1;
+  --minui-text-s: calc(0.95rem * var(--minui-scale));
+  --minui-text-m: calc(1.15rem * var(--minui-scale));
+  --minui-text-l: calc(1.45rem * var(--minui-scale));
+  --minui-text-xl: calc(1.95rem * var(--minui-scale));
+
+  /* ── 크기 ───────────────────────────────────────────── */
+  /* 88dp — 기획안 P1이 정한 카드 최소 터치 영역 */
+  --minui-touch-min: 88px;
+  --minui-card-min-height: calc(7.5rem * var(--minui-scale));
+  --minui-radius: 14px;
+  --minui-gap: 0.75rem;
+}
+
+:root[data-minui-scale="large"] {
+  --minui-scale: 1.2;
+}
+
+:root[data-minui-scale="xlarge"] {
+  --minui-scale: 1.45;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --minui-paper: #0f1614;
+    --minui-surface: #18211f;
+    --minui-surface-2: #212c29;
+    --minui-ink: #e9eeec;
+    --minui-ink-2: #a4b4af;
+    --minui-ink-3: #8b9c97;
+    --minui-line: #2b3835;
+    --minui-line-strong: #435250;
+    --minui-accent: #5cc9b0;
+    --minui-accent-ink: #0a1614;
+    --minui-accent-soft: #15302b;
+    --minui-warn: #d9a462;
+    --minui-warn-soft: #2b2418;
+    --minui-crit: #e2796b;
+    --minui-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 10px 30px rgba(0, 0, 0, 0.28);
+  }
+}
+
+:root[data-theme="dark"] {
+  --minui-paper: #0f1614;
+  --minui-surface: #18211f;
+  --minui-surface-2: #212c29;
+  --minui-ink: #e9eeec;
+  --minui-ink-2: #a4b4af;
+  --minui-ink-3: #8b9c97;
+  --minui-line: #2b3835;
+  --minui-line-strong: #435250;
+  --minui-accent: #5cc9b0;
+  --minui-accent-ink: #0a1614;
+  --minui-accent-soft: #15302b;
+  --minui-warn: #d9a462;
+  --minui-warn-soft: #2b2418;
+  --minui-crit: #e2796b;
+  --minui-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 10px 30px rgba(0, 0, 0, 0.28);
+}

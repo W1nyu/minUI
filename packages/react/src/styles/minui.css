@@ -1,0 +1,369 @@
+/*
+ * MinUI 카드 홈 스타일.
+ *
+ * 설계 규칙 세 가지가 나머지를 결정한다.
+ *   P1 보이는 것은 적게 — 카드는 스크롤 없이 한 화면에 들어온다
+ *   P2 감추는 게 아니라 불러내는 것 — 전체 메뉴 버튼이 항상 같은 자리에 있다
+ *   §11.3 아이콘만 있는 버튼 금지 — 모든 아이콘 옆에 글자가 있다
+ */
+
+.minui-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  background: var(--minui-paper);
+  color: var(--minui-ink);
+  font-family: var(--minui-font);
+  font-size: var(--minui-text-m);
+  line-height: 1.5;
+  word-break: keep-all;
+}
+
+/* ── 카드 격자 ─────────────────────────────────────────── */
+
+.minui-home {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  /* 남는 세로 공간을 카드가 나눠 갖는다. 카드를 위에 몰아 두면 화면 아래쪽이
+     비는데, 그 공간은 이 사용자층에게 더 큰 터치 영역으로 쓰이는 편이 낫다. */
+  grid-auto-rows: 1fr;
+  gap: var(--minui-gap);
+  padding: var(--minui-gap);
+}
+
+/* 카드가 5~6장이면 2열에서 세로가 길어진다. 한 화면 규칙을 지키려면
+   그때는 카드 높이를 줄이는 대신 열을 늘린다. */
+.minui-home[data-count="5"],
+.minui-home[data-count="6"] {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 30rem) {
+  .minui-home[data-count="5"],
+  .minui-home[data-count="6"] {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ── 카드 ──────────────────────────────────────────────── */
+
+.minui-card {
+  /* 카드 안의 큰 숫자가 카드 폭을 기준으로 줄어들 수 있게 한다. */
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  /* 내용을 세로 가운데로 모은다. 위로 붙이면 답이 없는 카드가 비어 보이고,
+     아래로 붙이면 이름과 답이 멀어져 한 덩어리로 읽히지 않는다. */
+  justify-content: center;
+  gap: 0.35rem;
+  min-width: var(--minui-touch-min);
+  min-height: max(var(--minui-touch-min), var(--minui-card-min-height));
+  padding: calc(0.9rem * var(--minui-scale));
+  border: 1px solid var(--minui-line);
+  border-radius: var(--minui-radius);
+  background: var(--minui-surface);
+  box-shadow: var(--minui-shadow);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.minui-card:hover {
+  border-color: var(--minui-line-strong);
+}
+
+.minui-card:focus-visible {
+  outline: 3px solid var(--minui-accent);
+  outline-offset: 3px;
+}
+
+.minui-card:active {
+  background: var(--minui-surface-2);
+}
+
+.minui-card-icon {
+  font-size: var(--minui-text-l);
+  line-height: 1;
+}
+
+.minui-card-label {
+  font-size: var(--minui-text-l);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/*
+ * 카드의 답. 기획안 S2가 "잔액 확인은 탭 0회"라고 한 지점이다 —
+ * 카드는 메뉴 이름표가 아니라, 이미 답을 들고 있는 작은 화면이다.
+ */
+.minui-card-detail {
+  margin-top: 0.1rem;
+  font-size: var(--minui-text-m);
+  color: var(--minui-ink-2);
+}
+
+/*
+ * 카드가 들고 있는 답. 금액은 자릿수가 길어 고정 크기로 두면 카드 밖으로 넘친다.
+ * 글씨 크기를 "아주 크게"로 올리면 더 확실히 넘친다. 그래서 카드 폭(cqi)을 상한으로 둔다 —
+ * 넓은 화면에서는 --minui-text-xl까지 커지고, 좁으면 잘리는 대신 줄어든다.
+ */
+.minui-card-detail strong {
+  display: block;
+  font-size: min(var(--minui-text-xl), 17cqi);
+  font-weight: 700;
+  color: var(--minui-ink);
+  letter-spacing: -0.03em;
+}
+
+/* ── 표식 ──────────────────────────────────────────────── */
+
+.minui-marks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.minui-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  font-size: var(--minui-text-s);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* 점이 아니라 글자로 알린다. 변화를 알아채게 하는 것이 목적이므로
+   설명 없는 표식은 그 목적을 달성하지 못한다 (기획안 F3 변경 고지). */
+.minui-mark[data-kind="new"] {
+  background: var(--minui-warn-soft);
+  color: var(--minui-warn);
+}
+
+.minui-mark[data-kind="pinned"] {
+  background: var(--minui-accent-soft);
+  color: var(--minui-accent);
+}
+
+/* ── 하단 고정 바 ──────────────────────────────────────── */
+
+.minui-dock {
+  display: flex;
+  gap: var(--minui-gap);
+  padding: var(--minui-gap);
+  border-top: 1px solid var(--minui-line);
+  background: var(--minui-surface);
+}
+
+.minui-dock-button {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: var(--minui-touch-min);
+  padding: 0 1rem;
+  border: 1px solid var(--minui-accent);
+  border-radius: var(--minui-radius);
+  background: var(--minui-accent);
+  color: var(--minui-accent-ink);
+  font: inherit;
+  font-size: var(--minui-text-l);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.minui-dock-button[data-variant="quiet"] {
+  background: var(--minui-surface);
+  color: var(--minui-accent);
+}
+
+.minui-dock-button:focus-visible {
+  outline: 3px solid var(--minui-ink);
+  outline-offset: 3px;
+}
+
+/* ── 전체 메뉴 ─────────────────────────────────────────── */
+
+.minui-sheet {
+  position: fixed;
+  inset: 0;
+  /* 호스트 앱이 좁은 프레임 안에 있을 수 있다. 시트가 창 전체를 덮으면
+     앱 밖으로 삐져나온다. 호스트가 --minui-frame-width를 주면 그 폭을 따른다. */
+  max-width: var(--minui-frame-width, none);
+  margin-inline: auto;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  background: var(--minui-paper);
+  color: var(--minui-ink);
+  font-family: var(--minui-font);
+}
+
+.minui-sheet-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: var(--minui-gap);
+  border-bottom: 1px solid var(--minui-line);
+  background: var(--minui-surface);
+}
+
+.minui-sheet-title {
+  margin: 0;
+  font-size: var(--minui-text-l);
+  font-weight: 700;
+}
+
+.minui-sheet-close {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: var(--minui-touch-min);
+  padding: 0 1.1rem;
+  border: 1px solid var(--minui-line-strong);
+  border-radius: var(--minui-radius);
+  background: var(--minui-surface);
+  color: var(--minui-ink);
+  font: inherit;
+  font-size: var(--minui-text-m);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.minui-sheet-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--minui-gap);
+}
+
+.minui-group {
+  margin: 0 0 1.25rem;
+}
+
+.minui-group-name {
+  margin: 0 0 0.5rem;
+  font-size: var(--minui-text-s);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--minui-ink-3);
+}
+
+.minui-group-list {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.minui-menu-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  min-height: var(--minui-touch-min);
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--minui-line);
+  border-radius: var(--minui-radius);
+  background: var(--minui-surface);
+  color: inherit;
+  font: inherit;
+  font-size: var(--minui-text-m);
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
+.minui-menu-row:focus-visible {
+  outline: 3px solid var(--minui-accent);
+  outline-offset: 2px;
+}
+
+.minui-menu-row-pin {
+  margin-left: auto;
+  min-height: var(--minui-touch-min);
+  padding: 0 0.9rem;
+  border: 1px solid var(--minui-line-strong);
+  /* 알약 모양은 88dp 높이에서 커다란 타원이 된다. 다른 컨트롤과 같은 모서리를 쓴다. */
+  border-radius: var(--minui-radius);
+  background: var(--minui-surface);
+  color: var(--minui-ink-2);
+  font: inherit;
+  font-size: var(--minui-text-s);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.minui-menu-row-pin[aria-pressed="true"] {
+  background: var(--minui-accent-soft);
+  border-color: var(--minui-accent);
+  color: var(--minui-accent);
+}
+
+/* ── 글씨 크기 조절 ────────────────────────────────────── */
+
+.minui-scale-control {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+/* 88dp 규칙에 예외를 두지 않는다. 이 버튼도 사용자가 손가락으로 눌러야 하는 물건이고,
+   "작은 보조 컨트롤"이라는 이유로 줄이기 시작하면 규칙이 규칙이 아니게 된다. */
+.minui-scale-button {
+  min-width: var(--minui-touch-min);
+  min-height: var(--minui-touch-min);
+  padding: 0 0.6rem;
+  border: 1px solid var(--minui-line-strong);
+  border-radius: 10px;
+  background: var(--minui-surface);
+  color: var(--minui-ink-2);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.minui-scale-button[aria-pressed="true"] {
+  background: var(--minui-accent);
+  border-color: var(--minui-accent);
+  color: var(--minui-accent-ink);
+}
+
+.minui-scale-button:focus-visible {
+  outline: 3px solid var(--minui-accent);
+  outline-offset: 2px;
+}
+
+/* ── 움직임 ────────────────────────────────────────────── */
+
+/*
+ * 애니메이션은 시트가 올라올 때 한 번뿐이다. 화면이 어디서 왔는지 알려주는
+ * 최소한의 신호이고, 그 이상은 이 사용자층에게 방해가 된다 (기획안 §11.3).
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .minui-sheet {
+    animation: minui-sheet-in 160ms ease-out;
+  }
+}
+
+/*
+ * 위치만 움직이고 투명도는 건드리지 않는다.
+ *
+ * opacity: 0에서 시작하면, 애니메이션이 돌지 않는 상황(백그라운드 탭, 저전력 모드,
+ * 렌더링 지연)에서 전체화면 대화상자가 보이지 않는 채로 초점만 잡아 둔다.
+ * 실제로 자동화 중 백그라운드 탭에서 그 상태를 만났다. 움직임이 없으면 그냥
+ * 움직이지 않을 뿐, 화면이 사라지지는 않아야 한다.
+ */
+@keyframes minui-sheet-in {
+  from {
+    transform: translateY(1.5rem);
+  }
+  to {
+    transform: none;
+  }
+}

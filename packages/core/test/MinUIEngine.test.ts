@@ -311,6 +311,16 @@ describe("수동 고정 — 자동화의 탈출구", () => {
     expect(engine.isPinned("transfer.auto")).toBe(true);
   });
 
+  it("프리셋 순서상 맨 뒤에 있는 메뉴를 고정해도 바로 올라온다", async () => {
+    // 콜드 스타트 랭킹은 프리셋 순서로 만들어져 점수 순이 아니다.
+    // 고정한 메뉴가 그 배열의 끝에 있어도 도전자로 뽑혀야 한다.
+    const engine = await h.open();
+
+    await engine.pin("product.loan"); // 카탈로그 맨 뒤의 카드 가능 메뉴
+
+    expect(engine.getCards().map((c) => c.menuId)).toContain("product.loan");
+  });
+
   it("고정 카드는 아무리 안 써도 밀려나지 않는다", async () => {
     let engine = await h.open();
     await engine.pin("settings.limit");

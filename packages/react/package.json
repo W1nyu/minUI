@@ -1,0 +1,30 @@
+{
+  "name": "@minui/react",
+  "version": "0.1.0",
+  "description": "MinUI Engine의 React 바인딩. 카드 홈 화면과 접근성 디자인 토큰.",
+  "type": "module",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./tokens.css": "./src/styles/tokens.css",
+    "./minui.css": "./src/styles/minui.css"
+  },
+  "files": ["dist", "src/styles"],
+  "sideEffects": ["*.css"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.test.json"
+  },
+  "dependencies": {
+    "@minui/core": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  }
+}

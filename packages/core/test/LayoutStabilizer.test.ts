@@ -94,6 +94,24 @@ describe("히스테리시스 ① 20% 마진 (기획안 §8.2)", () => {
     ]);
   });
 
+  it("입력이 정렬돼 있지 않아도 가장 강한 도전자를 고른다", () => {
+    // 콜드 스타트 랭킹은 프리셋 순서로 만들어져 점수 내림차순이 아니다.
+    // 정렬을 입력 쪽에 맡기면 강한 도전자가 배열 뒤에 있을 때 조용히 무시된다.
+    const state = seeded();
+    const unsorted = [
+      { menuId: "a", frequency: 4, recency: 0, context: 0, pin: 0, total: 4 },
+      { menuId: "b", frequency: 3, recency: 0, context: 0, pin: 0, total: 3 },
+      { menuId: "c", frequency: 2, recency: 0, context: 0, pin: 0, total: 2 },
+      { menuId: "d", frequency: 1, recency: 0, context: 0, pin: 0, total: 1 },
+      { menuId: "weak", frequency: 0.5, recency: 0, context: 0, pin: 0, total: 0.5 },
+      { menuId: "strong", frequency: 0, recency: 0, context: 0, pin: 100, total: 100 },
+    ];
+
+    const result = stabilizer.recompute(state, unsorted, T0 + 2 * DAY_MS);
+
+    expect(result.swaps).toEqual([{ out: "d", in: "strong" }]);
+  });
+
   it("현직이 전부 동점이면 뒤쪽 자리가 먼저 나간다", () => {
     // 콜드 스타트 직후 프리셋 카드가 전부 0점인 상황. 첫 자리를 먼저 비우면
     // 온보딩으로 정한 가장 중요한 카드가 제일 먼저 사라진다.
