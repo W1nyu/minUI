@@ -17,6 +17,7 @@ import type {
   Transaction,
   UpcomingDeposit,
 } from "./api/types.js";
+import { useTaskRecorder } from "./instrumentation/TaskRecorder.js";
 
 interface BankContextValue {
   api: BankApi;
@@ -34,7 +35,20 @@ interface BankContextValue {
 const BankContext = createContext<BankContextValue | null>(null);
 
 export function BankProvider({ api, children }: { api: BankApi; children: ReactNode }) {
-  const { complete } = useMinUI();
+  const { complete: engineComplete } = useMinUI();
+  const recorder = useTaskRecorder();
+
+  /**
+   * 작업 완료는 두 곳이 알아야 한다 — 랭킹을 매기는 엔진과, 과제 시간을 재는 계측.
+   * 화면들이 두 번 부르게 하지 않고 여기서 한 번에 흘려보낸다.
+   */
+  const complete = useCallback(
+    (menuId: MenuId) => {
+      engineComplete(menuId);
+      recorder.finish(menuId);
+    },
+    [engineComplete, recorder],
+  );
   const [accounts, setAccounts] = useState<Account[]>([]);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [autoTransfers, setAutoTransfers] = useState<AutoTransfer[]>([]);
