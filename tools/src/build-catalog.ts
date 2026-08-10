@@ -2,6 +2,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import type { MenuItem, RiskLevel } from "@minui/core";
+import { attachOverrides, type Override } from "./overrides.js";
 
 /**
  * 수집 원본 + 사람이 붙인 것 → `MenuCatalog`.
@@ -47,14 +48,6 @@ interface RawFile {
   items: RawItem[];
 }
 
-interface Override {
-  synonyms?: string[];
-  riskLevel?: RiskLevel;
-  icon?: string;
-  cardable?: boolean;
-  /** 이 메뉴를 카탈로그에서 뺀다. 메뉴가 아닌 링크(배너·바로가기)를 걸러낼 때. */
-  exclude?: boolean;
-}
 
 // ── 라벨 정리 ────────────────────────────────────────────────────────────
 
@@ -190,9 +183,16 @@ interface BuildResult {
     highRisk: number;
     notCardable: number;
     unstableIds: number;
+    /** id가 끊어졌지만 라벨·자모로 다시 붙인 override 수. */
+    rematched: number;
   };
   problems: string[];
+  /** 어디에도 붙지 못한 override. 사람이 봐야 한다. */
+  orphans: { key: string; suggestion: string | null; score: number }[];
+  /** 자동으로 다시 붙인 것들. 눈으로 확인하라고 남긴다. */
+  remaps: { from: string; to: string; how: string }[];
 }
+
 
 function build(site: Site): BuildResult {
   const raw = JSON.parse(
@@ -240,59 +240,73 @@ function build(site: Site): BuildResult {
     const id = toId(site, item, cleanPath, label);
     if (id.startsWith(`${site}.`) && item.key.startsWith("label:")) unstableIds += 1;
 
-    const override = overrides[id] ?? {};
-    if (override.exclude) {
-      excluded += 1;
-      continue;
-    }
-
     if (byId.has(id)) {
       deduped += 1;
       continue;
     }
 
-    const hand = override.synonyms ?? [];
-    if (hand.length > 0) handSynonyms += 1;
-    else autoCount += 1;
-
-    const category =
-      cleanPath[CATEGORY_DEPTH[site]] ?? cleanPath[0] ?? "기타";
+    const category = cleanPath[CATEGORY_DEPTH[site]] ?? cleanPath[0] ?? "기타";
     const haystack = [...cleanPath, label].join(" ");
 
+    // 1차: 사이트에서 온 것만으로 메뉴를 만든다. override는 붙인 뒤에 얹는다 —
+    // 그래야 id가 끊어진 override도 라벨로 다시 붙일 기회를 갖는다.
     const menu: MenuItem = {
       id,
       label,
-      synonyms: hand.length > 0 ? hand : autoSynonyms({ ...item, path: cleanPath, label }),
+      synonyms: autoSynonyms({ ...item, path: cleanPath, label }),
       category,
-      icon: override.icon ?? "doc",
+      icon: "doc",
       // 실제 라우팅은 하지 않는다. 데모의 ActionHandler가 스텁 화면을 연다.
       route: `/${id}`,
-      riskLevel: override.riskLevel ?? guessRiskLevel({ ...item, label }),
-      ...(override.cardable !== undefined
-        ? { cardable: override.cardable }
-        : NOT_CARDABLE_HINTS.test(haystack)
-          ? { cardable: false }
-          : {}),
+      riskLevel: guessRiskLevel({ ...item, label }),
+      ...(NOT_CARDABLE_HINTS.test(haystack) ? { cardable: false } : {}),
     };
 
     byId.set(id, menu);
     menus.push(menu);
   }
 
+  // 2차: override를 붙인다. id 일치 → match.label → 자모 유사도 순.
+  const { resolved, remaps, orphans } = attachOverrides(menus, overrides);
+
+  const kept: MenuItem[] = [];
+  for (const menu of menus) {
+    const override = resolved.get(menu.id);
+    if (override?.exclude) {
+      excluded += 1;
+      continue;
+    }
+
+    if (override?.synonyms && override.synonyms.length > 0) {
+      menu.synonyms = override.synonyms;
+      handSynonyms += 1;
+    } else {
+      autoCount += 1;
+    }
+    if (override?.riskLevel) menu.riskLevel = override.riskLevel;
+    if (override?.icon) menu.icon = override.icon;
+    if (override?.cardable !== undefined) menu.cardable = override.cardable;
+
+    kept.push(menu);
+  }
+
   return {
     site,
-    menus,
+    menus: kept,
     stats: {
       raw: raw.items.length,
       excluded,
       deduped,
       handSynonyms,
       autoSynonyms: autoCount,
-      highRisk: menus.filter((m) => m.riskLevel === "high").length,
-      notCardable: menus.filter((m) => m.cardable === false).length,
+      highRisk: kept.filter((m) => m.riskLevel === "high").length,
+      notCardable: kept.filter((m) => m.cardable === false).length,
       unstableIds,
+      rematched: remaps.length,
     },
     problems,
+    remaps,
+    orphans,
   };
 }
 
@@ -305,15 +319,15 @@ const allProblems = results.flatMap((r) => r.problems.map((p) => `${r.site}: ${p
 
 console.log(
   `\n  ${"사이트".padEnd(12)}${"원본".padStart(7)}${"메뉴".padStart(7)}${"제외".padStart(7)}` +
-    `${"중복".padStart(7)}${"수작업동의어".padStart(13)}${"high".padStart(7)}${"카드제외".padStart(9)}${"불안정id".padStart(9)}`,
+    `${"중복".padStart(7)}${"수작업".padStart(9)}${"high".padStart(7)}${"카드제외".padStart(9)}${"불안정id".padStart(9)}${"재연결".padStart(8)}`,
 );
 
 for (const r of results) {
   console.log(
     `  ${r.site.padEnd(12)}${String(r.stats.raw).padStart(7)}${String(r.menus.length).padStart(7)}` +
       `${String(r.stats.excluded).padStart(7)}${String(r.stats.deduped).padStart(7)}` +
-      `${String(r.stats.handSynonyms).padStart(13)}${String(r.stats.highRisk).padStart(7)}` +
-      `${String(r.stats.notCardable).padStart(9)}${String(r.stats.unstableIds).padStart(9)}`,
+      `${String(r.stats.handSynonyms).padStart(9)}${String(r.stats.highRisk).padStart(7)}` +
+      `${String(r.stats.notCardable).padStart(9)}${String(r.stats.unstableIds).padStart(9)}${String(r.stats.rematched).padStart(8)}`,
   );
   writeFileSync(
     join(OUT_DIR, `${r.site}.json`),
@@ -323,6 +337,34 @@ for (const r of results) {
 }
 
 console.log(`\n  총 ${results.reduce((n, r) => n + r.menus.length, 0)}개 메뉴 → ${OUT_DIR}`);
+
+// ── 표류 리포트 ──────────────────────────────────────────────────────────
+// id가 끊어진 override를 어떻게 처리했는지 전부 드러낸다. 자동으로 붙였더라도
+// 조용히 넘어가면 안 된다 — 엉뚱한 메뉴에 동의어가 붙는 것이 안 붙는 것보다 나쁘다.
+
+const remaps = results.flatMap((r) => r.remaps.map((m) => ({ site: r.site, ...m })));
+const orphans = results.flatMap((r) => r.orphans.map((o) => ({ site: r.site, ...o })));
+
+if (remaps.length > 0) {
+  console.log(`\n  id가 끊어져 다시 붙인 override ${remaps.length}건 — 확인하세요`);
+  for (const m of remaps.slice(0, 20)) {
+    console.log(`    ${m.site}: ${m.from}\n      → ${m.to}  (${m.how})`);
+  }
+}
+
+if (orphans.length > 0) {
+  console.log(`\n  붙지 못한 override ${orphans.length}건`);
+  for (const o of orphans.slice(0, 20)) {
+    console.log(
+      `    ${o.site}: ${o.key}` +
+        (o.suggestion ? `\n      가장 가까운 메뉴: ${o.suggestion} (${o.score.toFixed(2)})` : ""),
+    );
+  }
+  console.log(
+    `\n  이 항목들은 사이트가 메뉴를 없앴거나 문구를 크게 바꾼 것이다.` +
+      `\n  overrides에 match: { label: "..." }를 넣으면 id와 무관하게 붙는다.`,
+  );
+}
 
 if (allProblems.length > 0) {
   console.error(`\n검증 실패 — ${allProblems.length}건\n`);

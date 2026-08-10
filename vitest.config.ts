@@ -51,6 +51,15 @@ export default defineConfig({
         },
       },
       {
+        resolve: { alias: workspaceAliases },
+        test: {
+          name: "tools",
+          root: "./tools",
+          environment: "node",
+          include: ["test/**/*.test.ts"],
+        },
+      },
+      {
         plugins: [react()],
         resolve: { alias: workspaceAliases },
         test: {
