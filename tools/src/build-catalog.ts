@@ -115,29 +115,29 @@ function guessRiskLevel(item: RawItem): RiskLevel {
   return HIGH_RISK_HINTS.test(haystack) ? "high" : "low";
 }
 
-// ── 동의어 자동 생성 ─────────────────────────────────────────────────────
+// ── 동의어 ────────────────────────────────────────────────────────────────
 
 /**
- * 라벨을 쪼개 동의어 후보를 만든다.
+ * 동의어는 자동 생성하지 않는다. 재 보고 내린 결론이다.
  *
- * <p>M4 벤치마크에서 검색 정확도의 거의 전부를 동의어가 만들었고 n-gram의 기여는 0이었다.
- * 그래서 수작업 40개 밖의 메뉴도 최소한의 매칭 재료는 있어야 한다. 다만 이건
- * "펀드검색 → 펀드, 검색" 수준이라 "떼가는 거" 같은 실제 발화는 잡지 못한다 —
- * 그 한계를 벤치마크에서 수치로 확인한다.
+ * <p>두 가지를 시도했고 둘 다 기여가 0이었다.
+ * <ol>
+ *   <li>라벨 조각을 그대로 동의어로 — 오히려 정확도가 떨어졌다. "잔액"을 가진 메뉴가
+ *       수십 개가 되면서 "잔액 좀 보자"가 계좌조회 대신 "잔액 모으기"에 걸렸다
+ *   <li>금융 용어 사전으로 문구 치환 ("자동이체 해지" + 해지→그만두기) — 1회 질의
+ *       정확 매칭 기여 0%, 후보 3개 포함도 순증 0. 색인만 두 배로 불었다
+ *       (신한 566KB → 1,135KB)
+ * </ol>
+ *
+ * <p>왜 안 되는지가 분명하다. 사용자는 "계좌조회"를 <b>"잔액"</b>이라고 부르는데,
+ * 라벨에 그 말이 없으니 라벨을 아무리 변형해도 나오지 않는다. 필요한 것은 용어 대응이
+ * 아니라 <b>사람이 그것을 뭐라고 부르는가</b>이고, 그 정보는 라벨 안에 없다.
+ * M4에서 n-gram 유사도의 기여가 0이었던 것과 같은 벽이다.
+ *
+ * <p>그래서 동의어는 overrides에 사람이 쓴 것만 쓴다. 나머지 메뉴도 자기 라벨로는
+ * 검색되므로 "펀드검색"은 "펀드"로 찾힌다 — 못 찾는 것은 라벨에 없는 구어뿐이다.
+ * glossary.json은 동의어를 쓸 때 참고할 용어집으로 남겨 둔다.
  */
-function autoSynonyms(item: RawItem): string[] {
-  const parts = item.label
-    .split(/[\/·,()\s]+/)
-    .map((s) => s.trim())
-    .filter((s) => s.length >= 2 && s.length <= 12);
-
-  const parent = item.path.at(-1);
-  const candidates = new Set(parts);
-  if (parent && parent !== item.label) candidates.add(parent);
-
-  candidates.delete(item.label);
-  return [...candidates].slice(0, 4);
-}
 
 // ── id ───────────────────────────────────────────────────────────────────
 
@@ -253,7 +253,8 @@ function build(site: Site): BuildResult {
     const menu: MenuItem = {
       id,
       label,
-      synonyms: autoSynonyms({ ...item, path: cleanPath, label }),
+      // 자동 생성은 재 보고 껐다. 아래 autoSynonyms 주석 참고.
+      synonyms: [],
       category,
       icon: "doc",
       // 실제 라우팅은 하지 않는다. 데모의 ActionHandler가 스텁 화면을 연다.

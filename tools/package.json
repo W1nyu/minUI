@@ -11,7 +11,8 @@
     "simulate": "tsx src/simulate-personalization.ts",
     "report": "tsx src/report-metrics.ts",
     "build:catalog": "tsx src/build-catalog.ts",
-    "measure:portability": "tsx src/measure-portability.ts"
+    "measure:portability": "tsx src/measure-portability.ts",
+    "bench:sites": "tsx src/bench-sites.ts"
   },
   "dependencies": {
     "@minui/core": "workspace:*"

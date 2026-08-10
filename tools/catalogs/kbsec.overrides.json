@@ -1,21 +1,258 @@
 {
   "_note": "KB증권. id는 사이트의 linkcd 코드라 안정적이다. 증권은 은행보다 용어가 어려워(예수금·미수·반대매매) 동의어의 값어치가 더 크다 — 기획안 §15가 지적한 지점.",
-
-  "kbsec.m02010000": { "synonyms": ["잔고 보기", "얼마 있어", "내 계좌", "평가금액", "잔고"], "icon": "wallet", "riskLevel": "low" },
-  "kbsec.m02010004": { "synonyms": ["수익률", "얼마 벌었어", "손익", "수익 났나"], "icon": "chart", "riskLevel": "low" },
-  "kbsec.m02010007": { "synonyms": ["CMA 수익률", "CMA 이자"], "icon": "chart", "riskLevel": "low" },
-  "kbsec.m01060018": { "synonyms": ["출금 가능 금액", "뺄 수 있는 돈", "예수금"], "icon": "wallet", "riskLevel": "low" },
-  "kbsec.m01090007": { "synonyms": ["찾을 수 있는 돈", "출금 가능"], "icon": "wallet", "riskLevel": "low" },
-
-  "kbsec.m02020000": { "synonyms": ["돈 보내기", "송금", "이체", "출금", "돈 빼기"], "icon": "transfer", "riskLevel": "high" },
-  "kbsec.m02020001": { "synonyms": ["계좌 이체", "은행으로 보내기"], "icon": "transfer", "riskLevel": "high" },
-
-  "kbsec.m01010000": { "synonyms": ["펀드", "펀드 가입", "펀드 찾기"], "icon": "chart", "riskLevel": "low" },
-  "kbsec.m01010001": { "synonyms": ["펀드 사기", "펀드 고르기", "펀드몰"], "icon": "chart", "riskLevel": "low" },
-  "kbsec.m01110000": { "synonyms": ["연금", "노후 준비", "IRP", "개인연금"], "icon": "coin", "riskLevel": "low" },
-  "kbsec.m01110001": { "synonyms": ["연금 세금 혜택", "절세"], "icon": "coin", "riskLevel": "low" },
-  "kbsec.m06020000": { "synonyms": ["계좌 만들기", "계좌 개설", "새 계좌"], "icon": "person", "riskLevel": "low" },
-  "kbsec.m02040022": { "synonyms": ["계좌 확인서", "증명서 떼기"], "icon": "doc", "riskLevel": "low" },
-  "kbsec.m02040023": { "synonyms": ["잔고 증명서", "잔액 증명"], "icon": "doc", "riskLevel": "low" },
-  "kbsec.m01060002": { "synonyms": ["채권 시세", "채권 값"], "icon": "chart", "riskLevel": "low", "cardable": false }
+  "kbsec.m02010000": {
+    "synonyms": [
+      "잔고 보기",
+      "얼마 있어",
+      "내 계좌",
+      "평가금액",
+      "잔고"
+    ],
+    "icon": "wallet",
+    "riskLevel": "low"
+  },
+  "kbsec.m02010004": {
+    "synonyms": [
+      "수익률",
+      "얼마 벌었어",
+      "손익",
+      "수익 났나"
+    ],
+    "icon": "chart",
+    "riskLevel": "low"
+  },
+  "kbsec.m02010007": {
+    "synonyms": [
+      "CMA 수익률",
+      "CMA 이자"
+    ],
+    "icon": "chart",
+    "riskLevel": "low"
+  },
+  "kbsec.m01060018": {
+    "synonyms": [
+      "출금 가능 금액",
+      "뺄 수 있는 돈",
+      "예수금"
+    ],
+    "icon": "wallet",
+    "riskLevel": "low"
+  },
+  "kbsec.m01090007": {
+    "synonyms": [
+      "찾을 수 있는 돈",
+      "출금 가능"
+    ],
+    "icon": "wallet",
+    "riskLevel": "low"
+  },
+  "kbsec.m02020000": {
+    "synonyms": [
+      "돈 보내기",
+      "송금",
+      "이체",
+      "출금",
+      "돈 빼기"
+    ],
+    "icon": "transfer",
+    "riskLevel": "high"
+  },
+  "kbsec.m02020001": {
+    "synonyms": [
+      "계좌 이체",
+      "은행으로 보내기"
+    ],
+    "icon": "transfer",
+    "riskLevel": "high"
+  },
+  "kbsec.m01010000": {
+    "synonyms": [
+      "펀드",
+      "펀드 가입",
+      "펀드 찾기"
+    ],
+    "icon": "chart",
+    "riskLevel": "low"
+  },
+  "kbsec.m01010001": {
+    "synonyms": [
+      "펀드 사기",
+      "펀드 고르기",
+      "펀드몰"
+    ],
+    "icon": "chart",
+    "riskLevel": "low"
+  },
+  "kbsec.m01110000": {
+    "synonyms": [
+      "연금",
+      "노후 준비",
+      "IRP",
+      "개인연금"
+    ],
+    "icon": "coin",
+    "riskLevel": "low"
+  },
+  "kbsec.m01110001": {
+    "synonyms": [
+      "연금 세금 혜택",
+      "절세"
+    ],
+    "icon": "coin",
+    "riskLevel": "low"
+  },
+  "kbsec.m06020000": {
+    "synonyms": [
+      "계좌 만들기",
+      "계좌 개설",
+      "새 계좌"
+    ],
+    "icon": "person",
+    "riskLevel": "low"
+  },
+  "kbsec.m02040022": {
+    "synonyms": [
+      "계좌 확인서",
+      "증명서 떼기"
+    ],
+    "icon": "doc",
+    "riskLevel": "low"
+  },
+  "kbsec.m02040023": {
+    "synonyms": [
+      "잔고 증명서",
+      "잔액 증명"
+    ],
+    "icon": "doc",
+    "riskLevel": "low"
+  },
+  "kbsec.m01060002": {
+    "synonyms": [
+      "채권 시세",
+      "채권 값"
+    ],
+    "icon": "chart",
+    "riskLevel": "low",
+    "cardable": false
+  },
+  "kbsec.m01020001": {
+    "synonyms": [
+      "청약하기",
+      "공모주 넣기",
+      "공모주 신청"
+    ],
+    "icon": "doc",
+    "riskLevel": "high"
+  },
+  "kbsec.m02070016": {
+    "synonyms": [
+      "공모주 일정",
+      "청약 언제"
+    ],
+    "icon": "calendar",
+    "riskLevel": "low"
+  },
+  "kbsec.m02070012": {
+    "synonyms": [
+      "공모주 어떻게",
+      "청약 방법"
+    ],
+    "icon": "doc",
+    "riskLevel": "low"
+  },
+  "kbsec.m04040000": {
+    "synonyms": [
+      "해외주식",
+      "미국 주식",
+      "외국 주식"
+    ],
+    "icon": "globe",
+    "riskLevel": "low"
+  },
+  "kbsec.m02050008": {
+    "synonyms": [
+      "수수료 얼마",
+      "돈 얼마 드나",
+      "수수료"
+    ],
+    "icon": "doc",
+    "riskLevel": "low"
+  },
+  "kbsec.m05080000": {
+    "synonyms": [
+      "ISA",
+      "절세 계좌"
+    ],
+    "icon": "savings",
+    "riskLevel": "low"
+  },
+  "kbsec.m01030000": {
+    "synonyms": [
+      "CMA",
+      "파킹통장",
+      "하루만 맡기기"
+    ],
+    "icon": "wallet",
+    "riskLevel": "low"
+  },
+  "kbsec.m01060000": {
+    "synonyms": [
+      "채권",
+      "RP",
+      "안전한 투자"
+    ],
+    "icon": "chart",
+    "riskLevel": "low"
+  },
+  "kbsec.m07050000": {
+    "synonyms": [
+      "ETF",
+      "상장지수펀드"
+    ],
+    "icon": "chart",
+    "riskLevel": "low"
+  },
+  "kbsec.m01070000": {
+    "synonyms": [
+      "랩",
+      "신탁",
+      "맡겨서 굴리기"
+    ],
+    "icon": "savings",
+    "riskLevel": "low"
+  },
+  "kbsec.m02060000": {
+    "synonyms": [
+      "신용",
+      "대출",
+      "돈 빌리기"
+    ],
+    "icon": "bank",
+    "riskLevel": "low"
+  },
+  "kbsec.m06180000": {
+    "synonyms": [
+      "저금통",
+      "자동 저축",
+      "남는 돈 모으기"
+    ],
+    "icon": "savings",
+    "riskLevel": "high"
+  },
+  "kbsec.m01080010": {
+    "synonyms": [
+      "ETF 뭐야",
+      "ETF 설명"
+    ],
+    "icon": "chart",
+    "riskLevel": "low"
+  },
+  "kbsec.m04040028": {
+    "synonyms": [
+      "국내주식",
+      "한국 주식"
+    ],
+    "icon": "chart",
+    "riskLevel": "high"
+  }
 }

@@ -133,5 +133,37 @@
     ],
     "icon": "lock",
     "riskLevel": "high"
+  },
+  "shinhan.개인-이체-급여이체-등록": {
+    "synonyms": [
+      "월급 들어오게",
+      "급여이체 신청"
+    ],
+    "icon": "transfer",
+    "riskLevel": "high"
+  },
+  "shinhan.개인-금융상품-조회-입출금": {
+    "synonyms": [
+      "입출금 통장",
+      "수시입출금"
+    ],
+    "icon": "wallet",
+    "riskLevel": "low"
+  },
+  "shinhan.개인-기타금융-입출금통장신규-신청": {
+    "synonyms": [
+      "통장 새로 만들기",
+      "계좌 개설"
+    ],
+    "icon": "person",
+    "riskLevel": "high"
+  },
+  "shinhan.개인-사용자관리-인터넷뱅킹해지": {
+    "synonyms": [
+      "인터넷뱅킹 그만",
+      "뱅킹 해지"
+    ],
+    "icon": "lock",
+    "riskLevel": "high"
   }
 }

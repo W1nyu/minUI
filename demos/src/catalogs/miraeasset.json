@@ -54,9 +54,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-이체-이체내역조회",
     "label": "이체내역조회",
-    "synonyms": [
-      "이체"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-이체-이체내역조회",
@@ -65,9 +63,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-이체-자동이체",
     "label": "자동이체",
-    "synonyms": [
-      "이체"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-이체-자동이체",
@@ -76,11 +72,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-이체-은행이체입금-다이렉트",
     "label": "은행이체입금(다이렉트)",
-    "synonyms": [
-      "은행이체입금",
-      "다이렉트",
-      "이체"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-이체-은행이체입금-다이렉트",
@@ -89,9 +81,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-이체-자주쓰는계좌관리",
     "label": "자주쓰는계좌관리",
-    "synonyms": [
-      "이체"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-이체-자주쓰는계좌관리",
@@ -100,12 +90,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-이체-이체보안강화-서비스-신청-해지",
     "label": "이체보안강화 서비스 신청/해지",
-    "synonyms": [
-      "이체보안강화",
-      "서비스",
-      "신청",
-      "해지"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-이체-이체보안강화-서비스-신청-해지",
@@ -114,12 +99,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-이체-사이버-이체-한도-변경",
     "label": "사이버 이체 한도 변경",
-    "synonyms": [
-      "사이버",
-      "이체",
-      "한도",
-      "변경"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-이체-사이버-이체-한도-변경",
@@ -128,11 +108,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-이체-지연이체-서비스",
     "label": "지연이체 서비스",
-    "synonyms": [
-      "지연이체",
-      "서비스",
-      "이체"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-이체-지연이체-서비스",
@@ -141,9 +117,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-대여",
     "label": "대여",
-    "synonyms": [
-      "뱅킹/대출/청약"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-대여",
@@ -152,12 +126,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-대여-주식대여-서비스-안내",
     "label": "주식대여 서비스 안내",
-    "synonyms": [
-      "주식대여",
-      "서비스",
-      "안내",
-      "대여"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-대여-주식대여-서비스-안내",
@@ -166,12 +135,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-대여-주식대여약정-신청-변경",
     "label": "주식대여약정 신청/변경",
-    "synonyms": [
-      "주식대여약정",
-      "신청",
-      "변경",
-      "대여"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-대여-주식대여약정-신청-변경",
@@ -180,11 +144,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-대여-주식대여약정-해지",
     "label": "주식대여약정 해지",
-    "synonyms": [
-      "주식대여약정",
-      "해지",
-      "대여"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-대여-주식대여약정-해지",
@@ -194,21 +154,19 @@
     "id": "miraeasset.뱅킹-대출-청약-대출",
     "label": "대출",
     "synonyms": [
-      "뱅킹/대출/청약"
+      "대출",
+      "돈 빌리기",
+      "빌리기"
     ],
     "category": "뱅킹/대출/청약",
-    "icon": "doc",
+    "icon": "bank",
     "route": "/miraeasset.뱅킹-대출-청약-대출",
-    "riskLevel": "high"
+    "riskLevel": "low"
   },
   {
     "id": "miraeasset.뱅킹-대출-청약-대출-신용-대출-안내",
     "label": "신용/대출 안내",
-    "synonyms": [
-      "신용",
-      "대출",
-      "안내"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-대출-신용-대출-안내",
@@ -217,9 +175,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-대출-약정등록",
     "label": "약정등록",
-    "synonyms": [
-      "대출"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-대출-약정등록",
@@ -228,12 +184,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-대출-공매도-사전교육-모의거래-이수-등록",
     "label": "공매도 사전교육/모의거래 이수 등록",
-    "synonyms": [
-      "공매도",
-      "사전교육",
-      "모의거래",
-      "이수"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-대출-공매도-사전교육-모의거래-이수-등록",
@@ -242,11 +193,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-대출-약정변경-해지",
     "label": "약정변경/해지",
-    "synonyms": [
-      "약정변경",
-      "해지",
-      "대출"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-대출-약정변경-해지",
@@ -255,12 +202,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-대출-유통융자-주식대여-동의-신청-취소",
     "label": "유통융자 주식대여 동의 신청/취소",
-    "synonyms": [
-      "유통융자",
-      "주식대여",
-      "동의",
-      "신청"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-대출-유통융자-주식대여-동의-신청-취소",
@@ -269,12 +211,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-대출-자동미수상환서비스-신청-해지",
     "label": "자동미수상환서비스 신청/해지",
-    "synonyms": [
-      "자동미수상환서비스",
-      "신청",
-      "해지",
-      "대출"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-대출-자동미수상환서비스-신청-해지",
@@ -283,9 +220,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-대출-대출신청",
     "label": "대출신청",
-    "synonyms": [
-      "대출"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-대출-대출신청",
@@ -294,9 +229,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-대출-현금상환",
     "label": "현금상환",
-    "synonyms": [
-      "대출"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-대출-현금상환",
@@ -305,12 +238,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-대출-신용-대출-현황-조회",
     "label": "신용/대출 현황 조회",
-    "synonyms": [
-      "신용",
-      "대출",
-      "현황",
-      "조회"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-대출-신용-대출-현황-조회",
@@ -319,12 +247,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-대출-유통융자-담보활용수수료-내역조회",
     "label": "유통융자 담보활용수수료 내역조회",
-    "synonyms": [
-      "유통융자",
-      "담보활용수수료",
-      "내역조회",
-      "대출"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-대출-유통융자-담보활용수수료-내역조회",
@@ -333,9 +256,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-대출-만기연장",
     "label": "만기연장",
-    "synonyms": [
-      "대출"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-대출-만기연장",
@@ -344,9 +265,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-대출-제휴대출",
     "label": "제휴대출",
-    "synonyms": [
-      "대출"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-대출-제휴대출",
@@ -355,9 +274,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-청약",
     "label": "청약",
-    "synonyms": [
-      "뱅킹/대출/청약"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-청약",
@@ -367,18 +284,21 @@
     "id": "miraeasset.뱅킹-대출-청약-청약-청약일정",
     "label": "청약일정",
     "synonyms": [
-      "청약"
+      "공모주 일정",
+      "청약 언제"
     ],
     "category": "뱅킹/대출/청약",
-    "icon": "doc",
+    "icon": "calendar",
     "route": "/miraeasset.뱅킹-대출-청약-청약-청약일정",
-    "riskLevel": "high"
+    "riskLevel": "low"
   },
   {
     "id": "miraeasset.뱅킹-대출-청약-청약-공모주청약",
     "label": "공모주청약",
     "synonyms": [
-      "청약"
+      "공모주 넣기",
+      "청약하기",
+      "공모주 신청"
     ],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
@@ -388,12 +308,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-청약-공모주-풋백옵션-신청-취소",
     "label": "공모주 풋백옵션 신청/취소",
-    "synonyms": [
-      "공모주",
-      "풋백옵션",
-      "신청",
-      "취소"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-청약-공모주-풋백옵션-신청-취소",
@@ -402,11 +317,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-청약-실권주-일반공모청약",
     "label": "실권주/일반공모청약",
-    "synonyms": [
-      "실권주",
-      "일반공모청약",
-      "청약"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-청약-실권주-일반공모청약",
@@ -415,10 +326,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-청약-공개매수-청약",
     "label": "공개매수 청약",
-    "synonyms": [
-      "공개매수",
-      "청약"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-청약-공개매수-청약",
@@ -427,9 +335,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-청약-유상청약",
     "label": "유상청약",
-    "synonyms": [
-      "청약"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-청약-유상청약",
@@ -438,11 +344,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-청약-ELS-DLS청약",
     "label": "ELS/DLS청약",
-    "synonyms": [
-      "ELS",
-      "DLS청약",
-      "청약"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-청약-ELS-DLS청약",
@@ -451,9 +353,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-청약-일반채권청약",
     "label": "일반채권청약",
-    "synonyms": [
-      "청약"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-청약-일반채권청약",
@@ -462,9 +362,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-청약-계좌별권리내역",
     "label": "계좌별권리내역",
-    "synonyms": [
-      "청약"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-청약-계좌별권리내역",
@@ -473,11 +371,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-청약-청약투자설명서-조견표",
     "label": "청약투자설명서/조견표",
-    "synonyms": [
-      "청약투자설명서",
-      "조견표",
-      "청약"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-청약-청약투자설명서-조견표",
@@ -486,9 +380,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-청약-수요예측",
     "label": "수요예측",
-    "synonyms": [
-      "청약"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-청약-수요예측",
@@ -497,9 +389,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-청약-기관청약",
     "label": "기관청약",
-    "synonyms": [
-      "청약"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-청약-기관청약",
@@ -508,12 +398,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-지로-공과금-납부",
     "label": "지로/공과금 납부",
-    "synonyms": [
-      "지로",
-      "공과금",
-      "납부",
-      "뱅킹/대출/청약"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-지로-공과금-납부",
@@ -522,9 +407,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-체크카드",
     "label": "체크카드",
-    "synonyms": [
-      "뱅킹/대출/청약"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-체크카드",
@@ -533,9 +416,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-체크카드-카드상품안내",
     "label": "카드상품안내",
-    "synonyms": [
-      "체크카드"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-체크카드-카드상품안내",
@@ -544,9 +425,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-체크카드-카드신청",
     "label": "카드신청",
-    "synonyms": [
-      "체크카드"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-체크카드-카드신청",
@@ -555,11 +434,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-체크카드-발급-사용등록",
     "label": "발급/사용등록",
-    "synonyms": [
-      "발급",
-      "사용등록",
-      "체크카드"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-체크카드-발급-사용등록",
@@ -568,9 +443,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-체크카드-이용조회",
     "label": "이용조회",
-    "synonyms": [
-      "체크카드"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-체크카드-이용조회",
@@ -579,9 +452,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-체크카드-카드관리",
     "label": "카드관리",
-    "synonyms": [
-      "체크카드"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-체크카드-카드관리",
@@ -590,9 +461,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-체크카드-정보관리",
     "label": "정보관리",
-    "synonyms": [
-      "체크카드"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-체크카드-정보관리",
@@ -601,12 +470,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-체크카드-분실-재발급-해지",
     "label": "분실/재발급/해지",
-    "synonyms": [
-      "분실",
-      "재발급",
-      "해지",
-      "체크카드"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-체크카드-분실-재발급-해지",
@@ -615,9 +479,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-체크카드-이용안내",
     "label": "이용안내",
-    "synonyms": [
-      "체크카드"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-체크카드-이용안내",
@@ -626,11 +488,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-미래에셋-현대카드",
     "label": "미래에셋 현대카드",
-    "synonyms": [
-      "미래에셋",
-      "현대카드",
-      "뱅킹/대출/청약"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-미래에셋-현대카드",
@@ -639,9 +497,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-미래에셋-현대카드-카드상품안내",
     "label": "카드상품안내",
-    "synonyms": [
-      "미래에셋 현대카드"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-미래에셋-현대카드-카드상품안내",
@@ -650,9 +506,7 @@
   {
     "id": "miraeasset.뱅킹-대출-청약-메뉴닫기",
     "label": "메뉴닫기",
-    "synonyms": [
-      "뱅킹/대출/청약"
-    ],
+    "synonyms": [],
     "category": "뱅킹/대출/청약",
     "icon": "doc",
     "route": "/miraeasset.뱅킹-대출-청약-메뉴닫기",
@@ -661,9 +515,7 @@
   {
     "id": "miraeasset.금융상품-추천상품",
     "label": "추천상품",
-    "synonyms": [
-      "금융상품"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-추천상품",
@@ -672,10 +524,7 @@
   {
     "id": "miraeasset.금융상품-추천상품-월간-추천상품",
     "label": "월간 추천상품",
-    "synonyms": [
-      "월간",
-      "추천상품"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-추천상품-월간-추천상품",
@@ -684,11 +533,7 @@
   {
     "id": "miraeasset.금융상품-추천상품-주간-펀드상품",
     "label": "주간 펀드상품",
-    "synonyms": [
-      "주간",
-      "펀드상품",
-      "추천상품"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-추천상품-주간-펀드상품",
@@ -697,9 +542,7 @@
   {
     "id": "miraeasset.금융상품-IMA",
     "label": "IMA",
-    "synonyms": [
-      "금융상품"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-IMA",
@@ -708,10 +551,7 @@
   {
     "id": "miraeasset.금융상품-IMA-IMA-안내",
     "label": "IMA 안내",
-    "synonyms": [
-      "IMA",
-      "안내"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-IMA-IMA-안내",
@@ -720,10 +560,7 @@
   {
     "id": "miraeasset.금융상품-IMA-IMA-공지사항",
     "label": "IMA 공지사항",
-    "synonyms": [
-      "IMA",
-      "공지사항"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-IMA-IMA-공지사항",
@@ -732,9 +569,7 @@
   {
     "id": "miraeasset.금융상품-개인투자용국채",
     "label": "개인투자용국채",
-    "synonyms": [
-      "금융상품"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-개인투자용국채",
@@ -743,10 +578,7 @@
   {
     "id": "miraeasset.금융상품-개인투자용국채-개인투자용국채-안내",
     "label": "개인투자용국채 안내",
-    "synonyms": [
-      "개인투자용국채",
-      "안내"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-개인투자용국채-개인투자용국채-안내",
@@ -755,10 +587,7 @@
   {
     "id": "miraeasset.금융상품-개인투자용국채-개인투자용국채-청약",
     "label": "개인투자용국채 청약",
-    "synonyms": [
-      "개인투자용국채",
-      "청약"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-개인투자용국채-개인투자용국채-청약",
@@ -767,11 +596,7 @@
   {
     "id": "miraeasset.금융상품-개인투자용국채-개인투자용국채-보유-매매현황",
     "label": "개인투자용국채 보유/매매현황",
-    "synonyms": [
-      "개인투자용국채",
-      "보유",
-      "매매현황"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-개인투자용국채-개인투자용국채-보유-매매현황",
@@ -780,10 +605,7 @@
   {
     "id": "miraeasset.금융상품-개인투자용국채-개인투자용국채-계좌정보",
     "label": "개인투자용국채 계좌정보",
-    "synonyms": [
-      "개인투자용국채",
-      "계좌정보"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-개인투자용국채-개인투자용국채-계좌정보",
@@ -792,10 +614,7 @@
   {
     "id": "miraeasset.금융상품-개인투자용국채-개인투자용국채-중도환매",
     "label": "개인투자용국채 중도환매",
-    "synonyms": [
-      "개인투자용국채",
-      "중도환매"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-개인투자용국채-개인투자용국채-중도환매",
@@ -817,9 +636,7 @@
   {
     "id": "miraeasset.금융상품-펀드-펀드검색",
     "label": "펀드검색",
-    "synonyms": [
-      "펀드"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-펀드-펀드검색",
@@ -828,9 +645,7 @@
   {
     "id": "miraeasset.금융상품-펀드-펀드매매",
     "label": "펀드매매",
-    "synonyms": [
-      "펀드"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-펀드-펀드매매",
@@ -839,9 +654,7 @@
   {
     "id": "miraeasset.금융상품-펀드-펀드자동매수",
     "label": "펀드자동매수",
-    "synonyms": [
-      "펀드"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-펀드-펀드자동매수",
@@ -850,9 +663,7 @@
   {
     "id": "miraeasset.금융상품-펀드-펀드매매내역",
     "label": "펀드매매내역",
-    "synonyms": [
-      "펀드"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-펀드-펀드매매내역",
@@ -888,11 +699,7 @@
   {
     "id": "miraeasset.금융상품-펀드-해외펀드-세금환급내역",
     "label": "해외펀드 세금환급내역",
-    "synonyms": [
-      "해외펀드",
-      "세금환급내역",
-      "펀드"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-펀드-해외펀드-세금환급내역",
@@ -902,19 +709,19 @@
     "id": "miraeasset.금융상품-CMA",
     "label": "CMA",
     "synonyms": [
-      "금융상품"
+      "CMA",
+      "파킹통장",
+      "하루만 맡기기"
     ],
     "category": "금융상품",
-    "icon": "doc",
+    "icon": "wallet",
     "route": "/miraeasset.금융상품-CMA",
     "riskLevel": "low"
   },
   {
     "id": "miraeasset.금융상품-CMA-CMA상품소개",
     "label": "CMA상품소개",
-    "synonyms": [
-      "CMA"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-CMA-CMA상품소개",
@@ -923,12 +730,7 @@
   {
     "id": "miraeasset.금융상품-CMA-CMA계좌-신청-전환-해지",
     "label": "CMA계좌 신청/전환/해지",
-    "synonyms": [
-      "CMA계좌",
-      "신청",
-      "전환",
-      "해지"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-CMA-CMA계좌-신청-전환-해지",
@@ -937,11 +739,7 @@
   {
     "id": "miraeasset.금융상품-CMA-Wrap형CMA-이자금액조회",
     "label": "Wrap형CMA 이자금액조회",
-    "synonyms": [
-      "Wrap형CMA",
-      "이자금액조회",
-      "CMA"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-CMA-Wrap형CMA-이자금액조회",
@@ -953,23 +751,17 @@
     "synonyms": [
       "ELS",
       "DLS",
-      "ETN",
-      "ELW"
+      "파생상품"
     ],
     "category": "금융상품",
-    "icon": "doc",
+    "icon": "chart",
     "route": "/miraeasset.금융상품-ELS-DLS-ETN-ELW",
     "riskLevel": "low"
   },
   {
     "id": "miraeasset.금융상품-ELS-DLS-ETN-ELW-ELS-DLS-검색",
     "label": "ELS/DLS 검색",
-    "synonyms": [
-      "ELS",
-      "DLS",
-      "검색",
-      "ELS/DLS/ETN/ELW"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-ELS-DLS-ETN-ELW-ELS-DLS-검색",
@@ -978,12 +770,7 @@
   {
     "id": "miraeasset.금융상품-ELS-DLS-ETN-ELW-ELS-DLS-기준가조회",
     "label": "ELS/DLS 기준가조회",
-    "synonyms": [
-      "ELS",
-      "DLS",
-      "기준가조회",
-      "ELS/DLS/ETN/ELW"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-ELS-DLS-ETN-ELW-ELS-DLS-기준가조회",
@@ -992,12 +779,7 @@
   {
     "id": "miraeasset.금융상품-ELS-DLS-ETN-ELW-기초자산별-가격-조회",
     "label": "기초자산별 가격 조회",
-    "synonyms": [
-      "기초자산별",
-      "가격",
-      "조회",
-      "ELS/DLS/ETN/ELW"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-ELS-DLS-ETN-ELW-기초자산별-가격-조회",
@@ -1006,11 +788,7 @@
   {
     "id": "miraeasset.금융상품-ELS-DLS-ETN-ELW-ELS-DLS청약",
     "label": "ELS/DLS청약",
-    "synonyms": [
-      "ELS",
-      "DLS청약",
-      "ELS/DLS/ETN/ELW"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-ELS-DLS-ETN-ELW-ELS-DLS청약",
@@ -1019,12 +797,7 @@
   {
     "id": "miraeasset.금융상품-ELS-DLS-ETN-ELW-ELS-DLS-매도예약-취소",
     "label": "ELS/DLS 매도예약/취소",
-    "synonyms": [
-      "ELS",
-      "DLS",
-      "매도예약",
-      "취소"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-ELS-DLS-ETN-ELW-ELS-DLS-매도예약-취소",
@@ -1034,23 +807,18 @@
     "id": "miraeasset.금융상품-ELS-DLS-ETN-ELW-ELS-DLS보유잔고",
     "label": "ELS/DLS보유잔고",
     "synonyms": [
-      "ELS",
-      "DLS보유잔고",
-      "ELS/DLS/ETN/ELW"
+      "ELS 얼마 있어",
+      "ELS 잔고"
     ],
     "category": "금융상품",
-    "icon": "doc",
+    "icon": "wallet",
     "route": "/miraeasset.금융상품-ELS-DLS-ETN-ELW-ELS-DLS보유잔고",
     "riskLevel": "low"
   },
   {
     "id": "miraeasset.금융상품-ELS-DLS-ETN-ELW-ELS-DLS공지사항",
     "label": "ELS/DLS공지사항",
-    "synonyms": [
-      "ELS",
-      "DLS공지사항",
-      "ELS/DLS/ETN/ELW"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-ELS-DLS-ETN-ELW-ELS-DLS공지사항",
@@ -1059,9 +827,7 @@
   {
     "id": "miraeasset.금융상품-ELS-DLS-ETN-ELW-ETN안내",
     "label": "ETN안내",
-    "synonyms": [
-      "ELS/DLS/ETN/ELW"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-ELS-DLS-ETN-ELW-ETN안내",
@@ -1070,9 +836,7 @@
   {
     "id": "miraeasset.금융상품-ELS-DLS-ETN-ELW-ETN상품정보",
     "label": "ETN상품정보",
-    "synonyms": [
-      "ELS/DLS/ETN/ELW"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-ELS-DLS-ETN-ELW-ETN상품정보",
@@ -1081,9 +845,7 @@
   {
     "id": "miraeasset.금융상품-ELS-DLS-ETN-ELW-ETN공지사항",
     "label": "ETN공지사항",
-    "synonyms": [
-      "ELS/DLS/ETN/ELW"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-ELS-DLS-ETN-ELW-ETN공지사항",
@@ -1092,9 +854,7 @@
   {
     "id": "miraeasset.금융상품-ELS-DLS-ETN-ELW-ELW종목정보",
     "label": "ELW종목정보",
-    "synonyms": [
-      "ELS/DLS/ETN/ELW"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-ELS-DLS-ETN-ELW-ELW종목정보",
@@ -1103,9 +863,7 @@
   {
     "id": "miraeasset.금융상품-ELS-DLS-ETN-ELW-ELW공지사항",
     "label": "ELW공지사항",
-    "synonyms": [
-      "ELS/DLS/ETN/ELW"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-ELS-DLS-ETN-ELW-ELW공지사항",
@@ -1114,9 +872,7 @@
   {
     "id": "miraeasset.금융상품-ELS-DLS-ETN-ELW-ELW거래방법",
     "label": "ELW거래방법",
-    "synonyms": [
-      "ELS/DLS/ETN/ELW"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-ELS-DLS-ETN-ELW-ELW거래방법",
@@ -1125,9 +881,7 @@
   {
     "id": "miraeasset.금융상품-ELS-DLS-ETN-ELW-구조화지수조회",
     "label": "구조화지수조회",
-    "synonyms": [
-      "ELS/DLS/ETN/ELW"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-ELS-DLS-ETN-ELW-구조화지수조회",
@@ -1137,9 +891,7 @@
   {
     "id": "miraeasset.금융상품-발행어음",
     "label": "발행어음",
-    "synonyms": [
-      "금융상품"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-발행어음",
@@ -1148,10 +900,7 @@
   {
     "id": "miraeasset.금융상품-발행어음-발행어음-상품안내",
     "label": "발행어음 상품안내",
-    "synonyms": [
-      "발행어음",
-      "상품안내"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-발행어음-발행어음-상품안내",
@@ -1160,10 +909,7 @@
   {
     "id": "miraeasset.금융상품-발행어음-발행어음-매매",
     "label": "발행어음 매매",
-    "synonyms": [
-      "발행어음",
-      "매매"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-발행어음-발행어음-매매",
@@ -1172,11 +918,7 @@
   {
     "id": "miraeasset.금융상품-발행어음-외화발행어음-매매",
     "label": "외화발행어음 매매",
-    "synonyms": [
-      "외화발행어음",
-      "매매",
-      "발행어음"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-발행어음-외화발행어음-매매",
@@ -1185,11 +927,7 @@
   {
     "id": "miraeasset.금융상품-발행어음-발행어음-잔고-매매내역",
     "label": "발행어음 잔고/매매내역",
-    "synonyms": [
-      "발행어음",
-      "잔고",
-      "매매내역"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-발행어음-발행어음-잔고-매매내역",
@@ -1198,10 +936,7 @@
   {
     "id": "miraeasset.금융상품-발행어음-발행어음-적립형약정",
     "label": "발행어음 적립형약정",
-    "synonyms": [
-      "발행어음",
-      "적립형약정"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-발행어음-발행어음-적립형약정",
@@ -1213,19 +948,17 @@
     "synonyms": [
       "채권",
       "RP",
-      "금융상품"
+      "안전한 투자"
     ],
     "category": "금융상품",
-    "icon": "doc",
+    "icon": "chart",
     "route": "/miraeasset.금융상품-채권-RP",
     "riskLevel": "low"
   },
   {
     "id": "miraeasset.금융상품-채권-RP-장외채권",
     "label": "장외채권",
-    "synonyms": [
-      "채권/RP"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-채권-RP-장외채권",
@@ -1235,19 +968,18 @@
     "id": "miraeasset.금융상품-채권-RP-기준수익률",
     "label": "기준수익률",
     "synonyms": [
-      "채권/RP"
+      "채권 수익률",
+      "채권 이자"
     ],
     "category": "금융상품",
-    "icon": "doc",
+    "icon": "chart",
     "route": "/miraeasset.금융상품-채권-RP-기준수익률",
     "riskLevel": "low"
   },
   {
     "id": "miraeasset.금융상품-채권-RP-장외채권매매",
     "label": "장외채권매매",
-    "synonyms": [
-      "채권/RP"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-채권-RP-장외채권매매",
@@ -1256,9 +988,7 @@
   {
     "id": "miraeasset.금융상품-채권-RP-단기사채매매",
     "label": "단기사채매매",
-    "synonyms": [
-      "채권/RP"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-채권-RP-단기사채매매",
@@ -1267,9 +997,7 @@
   {
     "id": "miraeasset.금융상품-채권-RP-외화채권",
     "label": "외화채권",
-    "synonyms": [
-      "채권/RP"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-채권-RP-외화채권",
@@ -1278,11 +1006,7 @@
   {
     "id": "miraeasset.금융상품-채권-RP-외화채권-단기사채매매",
     "label": "외화채권/단기사채매매",
-    "synonyms": [
-      "외화채권",
-      "단기사채매매",
-      "채권/RP"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-채권-RP-외화채권-단기사채매매",
@@ -1291,11 +1015,7 @@
   {
     "id": "miraeasset.금융상품-채권-RP-채권-공지사항",
     "label": "채권 공지사항",
-    "synonyms": [
-      "채권",
-      "공지사항",
-      "채권/RP"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-채권-RP-채권-공지사항",
@@ -1304,9 +1024,7 @@
   {
     "id": "miraeasset.금융상품-채권-RP-RP매매",
     "label": "RP매매",
-    "synonyms": [
-      "채권/RP"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-채권-RP-RP매매",
@@ -1315,11 +1033,7 @@
   {
     "id": "miraeasset.금융상품-채권-RP-외화-RP매매",
     "label": "외화 RP매매",
-    "synonyms": [
-      "외화",
-      "RP매매",
-      "채권/RP"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-채권-RP-외화-RP매매",
@@ -1329,21 +1043,18 @@
     "id": "miraeasset.금융상품-ISA종합",
     "label": "ISA종합",
     "synonyms": [
-      "금융상품"
+      "ISA",
+      "절세 계좌"
     ],
     "category": "금융상품",
-    "icon": "doc",
+    "icon": "savings",
     "route": "/miraeasset.금융상품-ISA종합",
     "riskLevel": "low"
   },
   {
     "id": "miraeasset.금융상품-ISA종합-ISA-제도안내",
     "label": "ISA 제도안내",
-    "synonyms": [
-      "ISA",
-      "제도안내",
-      "ISA종합"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-ISA종합-ISA-제도안내",
@@ -1352,11 +1063,7 @@
   {
     "id": "miraeasset.금융상품-ISA종합-ISA-계약조회",
     "label": "ISA 계약조회",
-    "synonyms": [
-      "ISA",
-      "계약조회",
-      "ISA종합"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-ISA종합-ISA-계약조회",
@@ -1365,12 +1072,7 @@
   {
     "id": "miraeasset.금융상품-ISA종합-ISA-상품별-잔고",
     "label": "ISA 상품별 잔고",
-    "synonyms": [
-      "ISA",
-      "상품별",
-      "잔고",
-      "ISA종합"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-ISA종합-ISA-상품별-잔고",
@@ -1379,11 +1081,7 @@
   {
     "id": "miraeasset.금융상품-ISA종합-ISA-매매내역",
     "label": "ISA 매매내역",
-    "synonyms": [
-      "ISA",
-      "매매내역",
-      "ISA종합"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-ISA종합-ISA-매매내역",
@@ -1392,11 +1090,7 @@
   {
     "id": "miraeasset.금융상품-ISA종합-ISA-해지가계산",
     "label": "ISA 해지가계산",
-    "synonyms": [
-      "ISA",
-      "해지가계산",
-      "ISA종합"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-ISA종합-ISA-해지가계산",
@@ -1405,9 +1099,7 @@
   {
     "id": "miraeasset.금융상품-중개형ISA",
     "label": "중개형ISA",
-    "synonyms": [
-      "금융상품"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-중개형ISA",
@@ -1416,12 +1108,7 @@
   {
     "id": "miraeasset.금융상품-중개형ISA-주식-ETF-ETN-상장수익증권",
     "label": "주식/ETF/ETN/상장수익증권",
-    "synonyms": [
-      "주식",
-      "ETF",
-      "ETN",
-      "상장수익증권"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-중개형ISA-주식-ETF-ETN-상장수익증권",
@@ -1430,9 +1117,7 @@
   {
     "id": "miraeasset.금융상품-중개형ISA-펀드",
     "label": "펀드",
-    "synonyms": [
-      "중개형ISA"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-중개형ISA-펀드",
@@ -1441,11 +1126,7 @@
   {
     "id": "miraeasset.금융상품-중개형ISA-ELS-DLS",
     "label": "ELS/DLS",
-    "synonyms": [
-      "ELS",
-      "DLS",
-      "중개형ISA"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-중개형ISA-ELS-DLS",
@@ -1454,9 +1135,7 @@
   {
     "id": "miraeasset.금융상품-중개형ISA-RP",
     "label": "RP",
-    "synonyms": [
-      "중개형ISA"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-중개형ISA-RP",
@@ -1465,9 +1144,7 @@
   {
     "id": "miraeasset.금융상품-중개형ISA-채권",
     "label": "채권",
-    "synonyms": [
-      "중개형ISA"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-중개형ISA-채권",
@@ -1476,9 +1153,7 @@
   {
     "id": "miraeasset.금융상품-신탁형ISA",
     "label": "신탁형ISA",
-    "synonyms": [
-      "금융상품"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-신탁형ISA",
@@ -1487,12 +1162,7 @@
   {
     "id": "miraeasset.금융상품-신탁형ISA-신탁형-ISA-상품운용지시",
     "label": "신탁형 ISA 상품운용지시",
-    "synonyms": [
-      "신탁형",
-      "ISA",
-      "상품운용지시",
-      "신탁형ISA"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-신탁형ISA-신탁형-ISA-상품운용지시",
@@ -1501,12 +1171,7 @@
   {
     "id": "miraeasset.금융상품-신탁형ISA-신탁형-ISA-매매내역조회",
     "label": "신탁형 ISA 매매내역조회",
-    "synonyms": [
-      "신탁형",
-      "ISA",
-      "매매내역조회",
-      "신탁형ISA"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-신탁형ISA-신탁형-ISA-매매내역조회",
@@ -1515,12 +1180,7 @@
   {
     "id": "miraeasset.금융상품-신탁형ISA-신탁형-ISA-분산투자입력",
     "label": "신탁형 ISA 분산투자입력",
-    "synonyms": [
-      "신탁형",
-      "ISA",
-      "분산투자입력",
-      "신탁형ISA"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-신탁형ISA-신탁형-ISA-분산투자입력",
@@ -1529,12 +1189,7 @@
   {
     "id": "miraeasset.금융상품-신탁형ISA-신탁형-ISA-자동매매-주문내역-조회-및-정정",
     "label": "신탁형 ISA 자동매매 주문내역 조회 및 정정",
-    "synonyms": [
-      "신탁형",
-      "ISA",
-      "자동매매",
-      "주문내역"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-신탁형ISA-신탁형-ISA-자동매매-주문내역-조회-및-정정",
@@ -1543,12 +1198,7 @@
   {
     "id": "miraeasset.금융상품-신탁형ISA-신탁형-ISA-납입한도-정정",
     "label": "신탁형 ISA 납입한도 정정",
-    "synonyms": [
-      "신탁형",
-      "ISA",
-      "납입한도",
-      "정정"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-신탁형ISA-신탁형-ISA-납입한도-정정",
@@ -1557,9 +1207,7 @@
   {
     "id": "miraeasset.금융상품-일임형ISA",
     "label": "일임형ISA",
-    "synonyms": [
-      "금융상품"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-일임형ISA",
@@ -1568,11 +1216,7 @@
   {
     "id": "miraeasset.금융상품-일임형ISA-ISA-공지사항",
     "label": "ISA 공지사항",
-    "synonyms": [
-      "ISA",
-      "공지사항",
-      "일임형ISA"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-일임형ISA-ISA-공지사항",
@@ -1581,11 +1225,7 @@
   {
     "id": "miraeasset.금융상품-신탁-Wrap",
     "label": "신탁/Wrap",
-    "synonyms": [
-      "신탁",
-      "Wrap",
-      "금융상품"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-신탁-Wrap",
@@ -1594,12 +1234,7 @@
   {
     "id": "miraeasset.금융상품-신탁-Wrap-Wrap-Account-안내",
     "label": "Wrap Account 안내",
-    "synonyms": [
-      "Wrap",
-      "Account",
-      "안내",
-      "신탁/Wrap"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-신탁-Wrap-Wrap-Account-안내",
@@ -1608,12 +1243,7 @@
   {
     "id": "miraeasset.금융상품-신탁-Wrap-Wrap-Account-서비스-소개",
     "label": "Wrap Account 서비스 소개",
-    "synonyms": [
-      "Wrap",
-      "Account",
-      "서비스",
-      "소개"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-신탁-Wrap-Wrap-Account-서비스-소개",
@@ -1622,12 +1252,7 @@
   {
     "id": "miraeasset.금융상품-신탁-Wrap-Wrap-Account-가입-운용",
     "label": "Wrap Account 가입/운용",
-    "synonyms": [
-      "Wrap",
-      "Account",
-      "가입",
-      "운용"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-신탁-Wrap-Wrap-Account-가입-운용",
@@ -1636,11 +1261,7 @@
   {
     "id": "miraeasset.금융상품-신탁-Wrap-Wrap-잔고조회",
     "label": "Wrap 잔고조회",
-    "synonyms": [
-      "Wrap",
-      "잔고조회",
-      "신탁/Wrap"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-신탁-Wrap-Wrap-잔고조회",
@@ -1649,12 +1270,7 @@
   {
     "id": "miraeasset.금융상품-신탁-Wrap-지점운용랩-채권형-ETF-유니버스",
     "label": "지점운용랩 채권형 ETF 유니버스",
-    "synonyms": [
-      "지점운용랩",
-      "채권형",
-      "ETF",
-      "유니버스"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-신탁-Wrap-지점운용랩-채권형-ETF-유니버스",
@@ -1663,11 +1279,7 @@
   {
     "id": "miraeasset.금융상품-신탁-Wrap-신탁소개-및-계약조회",
     "label": "신탁소개 및 계약조회",
-    "synonyms": [
-      "신탁소개",
-      "계약조회",
-      "신탁/Wrap"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-신탁-Wrap-신탁소개-및-계약조회",
@@ -1676,9 +1288,7 @@
   {
     "id": "miraeasset.금융상품-자문서비스",
     "label": "자문서비스",
-    "synonyms": [
-      "금융상품"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-자문서비스",
@@ -1687,9 +1297,7 @@
   {
     "id": "miraeasset.금융상품-자문서비스-자문내역",
     "label": "자문내역",
-    "synonyms": [
-      "자문서비스"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-자문서비스-자문내역",
@@ -1698,12 +1306,7 @@
   {
     "id": "miraeasset.금융상품-자문서비스-자문계약-현황-해지",
     "label": "자문계약 현황/해지",
-    "synonyms": [
-      "자문계약",
-      "현황",
-      "해지",
-      "자문서비스"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-자문서비스-자문계약-현황-해지",
@@ -1712,9 +1315,7 @@
   {
     "id": "miraeasset.금융상품-방카슈랑스",
     "label": "방카슈랑스",
-    "synonyms": [
-      "금융상품"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-방카슈랑스",
@@ -1723,9 +1324,7 @@
   {
     "id": "miraeasset.금융상품-방카슈랑스-방카슈랑스상품소개",
     "label": "방카슈랑스상품소개",
-    "synonyms": [
-      "방카슈랑스"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-방카슈랑스-방카슈랑스상품소개",
@@ -1734,9 +1333,7 @@
   {
     "id": "miraeasset.금융상품-세금혜택상품",
     "label": "세금혜택상품",
-    "synonyms": [
-      "금융상품"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-세금혜택상품",
@@ -1745,9 +1342,7 @@
   {
     "id": "miraeasset.금융상품-세금혜택상품-비과세종합저축",
     "label": "비과세종합저축",
-    "synonyms": [
-      "세금혜택상품"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-세금혜택상품-비과세종합저축",
@@ -1756,9 +1351,7 @@
   {
     "id": "miraeasset.금융상품-세금혜택상품-국민성장집합증권저축전용계좌",
     "label": "국민성장집합증권저축전용계좌",
-    "synonyms": [
-      "세금혜택상품"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-세금혜택상품-국민성장집합증권저축전용계좌",
@@ -1767,9 +1360,7 @@
   {
     "id": "miraeasset.금융상품-세금혜택상품-해외주식투자전용펀드저축",
     "label": "해외주식투자전용펀드저축",
-    "synonyms": [
-      "세금혜택상품"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-세금혜택상품-해외주식투자전용펀드저축",
@@ -1778,11 +1369,7 @@
   {
     "id": "miraeasset.금융상품-세금혜택상품-재형저축펀드-소득공제장기펀드",
     "label": "재형저축펀드/소득공제장기펀드",
-    "synonyms": [
-      "재형저축펀드",
-      "소득공제장기펀드",
-      "세금혜택상품"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-세금혜택상품-재형저축펀드-소득공제장기펀드",
@@ -1791,11 +1378,7 @@
   {
     "id": "miraeasset.금융상품-세금혜택상품-벤처기업투자신탁-펀드",
     "label": "벤처기업투자신탁(펀드)",
-    "synonyms": [
-      "벤처기업투자신탁",
-      "펀드",
-      "세금혜택상품"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-세금혜택상품-벤처기업투자신탁-펀드",
@@ -1804,11 +1387,7 @@
   {
     "id": "miraeasset.금융상품-세금혜택상품-청년형-장기집합투자증권저축",
     "label": "청년형 장기집합투자증권저축",
-    "synonyms": [
-      "청년형",
-      "장기집합투자증권저축",
-      "세금혜택상품"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-세금혜택상품-청년형-장기집합투자증권저축",
@@ -1817,9 +1396,7 @@
   {
     "id": "miraeasset.금융상품-세금혜택상품-투융자집합투자기구전용계좌",
     "label": "투융자집합투자기구전용계좌",
-    "synonyms": [
-      "세금혜택상품"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-세금혜택상품-투융자집합투자기구전용계좌",
@@ -1828,12 +1405,7 @@
   {
     "id": "miraeasset.금융상품-세금혜택상품-분리과세-공모부동산위탁-펀드",
     "label": "분리과세 공모부동산위탁/펀드",
-    "synonyms": [
-      "분리과세",
-      "공모부동산위탁",
-      "펀드",
-      "세금혜택상품"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-세금혜택상품-분리과세-공모부동산위탁-펀드",
@@ -1842,11 +1414,7 @@
   {
     "id": "miraeasset.금융상품-세금혜택상품-분리과세-고위험고수익채권펀드",
     "label": "분리과세 고위험고수익채권펀드",
-    "synonyms": [
-      "분리과세",
-      "고위험고수익채권펀드",
-      "세금혜택상품"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-세금혜택상품-분리과세-고위험고수익채권펀드",
@@ -1855,9 +1423,7 @@
   {
     "id": "miraeasset.금융상품-숙려제도",
     "label": "숙려제도",
-    "synonyms": [
-      "금융상품"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-숙려제도",
@@ -1866,10 +1432,7 @@
   {
     "id": "miraeasset.금융상품-숙려제도-숙려제도-안내",
     "label": "숙려제도 안내",
-    "synonyms": [
-      "숙려제도",
-      "안내"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-숙려제도-숙려제도-안내",
@@ -1878,11 +1441,7 @@
   {
     "id": "miraeasset.금융상품-숙려제도-가입의사-확인",
     "label": "가입의사 확인",
-    "synonyms": [
-      "가입의사",
-      "확인",
-      "숙려제도"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-숙려제도-가입의사-확인",
@@ -1891,11 +1450,7 @@
   {
     "id": "miraeasset.금융상품-숙려제도-가입의사-조회",
     "label": "가입의사 조회",
-    "synonyms": [
-      "가입의사",
-      "조회",
-      "숙려제도"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-숙려제도-가입의사-조회",
@@ -1904,9 +1459,7 @@
   {
     "id": "miraeasset.금융상품-메뉴닫기",
     "label": "메뉴닫기",
-    "synonyms": [
-      "금융상품"
-    ],
+    "synonyms": [],
     "category": "금융상품",
     "icon": "doc",
     "route": "/miraeasset.금융상품-메뉴닫기",
@@ -1930,23 +1483,18 @@
     "id": "miraeasset.연금자산-MY개인연금-개인연금-잔고",
     "label": "개인연금 잔고",
     "synonyms": [
-      "개인연금",
-      "잔고",
-      "MY개인연금"
+      "개인연금 얼마",
+      "연금 잔고"
     ],
     "category": "연금자산",
-    "icon": "doc",
+    "icon": "coin",
     "route": "/miraeasset.연금자산-MY개인연금-개인연금-잔고",
     "riskLevel": "low"
   },
   {
     "id": "miraeasset.연금자산-MY개인연금-개인연금-수익률조회",
     "label": "개인연금 수익률조회",
-    "synonyms": [
-      "개인연금",
-      "수익률조회",
-      "MY개인연금"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-MY개인연금-개인연금-수익률조회",
@@ -1955,11 +1503,7 @@
   {
     "id": "miraeasset.연금자산-MY개인연금-개인연금-계좌정보조회",
     "label": "개인연금 계좌정보조회",
-    "synonyms": [
-      "개인연금",
-      "계좌정보조회",
-      "MY개인연금"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-MY개인연금-개인연금-계좌정보조회",
@@ -1968,11 +1512,7 @@
   {
     "id": "miraeasset.연금자산-MY개인연금-개인연금-한도정정",
     "label": "개인연금 한도정정",
-    "synonyms": [
-      "개인연금",
-      "한도정정",
-      "MY개인연금"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-MY개인연금-개인연금-한도정정",
@@ -1981,12 +1521,7 @@
   {
     "id": "miraeasset.연금자산-MY개인연금-개인연금-개시-해지신청",
     "label": "개인연금 개시/해지신청",
-    "synonyms": [
-      "개인연금",
-      "개시",
-      "해지신청",
-      "MY개인연금"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-MY개인연금-개인연금-개시-해지신청",
@@ -1995,9 +1530,7 @@
   {
     "id": "miraeasset.연금자산-개인연금매매",
     "label": "개인연금매매",
-    "synonyms": [
-      "연금자산"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-개인연금매매",
@@ -2006,11 +1539,7 @@
   {
     "id": "miraeasset.연금자산-개인연금매매-개인연금-펀드검색",
     "label": "개인연금 펀드검색",
-    "synonyms": [
-      "개인연금",
-      "펀드검색",
-      "개인연금매매"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-개인연금매매-개인연금-펀드검색",
@@ -2019,11 +1548,7 @@
   {
     "id": "miraeasset.연금자산-개인연금매매-개인연금-펀드매매",
     "label": "개인연금 펀드매매",
-    "synonyms": [
-      "개인연금",
-      "펀드매매",
-      "개인연금매매"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-개인연금매매-개인연금-펀드매매",
@@ -2032,12 +1557,7 @@
   {
     "id": "miraeasset.연금자산-개인연금매매-개인연금-ETF-리츠-인프라-매매",
     "label": "개인연금 ETF/리츠/인프라 매매",
-    "synonyms": [
-      "개인연금",
-      "ETF",
-      "리츠",
-      "인프라"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-개인연금매매-개인연금-ETF-리츠-인프라-매매",
@@ -2046,12 +1566,7 @@
   {
     "id": "miraeasset.연금자산-개인연금매매-개인연금-종목전환-교체",
     "label": "개인연금 종목전환/교체",
-    "synonyms": [
-      "개인연금",
-      "종목전환",
-      "교체",
-      "개인연금매매"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-개인연금매매-개인연금-종목전환-교체",
@@ -2060,11 +1575,7 @@
   {
     "id": "miraeasset.연금자산-개인연금매매-개인연금-분산투자정보",
     "label": "개인연금 분산투자정보",
-    "synonyms": [
-      "개인연금",
-      "분산투자정보",
-      "개인연금매매"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-개인연금매매-개인연금-분산투자정보",
@@ -2073,9 +1584,7 @@
   {
     "id": "miraeasset.연금자산-개인연금관리",
     "label": "개인연금관리",
-    "synonyms": [
-      "연금자산"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-개인연금관리",
@@ -2084,11 +1593,7 @@
   {
     "id": "miraeasset.연금자산-개인연금관리-개인연금-제도안내",
     "label": "개인연금 제도안내",
-    "synonyms": [
-      "개인연금",
-      "제도안내",
-      "개인연금관리"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-개인연금관리-개인연금-제도안내",
@@ -2097,11 +1602,7 @@
   {
     "id": "miraeasset.연금자산-개인연금관리-개인연금-계약이전제도",
     "label": "개인연금 계약이전제도",
-    "synonyms": [
-      "개인연금",
-      "계약이전제도",
-      "개인연금관리"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-개인연금관리-개인연금-계약이전제도",
@@ -2110,11 +1611,7 @@
   {
     "id": "miraeasset.연금자산-개인연금관리-개인연금-이전신청",
     "label": "개인연금 이전신청",
-    "synonyms": [
-      "개인연금",
-      "이전신청",
-      "개인연금관리"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-개인연금관리-개인연금-이전신청",
@@ -2123,12 +1620,7 @@
   {
     "id": "miraeasset.연금자산-개인연금관리-개인연금-담보대출-신청",
     "label": "개인연금 담보대출 신청",
-    "synonyms": [
-      "개인연금",
-      "담보대출",
-      "신청",
-      "개인연금관리"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-개인연금관리-개인연금-담보대출-신청",
@@ -2137,9 +1629,7 @@
   {
     "id": "miraeasset.연금자산-MY퇴직연금",
     "label": "MY퇴직연금",
-    "synonyms": [
-      "연금자산"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-MY퇴직연금",
@@ -2148,9 +1638,7 @@
   {
     "id": "miraeasset.연금자산-MY퇴직연금-퇴직연금잔고",
     "label": "퇴직연금잔고",
-    "synonyms": [
-      "MY퇴직연금"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-MY퇴직연금-퇴직연금잔고",
@@ -2159,11 +1647,7 @@
   {
     "id": "miraeasset.연금자산-MY퇴직연금-가입정보확인-및-발급",
     "label": "가입정보확인 및 발급",
-    "synonyms": [
-      "가입정보확인",
-      "발급",
-      "MY퇴직연금"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-MY퇴직연금-가입정보확인-및-발급",
@@ -2172,12 +1656,7 @@
   {
     "id": "miraeasset.연금자산-MY퇴직연금-퇴직연금-온라인-가입자교육",
     "label": "퇴직연금 온라인 가입자교육",
-    "synonyms": [
-      "퇴직연금",
-      "온라인",
-      "가입자교육",
-      "MY퇴직연금"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-MY퇴직연금-퇴직연금-온라인-가입자교육",
@@ -2186,11 +1665,7 @@
   {
     "id": "miraeasset.연금자산-퇴직연금-IRP매매",
     "label": "퇴직연금/IRP매매",
-    "synonyms": [
-      "퇴직연금",
-      "IRP매매",
-      "연금자산"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-퇴직연금-IRP매매",
@@ -2199,12 +1674,7 @@
   {
     "id": "miraeasset.연금자산-퇴직연금-IRP매매-퇴직연금-IRP-상품검색",
     "label": "퇴직연금/IRP 상품검색",
-    "synonyms": [
-      "퇴직연금",
-      "IRP",
-      "상품검색",
-      "퇴직연금/IRP매매"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-퇴직연금-IRP매매-퇴직연금-IRP-상품검색",
@@ -2213,12 +1683,7 @@
   {
     "id": "miraeasset.연금자산-퇴직연금-IRP매매-퇴직연금-IRP-상품매매",
     "label": "퇴직연금/IRP 상품매매",
-    "synonyms": [
-      "퇴직연금",
-      "IRP",
-      "상품매매",
-      "퇴직연금/IRP매매"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-퇴직연금-IRP매매-퇴직연금-IRP-상품매매",
@@ -2227,12 +1692,7 @@
   {
     "id": "miraeasset.연금자산-퇴직연금-IRP매매-퇴직연금-IRP-리츠-ETF-ETN",
     "label": "퇴직연금/IRP 리츠/ETF/ETN",
-    "synonyms": [
-      "퇴직연금",
-      "IRP",
-      "리츠",
-      "ETF"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-퇴직연금-IRP매매-퇴직연금-IRP-리츠-ETF-ETN",
@@ -2241,12 +1701,7 @@
   {
     "id": "miraeasset.연금자산-퇴직연금-IRP매매-퇴직연금-IRP-투자한도초과현황",
     "label": "퇴직연금/IRP 투자한도초과현황",
-    "synonyms": [
-      "퇴직연금",
-      "IRP",
-      "투자한도초과현황",
-      "퇴직연금/IRP매매"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-퇴직연금-IRP매매-퇴직연금-IRP-투자한도초과현황",
@@ -2255,12 +1710,7 @@
   {
     "id": "miraeasset.연금자산-퇴직연금-IRP매매-퇴직연금-IRP-상품라인업",
     "label": "퇴직연금/IRP 상품라인업",
-    "synonyms": [
-      "퇴직연금",
-      "IRP",
-      "상품라인업",
-      "퇴직연금/IRP매매"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-퇴직연금-IRP매매-퇴직연금-IRP-상품라인업",
@@ -2269,12 +1719,7 @@
   {
     "id": "miraeasset.연금자산-퇴직연금-IRP매매-퇴직연금-IRP-만기상품예약매수",
     "label": "퇴직연금/IRP 만기상품예약매수",
-    "synonyms": [
-      "퇴직연금",
-      "IRP",
-      "만기상품예약매수",
-      "퇴직연금/IRP매매"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-퇴직연금-IRP매매-퇴직연금-IRP-만기상품예약매수",
@@ -2283,12 +1728,7 @@
   {
     "id": "miraeasset.연금자산-퇴직연금-IRP매매-퇴직연금-IRP-분할매수",
     "label": "퇴직연금/IRP 분할매수",
-    "synonyms": [
-      "퇴직연금",
-      "IRP",
-      "분할매수",
-      "퇴직연금/IRP매매"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-퇴직연금-IRP매매-퇴직연금-IRP-분할매수",
@@ -2297,12 +1737,7 @@
   {
     "id": "miraeasset.연금자산-퇴직연금-IRP매매-퇴직연금-IRP-ELB매수",
     "label": "퇴직연금/IRP ELB매수",
-    "synonyms": [
-      "퇴직연금",
-      "IRP",
-      "ELB매수",
-      "퇴직연금/IRP매매"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-퇴직연금-IRP매매-퇴직연금-IRP-ELB매수",
@@ -2311,11 +1746,7 @@
   {
     "id": "miraeasset.연금자산-퇴직연금-IRP관리",
     "label": "퇴직연금/IRP관리",
-    "synonyms": [
-      "퇴직연금",
-      "IRP관리",
-      "연금자산"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-퇴직연금-IRP관리",
@@ -2324,12 +1755,7 @@
   {
     "id": "miraeasset.연금자산-퇴직연금-IRP관리-퇴직연금-IRP-입금한도",
     "label": "퇴직연금/IRP 입금한도",
-    "synonyms": [
-      "퇴직연금",
-      "IRP",
-      "입금한도",
-      "퇴직연금/IRP관리"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-퇴직연금-IRP관리-퇴직연금-IRP-입금한도",
@@ -2338,12 +1764,7 @@
   {
     "id": "miraeasset.연금자산-퇴직연금-IRP관리-퇴직연금-IRP-이체신청내역",
     "label": "퇴직연금/IRP 이체신청내역",
-    "synonyms": [
-      "퇴직연금",
-      "IRP",
-      "이체신청내역",
-      "퇴직연금/IRP관리"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-퇴직연금-IRP관리-퇴직연금-IRP-이체신청내역",
@@ -2352,12 +1773,7 @@
   {
     "id": "miraeasset.연금자산-퇴직연금-IRP관리-퇴직연금-IRP-Wrap-계약-해지",
     "label": "퇴직연금/IRP Wrap 계약 해지",
-    "synonyms": [
-      "퇴직연금",
-      "IRP",
-      "Wrap",
-      "계약"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-퇴직연금-IRP관리-퇴직연금-IRP-Wrap-계약-해지",
@@ -2366,11 +1782,7 @@
   {
     "id": "miraeasset.연금자산-퇴직연금-IRP관리-IRP-연금개시정보",
     "label": "IRP 연금개시정보",
-    "synonyms": [
-      "IRP",
-      "연금개시정보",
-      "퇴직연금/IRP관리"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-퇴직연금-IRP관리-IRP-연금개시정보",
@@ -2379,11 +1791,7 @@
   {
     "id": "miraeasset.연금자산-퇴직연금-IRP관리-IRP-해지신청",
     "label": "IRP 해지신청",
-    "synonyms": [
-      "IRP",
-      "해지신청",
-      "퇴직연금/IRP관리"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-퇴직연금-IRP관리-IRP-해지신청",
@@ -2392,11 +1800,7 @@
   {
     "id": "miraeasset.연금자산-퇴직연금-IRP관리-IRP-이전제도안내",
     "label": "IRP 이전제도안내",
-    "synonyms": [
-      "IRP",
-      "이전제도안내",
-      "퇴직연금/IRP관리"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-퇴직연금-IRP관리-IRP-이전제도안내",
@@ -2405,11 +1809,7 @@
   {
     "id": "miraeasset.연금자산-퇴직연금-IRP관리-IRP-이전신청",
     "label": "IRP 이전신청",
-    "synonyms": [
-      "IRP",
-      "이전신청",
-      "퇴직연금/IRP관리"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-퇴직연금-IRP관리-IRP-이전신청",
@@ -2418,9 +1818,7 @@
   {
     "id": "miraeasset.연금자산-퇴직연금서비스",
     "label": "퇴직연금서비스",
-    "synonyms": [
-      "연금자산"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-퇴직연금서비스",
@@ -2429,12 +1827,7 @@
   {
     "id": "miraeasset.연금자산-퇴직연금서비스-가입자를-위한-서비스",
     "label": "가입자를 위한 서비스",
-    "synonyms": [
-      "가입자를",
-      "위한",
-      "서비스",
-      "퇴직연금서비스"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-퇴직연금서비스-가입자를-위한-서비스",
@@ -2443,12 +1836,7 @@
   {
     "id": "miraeasset.연금자산-퇴직연금서비스-기업을-위한-서비스",
     "label": "기업을 위한 서비스",
-    "synonyms": [
-      "기업을",
-      "위한",
-      "서비스",
-      "퇴직연금서비스"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-퇴직연금서비스-기업을-위한-서비스",
@@ -2457,9 +1845,7 @@
   {
     "id": "miraeasset.연금자산-퇴직연금서비스-퇴직연금교육",
     "label": "퇴직연금교육",
-    "synonyms": [
-      "퇴직연금서비스"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-퇴직연금서비스-퇴직연금교육",
@@ -2468,9 +1854,7 @@
   {
     "id": "miraeasset.연금자산-퇴직연금서비스-은퇴금융교육",
     "label": "은퇴금융교육",
-    "synonyms": [
-      "퇴직연금서비스"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-퇴직연금서비스-은퇴금융교육",
@@ -2479,9 +1863,7 @@
   {
     "id": "miraeasset.연금자산-퇴직연금서비스-투자와연금센터",
     "label": "투자와연금센터",
-    "synonyms": [
-      "퇴직연금서비스"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-퇴직연금서비스-투자와연금센터",
@@ -2490,9 +1872,7 @@
   {
     "id": "miraeasset.연금자산-퇴직연금안내",
     "label": "퇴직연금안내",
-    "synonyms": [
-      "연금자산"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-퇴직연금안내",
@@ -2501,9 +1881,7 @@
   {
     "id": "miraeasset.연금자산-퇴직연금안내-제도안내",
     "label": "제도안내",
-    "synonyms": [
-      "퇴직연금안내"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-퇴직연금안내-제도안내",
@@ -2512,9 +1890,7 @@
   {
     "id": "miraeasset.연금자산-퇴직연금안내-도입안내",
     "label": "도입안내",
-    "synonyms": [
-      "퇴직연금안내"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-퇴직연금안내-도입안내",
@@ -2523,11 +1899,7 @@
   {
     "id": "miraeasset.연금자산-퇴직연금안내-중도인출-안내",
     "label": "중도인출 안내",
-    "synonyms": [
-      "중도인출",
-      "안내",
-      "퇴직연금안내"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-퇴직연금안내-중도인출-안내",
@@ -2536,12 +1908,7 @@
   {
     "id": "miraeasset.연금자산-퇴직연금안내-DC-IRP-운용가이드",
     "label": "DC/IRP 운용가이드",
-    "synonyms": [
-      "DC",
-      "IRP",
-      "운용가이드",
-      "퇴직연금안내"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-퇴직연금안내-DC-IRP-운용가이드",
@@ -2550,11 +1917,7 @@
   {
     "id": "miraeasset.연금자산-퇴직연금안내-DB-운용가이드",
     "label": "DB 운용가이드",
-    "synonyms": [
-      "DB",
-      "운용가이드",
-      "퇴직연금안내"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-퇴직연금안내-DB-운용가이드",
@@ -2563,12 +1926,7 @@
   {
     "id": "miraeasset.연금자산-퇴직연금안내-퇴직연금-상품-제안서",
     "label": "퇴직연금 상품 제안서",
-    "synonyms": [
-      "퇴직연금",
-      "상품",
-      "제안서",
-      "퇴직연금안내"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-퇴직연금안내-퇴직연금-상품-제안서",
@@ -2577,12 +1935,7 @@
   {
     "id": "miraeasset.연금자산-퇴직연금안내-디폴트옵션-상품-안내",
     "label": "디폴트옵션 상품 안내",
-    "synonyms": [
-      "디폴트옵션",
-      "상품",
-      "안내",
-      "퇴직연금안내"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-퇴직연금안내-디폴트옵션-상품-안내",
@@ -2591,9 +1944,7 @@
   {
     "id": "miraeasset.연금자산-사업자공시",
     "label": "사업자공시",
-    "synonyms": [
-      "연금자산"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-사업자공시",
@@ -2602,9 +1953,7 @@
   {
     "id": "miraeasset.연금자산-사업자공시-공지사항",
     "label": "공지사항",
-    "synonyms": [
-      "사업자공시"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-사업자공시-공지사항",
@@ -2613,11 +1962,7 @@
   {
     "id": "miraeasset.연금자산-사업자공시-업무의-종류",
     "label": "업무의 종류",
-    "synonyms": [
-      "업무의",
-      "종류",
-      "사업자공시"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-사업자공시-업무의-종류",
@@ -2627,10 +1972,9 @@
     "id": "miraeasset.연금자산-사업자공시-운용-자산관리-수수료",
     "label": "운용/자산관리 수수료",
     "synonyms": [
-      "운용",
-      "자산관리",
-      "수수료",
-      "사업자공시"
+      "수수료 얼마",
+      "돈 얼마 드나",
+      "수수료 안내"
     ],
     "category": "연금자산",
     "icon": "doc",
@@ -2640,12 +1984,7 @@
   {
     "id": "miraeasset.연금자산-사업자공시-운용-자산관리계약-약관",
     "label": "운용/자산관리계약 약관",
-    "synonyms": [
-      "운용",
-      "자산관리계약",
-      "약관",
-      "사업자공시"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-사업자공시-운용-자산관리계약-약관",
@@ -2654,12 +1993,7 @@
   {
     "id": "miraeasset.연금자산-사업자공시-적립금-운용방법-수익률",
     "label": "적립금 운용방법/수익률",
-    "synonyms": [
-      "적립금",
-      "운용방법",
-      "수익률",
-      "사업자공시"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-사업자공시-적립금-운용방법-수익률",
@@ -2668,12 +2002,7 @@
   {
     "id": "miraeasset.연금자산-사업자공시-미래에셋증권-적립금운용금액-수익률",
     "label": "미래에셋증권 적립금운용금액/수익률",
-    "synonyms": [
-      "미래에셋증권",
-      "적립금운용금액",
-      "수익률",
-      "사업자공시"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-사업자공시-미래에셋증권-적립금운용금액-수익률",
@@ -2682,11 +2011,7 @@
   {
     "id": "miraeasset.연금자산-사업자공시-사업자-등록내용",
     "label": "사업자 등록내용",
-    "synonyms": [
-      "사업자",
-      "등록내용",
-      "사업자공시"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-사업자공시-사업자-등록내용",
@@ -2695,9 +2020,7 @@
   {
     "id": "miraeasset.연금자산-사업자공시-원리금보장상품",
     "label": "원리금보장상품",
-    "synonyms": [
-      "사업자공시"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-사업자공시-원리금보장상품",
@@ -2706,12 +2029,7 @@
   {
     "id": "miraeasset.연금자산-퇴직연금-IRP-간편조회",
     "label": "퇴직연금/IRP 간편조회",
-    "synonyms": [
-      "퇴직연금",
-      "IRP",
-      "간편조회",
-      "연금자산"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-퇴직연금-IRP-간편조회",
@@ -2720,9 +2038,7 @@
   {
     "id": "miraeasset.연금자산-메뉴닫기",
     "label": "메뉴닫기",
-    "synonyms": [
-      "연금자산"
-    ],
+    "synonyms": [],
     "category": "연금자산",
     "icon": "doc",
     "route": "/miraeasset.연금자산-메뉴닫기",
@@ -2731,11 +2047,7 @@
   {
     "id": "miraeasset.투자정보-리서치-리포트",
     "label": "리서치 리포트",
-    "synonyms": [
-      "리서치",
-      "리포트",
-      "투자정보"
-    ],
+    "synonyms": [],
     "category": "투자정보",
     "icon": "doc",
     "route": "/miraeasset.투자정보-리서치-리포트",
@@ -2744,9 +2056,7 @@
   {
     "id": "miraeasset.투자정보-리서치-리포트-전체",
     "label": "전체",
-    "synonyms": [
-      "리서치 리포트"
-    ],
+    "synonyms": [],
     "category": "투자정보",
     "icon": "doc",
     "route": "/miraeasset.투자정보-리서치-리포트-전체",
@@ -2755,9 +2065,7 @@
   {
     "id": "miraeasset.투자정보-리서치-리포트-기업분석",
     "label": "기업분석",
-    "synonyms": [
-      "리서치 리포트"
-    ],
+    "synonyms": [],
     "category": "투자정보",
     "icon": "doc",
     "route": "/miraeasset.투자정보-리서치-리포트-기업분석",
@@ -2766,9 +2074,7 @@
   {
     "id": "miraeasset.투자정보-리서치-리포트-산업분석",
     "label": "산업분석",
-    "synonyms": [
-      "리서치 리포트"
-    ],
+    "synonyms": [],
     "category": "투자정보",
     "icon": "doc",
     "route": "/miraeasset.투자정보-리서치-리포트-산업분석",
@@ -2777,9 +2083,7 @@
   {
     "id": "miraeasset.투자정보-리서치-리포트-투자전략",
     "label": "투자전략",
-    "synonyms": [
-      "리서치 리포트"
-    ],
+    "synonyms": [],
     "category": "투자정보",
     "icon": "doc",
     "route": "/miraeasset.투자정보-리서치-리포트-투자전략",
@@ -2788,11 +2092,7 @@
   {
     "id": "miraeasset.투자정보-리서치-리포트-글로벌-ETF",
     "label": "글로벌 ETF",
-    "synonyms": [
-      "글로벌",
-      "ETF",
-      "리서치 리포트"
-    ],
+    "synonyms": [],
     "category": "투자정보",
     "icon": "doc",
     "route": "/miraeasset.투자정보-리서치-리포트-글로벌-ETF",
@@ -2801,9 +2101,7 @@
   {
     "id": "miraeasset.투자정보-리서치-리포트-공지사항",
     "label": "공지사항",
-    "synonyms": [
-      "리서치 리포트"
-    ],
+    "synonyms": [],
     "category": "투자정보",
     "icon": "doc",
     "route": "/miraeasset.투자정보-리서치-리포트-공지사항",
@@ -2812,9 +2110,7 @@
   {
     "id": "miraeasset.투자정보-종목서베이",
     "label": "종목서베이",
-    "synonyms": [
-      "투자정보"
-    ],
+    "synonyms": [],
     "category": "투자정보",
     "icon": "doc",
     "route": "/miraeasset.투자정보-종목서베이",
@@ -2823,9 +2119,7 @@
   {
     "id": "miraeasset.투자정보-종목서베이-분기실적속보",
     "label": "분기실적속보",
-    "synonyms": [
-      "종목서베이"
-    ],
+    "synonyms": [],
     "category": "투자정보",
     "icon": "doc",
     "route": "/miraeasset.투자정보-종목서베이-분기실적속보",
@@ -2834,9 +2128,7 @@
   {
     "id": "miraeasset.투자정보-종목서베이-한국경제TV증권방송",
     "label": "한국경제TV증권방송",
-    "synonyms": [
-      "종목서베이"
-    ],
+    "synonyms": [],
     "category": "투자정보",
     "icon": "doc",
     "route": "/miraeasset.투자정보-종목서베이-한국경제TV증권방송",
@@ -2845,9 +2137,7 @@
   {
     "id": "miraeasset.투자정보-종목서베이-머니투데이증권방송",
     "label": "머니투데이증권방송",
-    "synonyms": [
-      "종목서베이"
-    ],
+    "synonyms": [],
     "category": "투자정보",
     "icon": "doc",
     "route": "/miraeasset.투자정보-종목서베이-머니투데이증권방송",
@@ -2856,11 +2146,7 @@
   {
     "id": "miraeasset.투자정보-종목서베이-증권사-리포트",
     "label": "증권사 리포트",
-    "synonyms": [
-      "증권사",
-      "리포트",
-      "종목서베이"
-    ],
+    "synonyms": [],
     "category": "투자정보",
     "icon": "doc",
     "route": "/miraeasset.투자정보-종목서베이-증권사-리포트",
@@ -2869,12 +2155,7 @@
   {
     "id": "miraeasset.투자정보-국내주식-금액주문-소수점-가능-종목",
     "label": "국내주식 금액주문(소수점) 가능 종목",
-    "synonyms": [
-      "국내주식",
-      "금액주문",
-      "소수점",
-      "가능"
-    ],
+    "synonyms": [],
     "category": "투자정보",
     "icon": "doc",
     "route": "/miraeasset.투자정보-국내주식-금액주문-소수점-가능-종목",
@@ -2883,12 +2164,7 @@
   {
     "id": "miraeasset.투자정보-코넥스-기업현황-보고서-및-기타",
     "label": "코넥스 기업현황 보고서 및 기타",
-    "synonyms": [
-      "코넥스",
-      "기업현황",
-      "보고서",
-      "기타"
-    ],
+    "synonyms": [],
     "category": "투자정보",
     "icon": "doc",
     "route": "/miraeasset.투자정보-코넥스-기업현황-보고서-및-기타",
@@ -2899,22 +2175,18 @@
     "label": "해외주식/선물옵션안내",
     "synonyms": [
       "해외주식",
-      "선물옵션안내",
-      "투자정보"
+      "미국 주식",
+      "외국 주식"
     ],
     "category": "투자정보",
-    "icon": "doc",
+    "icon": "globe",
     "route": "/miraeasset.투자정보-해외주식-선물옵션안내",
     "riskLevel": "low"
   },
   {
     "id": "miraeasset.투자정보-해외주식-선물옵션안내-해외주식-거래안내",
     "label": "해외주식 거래안내",
-    "synonyms": [
-      "해외주식",
-      "거래안내",
-      "해외주식/선물옵션안내"
-    ],
+    "synonyms": [],
     "category": "투자정보",
     "icon": "doc",
     "route": "/miraeasset.투자정보-해외주식-선물옵션안내-해외주식-거래안내",
@@ -2923,11 +2195,7 @@
   {
     "id": "miraeasset.투자정보-해외주식-선물옵션안내-해외주식-거래절차",
     "label": "해외주식 거래절차",
-    "synonyms": [
-      "해외주식",
-      "거래절차",
-      "해외주식/선물옵션안내"
-    ],
+    "synonyms": [],
     "category": "투자정보",
     "icon": "doc",
     "route": "/miraeasset.투자정보-해외주식-선물옵션안내-해외주식-거래절차",
@@ -2936,11 +2204,7 @@
   {
     "id": "miraeasset.투자정보-해외주식-선물옵션안내-거래가능국가-소개",
     "label": "거래가능국가 소개",
-    "synonyms": [
-      "거래가능국가",
-      "소개",
-      "해외주식/선물옵션안내"
-    ],
+    "synonyms": [],
     "category": "투자정보",
     "icon": "doc",
     "route": "/miraeasset.투자정보-해외주식-선물옵션안내-거래가능국가-소개",
@@ -2949,12 +2213,7 @@
   {
     "id": "miraeasset.투자정보-해외주식-선물옵션안내-싱가포르-DLC-거래안내",
     "label": "싱가포르 DLC 거래안내",
-    "synonyms": [
-      "싱가포르",
-      "DLC",
-      "거래안내",
-      "해외주식/선물옵션안내"
-    ],
+    "synonyms": [],
     "category": "투자정보",
     "icon": "doc",
     "route": "/miraeasset.투자정보-해외주식-선물옵션안내-싱가포르-DLC-거래안내",
@@ -2963,12 +2222,7 @@
   {
     "id": "miraeasset.투자정보-해외주식-선물옵션안내-해외-ETP-거래안내",
     "label": "해외 ETP 거래안내",
-    "synonyms": [
-      "해외",
-      "ETP",
-      "거래안내",
-      "해외주식/선물옵션안내"
-    ],
+    "synonyms": [],
     "category": "투자정보",
     "icon": "doc",
     "route": "/miraeasset.투자정보-해외주식-선물옵션안내-해외-ETP-거래안내",
@@ -2977,11 +2231,7 @@
   {
     "id": "miraeasset.투자정보-해외주식-선물옵션안내-해외선물옵션-안내",
     "label": "해외선물옵션 안내",
-    "synonyms": [
-      "해외선물옵션",
-      "안내",
-      "해외주식/선물옵션안내"
-    ],
+    "synonyms": [],
     "category": "투자정보",
     "icon": "doc",
     "route": "/miraeasset.투자정보-해외주식-선물옵션안내-해외선물옵션-안내",
@@ -2990,11 +2240,7 @@
   {
     "id": "miraeasset.투자정보-해외주식-선물옵션안내-해외선물옵션-거래안내",
     "label": "해외선물옵션 거래안내",
-    "synonyms": [
-      "해외선물옵션",
-      "거래안내",
-      "해외주식/선물옵션안내"
-    ],
+    "synonyms": [],
     "category": "투자정보",
     "icon": "doc",
     "route": "/miraeasset.투자정보-해외주식-선물옵션안내-해외선물옵션-거래안내",
@@ -3003,11 +2249,7 @@
   {
     "id": "miraeasset.투자정보-해외주식-선물옵션안내-야간선물옵션-안내",
     "label": "야간선물옵션 안내",
-    "synonyms": [
-      "야간선물옵션",
-      "안내",
-      "해외주식/선물옵션안내"
-    ],
+    "synonyms": [],
     "category": "투자정보",
     "icon": "doc",
     "route": "/miraeasset.투자정보-해외주식-선물옵션안내-야간선물옵션-안내",
@@ -3016,9 +2258,7 @@
   {
     "id": "miraeasset.투자정보-해외증시",
     "label": "해외증시",
-    "synonyms": [
-      "투자정보"
-    ],
+    "synonyms": [],
     "category": "투자정보",
     "icon": "doc",
     "route": "/miraeasset.투자정보-해외증시",
@@ -3027,9 +2267,7 @@
   {
     "id": "miraeasset.투자정보-해외증시-세계증시",
     "label": "세계증시",
-    "synonyms": [
-      "해외증시"
-    ],
+    "synonyms": [],
     "category": "투자정보",
     "icon": "doc",
     "route": "/miraeasset.투자정보-해외증시-세계증시",
@@ -3038,9 +2276,7 @@
   {
     "id": "miraeasset.투자정보-해외증시-국가지수",
     "label": "국가지수",
-    "synonyms": [
-      "해외증시"
-    ],
+    "synonyms": [],
     "category": "투자정보",
     "icon": "doc",
     "route": "/miraeasset.투자정보-해외증시-국가지수",
@@ -3050,11 +2286,7 @@
   {
     "id": "miraeasset.투자정보-해외증시-상품-선물종합",
     "label": "상품/선물종합",
-    "synonyms": [
-      "상품",
-      "선물종합",
-      "해외증시"
-    ],
+    "synonyms": [],
     "category": "투자정보",
     "icon": "doc",
     "route": "/miraeasset.투자정보-해외증시-상품-선물종합",
@@ -3063,11 +2295,7 @@
   {
     "id": "miraeasset.투자정보-해외증시-CME-LME선물",
     "label": "CME/LME선물",
-    "synonyms": [
-      "CME",
-      "LME선물",
-      "해외증시"
-    ],
+    "synonyms": [],
     "category": "투자정보",
     "icon": "doc",
     "route": "/miraeasset.투자정보-해외증시-CME-LME선물",
@@ -3076,9 +2304,7 @@
   {
     "id": "miraeasset.투자정보-해외증시-세계환율",
     "label": "세계환율",
-    "synonyms": [
-      "해외증시"
-    ],
+    "synonyms": [],
     "category": "투자정보",
     "icon": "doc",
     "route": "/miraeasset.투자정보-해외증시-세계환율",
@@ -3087,9 +2313,7 @@
   {
     "id": "miraeasset.투자정보-해외증시-종합차트",
     "label": "종합차트",
-    "synonyms": [
-      "해외증시"
-    ],
+    "synonyms": [],
     "category": "투자정보",
     "icon": "doc",
     "route": "/miraeasset.투자정보-해외증시-종합차트",
@@ -3099,9 +2323,7 @@
   {
     "id": "miraeasset.투자정보-해외증시-채권금리",
     "label": "채권금리",
-    "synonyms": [
-      "해외증시"
-    ],
+    "synonyms": [],
     "category": "투자정보",
     "icon": "doc",
     "route": "/miraeasset.투자정보-해외증시-채권금리",
@@ -3110,9 +2332,7 @@
   {
     "id": "miraeasset.투자정보-해외증시-증시일정",
     "label": "증시일정",
-    "synonyms": [
-      "해외증시"
-    ],
+    "synonyms": [],
     "category": "투자정보",
     "icon": "doc",
     "route": "/miraeasset.투자정보-해외증시-증시일정",
@@ -3121,9 +2341,7 @@
   {
     "id": "miraeasset.투자정보-해외증시리포트",
     "label": "해외증시리포트",
-    "synonyms": [
-      "투자정보"
-    ],
+    "synonyms": [],
     "category": "투자정보",
     "icon": "doc",
     "route": "/miraeasset.투자정보-해외증시리포트",
@@ -3132,9 +2350,7 @@
   {
     "id": "miraeasset.투자정보-해외증시리포트-미국리서치",
     "label": "미국리서치",
-    "synonyms": [
-      "해외증시리포트"
-    ],
+    "synonyms": [],
     "category": "투자정보",
     "icon": "doc",
     "route": "/miraeasset.투자정보-해외증시리포트-미국리서치",
@@ -3143,9 +2359,7 @@
   {
     "id": "miraeasset.투자정보-해외증시리포트-중국홍콩리서치",
     "label": "중국홍콩리서치",
-    "synonyms": [
-      "해외증시리포트"
-    ],
+    "synonyms": [],
     "category": "투자정보",
     "icon": "doc",
     "route": "/miraeasset.투자정보-해외증시리포트-중국홍콩리서치",
@@ -3154,9 +2368,7 @@
   {
     "id": "miraeasset.how2invest",
     "label": "블로그",
-    "synonyms": [
-      "투자정보"
-    ],
+    "synonyms": [],
     "category": "투자정보",
     "icon": "doc",
     "route": "/miraeasset.how2invest",
@@ -3165,9 +2377,7 @@
   {
     "id": "miraeasset.투자정보-구-미래에셋증권",
     "label": "구.미래에셋증권",
-    "synonyms": [
-      "투자정보"
-    ],
+    "synonyms": [],
     "category": "투자정보",
     "icon": "doc",
     "route": "/miraeasset.투자정보-구-미래에셋증권",
@@ -3176,9 +2386,7 @@
   {
     "id": "miraeasset.투자정보-구-미래에셋증권-투자전략",
     "label": "투자전략",
-    "synonyms": [
-      "구.미래에셋증권"
-    ],
+    "synonyms": [],
     "category": "투자정보",
     "icon": "doc",
     "route": "/miraeasset.투자정보-구-미래에셋증권-투자전략",
@@ -3187,11 +2395,7 @@
   {
     "id": "miraeasset.투자정보-구-미래에셋증권-기업-산업분석",
     "label": "기업/산업분석",
-    "synonyms": [
-      "기업",
-      "산업분석",
-      "구.미래에셋증권"
-    ],
+    "synonyms": [],
     "category": "투자정보",
     "icon": "doc",
     "route": "/miraeasset.투자정보-구-미래에셋증권-기업-산업분석",
@@ -3200,9 +2404,7 @@
   {
     "id": "miraeasset.투자정보-메뉴닫기",
     "label": "메뉴닫기",
-    "synonyms": [
-      "투자정보"
-    ],
+    "synonyms": [],
     "category": "투자정보",
     "icon": "doc",
     "route": "/miraeasset.투자정보-메뉴닫기",
@@ -3224,11 +2426,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-계좌개설-ID-온라인-계좌개설",
     "label": "온라인 계좌개설",
-    "synonyms": [
-      "온라인",
-      "계좌개설",
-      "계좌개설/ID"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-계좌개설-ID-온라인-계좌개설",
@@ -3237,9 +2435,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-계좌개설-ID-ID등록",
     "label": "ID등록",
-    "synonyms": [
-      "계좌개설/ID"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-계좌개설-ID-ID등록",
@@ -3248,9 +2444,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-계좌개설-ID-ID찾기",
     "label": "ID찾기",
-    "synonyms": [
-      "계좌개설/ID"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-계좌개설-ID-ID찾기",
@@ -3259,9 +2453,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-계좌개설-ID-ID통합",
     "label": "ID통합",
-    "synonyms": [
-      "계좌개설/ID"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-계좌개설-ID-ID통합",
@@ -3270,11 +2462,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-계좌개설-ID-무ID서비스-신청",
     "label": "무ID서비스 신청",
-    "synonyms": [
-      "무ID서비스",
-      "신청",
-      "계좌개설/ID"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-계좌개설-ID-무ID서비스-신청",
@@ -3283,12 +2471,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-계좌개설-ID-ID별-계좌등록-해지",
     "label": "ID별 계좌등록/해지",
-    "synonyms": [
-      "ID별",
-      "계좌등록",
-      "해지",
-      "계좌개설/ID"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-계좌개설-ID-ID별-계좌등록-해지",
@@ -3297,12 +2480,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-계좌개설-ID-ARS-등록-해지",
     "label": "ARS 등록/해지",
-    "synonyms": [
-      "ARS",
-      "등록",
-      "해지",
-      "계좌개설/ID"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-계좌개설-ID-ARS-등록-해지",
@@ -3311,11 +2489,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-계좌개설-ID-휴면계좌-찾기",
     "label": "휴면계좌 찾기",
-    "synonyms": [
-      "휴면계좌",
-      "찾기",
-      "계좌개설/ID"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-계좌개설-ID-휴면계좌-찾기",
@@ -3324,11 +2498,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-계좌개설-ID-계좌번호-찾기",
     "label": "계좌번호 찾기",
-    "synonyms": [
-      "계좌번호",
-      "찾기",
-      "계좌개설/ID"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-계좌개설-ID-계좌번호-찾기",
@@ -3337,9 +2507,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-계좌개설-ID-계좌폐쇄",
     "label": "계좌폐쇄",
-    "synonyms": [
-      "계좌개설/ID"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-계좌개설-ID-계좌폐쇄",
@@ -3348,9 +2516,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-계좌개설-ID-ID해지",
     "label": "ID해지",
-    "synonyms": [
-      "계좌개설/ID"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-계좌개설-ID-ID해지",
@@ -3359,11 +2525,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-매매신청-해지",
     "label": "매매신청/해지",
-    "synonyms": [
-      "매매신청",
-      "해지",
-      "서비스 신청/변경"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-매매신청-해지",
@@ -3372,12 +2534,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-매매신청-해지-해외거래약정-신청-해지",
     "label": "해외거래약정 신청/해지",
-    "synonyms": [
-      "해외거래약정",
-      "신청",
-      "해지",
-      "매매신청/해지"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-매매신청-해지-해외거래약정-신청-해지",
@@ -3386,12 +2543,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-매매신청-해지-파생ETF-ETN-변동성ETN-해외ETP-DLC-신청-해지",
     "label": "파생ETF/ETN/변동성ETN/해외ETP/DLC 신청/해지",
-    "synonyms": [
-      "파생ETF",
-      "ETN",
-      "변동성ETN",
-      "해외ETP"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-매매신청-해지-파생ETF-ETN-변동성ETN-해외ETP-DLC-신청-해지",
@@ -3400,11 +2552,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-매매신청-해지-ELW매매거래신청-해지",
     "label": "ELW매매거래신청/해지",
-    "synonyms": [
-      "ELW매매거래신청",
-      "해지",
-      "매매신청/해지"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-매매신청-해지-ELW매매거래신청-해지",
@@ -3413,12 +2561,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-매매신청-해지-매매가능-유가증권-설정",
     "label": "매매가능 유가증권 설정",
-    "synonyms": [
-      "매매가능",
-      "유가증권",
-      "설정",
-      "매매신청/해지"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-매매신청-해지-매매가능-유가증권-설정",
@@ -3427,12 +2570,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-매매신청-해지-레버리지-ETF-ETN-교육이수-등록",
     "label": "레버리지 ETF/ETN 교육이수 등록",
-    "synonyms": [
-      "레버리지",
-      "ETF",
-      "ETN",
-      "교육이수"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-매매신청-해지-레버리지-ETF-ETN-교육이수-등록",
@@ -3441,9 +2579,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-고객정보관리",
     "label": "고객정보관리",
-    "synonyms": [
-      "서비스 신청/변경"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-고객정보관리",
@@ -3452,12 +2588,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-고객정보관리-ID-비밀번호-재등록",
     "label": "ID 비밀번호 재등록",
-    "synonyms": [
-      "ID",
-      "비밀번호",
-      "재등록",
-      "고객정보관리"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-고객정보관리-ID-비밀번호-재등록",
@@ -3466,11 +2597,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-고객정보관리-계좌비밀번호-재등록",
     "label": "계좌비밀번호 재등록",
-    "synonyms": [
-      "계좌비밀번호",
-      "재등록",
-      "고객정보관리"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-고객정보관리-계좌비밀번호-재등록",
@@ -3479,9 +2606,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-고객정보관리-연락처정보변경",
     "label": "연락처정보변경",
-    "synonyms": [
-      "고객정보관리"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-고객정보관리-연락처정보변경",
@@ -3490,9 +2615,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-고객정보관리-계좌정보조회",
     "label": "계좌정보조회",
-    "synonyms": [
-      "고객정보관리"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-고객정보관리-계좌정보조회",
@@ -3501,9 +2624,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-고객정보관리-투자자정보확인서",
     "label": "투자자정보확인서",
-    "synonyms": [
-      "고객정보관리"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-고객정보관리-투자자정보확인서",
@@ -3512,11 +2633,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-고객정보관리-현재-투자자금성향확인서",
     "label": "현재 투자자금성향확인서",
-    "synonyms": [
-      "현재",
-      "투자자금성향확인서",
-      "고객정보관리"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-고객정보관리-현재-투자자금성향확인서",
@@ -3525,12 +2642,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-고객정보관리-개인-신용-정보-수집이용제공-등록-조회",
     "label": "개인(신용)정보 수집이용제공 등록/조회",
-    "synonyms": [
-      "개인",
-      "신용",
-      "정보",
-      "수집이용제공"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-고객정보관리-개인-신용-정보-수집이용제공-등록-조회",
@@ -3539,12 +2651,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-고객정보관리-본인정보-공유여부-사실조회",
     "label": "본인정보 공유여부 사실조회",
-    "synonyms": [
-      "본인정보",
-      "공유여부",
-      "사실조회",
-      "고객정보관리"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-고객정보관리-본인정보-공유여부-사실조회",
@@ -3553,12 +2660,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-고객정보관리-우편통보사절-신청-해지",
     "label": "우편통보사절 신청/해지",
-    "synonyms": [
-      "우편통보사절",
-      "신청",
-      "해지",
-      "고객정보관리"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-고객정보관리-우편통보사절-신청-해지",
@@ -3567,12 +2669,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-고객정보관리-통보처-등록-변경",
     "label": "통보처 등록/변경",
-    "synonyms": [
-      "통보처",
-      "등록",
-      "변경",
-      "고객정보관리"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-고객정보관리-통보처-등록-변경",
@@ -3581,11 +2678,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-고객정보관리-장기미사용-계좌해제",
     "label": "장기미사용 계좌해제",
-    "synonyms": [
-      "장기미사용",
-      "계좌해제",
-      "고객정보관리"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-고객정보관리-장기미사용-계좌해제",
@@ -3594,9 +2687,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-고객정보관리-반송해지",
     "label": "반송해지",
-    "synonyms": [
-      "고객정보관리"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-고객정보관리-반송해지",
@@ -3605,11 +2696,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-서비스신청-관리",
     "label": "서비스신청/관리",
-    "synonyms": [
-      "서비스신청",
-      "관리",
-      "서비스 신청/변경"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-서비스신청-관리",
@@ -3618,11 +2705,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-서비스신청-관리-알리미서비스-안내",
     "label": "알리미서비스 안내",
-    "synonyms": [
-      "알리미서비스",
-      "안내",
-      "서비스신청/관리"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-서비스신청-관리-알리미서비스-안내",
@@ -3631,11 +2714,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-서비스신청-관리-이메일서비스-신청",
     "label": "이메일서비스 신청",
-    "synonyms": [
-      "이메일서비스",
-      "신청",
-      "서비스신청/관리"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-서비스신청-관리-이메일서비스-신청",
@@ -3644,12 +2723,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-서비스신청-관리-외화예탁금-자동매수형-RP",
     "label": "외화예탁금 자동매수형(RP)",
-    "synonyms": [
-      "외화예탁금",
-      "자동매수형",
-      "RP",
-      "서비스신청/관리"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-서비스신청-관리-외화예탁금-자동매수형-RP",
@@ -3658,12 +2732,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-서비스신청-관리-증명서-발급-조회-진위확인",
     "label": "증명서 발급/조회/진위확인",
-    "synonyms": [
-      "증명서",
-      "발급",
-      "조회",
-      "진위확인"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-서비스신청-관리-증명서-발급-조회-진위확인",
@@ -3672,11 +2741,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-서비스신청-관리-분실신고-사고등록",
     "label": "분실신고(사고등록)",
-    "synonyms": [
-      "분실신고",
-      "사고등록",
-      "서비스신청/관리"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-서비스신청-관리-분실신고-사고등록",
@@ -3685,9 +2750,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-서비스신청-관리-투자권유대행인",
     "label": "투자권유대행인",
-    "synonyms": [
-      "서비스신청/관리"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-서비스신청-관리-투자권유대행인",
@@ -3696,12 +2759,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-서비스신청-관리-쿠폰-등록-및-사용내역조회",
     "label": "쿠폰 등록 및 사용내역조회",
-    "synonyms": [
-      "쿠폰",
-      "등록",
-      "사용내역조회",
-      "서비스신청/관리"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-서비스신청-관리-쿠폰-등록-및-사용내역조회",
@@ -3710,11 +2768,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-서비스신청-관리-전문투자자-안내",
     "label": "전문투자자 안내",
-    "synonyms": [
-      "전문투자자",
-      "안내",
-      "서비스신청/관리"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-서비스신청-관리-전문투자자-안내",
@@ -3723,12 +2777,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-서비스신청-관리-최선주문집행-확인서-발급-신청",
     "label": "최선주문집행 확인서 발급 신청",
-    "synonyms": [
-      "최선주문집행",
-      "확인서",
-      "발급",
-      "신청"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-서비스신청-관리-최선주문집행-확인서-발급-신청",
@@ -3737,9 +2786,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-실전투자대회",
     "label": "실전투자대회",
-    "synonyms": [
-      "서비스 신청/변경"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-실전투자대회",
@@ -3748,9 +2795,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-실전투자대회-대회개요",
     "label": "대회개요",
-    "synonyms": [
-      "실전투자대회"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-실전투자대회-대회개요",
@@ -3759,9 +2804,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-실전투자대회-대회안내",
     "label": "대회안내",
-    "synonyms": [
-      "실전투자대회"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-실전투자대회-대회안내",
@@ -3770,9 +2813,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-실전투자대회-대회규정",
     "label": "대회규정",
-    "synonyms": [
-      "실전투자대회"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-실전투자대회-대회규정",
@@ -3781,12 +2822,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-실전투자대회-참가신청-및-조회-취소",
     "label": "참가신청 및 조회/취소",
-    "synonyms": [
-      "참가신청",
-      "조회",
-      "취소",
-      "실전투자대회"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-실전투자대회-참가신청-및-조회-취소",
@@ -3795,9 +2831,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-실전투자대회-대회공지",
     "label": "대회공지",
-    "synonyms": [
-      "실전투자대회"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-실전투자대회-대회공지",
@@ -3806,9 +2840,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-실전투자대회-대회중계",
     "label": "대회중계",
-    "synonyms": [
-      "실전투자대회"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-실전투자대회-대회중계",
@@ -3817,9 +2849,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-실전투자대회-나의계좌정보",
     "label": "나의계좌정보",
-    "synonyms": [
-      "실전투자대회"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-실전투자대회-나의계좌정보",
@@ -3828,11 +2858,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-실전투자대회-1-1-문의",
     "label": "1:1 문의",
-    "synonyms": [
-      "1:1",
-      "문의",
-      "실전투자대회"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-실전투자대회-1-1-문의",
@@ -3841,9 +2867,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-실전투자대회-명예의전당",
     "label": "명예의전당",
-    "synonyms": [
-      "실전투자대회"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-실전투자대회-명예의전당",
@@ -3852,12 +2876,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-국내-해외파생상품-모의거래",
     "label": "국내/해외파생상품 모의거래",
-    "synonyms": [
-      "국내",
-      "해외파생상품",
-      "모의거래",
-      "서비스 신청/변경"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-국내-해외파생상품-모의거래",
@@ -3866,12 +2885,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-국내-해외파생상품-모의거래-국내-사전교육-및-모의거래이수-등록",
     "label": "국내 사전교육 및 모의거래이수 등록",
-    "synonyms": [
-      "국내",
-      "사전교육",
-      "모의거래이수",
-      "등록"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-국내-해외파생상품-모의거래-국내-사전교육-및-모의거래이수-등록",
@@ -3880,12 +2894,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-국내-해외파생상품-모의거래-해외-사전교육-및-모의거래-이수-등록",
     "label": "해외 사전교육 및 모의거래 이수 등록",
-    "synonyms": [
-      "해외",
-      "사전교육",
-      "모의거래",
-      "이수"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-국내-해외파생상품-모의거래-해외-사전교육-및-모의거래-이수-등록",
@@ -3894,12 +2903,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-국내-해외파생상품-모의거래-모의거래-이수-및-거래확인서-발급",
     "label": "모의거래 이수 및 거래확인서 발급",
-    "synonyms": [
-      "모의거래",
-      "이수",
-      "거래확인서",
-      "발급"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-국내-해외파생상품-모의거래-모의거래-이수-및-거래확인서-발급",
@@ -3908,12 +2912,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-국내-해외파생상품-모의거래-거래확인서-및-모의거래-수료증-진위확인",
     "label": "거래확인서 및 모의거래 수료증 진위확인",
-    "synonyms": [
-      "거래확인서",
-      "모의거래",
-      "수료증",
-      "진위확인"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-국내-해외파생상품-모의거래-거래확인서-및-모의거래-수료증-진위확인",
@@ -3922,12 +2921,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-모의투자-로그인-및-참가신청",
     "label": "모의투자 로그인 및 참가신청",
-    "synonyms": [
-      "모의투자",
-      "로그인",
-      "참가신청",
-      "서비스 신청/변경"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-모의투자-로그인-및-참가신청",
@@ -3936,11 +2930,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-모의투자-로그인-및-참가신청-모의투자ID등록-해지",
     "label": "모의투자ID등록/해지",
-    "synonyms": [
-      "모의투자ID등록",
-      "해지",
-      "모의투자 로그인 및 참가신청"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-모의투자-로그인-및-참가신청-모의투자ID등록-해지",
@@ -3949,12 +2939,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-모의투자-로그인-및-참가신청-모의투자-ID확인-및-비밀번호-재설정",
     "label": "모의투자 ID확인 및 비밀번호 재설정",
-    "synonyms": [
-      "모의투자",
-      "ID확인",
-      "비밀번호",
-      "재설정"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-모의투자-로그인-및-참가신청-모의투자-ID확인-및-비밀번호-재설정",
@@ -3963,12 +2948,7 @@
   {
     "id": "miraeasset.vts",
     "label": "모의투자 로그인 및 참가신청",
-    "synonyms": [
-      "모의투자",
-      "로그인",
-      "참가신청",
-      "서비스 신청/변경"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.vts",
@@ -3977,9 +2957,7 @@
   {
     "id": "miraeasset.서비스-신청-변경-메뉴닫기",
     "label": "메뉴닫기",
-    "synonyms": [
-      "서비스 신청/변경"
-    ],
+    "synonyms": [],
     "category": "서비스 신청/변경",
     "icon": "doc",
     "route": "/miraeasset.서비스-신청-변경-메뉴닫기",
@@ -3988,11 +2966,7 @@
   {
     "id": "miraeasset.이용안내-문의-공지-이벤트",
     "label": "공지/이벤트",
-    "synonyms": [
-      "공지",
-      "이벤트",
-      "이용안내/문의"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-공지-이벤트",
@@ -4001,9 +2975,7 @@
   {
     "id": "miraeasset.이용안내-문의-공지-이벤트-공지사항",
     "label": "공지사항",
-    "synonyms": [
-      "공지/이벤트"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-공지-이벤트-공지사항",
@@ -4012,11 +2984,7 @@
   {
     "id": "miraeasset.이용안내-문의-공지-이벤트-신용종목-공지사항",
     "label": "신용종목 공지사항",
-    "synonyms": [
-      "신용종목",
-      "공지사항",
-      "공지/이벤트"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-공지-이벤트-신용종목-공지사항",
@@ -4025,12 +2993,7 @@
   {
     "id": "miraeasset.이용안내-문의-공지-이벤트-해외주식-파생-공지사항",
     "label": "해외주식/파생 공지사항",
-    "synonyms": [
-      "해외주식",
-      "파생",
-      "공지사항",
-      "공지/이벤트"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-공지-이벤트-해외주식-파생-공지사항",
@@ -4039,11 +3002,7 @@
   {
     "id": "miraeasset.이용안내-문의-공지-이벤트-채권추심-공지사항",
     "label": "채권추심 공지사항",
-    "synonyms": [
-      "채권추심",
-      "공지사항",
-      "공지/이벤트"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-공지-이벤트-채권추심-공지사항",
@@ -4052,11 +3011,7 @@
   {
     "id": "miraeasset.이용안내-문의-공지-이벤트-진행중인-이벤트",
     "label": "진행중인 이벤트",
-    "synonyms": [
-      "진행중인",
-      "이벤트",
-      "공지/이벤트"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-공지-이벤트-진행중인-이벤트",
@@ -4065,11 +3020,7 @@
   {
     "id": "miraeasset.이용안내-문의-공지-이벤트-참여한-이벤트",
     "label": "참여한 이벤트",
-    "synonyms": [
-      "참여한",
-      "이벤트",
-      "공지/이벤트"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-공지-이벤트-참여한-이벤트",
@@ -4078,11 +3029,7 @@
   {
     "id": "miraeasset.이용안내-문의-공지-이벤트-지난-이벤트",
     "label": "지난 이벤트",
-    "synonyms": [
-      "지난",
-      "이벤트",
-      "공지/이벤트"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-공지-이벤트-지난-이벤트",
@@ -4091,11 +3038,7 @@
   {
     "id": "miraeasset.이용안내-문의-공지-이벤트-당첨자-발표",
     "label": "당첨자 발표",
-    "synonyms": [
-      "당첨자",
-      "발표",
-      "공지/이벤트"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-공지-이벤트-당첨자-발표",
@@ -4104,9 +3047,7 @@
   {
     "id": "miraeasset.이용안내-문의-공지-이벤트-입찰공고",
     "label": "입찰공고",
-    "synonyms": [
-      "공지/이벤트"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-공지-이벤트-입찰공고",
@@ -4115,9 +3056,7 @@
   {
     "id": "miraeasset.이용안내-문의-투자상담",
     "label": "투자상담",
-    "synonyms": [
-      "이용안내/문의"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-투자상담",
@@ -4126,9 +3065,7 @@
   {
     "id": "miraeasset.이용안내-문의-투자상담-디지털투자상담센터",
     "label": "디지털투자상담센터",
-    "synonyms": [
-      "투자상담"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-투자상담-디지털투자상담센터",
@@ -4137,9 +3074,7 @@
   {
     "id": "miraeasset.이용안내-문의-투자상담-연금자산관리센터",
     "label": "연금자산관리센터",
-    "synonyms": [
-      "투자상담"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-투자상담-연금자산관리센터",
@@ -4148,12 +3083,7 @@
   {
     "id": "miraeasset.이용안내-문의-투자상담-개인투자용-국채-상담센터",
     "label": "개인투자용 국채 상담센터",
-    "synonyms": [
-      "개인투자용",
-      "국채",
-      "상담센터",
-      "투자상담"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-투자상담-개인투자용-국채-상담센터",
@@ -4162,11 +3092,7 @@
   {
     "id": "miraeasset.이용안내-문의-고객지원-ARS",
     "label": "고객지원/ARS",
-    "synonyms": [
-      "고객지원",
-      "ARS",
-      "이용안내/문의"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-고객지원-ARS",
@@ -4175,11 +3101,7 @@
   {
     "id": "miraeasset.이용안내-문의-고객지원-ARS-고객센터-ARS",
     "label": "고객센터/ARS",
-    "synonyms": [
-      "고객센터",
-      "ARS",
-      "고객지원/ARS"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-고객지원-ARS-고객센터-ARS",
@@ -4188,11 +3110,7 @@
   {
     "id": "miraeasset.이용안내-문의-고객지원-ARS-음성-ARS",
     "label": "음성 ARS",
-    "synonyms": [
-      "음성",
-      "ARS",
-      "고객지원/ARS"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-고객지원-ARS-음성-ARS",
@@ -4201,11 +3119,7 @@
   {
     "id": "miraeasset.이용안내-문의-고객지원-ARS-보이는-ARS",
     "label": "보이는 ARS",
-    "synonyms": [
-      "보이는",
-      "ARS",
-      "고객지원/ARS"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-고객지원-ARS-보이는-ARS",
@@ -4214,11 +3128,7 @@
   {
     "id": "miraeasset.이용안내-문의-고객지원-ARS-음성인식-ARS",
     "label": "음성인식 ARS",
-    "synonyms": [
-      "음성인식",
-      "ARS",
-      "고객지원/ARS"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-고객지원-ARS-음성인식-ARS",
@@ -4227,9 +3137,7 @@
   {
     "id": "miraeasset.이용안내-문의-고객지원-ARS-원격지원",
     "label": "원격지원",
-    "synonyms": [
-      "고객지원/ARS"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-고객지원-ARS-원격지원",
@@ -4238,12 +3146,7 @@
   {
     "id": "miraeasset.이용안내-문의-영업점-업무시간-방문판매인력확인",
     "label": "영업점/업무시간/방문판매인력확인",
-    "synonyms": [
-      "영업점",
-      "업무시간",
-      "방문판매인력확인",
-      "이용안내/문의"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-영업점-업무시간-방문판매인력확인",
@@ -4252,11 +3155,7 @@
   {
     "id": "miraeasset.이용안내-문의-영업점-업무시간-방문판매인력확인-영업점-안내",
     "label": "영업점 안내",
-    "synonyms": [
-      "영업점",
-      "안내",
-      "영업점/업무시간/방문판매인력확인"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-영업점-업무시간-방문판매인력확인-영업점-안내",
@@ -4265,9 +3164,7 @@
   {
     "id": "miraeasset.이용안내-문의-영업점-업무시간-방문판매인력확인-방문판매인력확인",
     "label": "방문판매인력확인",
-    "synonyms": [
-      "영업점/업무시간/방문판매인력확인"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-영업점-업무시간-방문판매인력확인-방문판매인력확인",
@@ -4276,9 +3173,7 @@
   {
     "id": "miraeasset.이용안내-문의-금융소비자포털",
     "label": "금융소비자포털",
-    "synonyms": [
-      "이용안내/문의"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-금융소비자포털",
@@ -4287,11 +3182,7 @@
   {
     "id": "miraeasset.이용안내-문의-금융소비자포털-소비자보호-체계",
     "label": "소비자보호 체계",
-    "synonyms": [
-      "소비자보호",
-      "체계",
-      "금융소비자포털"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-금융소비자포털-소비자보호-체계",
@@ -4300,11 +3191,7 @@
   {
     "id": "miraeasset.이용안내-문의-금융소비자포털-소비자정보-공시",
     "label": "소비자정보 공시",
-    "synonyms": [
-      "소비자정보",
-      "공시",
-      "금융소비자포털"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-금융소비자포털-소비자정보-공시",
@@ -4313,12 +3200,7 @@
   {
     "id": "miraeasset.이용안내-문의-금융소비자포털-민원-신청-조회",
     "label": "민원 신청/조회",
-    "synonyms": [
-      "민원",
-      "신청",
-      "조회",
-      "금융소비자포털"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-금융소비자포털-민원-신청-조회",
@@ -4327,12 +3209,7 @@
   {
     "id": "miraeasset.이용안내-문의-금융소비자포털-고객의소리-제안-문의-칭찬",
     "label": "고객의소리(제안/문의/칭찬)",
-    "synonyms": [
-      "고객의소리",
-      "제안",
-      "문의",
-      "칭찬"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-금융소비자포털-고객의소리-제안-문의-칭찬",
@@ -4341,12 +3218,7 @@
   {
     "id": "miraeasset.이용안내-문의-금융소비자포털-금융-교육-정보",
     "label": "금융 교육/정보",
-    "synonyms": [
-      "금융",
-      "교육",
-      "정보",
-      "금융소비자포털"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-금융소비자포털-금융-교육-정보",
@@ -4355,9 +3227,7 @@
   {
     "id": "miraeasset.이용안내-문의-PC보안프로그램",
     "label": "PC보안프로그램",
-    "synonyms": [
-      "이용안내/문의"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-PC보안프로그램",
@@ -4366,11 +3236,7 @@
   {
     "id": "miraeasset.이용안내-문의-이용안내-가이드",
     "label": "이용안내 가이드",
-    "synonyms": [
-      "이용안내",
-      "가이드",
-      "이용안내/문의"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-이용안내-가이드",
@@ -4379,9 +3245,7 @@
   {
     "id": "miraeasset.이용안내-문의-이용안내-가이드-이용안내",
     "label": "이용안내",
-    "synonyms": [
-      "이용안내 가이드"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-이용안내-가이드-이용안내",
@@ -4390,9 +3254,7 @@
   {
     "id": "miraeasset.이용안내-문의-이용안내-가이드-온라인서비스가이드",
     "label": "온라인서비스가이드",
-    "synonyms": [
-      "이용안내 가이드"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-이용안내-가이드-온라인서비스가이드",
@@ -4401,9 +3263,7 @@
   {
     "id": "miraeasset.이용안내-문의-이용안내-가이드-트레이딩가이드",
     "label": "트레이딩가이드",
-    "synonyms": [
-      "이용안내 가이드"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-이용안내-가이드-트레이딩가이드",
@@ -4412,9 +3272,7 @@
   {
     "id": "miraeasset.이용안내-문의-이용안내-가이드-증권업무가이드",
     "label": "증권업무가이드",
-    "synonyms": [
-      "이용안내 가이드"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-이용안내-가이드-증권업무가이드",
@@ -4423,9 +3281,7 @@
   {
     "id": "miraeasset.이용안내-문의-이용안내-가이드-금융상품가이드",
     "label": "금융상품가이드",
-    "synonyms": [
-      "이용안내 가이드"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-이용안내-가이드-금융상품가이드",
@@ -4434,9 +3290,7 @@
   {
     "id": "miraeasset.이용안내-문의-이용안내-가이드-해외주식가이드",
     "label": "해외주식가이드",
-    "synonyms": [
-      "이용안내 가이드"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-이용안내-가이드-해외주식가이드",
@@ -4445,11 +3299,7 @@
   {
     "id": "miraeasset.이용안내-문의-이용안내-가이드-해외선물-옵션가이드",
     "label": "해외선물/옵션가이드",
-    "synonyms": [
-      "해외선물",
-      "옵션가이드",
-      "이용안내 가이드"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-이용안내-가이드-해외선물-옵션가이드",
@@ -4458,11 +3308,7 @@
   {
     "id": "miraeasset.이용안내-문의-이용안내-가이드-선물-옵션가이드",
     "label": "선물/옵션가이드",
-    "synonyms": [
-      "선물",
-      "옵션가이드",
-      "이용안내 가이드"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-이용안내-가이드-선물-옵션가이드",
@@ -4471,9 +3317,7 @@
   {
     "id": "miraeasset.이용안내-문의-서비스등급",
     "label": "서비스등급",
-    "synonyms": [
-      "이용안내/문의"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-서비스등급",
@@ -4482,9 +3326,7 @@
   {
     "id": "miraeasset.이용안내-문의-서비스등급-가족합산등급",
     "label": "가족합산등급",
-    "synonyms": [
-      "서비스등급"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-서비스등급-가족합산등급",
@@ -4493,11 +3335,7 @@
   {
     "id": "miraeasset.이용안내-문의-서비스등급-등급별-우대혜택",
     "label": "등급별 우대혜택",
-    "synonyms": [
-      "등급별",
-      "우대혜택",
-      "서비스등급"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-서비스등급-등급별-우대혜택",
@@ -4506,11 +3344,7 @@
   {
     "id": "miraeasset.이용안내-문의-VIP-서비스",
     "label": "VIP 서비스",
-    "synonyms": [
-      "VIP",
-      "서비스",
-      "이용안내/문의"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-VIP-서비스",
@@ -4519,9 +3353,7 @@
   {
     "id": "miraeasset.이용안내-문의-VIP-서비스-미래에셋세이지클럽안내",
     "label": "미래에셋세이지클럽안내",
-    "synonyms": [
-      "VIP 서비스"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-VIP-서비스-미래에셋세이지클럽안내",
@@ -4530,11 +3362,7 @@
   {
     "id": "miraeasset.이용안내-문의-VIP-서비스-카이로스-멤버스란",
     "label": "카이로스 멤버스란?",
-    "synonyms": [
-      "카이로스",
-      "멤버스란?",
-      "VIP 서비스"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-VIP-서비스-카이로스-멤버스란",
@@ -4543,12 +3371,7 @@
   {
     "id": "miraeasset.이용안내-문의-VIP-서비스-카이로스-멤버스-공지사항",
     "label": "카이로스 멤버스 공지사항",
-    "synonyms": [
-      "카이로스",
-      "멤버스",
-      "공지사항",
-      "VIP 서비스"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-VIP-서비스-카이로스-멤버스-공지사항",
@@ -4557,9 +3380,7 @@
   {
     "id": "miraeasset.이용안내-문의-FAQ",
     "label": "FAQ",
-    "synonyms": [
-      "이용안내/문의"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-FAQ",
@@ -4568,10 +3389,7 @@
   {
     "id": "miraeasset.이용안내-문의-FAQ-FAQ-자주하는질문",
     "label": "FAQ(자주하는질문)",
-    "synonyms": [
-      "FAQ",
-      "자주하는질문"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-FAQ-FAQ-자주하는질문",
@@ -4580,11 +3398,7 @@
   {
     "id": "miraeasset.이용안내-문의-FAQ-대체거래소-NXT-FAQ",
     "label": "대체거래소(NXT) FAQ",
-    "synonyms": [
-      "대체거래소",
-      "NXT",
-      "FAQ"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-FAQ-대체거래소-NXT-FAQ",
@@ -4593,9 +3407,7 @@
   {
     "id": "miraeasset.이용안내-문의-상속업무안내",
     "label": "상속업무안내",
-    "synonyms": [
-      "이용안내/문의"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-상속업무안내",
@@ -4604,9 +3416,7 @@
   {
     "id": "miraeasset.이용안내-문의-상속업무안내-상속",
     "label": "상속",
-    "synonyms": [
-      "상속업무안내"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-상속업무안내-상속",
@@ -4615,9 +3425,7 @@
   {
     "id": "miraeasset.이용안내-문의-메뉴닫기",
     "label": "메뉴닫기",
-    "synonyms": [
-      "이용안내/문의"
-    ],
+    "synonyms": [],
     "category": "이용안내/문의",
     "icon": "doc",
     "route": "/miraeasset.이용안내-문의-메뉴닫기",
