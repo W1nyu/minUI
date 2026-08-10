@@ -1,0 +1,27 @@
+{
+  "_note": "KB국민은행 개인뱅킹. 자주 쓰일 메뉴에만 구어 표현을 붙인다. id는 사이트의 page 코드라 개편에도 잘 안 끊어진다. M4에서 확인했듯 검색 정확도의 거의 전부를 이 동의어가 만든다.",
+
+  "kbstar.C016513": { "synonyms": ["잔액 보기", "돈 얼마 있어", "잔고", "통장 확인", "얼마 남았어"], "icon": "wallet", "riskLevel": "low" },
+  "kbstar.C055066": { "synonyms": ["내 통장 잔액", "국민은행 잔액"], "icon": "wallet", "riskLevel": "low" },
+  "kbstar.C016536": { "synonyms": ["거래 내역", "입금 확인", "들어온 돈", "통장 정리", "내역 보기"], "icon": "list", "riskLevel": "low" },
+  "kbstar.C102264": { "synonyms": ["입출금 내역", "쓴 돈 보기"], "icon": "list", "riskLevel": "low" },
+
+  "kbstar.C060833": { "synonyms": ["돈 보내기", "송금", "부치기", "이체", "돈 부쳐", "이체하기"], "icon": "transfer", "riskLevel": "high" },
+  "kbstar.C055027": { "synonyms": ["계좌로 보내기", "다른 통장으로 보내기"], "icon": "transfer", "riskLevel": "high" },
+  "kbstar.C016540": { "synonyms": ["자동이체", "매달 나가는 돈", "떼가는 거", "빠져나가는 돈"], "icon": "repeat", "riskLevel": "high" },
+  "kbstar.C018401": { "synonyms": ["자동이체 해지", "자동이체 안 나가게", "떼가는 거 그만", "자동이체 조회"], "icon": "repeat", "riskLevel": "high" },
+
+  "kbstar.C016550": { "synonyms": ["공과금", "관리비", "세금 내기", "고지서"], "icon": "doc", "riskLevel": "low" },
+  "kbstar.C016606": { "synonyms": ["공과금 등록", "관리비 자동납부"], "icon": "doc", "riskLevel": "high" },
+
+  "kbstar.C016528": { "synonyms": ["예금", "적금 들기", "저축", "이자 많은 거"], "icon": "savings", "riskLevel": "low" },
+  "kbstar.C105581": { "synonyms": ["예금 상품", "목돈 굴리기"], "icon": "savings", "riskLevel": "low" },
+  "kbstar.C103425": { "synonyms": ["대출", "빌리기", "돈 빌려", "대출 알아보기"], "icon": "bank", "riskLevel": "low" },
+  "kbstar.C103427": { "synonyms": ["대출 신청", "대출 받기"], "icon": "bank", "riskLevel": "high" },
+
+  "kbstar.C101318": { "synonyms": ["환율", "달러 얼마", "환율 보기"], "icon": "globe", "riskLevel": "low" },
+  "kbstar.C101333": { "synonyms": ["오늘 환율", "환율 조회"], "icon": "globe", "riskLevel": "low" },
+
+  "kbstar.C018925": { "synonyms": ["비밀번호 변경", "비번 바꾸기", "비밀번호 바꾸기", "암호 변경"], "icon": "lock", "riskLevel": "high" },
+  "kbstar.C016610": { "synonyms": ["한도 변경", "한도 올리기", "보낼 수 있는 금액"], "icon": "gauge", "riskLevel": "high" }
+}

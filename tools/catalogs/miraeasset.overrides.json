@@ -1,0 +1,15 @@
+{
+  "_note": "미래에셋증권. 프레임셋이라 링크가 전부 javascript:이고 메뉴 코드가 없어 id가 라벨 경로 기반이다. 사이트가 문구를 바꾸면 끊어진다.",
+
+  "miraeasset.뱅킹-대출-청약-이체": { "synonyms": ["돈 보내기", "송금", "이체", "출금", "돈 빼기"], "icon": "transfer", "riskLevel": "high" },
+  "miraeasset.뱅킹-대출-청약-이체-간편이체": { "synonyms": ["빠른 이체", "간편 송금"], "icon": "transfer", "riskLevel": "high" },
+  "miraeasset.뱅킹-대출-청약-이체-다계좌-예약이체": { "synonyms": ["예약 이체", "나중에 보내기", "날짜 정해서 보내기"], "icon": "calendar", "riskLevel": "high" },
+  "miraeasset.뱅킹-대출-청약-이체-이체계좌-정보조회": { "synonyms": ["이체 계좌 확인", "보낼 계좌 조회"], "icon": "list", "riskLevel": "low" },
+
+  "miraeasset.금융상품-펀드": { "synonyms": ["펀드", "펀드 가입", "펀드 찾기"], "icon": "chart", "riskLevel": "low" },
+  "miraeasset.금융상품-펀드-펀드잔고": { "synonyms": ["펀드 얼마 있어", "내 펀드", "펀드 평가금액"], "icon": "wallet", "riskLevel": "low" },
+  "miraeasset.금융상품-펀드-기준가-수익률조회": { "synonyms": ["수익률", "얼마 벌었어", "손익", "기준가"], "icon": "chart", "riskLevel": "low" },
+
+  "miraeasset.연금자산-MY개인연금": { "synonyms": ["연금", "노후 준비", "개인연금", "연금 얼마"], "icon": "coin", "riskLevel": "low" },
+  "miraeasset.서비스-신청-변경-계좌개설-ID": { "synonyms": ["계좌 만들기", "계좌 개설", "새 계좌"], "icon": "person", "riskLevel": "low" }
+}

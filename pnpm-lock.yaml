@@ -54,6 +54,24 @@ importers:
         specifier: ^3.2.4
         version: 3.2.7(@types/node@24.13.3)(jsdom@30.0.1)(lightningcss@1.33.0)(tsx@4.23.11)
 
+  demos:
+    dependencies:
+      '@minui/core':
+        specifier: workspace:*
+        version: link:../packages/core
+      '@minui/react':
+        specifier: workspace:*
+        version: link:../packages/react
+      '@minui/voice':
+        specifier: workspace:*
+        version: link:../packages/voice
+      react:
+        specifier: ^19.2.8
+        version: 19.2.8
+      react-dom:
+        specifier: ^19.2.8
+        version: 19.2.8(react@19.2.8)
+
   frontend:
     dependencies:
       '@minui/core':

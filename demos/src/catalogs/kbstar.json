@@ -1,0 +1,5529 @@
+[
+  {
+    "id": "kbstar.C016513",
+    "label": "계좌조회",
+    "synonyms": [
+      "잔액 보기",
+      "돈 얼마 있어",
+      "잔고",
+      "통장 확인",
+      "얼마 남았어"
+    ],
+    "category": "조회",
+    "icon": "wallet",
+    "route": "/kbstar.C016513",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C055066",
+    "label": "국민은행 계좌조회",
+    "synonyms": [
+      "내 통장 잔액",
+      "국민은행 잔액"
+    ],
+    "category": "조회",
+    "icon": "wallet",
+    "route": "/kbstar.C055066",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C066016",
+    "label": "다른금융 조회",
+    "synonyms": [
+      "다른금융",
+      "조회",
+      "계좌조회"
+    ],
+    "category": "조회",
+    "icon": "doc",
+    "route": "/kbstar.C066016",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016523",
+    "label": "휴면계좌 조회",
+    "synonyms": [
+      "휴면계좌",
+      "조회",
+      "계좌조회"
+    ],
+    "category": "조회",
+    "icon": "doc",
+    "route": "/kbstar.C016523",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C018388",
+    "label": "전자통장 조회",
+    "synonyms": [
+      "전자통장",
+      "조회",
+      "계좌조회"
+    ],
+    "category": "조회",
+    "icon": "doc",
+    "route": "/kbstar.C018388",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C032958",
+    "label": "장기미거래신탁계좌 조회",
+    "synonyms": [
+      "장기미거래신탁계좌",
+      "조회",
+      "계좌조회"
+    ],
+    "category": "조회",
+    "icon": "doc",
+    "route": "/kbstar.C032958",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C059223",
+    "label": "계좌종합관리 계좌조회",
+    "synonyms": [
+      "계좌종합관리",
+      "계좌조회"
+    ],
+    "category": "조회",
+    "icon": "doc",
+    "route": "/kbstar.C059223",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C064319",
+    "label": "착오송금 반환 동의",
+    "synonyms": [
+      "착오송금",
+      "반환",
+      "동의",
+      "계좌조회"
+    ],
+    "category": "조회",
+    "icon": "doc",
+    "route": "/kbstar.C064319",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C067289",
+    "label": "오픈뱅킹 착오송금 반환 신청",
+    "synonyms": [
+      "오픈뱅킹",
+      "착오송금",
+      "반환",
+      "신청"
+    ],
+    "category": "조회",
+    "icon": "doc",
+    "route": "/kbstar.C067289",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C107841",
+    "label": "공채 본인부담금 조회",
+    "synonyms": [
+      "공채",
+      "본인부담금",
+      "조회",
+      "계좌조회"
+    ],
+    "category": "조회",
+    "icon": "doc",
+    "route": "/kbstar.C107841",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016536",
+    "label": "거래내역 조회",
+    "synonyms": [
+      "거래 내역",
+      "입금 확인",
+      "들어온 돈",
+      "통장 정리",
+      "내역 보기"
+    ],
+    "category": "조회",
+    "icon": "list",
+    "route": "/kbstar.C016536",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C102264",
+    "label": "거래내역 조회",
+    "synonyms": [
+      "입출금 내역",
+      "쓴 돈 보기"
+    ],
+    "category": "조회",
+    "icon": "list",
+    "route": "/kbstar.C102264",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C101762",
+    "label": "다른금융 통합거래내역조회",
+    "synonyms": [
+      "다른금융",
+      "통합거래내역조회",
+      "거래내역 조회"
+    ],
+    "category": "조회",
+    "icon": "doc",
+    "route": "/kbstar.C101762",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C018392",
+    "label": "전자어음 조회",
+    "synonyms": [
+      "전자어음",
+      "조회"
+    ],
+    "category": "조회",
+    "icon": "doc",
+    "route": "/kbstar.C018392",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C019098",
+    "label": "수취어음 조회",
+    "synonyms": [
+      "수취어음",
+      "조회",
+      "전자어음 조회"
+    ],
+    "category": "조회",
+    "icon": "doc",
+    "route": "/kbstar.C019098",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C019099",
+    "label": "배서어음 조회",
+    "synonyms": [
+      "배서어음",
+      "조회",
+      "전자어음 조회"
+    ],
+    "category": "조회",
+    "icon": "doc",
+    "route": "/kbstar.C019099",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C019100",
+    "label": "반환관련어음 조회",
+    "synonyms": [
+      "반환관련어음",
+      "조회",
+      "전자어음 조회"
+    ],
+    "category": "조회",
+    "icon": "doc",
+    "route": "/kbstar.C019100",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C019103",
+    "label": "부도어음반환",
+    "synonyms": [
+      "전자어음 조회"
+    ],
+    "category": "조회",
+    "icon": "doc",
+    "route": "/kbstar.C019103",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C030420",
+    "label": "상환청구",
+    "synonyms": [
+      "전자어음 조회"
+    ],
+    "category": "조회",
+    "icon": "doc",
+    "route": "/kbstar.C030420",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C019105",
+    "label": "보증전자어음",
+    "synonyms": [
+      "전자어음 조회"
+    ],
+    "category": "조회",
+    "icon": "doc",
+    "route": "/kbstar.C019105",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C035703",
+    "label": "배서보증요청/결과내역 조회",
+    "synonyms": [
+      "배서보증요청",
+      "결과내역",
+      "조회",
+      "전자어음 조회"
+    ],
+    "category": "조회",
+    "icon": "doc",
+    "route": "/kbstar.C035703",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C019101",
+    "label": "만기결제어음 조회",
+    "synonyms": [
+      "만기결제어음",
+      "조회",
+      "전자어음 조회"
+    ],
+    "category": "조회",
+    "icon": "doc",
+    "route": "/kbstar.C019101",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C019102",
+    "label": "부도어음 조회",
+    "synonyms": [
+      "부도어음",
+      "조회",
+      "전자어음 조회"
+    ],
+    "category": "조회",
+    "icon": "doc",
+    "route": "/kbstar.C019102",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C030421",
+    "label": "상환청구 정보조회",
+    "synonyms": [
+      "상환청구",
+      "정보조회",
+      "전자어음 조회"
+    ],
+    "category": "조회",
+    "icon": "doc",
+    "route": "/kbstar.C030421",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C039807",
+    "label": "사고신고 정보조회",
+    "synonyms": [
+      "사고신고",
+      "정보조회",
+      "전자어음 조회"
+    ],
+    "category": "조회",
+    "icon": "doc",
+    "route": "/kbstar.C039807",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C019106",
+    "label": "확인증",
+    "synonyms": [
+      "전자어음 조회"
+    ],
+    "category": "조회",
+    "icon": "doc",
+    "route": "/kbstar.C019106",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C018941",
+    "label": "에스크로 조회",
+    "synonyms": [
+      "에스크로",
+      "조회"
+    ],
+    "category": "조회",
+    "icon": "doc",
+    "route": "/kbstar.C018941",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016537",
+    "label": "수표어음 조회",
+    "synonyms": [
+      "수표어음",
+      "조회"
+    ],
+    "category": "조회",
+    "icon": "doc",
+    "route": "/kbstar.C016537",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C018389",
+    "label": "자기앞수표 조회",
+    "synonyms": [
+      "자기앞수표",
+      "조회",
+      "수표어음 조회"
+    ],
+    "category": "조회",
+    "icon": "doc",
+    "route": "/kbstar.C018389",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C035731",
+    "label": "My자기앞수표 발행내역 조회",
+    "synonyms": [
+      "My자기앞수표",
+      "발행내역",
+      "조회",
+      "수표어음 조회"
+    ],
+    "category": "조회",
+    "icon": "doc",
+    "route": "/kbstar.C035731",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C018390",
+    "label": "당좌수표/어음 조회",
+    "synonyms": [
+      "당좌수표",
+      "어음",
+      "조회",
+      "수표어음 조회"
+    ],
+    "category": "조회",
+    "icon": "doc",
+    "route": "/kbstar.C018390",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C018391",
+    "label": "당좌수표/어음번호별 조회",
+    "synonyms": [
+      "당좌수표",
+      "어음번호별",
+      "조회",
+      "수표어음 조회"
+    ],
+    "category": "조회",
+    "icon": "doc",
+    "route": "/kbstar.C018391",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C066848",
+    "label": "어카운트인포",
+    "synonyms": [
+      "조회"
+    ],
+    "category": "조회",
+    "icon": "doc",
+    "route": "/kbstar.C066848",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C105319",
+    "label": "계약서류 관리",
+    "synonyms": [
+      "계약서류",
+      "관리",
+      "조회"
+    ],
+    "category": "조회",
+    "icon": "doc",
+    "route": "/kbstar.C105319",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C105581",
+    "label": "예금",
+    "synonyms": [
+      "예금 상품",
+      "목돈 굴리기"
+    ],
+    "category": "조회",
+    "icon": "savings",
+    "route": "/kbstar.C105581",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C105552",
+    "label": "펀드",
+    "synonyms": [
+      "계약서류 관리"
+    ],
+    "category": "조회",
+    "icon": "doc",
+    "route": "/kbstar.C105552",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C105553",
+    "label": "신탁/ISA",
+    "synonyms": [
+      "신탁",
+      "ISA",
+      "계약서류 관리"
+    ],
+    "category": "조회",
+    "icon": "doc",
+    "route": "/kbstar.C105553",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C105554",
+    "label": "외화",
+    "synonyms": [
+      "계약서류 관리"
+    ],
+    "category": "조회",
+    "icon": "doc",
+    "route": "/kbstar.C105554",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C105555",
+    "label": "골드",
+    "synonyms": [
+      "계약서류 관리"
+    ],
+    "category": "조회",
+    "icon": "doc",
+    "route": "/kbstar.C105555",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C105583",
+    "label": "퇴직연금",
+    "synonyms": [
+      "계약서류 관리"
+    ],
+    "category": "조회",
+    "icon": "doc",
+    "route": "/kbstar.C105583",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C060833",
+    "label": "계좌이체",
+    "synonyms": [
+      "돈 보내기",
+      "송금",
+      "부치기",
+      "이체",
+      "돈 부쳐",
+      "이체하기"
+    ],
+    "category": "이체",
+    "icon": "transfer",
+    "route": "/kbstar.C060833",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C055027",
+    "label": "계좌이체",
+    "synonyms": [
+      "계좌로 보내기",
+      "다른 통장으로 보내기"
+    ],
+    "category": "이체",
+    "icon": "transfer",
+    "route": "/kbstar.C055027",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C065633",
+    "label": "다른금융 계좌이체",
+    "synonyms": [
+      "다른금융",
+      "계좌이체"
+    ],
+    "category": "이체",
+    "icon": "doc",
+    "route": "/kbstar.C065633",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C055065",
+    "label": "다계좌이체",
+    "synonyms": [
+      "계좌이체"
+    ],
+    "category": "이체",
+    "icon": "doc",
+    "route": "/kbstar.C055065",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C066103",
+    "label": "잔액 모으기",
+    "synonyms": [
+      "잔액",
+      "모으기",
+      "계좌이체"
+    ],
+    "category": "이체",
+    "icon": "doc",
+    "route": "/kbstar.C066103",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C066122",
+    "label": "잔액 모으기 예약",
+    "synonyms": [
+      "잔액",
+      "모으기",
+      "예약",
+      "계좌이체"
+    ],
+    "category": "이체",
+    "icon": "doc",
+    "route": "/kbstar.C066122",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C066080",
+    "label": "잔액 모으기 예약 관리",
+    "synonyms": [
+      "잔액",
+      "모으기",
+      "예약",
+      "관리"
+    ],
+    "category": "이체",
+    "icon": "doc",
+    "route": "/kbstar.C066080",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C035480",
+    "label": "퇴직급여(개인형IRP)이체",
+    "synonyms": [
+      "퇴직급여",
+      "개인형IRP",
+      "이체",
+      "계좌이체"
+    ],
+    "category": "이체",
+    "icon": "doc",
+    "route": "/kbstar.C035480",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C059224",
+    "label": "계좌종합관리 이체",
+    "synonyms": [
+      "계좌종합관리",
+      "이체",
+      "계좌이체"
+    ],
+    "category": "이체",
+    "icon": "doc",
+    "route": "/kbstar.C059224",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C016541",
+    "label": "이체결과 조회",
+    "synonyms": [
+      "이체결과",
+      "조회",
+      "이체"
+    ],
+    "category": "이체",
+    "icon": "doc",
+    "route": "/kbstar.C016541",
+    "riskLevel": "high",
+    "cardable": false
+  },
+  {
+    "id": "kbstar.C055030",
+    "label": "계좌이체결과 조회",
+    "synonyms": [
+      "계좌이체결과",
+      "조회",
+      "이체결과 조회"
+    ],
+    "category": "이체",
+    "icon": "doc",
+    "route": "/kbstar.C055030",
+    "riskLevel": "high",
+    "cardable": false
+  },
+  {
+    "id": "kbstar.C066509",
+    "label": "다른금융계좌 이체결과조회",
+    "synonyms": [
+      "다른금융계좌",
+      "이체결과조회",
+      "이체결과 조회"
+    ],
+    "category": "이체",
+    "icon": "doc",
+    "route": "/kbstar.C066509",
+    "riskLevel": "high",
+    "cardable": false
+  },
+  {
+    "id": "kbstar.C065943",
+    "label": "잔액 모으기 예약 결과조회",
+    "synonyms": [
+      "잔액",
+      "모으기",
+      "예약",
+      "결과조회"
+    ],
+    "category": "이체",
+    "icon": "doc",
+    "route": "/kbstar.C065943",
+    "riskLevel": "high",
+    "cardable": false
+  },
+  {
+    "id": "kbstar.C018406",
+    "label": "전화승인결과 조회",
+    "synonyms": [
+      "전화승인결과",
+      "조회",
+      "이체결과 조회"
+    ],
+    "category": "이체",
+    "icon": "doc",
+    "route": "/kbstar.C018406",
+    "riskLevel": "high",
+    "cardable": false
+  },
+  {
+    "id": "kbstar.C059328",
+    "label": "계좌종합관리 이체결과 조회",
+    "synonyms": [
+      "계좌종합관리",
+      "이체결과",
+      "조회",
+      "이체결과 조회"
+    ],
+    "category": "이체",
+    "icon": "doc",
+    "route": "/kbstar.C059328",
+    "riskLevel": "high",
+    "cardable": false
+  },
+  {
+    "id": "kbstar.C016540",
+    "label": "자동이체",
+    "synonyms": [
+      "자동이체",
+      "매달 나가는 돈",
+      "떼가는 거",
+      "빠져나가는 돈"
+    ],
+    "category": "이체",
+    "icon": "repeat",
+    "route": "/kbstar.C016540",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C018401",
+    "label": "자동이체내역 조회/해지/변경",
+    "synonyms": [
+      "자동이체 해지",
+      "자동이체 안 나가게",
+      "떼가는 거 그만",
+      "자동이체 조회"
+    ],
+    "category": "이체",
+    "icon": "repeat",
+    "route": "/kbstar.C018401",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C018400",
+    "label": "자동이체 등록",
+    "synonyms": [
+      "자동이체",
+      "등록"
+    ],
+    "category": "이체",
+    "icon": "doc",
+    "route": "/kbstar.C018400",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C029856",
+    "label": "자동이체결과확인증",
+    "synonyms": [
+      "자동이체"
+    ],
+    "category": "이체",
+    "icon": "doc",
+    "route": "/kbstar.C029856",
+    "riskLevel": "high",
+    "cardable": false
+  },
+  {
+    "id": "kbstar.C060830",
+    "label": "에스크로 이체",
+    "synonyms": [
+      "에스크로",
+      "이체"
+    ],
+    "category": "이체",
+    "icon": "doc",
+    "route": "/kbstar.C060830",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C016542",
+    "label": "에스크로 이체",
+    "synonyms": [
+      "에스크로",
+      "이체"
+    ],
+    "category": "이체",
+    "icon": "doc",
+    "route": "/kbstar.C016542",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C018942",
+    "label": "에스크로 이체결과 조회",
+    "synonyms": [
+      "에스크로",
+      "이체결과",
+      "조회",
+      "에스크로 이체"
+    ],
+    "category": "이체",
+    "icon": "doc",
+    "route": "/kbstar.C018942",
+    "riskLevel": "high",
+    "cardable": false
+  },
+  {
+    "id": "kbstar.C060841",
+    "label": "자동이체 서비스",
+    "synonyms": [
+      "자동이체",
+      "서비스",
+      "이체"
+    ],
+    "category": "이체",
+    "icon": "doc",
+    "route": "/kbstar.C060841",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C039546",
+    "label": "자동이체통합관리 서비스란?",
+    "synonyms": [
+      "자동이체통합관리",
+      "서비스란?",
+      "자동이체 서비스"
+    ],
+    "category": "이체",
+    "icon": "doc",
+    "route": "/kbstar.C039546",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C039544",
+    "label": "자동이체 계좌변경",
+    "synonyms": [
+      "자동이체",
+      "계좌변경",
+      "자동이체 서비스"
+    ],
+    "category": "이체",
+    "icon": "doc",
+    "route": "/kbstar.C039544",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C040207",
+    "label": "자동납부 계좌조회/출금계좌 변경",
+    "synonyms": [
+      "자동납부",
+      "계좌조회",
+      "출금계좌",
+      "변경"
+    ],
+    "category": "이체",
+    "icon": "doc",
+    "route": "/kbstar.C040207",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C040208",
+    "label": "자동납부 변경신청결과 조회",
+    "synonyms": [
+      "자동납부",
+      "변경신청결과",
+      "조회",
+      "자동이체 서비스"
+    ],
+    "category": "이체",
+    "icon": "doc",
+    "route": "/kbstar.C040208",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C040205",
+    "label": "자동송금 계좌조회/출금계좌 변경",
+    "synonyms": [
+      "자동송금",
+      "계좌조회",
+      "출금계좌",
+      "변경"
+    ],
+    "category": "이체",
+    "icon": "doc",
+    "route": "/kbstar.C040205",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C040206",
+    "label": "자동송금 변경신청결과 조회",
+    "synonyms": [
+      "자동송금",
+      "변경신청결과",
+      "조회",
+      "자동이체 서비스"
+    ],
+    "category": "이체",
+    "icon": "doc",
+    "route": "/kbstar.C040206",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C016550",
+    "label": "MY 공과금",
+    "synonyms": [
+      "공과금",
+      "관리비",
+      "세금 내기",
+      "고지서"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C016550",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016606",
+    "label": "공과금 등록/관리",
+    "synonyms": [
+      "공과금 등록",
+      "관리비 자동납부"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C016606",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C016607",
+    "label": "공과금 조회/납부",
+    "synonyms": [
+      "공과금",
+      "조회",
+      "납부",
+      "MY 공과금"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C016607",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C018413",
+    "label": "납부확인증 보관함",
+    "synonyms": [
+      "납부확인증",
+      "보관함",
+      "MY 공과금"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C018413",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C018414",
+    "label": "예약납부등록",
+    "synonyms": [
+      "MY 공과금"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C018414",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C016608",
+    "label": "예약납부조회/취소",
+    "synonyms": [
+      "예약납부조회",
+      "취소",
+      "MY 공과금"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C016608",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016543",
+    "label": "지로/생활요금/CMS /펌뱅킹",
+    "synonyms": [
+      "지로",
+      "생활요금",
+      "CMS",
+      "펌뱅킹"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C016543",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016586",
+    "label": "지로 납부/관리",
+    "synonyms": [
+      "지로",
+      "납부",
+      "관리",
+      "지로/생활요금/CMS /펌뱅킹"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C016586",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016587",
+    "label": "생활요금 납부",
+    "synonyms": [
+      "생활요금",
+      "납부",
+      "지로/생활요금/CMS /펌뱅킹"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C016587",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016589",
+    "label": "납부내역 조회/취소",
+    "synonyms": [
+      "납부내역",
+      "조회",
+      "취소",
+      "지로/생활요금/CMS /펌뱅킹"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C016589",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016588",
+    "label": "자동납부 등록/해지",
+    "synonyms": [
+      "자동납부",
+      "등록",
+      "해지",
+      "지로/생활요금/CMS /펌뱅킹"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C016588",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C016544",
+    "label": "지방세",
+    "synonyms": [
+      "공과금"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C016544",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016590",
+    "label": "지방세 납부",
+    "synonyms": [
+      "지방세",
+      "납부"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C016590",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C018407",
+    "label": "세외수입납부",
+    "synonyms": [
+      "지방세"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C018407",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C033674",
+    "label": "기타세입금",
+    "synonyms": [
+      "지방세"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C033674",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C018408",
+    "label": "환경개선부담금",
+    "synonyms": [
+      "지방세"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C018408",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016591",
+    "label": "납부내역조회",
+    "synonyms": [
+      "지방세"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C016591",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016545",
+    "label": "4대보험료",
+    "synonyms": [
+      "공과금"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C016545",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016592",
+    "label": "통합사회보험료납부 (연금/건강/고용/산재)",
+    "synonyms": [
+      "통합사회보험료납부",
+      "연금",
+      "건강",
+      "고용"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C016592",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C018409",
+    "label": "국민연금납부 (반납금/추납보험료)",
+    "synonyms": [
+      "국민연금납부",
+      "반납금",
+      "추납보험료",
+      "4대보험료"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C018409",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C018410",
+    "label": "산재보험료납부(연납/분기납)",
+    "synonyms": [
+      "산재보험료납부",
+      "연납",
+      "분기납",
+      "4대보험료"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C018410",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C018411",
+    "label": "고용보험료납부(연납/분기납)",
+    "synonyms": [
+      "고용보험료납부",
+      "연납",
+      "분기납",
+      "4대보험료"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C018411",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C018412",
+    "label": "고용/산재자진납부",
+    "synonyms": [
+      "고용",
+      "산재자진납부",
+      "4대보험료"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C018412",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016594",
+    "label": "납부내역조회",
+    "synonyms": [
+      "4대보험료"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C016594",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016546",
+    "label": "국세/관세",
+    "synonyms": [
+      "국세",
+      "관세",
+      "공과금"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C016546",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016596",
+    "label": "국세",
+    "synonyms": [
+      "국세/관세"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C016596",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016598",
+    "label": "관세",
+    "synonyms": [
+      "국세/관세"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C016598",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016599",
+    "label": "납부내역조회",
+    "synonyms": [
+      "국세/관세"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C016599",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016547",
+    "label": "기금/국고",
+    "synonyms": [
+      "기금",
+      "국고",
+      "공과금"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C016547",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016600",
+    "label": "기금/국고납부",
+    "synonyms": [
+      "기금",
+      "국고납부",
+      "기금/국고"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C016600",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016601",
+    "label": "납부내역조회",
+    "synonyms": [
+      "기금/국고"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C016601",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016548",
+    "label": "범칙/벌과금",
+    "synonyms": [
+      "범칙",
+      "벌과금",
+      "공과금"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C016548",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016602",
+    "label": "범칙/벌과금 납부",
+    "synonyms": [
+      "범칙",
+      "벌과금",
+      "납부",
+      "범칙/벌과금"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C016602",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016603",
+    "label": "납부내역조회",
+    "synonyms": [
+      "범칙/벌과금"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C016603",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016549",
+    "label": "대학등록금",
+    "synonyms": [
+      "공과금"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C016549",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C016604",
+    "label": "등록금 납부",
+    "synonyms": [
+      "등록금",
+      "납부",
+      "대학등록금"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C016604",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C016605",
+    "label": "납부조회/취소",
+    "synonyms": [
+      "납부조회",
+      "취소",
+      "대학등록금"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C016605",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C109467",
+    "label": "법원업무",
+    "synonyms": [
+      "공과금"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C109467",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C109468",
+    "label": "공탁금 납부",
+    "synonyms": [
+      "공탁금",
+      "납부",
+      "법원업무"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C109468",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C109469",
+    "label": "송달료 납부",
+    "synonyms": [
+      "송달료",
+      "납부",
+      "법원업무"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C109469",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C109470",
+    "label": "법원보관금 납부",
+    "synonyms": [
+      "법원보관금",
+      "납부",
+      "법원업무"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C109470",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C109471",
+    "label": "집행관보관금 납부",
+    "synonyms": [
+      "집행관보관금",
+      "납부",
+      "법원업무"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C109471",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C109472",
+    "label": "등기신청수수료 납부",
+    "synonyms": [
+      "등기신청수수료",
+      "납부",
+      "법원업무"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C109472",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C109473",
+    "label": "소송등인지대 납부",
+    "synonyms": [
+      "소송등인지대",
+      "납부",
+      "법원업무"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C109473",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C109474",
+    "label": "납부내역조회",
+    "synonyms": [
+      "법원업무"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C109474",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C109923",
+    "label": "환급내역조회",
+    "synonyms": [
+      "법원업무"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C109923",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C113521",
+    "label": "도시철도채권 만기상환",
+    "synonyms": [
+      "도시철도채권",
+      "만기상환",
+      "공과금"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C113521",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C113522",
+    "label": "채권상환",
+    "synonyms": [
+      "도시철도채권 만기상환"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C113522",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C113534",
+    "label": "상환내역조회",
+    "synonyms": [
+      "도시철도채권 만기상환"
+    ],
+    "category": "공과금",
+    "icon": "doc",
+    "route": "/kbstar.C113534",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016528",
+    "label": "예금",
+    "synonyms": [
+      "예금",
+      "적금 들기",
+      "저축",
+      "이자 많은 거"
+    ],
+    "category": "금융상품",
+    "icon": "savings",
+    "route": "/kbstar.C016528",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016613",
+    "label": "예금 상품/가입",
+    "synonyms": [
+      "예금",
+      "상품",
+      "가입"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016613",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C018423",
+    "label": "판매중지상품",
+    "synonyms": [
+      "예금"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C018423",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C060866",
+    "label": "일반 예금상품",
+    "synonyms": [
+      "일반",
+      "예금상품",
+      "판매중지상품"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C060866",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C021724",
+    "label": "지수연동예금",
+    "synonyms": [
+      "판매중지상품"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C021724",
+    "riskLevel": "low",
+    "cardable": false
+  },
+  {
+    "id": "kbstar.C016553",
+    "label": "예금 조회/해지",
+    "synonyms": [
+      "예금",
+      "조회",
+      "해지"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016553",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C016614",
+    "label": "신규결과/내역 조회",
+    "synonyms": [
+      "신규결과",
+      "내역",
+      "조회",
+      "예금 조회/해지"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016614",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C045724",
+    "label": "현금인출카드 조회",
+    "synonyms": [
+      "현금인출카드",
+      "조회",
+      "예금 조회/해지"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C045724",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C016615",
+    "label": "예금해지",
+    "synonyms": [
+      "예금 조회/해지"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016615",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C016618",
+    "label": "분할인출",
+    "synonyms": [
+      "예금 조회/해지"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016618",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C016616",
+    "label": "해지예상 조회",
+    "synonyms": [
+      "해지예상",
+      "조회",
+      "예금 조회/해지"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016616",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C016617",
+    "label": "해지결과/내역 조회",
+    "synonyms": [
+      "해지결과",
+      "내역",
+      "조회",
+      "예금 조회/해지"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016617",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C066760",
+    "label": "청약예·부금 이자지급 조회/이체",
+    "synonyms": [
+      "청약예",
+      "부금",
+      "이자지급",
+      "조회"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C066760",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C025422",
+    "label": "예금 관리",
+    "synonyms": [
+      "예금",
+      "관리"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C025422",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C025526",
+    "label": "예금전환",
+    "synonyms": [
+      "예금 관리"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C025526",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C027614",
+    "label": "통장자동전환 서비스",
+    "synonyms": [
+      "통장자동전환",
+      "서비스",
+      "예금 관리"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C027614",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016610",
+    "label": "세금우대/비과세종합 저축한도 조회/변경",
+    "synonyms": [
+      "한도 변경",
+      "한도 올리기",
+      "보낼 수 있는 금액"
+    ],
+    "category": "금융상품",
+    "icon": "gauge",
+    "route": "/kbstar.C016610",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C025466",
+    "label": "자동재예치(재가입) 및 통지여부 변경",
+    "synonyms": [
+      "자동재예치",
+      "재가입",
+      "통지여부",
+      "변경"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C025466",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C063525",
+    "label": "만기 자동해지 신청",
+    "synonyms": [
+      "만기",
+      "자동해지",
+      "신청",
+      "예금 관리"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C063525",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C058547",
+    "label": "만기해지방법 변경",
+    "synonyms": [
+      "만기해지방법",
+      "변경",
+      "예금 관리"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C058547",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C036392",
+    "label": "예금잔액조회 통보",
+    "synonyms": [
+      "예금잔액조회",
+      "통보",
+      "예금 관리"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C036392",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C029661",
+    "label": "재형저축한도 변경",
+    "synonyms": [
+      "재형저축한도",
+      "변경",
+      "예금 관리"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C029661",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C066534",
+    "label": "상품만기알림서비스 신청/해지",
+    "synonyms": [
+      "상품만기알림서비스",
+      "신청",
+      "해지",
+      "예금 관리"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C066534",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C102072",
+    "label": "비대면 예적금 해지 제한",
+    "synonyms": [
+      "비대면",
+      "예적금",
+      "해지",
+      "제한"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C102072",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C016554",
+    "label": "예금 가이드",
+    "synonyms": [
+      "예금",
+      "가이드"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016554",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016619",
+    "label": "예금금리 안내",
+    "synonyms": [
+      "예금금리",
+      "안내",
+      "예금 가이드"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016619",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016620",
+    "label": "예금관련 수수료",
+    "synonyms": [
+      "예금관련",
+      "수수료",
+      "예금 가이드"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016620",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016529",
+    "label": "펀드",
+    "synonyms": [
+      "금융상품"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016529",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016556",
+    "label": "펀드 상품/가입",
+    "synonyms": [
+      "펀드",
+      "상품",
+      "가입"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016556",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C017491",
+    "label": "펀드검색",
+    "synonyms": [
+      "펀드 상품/가입"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C017491",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C061302",
+    "label": "이달의 추천펀드",
+    "synonyms": [
+      "이달의",
+      "추천펀드",
+      "펀드 상품/가입"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C061302",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C060635",
+    "label": "수익률/판매량 BEST 펀드",
+    "synonyms": [
+      "수익률",
+      "판매량",
+      "BEST",
+      "펀드"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C060635",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C060637",
+    "label": "최신 테마펀드",
+    "synonyms": [
+      "최신",
+      "테마펀드",
+      "펀드 상품/가입"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C060637",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C064134",
+    "label": "이벤트 진행중인 펀드",
+    "synonyms": [
+      "이벤트",
+      "진행중인",
+      "펀드",
+      "펀드 상품/가입"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C064134",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016557",
+    "label": "펀드 입금/환매/조회",
+    "synonyms": [
+      "펀드",
+      "입금",
+      "환매",
+      "조회"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016557",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016630",
+    "label": "펀드입금",
+    "synonyms": [
+      "펀드 입금/환매/조회"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016630",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016636",
+    "label": "펀드환매",
+    "synonyms": [
+      "펀드 입금/환매/조회"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016636",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016635",
+    "label": "환매예상 조회",
+    "synonyms": [
+      "환매예상",
+      "조회",
+      "펀드 입금/환매/조회"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016635",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016637",
+    "label": "펀드전환",
+    "synonyms": [
+      "펀드 입금/환매/조회"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016637",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016631",
+    "label": "펀드예약취소",
+    "synonyms": [
+      "펀드 입금/환매/조회"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016631",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C019157",
+    "label": "펀드 해지계좌 조회",
+    "synonyms": [
+      "펀드",
+      "해지계좌",
+      "조회",
+      "펀드 입금/환매/조회"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C019157",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C016633",
+    "label": "펀드기준가 조회",
+    "synonyms": [
+      "펀드기준가",
+      "조회",
+      "펀드 입금/환매/조회"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016633",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C062999",
+    "label": "펀드 수익률 시뮬레이션",
+    "synonyms": [
+      "펀드",
+      "수익률",
+      "시뮬레이션",
+      "펀드 입금/환매/조회"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C062999",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C110150",
+    "label": "펀드청약철회",
+    "synonyms": [
+      "펀드 입금/환매/조회"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C110150",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C016560",
+    "label": "펀드 관리",
+    "synonyms": [
+      "펀드",
+      "관리"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016560",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C061329",
+    "label": "My펀드진단",
+    "synonyms": [
+      "펀드 관리"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C061329",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016643",
+    "label": "SMS/보고서수신",
+    "synonyms": [
+      "SMS",
+      "보고서수신",
+      "펀드 관리"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016643",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016641",
+    "label": "계약기간 변경",
+    "synonyms": [
+      "계약기간",
+      "변경",
+      "펀드 관리"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016641",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C060643",
+    "label": "입금한도 조회/변경",
+    "synonyms": [
+      "입금한도",
+      "조회",
+      "변경",
+      "펀드 관리"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C060643",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C064254",
+    "label": "펀드CARE서비스",
+    "synonyms": [
+      "펀드 관리"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C064254",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016644",
+    "label": "펀드계좌이동 신청",
+    "synonyms": [
+      "펀드계좌이동",
+      "신청",
+      "펀드 관리"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016644",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C019165",
+    "label": "펀드자산분석",
+    "synonyms": [
+      "펀드 관리"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C019165",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C066705",
+    "label": "실질수익률 보고서",
+    "synonyms": [
+      "실질수익률",
+      "보고서",
+      "펀드 관리"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C066705",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C106149",
+    "label": "승낙확인",
+    "synonyms": [
+      "펀드 관리"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C106149",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C042356",
+    "label": "연금저축펀드",
+    "synonyms": [
+      "펀드"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C042356",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C017499",
+    "label": "연금저축펀드상품",
+    "synonyms": [
+      "연금저축펀드"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C017499",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C061416",
+    "label": "연금펀드 통합 신규",
+    "synonyms": [
+      "연금펀드",
+      "통합",
+      "신규",
+      "연금저축펀드"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C061416",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C043759",
+    "label": "연금펀드 입금",
+    "synonyms": [
+      "연금펀드",
+      "입금",
+      "연금저축펀드"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C043759",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C060638",
+    "label": "운용펀드 매매/전환",
+    "synonyms": [
+      "운용펀드",
+      "매매",
+      "전환",
+      "연금저축펀드"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C060638",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C063153",
+    "label": "연금펀드 해약",
+    "synonyms": [
+      "연금펀드",
+      "해약",
+      "연금저축펀드"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C063153",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C042359",
+    "label": "운용비율 등록/변경",
+    "synonyms": [
+      "운용비율",
+      "등록",
+      "변경",
+      "연금저축펀드"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C042359",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C062983",
+    "label": "연금지급 신청/변경",
+    "synonyms": [
+      "연금지급",
+      "신청",
+      "변경",
+      "연금저축펀드"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C062983",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C060639",
+    "label": "라떼연금 관리",
+    "synonyms": [
+      "라떼연금",
+      "관리",
+      "연금저축펀드"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C060639",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C056377",
+    "label": "My연금포탈",
+    "synonyms": [
+      "연금저축펀드"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C056377",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C060634",
+    "label": "펀드 투자정보",
+    "synonyms": [
+      "펀드",
+      "투자정보"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C060634",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016561",
+    "label": "시황분석자료",
+    "synonyms": [
+      "펀드 투자정보"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016561",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C019172",
+    "label": "펀드뉴스",
+    "synonyms": [
+      "펀드 투자정보"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C019172",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C028159",
+    "label": "펀드 가이드",
+    "synonyms": [
+      "펀드",
+      "가이드",
+      "펀드 투자정보"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C028159",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C019185",
+    "label": "수시공시",
+    "synonyms": [
+      "펀드 투자정보"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C019185",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016651",
+    "label": "자산운용보고서",
+    "synonyms": [
+      "펀드 투자정보"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016651",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C060632",
+    "label": "공지사항",
+    "synonyms": [
+      "펀드 투자정보"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C060632",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C108959",
+    "label": "연금계좌 가져오기",
+    "synonyms": [
+      "연금계좌",
+      "가져오기",
+      "펀드"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C108959",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C108973",
+    "label": "KB연금저축펀드 계좌이체신규",
+    "synonyms": [
+      "KB연금저축펀드",
+      "계좌이체신규",
+      "연금계좌 가져오기"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C108973",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C108961",
+    "label": "KB연금저축펀드로 계좌이체 신청",
+    "synonyms": [
+      "KB연금저축펀드로",
+      "계좌이체",
+      "신청",
+      "연금계좌 가져오기"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C108961",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C108969",
+    "label": "계좌이체 신청 조회",
+    "synonyms": [
+      "계좌이체",
+      "신청",
+      "조회",
+      "연금계좌 가져오기"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C108969",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C113511",
+    "label": "RIA 세제혜택 관련 유의사항 안내",
+    "synonyms": [
+      "RIA",
+      "세제혜택",
+      "관련",
+      "유의사항"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C113511",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C103425",
+    "label": "대출",
+    "synonyms": [
+      "대출",
+      "빌리기",
+      "돈 빌려",
+      "대출 알아보기"
+    ],
+    "category": "금융상품",
+    "icon": "bank",
+    "route": "/kbstar.C103425",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C103427",
+    "label": "대출상품/신청",
+    "synonyms": [
+      "대출 신청",
+      "대출 받기"
+    ],
+    "category": "금융상품",
+    "icon": "bank",
+    "route": "/kbstar.C103427",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C103429",
+    "label": "신용대출",
+    "synonyms": [
+      "대출상품/신청"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C103429",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C103557",
+    "label": "담보대출",
+    "synonyms": [
+      "대출상품/신청"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C103557",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C103507",
+    "label": "전월세/반환보증",
+    "synonyms": [
+      "전월세",
+      "반환보증",
+      "대출상품/신청"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C103507",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C103573",
+    "label": "자동차대출",
+    "synonyms": [
+      "대출상품/신청"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C103573",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C109229",
+    "label": "집단중도금/이주비대출",
+    "synonyms": [
+      "집단중도금",
+      "이주비대출",
+      "대출상품/신청"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C109229",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C103998",
+    "label": "주택도시기금대출",
+    "synonyms": [
+      "대출상품/신청"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C103998",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C110260",
+    "label": "개인사업자대출",
+    "synonyms": [
+      "대출상품/신청"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C110260",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C103608",
+    "label": "대출진행현황",
+    "synonyms": [
+      "대출"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C103608",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C103609",
+    "label": "진행현황조회/실행/예약",
+    "synonyms": [
+      "진행현황조회",
+      "실행",
+      "예약",
+      "대출진행현황"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C103609",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C103610",
+    "label": "사후서류제출",
+    "synonyms": [
+      "대출진행현황"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C103610",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C103611",
+    "label": "배우자정보제공동의",
+    "synonyms": [
+      "대출진행현황"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C103611",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C103612",
+    "label": "세대원정보제공동의",
+    "synonyms": [
+      "대출진행현황"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C103612",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C103613",
+    "label": "제3자담보제공동의",
+    "synonyms": [
+      "대출진행현황"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C103613",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C103614",
+    "label": "부동산담보대출 전자서명",
+    "synonyms": [
+      "부동산담보대출",
+      "전자서명",
+      "대출진행현황"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C103614",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C103625",
+    "label": "대출관리",
+    "synonyms": [
+      "대출"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C103625",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016666",
+    "label": "적용금리조회",
+    "synonyms": [
+      "대출관리"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016666",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C103987",
+    "label": "이자/월부금입금",
+    "synonyms": [
+      "이자",
+      "월부금입금",
+      "대출관리"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C103987",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C103988",
+    "label": "대출금상환",
+    "synonyms": [
+      "대출관리"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C103988",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C044450",
+    "label": "대출계약철회 예상조회/완제",
+    "synonyms": [
+      "대출계약철회",
+      "예상조회",
+      "완제",
+      "대출관리"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C044450",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C103626",
+    "label": "대출한도변경/해지",
+    "synonyms": [
+      "대출한도변경",
+      "해지",
+      "대출관리"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C103626",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C103630",
+    "label": "기한연장",
+    "synonyms": [
+      "대출관리"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C103630",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C062392",
+    "label": "개인대출 금리인하요구권",
+    "synonyms": [
+      "개인대출",
+      "금리인하요구권",
+      "대출관리"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C062392",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C103317",
+    "label": "해지계좌조회",
+    "synonyms": [
+      "대출관리"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C103317",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C063808",
+    "label": "금리산정내역서 조회",
+    "synonyms": [
+      "금리산정내역서",
+      "조회",
+      "대출관리"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C063808",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C055864",
+    "label": "소멸시효완성에 따른 채무면제 결과조회",
+    "synonyms": [
+      "소멸시효완성에",
+      "따른",
+      "채무면제",
+      "결과조회"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C055864",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C107210",
+    "label": "통장자동대출 이자납입내역 조회",
+    "synonyms": [
+      "통장자동대출",
+      "이자납입내역",
+      "조회",
+      "대출관리"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C107210",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C107174",
+    "label": "개인대출 통지서비스 변경",
+    "synonyms": [
+      "개인대출",
+      "통지서비스",
+      "변경",
+      "대출관리"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C107174",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C107730",
+    "label": "개인대출 할부금(이자) 납입일 변경",
+    "synonyms": [
+      "개인대출",
+      "할부금",
+      "이자",
+      "납입일"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C107730",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C110905",
+    "label": "리브간편대출 계좌숨김 해제",
+    "synonyms": [
+      "리브간편대출",
+      "계좌숨김",
+      "해제",
+      "대출관리"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C110905",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016566",
+    "label": "대출 가이드",
+    "synonyms": [
+      "대출",
+      "가이드"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016566",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016689",
+    "label": "가계대출금리",
+    "synonyms": [
+      "대출 가이드"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016689",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C016694",
+    "label": "대출관련 수수료",
+    "synonyms": [
+      "대출관련",
+      "수수료",
+      "대출 가이드"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016694",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C028131",
+    "label": "금리인하요구권",
+    "synonyms": [
+      "대출 가이드"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C028131",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C033900",
+    "label": "대출연체시 지연배상금액 예시",
+    "synonyms": [
+      "대출연체시",
+      "지연배상금액",
+      "예시",
+      "대출 가이드"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C033900",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016695",
+    "label": "부가서비스",
+    "synonyms": [
+      "대출 가이드"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016695",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C112168",
+    "label": "채무조정 지원제도 안내",
+    "synonyms": [
+      "채무조정",
+      "지원제도",
+      "안내",
+      "대출 가이드"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C112168",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C112183",
+    "label": "내용증명 우편미수신 주요정보 안내",
+    "synonyms": [
+      "내용증명",
+      "우편미수신",
+      "주요정보",
+      "안내"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C112183",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C112211",
+    "label": "추심관련 권리의무 및 권리구제방법 안내",
+    "synonyms": [
+      "추심관련",
+      "권리의무",
+      "권리구제방법",
+      "안내"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C112211",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C056985",
+    "label": "신용평가 및 여신심사 자료제출",
+    "synonyms": [
+      "신용평가",
+      "여신심사",
+      "자료제출",
+      "대출"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C056985",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C056986",
+    "label": "「업체현황 및 사업계획서」조회 및 작성",
+    "synonyms": [
+      "「업체현황",
+      "사업계획서」조회",
+      "작성",
+      "신용평가 및 여신심사 자료제출"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C056986",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C056988",
+    "label": "「FATI (재무 및 세무자료)」 제출",
+    "synonyms": [
+      "「FATI",
+      "재무",
+      "세무자료",
+      "제출"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C056988",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C056989",
+    "label": "「FATI (재무 및 세무자료)」 제출내역조회",
+    "synonyms": [
+      "「FATI",
+      "재무",
+      "세무자료",
+      "제출내역조회"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C056989",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016531",
+    "label": "신탁",
+    "synonyms": [
+      "금융상품"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016531",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016567",
+    "label": "신탁 상품",
+    "synonyms": [
+      "신탁",
+      "상품"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016567",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016568",
+    "label": "신탁 조회/입금/해지",
+    "synonyms": [
+      "신탁",
+      "조회",
+      "입금",
+      "해지"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016568",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C016705",
+    "label": "특정금전신탁 추가입금",
+    "synonyms": [
+      "특정금전신탁",
+      "추가입금",
+      "신탁 조회/입금/해지"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016705",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C016707",
+    "label": "기준가/수익률 조회",
+    "synonyms": [
+      "기준가",
+      "수익률",
+      "조회",
+      "신탁 조회/입금/해지"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016707",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C016709",
+    "label": "신탁자산운용현황",
+    "synonyms": [
+      "신탁 조회/입금/해지"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016709",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C035251",
+    "label": "신탁재산운용보고서 신청",
+    "synonyms": [
+      "신탁재산운용보고서",
+      "신청",
+      "신탁 조회/입금/해지"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C035251",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C033034",
+    "label": "장기미거래신탁계좌 조회",
+    "synonyms": [
+      "장기미거래신탁계좌",
+      "조회",
+      "신탁 조회/입금/해지"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C033034",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C033842",
+    "label": "미수령연금계좌 조회",
+    "synonyms": [
+      "미수령연금계좌",
+      "조회",
+      "신탁 조회/입금/해지"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C033842",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C057736",
+    "label": "신탁/ISA해지결과 조회",
+    "synonyms": [
+      "신탁",
+      "ISA해지결과",
+      "조회",
+      "신탁 조회/입금/해지"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C057736",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C016720",
+    "label": "특정금전신탁 해지/해지예약",
+    "synonyms": [
+      "특정금전신탁",
+      "해지",
+      "해지예약",
+      "신탁 조회/입금/해지"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016720",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C111578",
+    "label": "신탁 해지예약 취소",
+    "synonyms": [
+      "신탁",
+      "해지예약",
+      "취소",
+      "신탁 조회/입금/해지"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C111578",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C066757",
+    "label": "연금신탁 해지/해지예약",
+    "synonyms": [
+      "연금신탁",
+      "해지",
+      "해지예약",
+      "신탁 조회/입금/해지"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C066757",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C016721",
+    "label": "해지예상 조회",
+    "synonyms": [
+      "해지예상",
+      "조회",
+      "신탁 조회/입금/해지"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016721",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C106208",
+    "label": "청약철회",
+    "synonyms": [
+      "신탁 조회/입금/해지"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C106208",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C107159",
+    "label": "신탁 체결내역 조회",
+    "synonyms": [
+      "신탁",
+      "체결내역",
+      "조회",
+      "신탁 조회/입금/해지"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C107159",
+    "riskLevel": "high",
+    "cardable": false
+  },
+  {
+    "id": "kbstar.C054689",
+    "label": "신탁 관리",
+    "synonyms": [
+      "신탁",
+      "관리"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C054689",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C054690",
+    "label": "목표달성자동매도 등록/해제",
+    "synonyms": [
+      "목표달성자동매도",
+      "등록",
+      "해제",
+      "신탁 관리"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C054690",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C054691",
+    "label": "월말수익률 SMS통보 등록/해제",
+    "synonyms": [
+      "월말수익률",
+      "SMS통보",
+      "등록",
+      "해제"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C054691",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C054692",
+    "label": "안내희망수익률 SMS통보 등록/해제",
+    "synonyms": [
+      "안내희망수익률",
+      "SMS통보",
+      "등록",
+      "해제"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C054692",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C066761",
+    "label": "연금신탁 연금수령 신청",
+    "synonyms": [
+      "연금신탁",
+      "연금수령",
+      "신청",
+      "신탁 관리"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C066761",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C111299",
+    "label": "연금신탁 연금수령신청 취소",
+    "synonyms": [
+      "연금신탁",
+      "연금수령신청",
+      "취소",
+      "신탁 관리"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C111299",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C016711",
+    "label": "연금신탁 한도 변경",
+    "synonyms": [
+      "연금신탁",
+      "한도",
+      "변경",
+      "신탁 관리"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016711",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C057524",
+    "label": "연금신탁 계약기간 변경",
+    "synonyms": [
+      "연금신탁",
+      "계약기간",
+      "변경",
+      "신탁 관리"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C057524",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C106147",
+    "label": "신탁승낙확인",
+    "synonyms": [
+      "신탁 관리"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C106147",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C028111",
+    "label": "신탁 관련 공시",
+    "synonyms": [
+      "신탁",
+      "관련",
+      "공시"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C028111",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C028112",
+    "label": "연금저축신탁 가입시 유의사항",
+    "synonyms": [
+      "연금저축신탁",
+      "가입시",
+      "유의사항",
+      "신탁 관련 공시"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C028112",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C028113",
+    "label": "연금저축신탁 계좌이체제도 안내",
+    "synonyms": [
+      "연금저축신탁",
+      "계좌이체제도",
+      "안내",
+      "신탁 관련 공시"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C028113",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C067773",
+    "label": "연금저축신탁 비교공시",
+    "synonyms": [
+      "연금저축신탁",
+      "비교공시",
+      "신탁 관련 공시"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C067773",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C112022",
+    "label": "신탁보수 공시",
+    "synonyms": [
+      "신탁보수",
+      "공시",
+      "신탁 관련 공시"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C112022",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C057010",
+    "label": "스튜어드십 코드",
+    "synonyms": [
+      "스튜어드십",
+      "코드",
+      "신탁"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C057010",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016570",
+    "label": "채권상품 안내",
+    "synonyms": [
+      "채권상품",
+      "안내",
+      "신탁"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016570",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C107606",
+    "label": "기타 안내사항",
+    "synonyms": [
+      "기타",
+      "안내사항",
+      "신탁"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C107606",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C040686",
+    "label": "ISA",
+    "synonyms": [
+      "금융상품"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C040686",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C040765",
+    "label": "ISA 상품/가입",
+    "synonyms": [
+      "ISA",
+      "상품",
+      "가입"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C040765",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C040739",
+    "label": "일임형 ISA 신규",
+    "synonyms": [
+      "일임형",
+      "ISA",
+      "신규",
+      "ISA 상품/가입"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C040739",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C044113",
+    "label": "일임형 ISA 계좌이전 신청",
+    "synonyms": [
+      "일임형",
+      "ISA",
+      "계좌이전",
+      "신청"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C044113",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C044192",
+    "label": "일임형 ISA 계좌이전 진행현황 조회",
+    "synonyms": [
+      "일임형",
+      "ISA",
+      "계좌이전",
+      "진행현황"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C044192",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C040688",
+    "label": "ISA 조회/입금",
+    "synonyms": [
+      "ISA",
+      "조회",
+      "입금"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C040688",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C040689",
+    "label": "보유자산/운용현황 조회",
+    "synonyms": [
+      "보유자산",
+      "운용현황",
+      "조회",
+      "ISA 조회/입금"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C040689",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C040690",
+    "label": "ISA 입금/이체",
+    "synonyms": [
+      "ISA",
+      "입금",
+      "이체",
+      "ISA 조회/입금"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C040690",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C060851",
+    "label": "ISA 해지(일임형)",
+    "synonyms": [
+      "ISA",
+      "해지",
+      "일임형"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C060851",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C041220",
+    "label": "일임형 ISA 해지/일부해지 예상 조회 및 신청",
+    "synonyms": [
+      "일임형",
+      "ISA",
+      "해지",
+      "일부해지"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C041220",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C055354",
+    "label": "일임형 ISA 해지예약취소",
+    "synonyms": [
+      "일임형",
+      "ISA",
+      "해지예약취소",
+      "ISA 해지(일임형)"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C055354",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C060850",
+    "label": "ISA 관리",
+    "synonyms": [
+      "ISA",
+      "관리"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C060850",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C041726",
+    "label": "일임형 ISA 자동이체",
+    "synonyms": [
+      "일임형",
+      "ISA",
+      "자동이체",
+      "ISA 관리"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C041726",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C044939",
+    "label": "일임형 ISA 모델 포트폴리오 변경",
+    "synonyms": [
+      "일임형",
+      "ISA",
+      "모델",
+      "포트폴리오"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C044939",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C041461",
+    "label": "신탁형 ISA 운용지시",
+    "synonyms": [
+      "신탁형",
+      "ISA",
+      "운용지시",
+      "ISA 관리"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C041461",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C054469",
+    "label": "투자일임보고서 수령방법 변경",
+    "synonyms": [
+      "투자일임보고서",
+      "수령방법",
+      "변경",
+      "ISA 관리"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C054469",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C058943",
+    "label": "일임형 ISA 수익률 SMS 알림 신청",
+    "synonyms": [
+      "일임형",
+      "ISA",
+      "수익률",
+      "SMS"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C058943",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C104317",
+    "label": "ISA 만기연장",
+    "synonyms": [
+      "ISA",
+      "만기연장",
+      "ISA 관리"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C104317",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C041163",
+    "label": "ISA 가이드",
+    "synonyms": [
+      "ISA",
+      "가이드"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C041163",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C041164",
+    "label": "ISA 개요",
+    "synonyms": [
+      "ISA",
+      "개요",
+      "ISA 가이드"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C041164",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C041165",
+    "label": "일임형 vs 신탁형",
+    "synonyms": [
+      "일임형",
+      "vs",
+      "신탁형",
+      "ISA 가이드"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C041165",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C041167",
+    "label": "세제혜택",
+    "synonyms": [
+      "ISA 가이드"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C041167",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C041511",
+    "label": "모델 포트폴리오(MP)",
+    "synonyms": [
+      "모델",
+      "포트폴리오",
+      "MP",
+      "ISA 가이드"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C041511",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C041172",
+    "label": "보수 및 수수료 안내",
+    "synonyms": [
+      "보수",
+      "수수료",
+      "안내",
+      "ISA 가이드"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C041172",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C041173",
+    "label": "공시자료",
+    "synonyms": [
+      "ISA 가이드"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C041173",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C113525",
+    "label": "RIA 세제혜택 관련 유의사항 안내",
+    "synonyms": [
+      "RIA",
+      "세제혜택",
+      "관련",
+      "유의사항"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C113525",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016533",
+    "label": "보험/공제",
+    "synonyms": [
+      "보험",
+      "공제",
+      "금융상품"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016533",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016572",
+    "label": "보험 조회",
+    "synonyms": [
+      "보험",
+      "조회",
+      "보험/공제"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016572",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C019225",
+    "label": "보험계약 조회",
+    "synonyms": [
+      "보험계약",
+      "조회",
+      "보험 조회"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C019225",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016725",
+    "label": "거래내역 조회",
+    "synonyms": [
+      "거래내역",
+      "조회",
+      "보험 조회"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016725",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C106733",
+    "label": "보험 해약환급금 조회",
+    "synonyms": [
+      "보험",
+      "해약환급금",
+      "조회",
+      "보험 조회"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C106733",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C028186",
+    "label": "노란우산",
+    "synonyms": [
+      "보험/공제"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C028186",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C028190",
+    "label": "노란우산 안내",
+    "synonyms": [
+      "노란우산",
+      "안내"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C028190",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C028189",
+    "label": "노란우산 조회",
+    "synonyms": [
+      "노란우산",
+      "조회"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C028189",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016574",
+    "label": "보험 가이드",
+    "synonyms": [
+      "보험",
+      "가이드",
+      "보험/공제"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016574",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C019237",
+    "label": "방카슈랑스란?",
+    "synonyms": [
+      "보험 가이드"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C019237",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C019238",
+    "label": "KB방카 가입안내",
+    "synonyms": [
+      "KB방카",
+      "가입안내",
+      "보험 가이드"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C019238",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C019242",
+    "label": "제휴사별 연락처안내",
+    "synonyms": [
+      "제휴사별",
+      "연락처안내",
+      "보험 가이드"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C019242",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C019245",
+    "label": "보험민원해결사",
+    "synonyms": [
+      "보험 가이드"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C019245",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C019251",
+    "label": "이용시간 안내",
+    "synonyms": [
+      "이용시간",
+      "안내",
+      "보험 가이드"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C019251",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C019252",
+    "label": "FAQ/상담",
+    "synonyms": [
+      "FAQ",
+      "상담",
+      "보험 가이드"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C019252",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C019261",
+    "label": "모집수수료율 안내",
+    "synonyms": [
+      "모집수수료율",
+      "안내",
+      "보험 가이드"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C019261",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C112555",
+    "label": "제휴사별 판매비중 안내",
+    "synonyms": [
+      "제휴사별",
+      "판매비중",
+      "안내",
+      "보험 가이드"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C112555",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C060846",
+    "label": "골드",
+    "synonyms": [
+      "금융상품"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C060846",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016555",
+    "label": "KB골드뱅킹",
+    "synonyms": [
+      "골드"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016555",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016622",
+    "label": "KB골드뱅킹 상품안내",
+    "synonyms": [
+      "KB골드뱅킹",
+      "상품안내"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016622",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016626",
+    "label": "KB골드투자통장 신규",
+    "synonyms": [
+      "KB골드투자통장",
+      "신규",
+      "KB골드뱅킹"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016626",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016627",
+    "label": "KB골드투자통장 입금",
+    "synonyms": [
+      "KB골드투자통장",
+      "입금",
+      "KB골드뱅킹"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016627",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C112301",
+    "label": "KB골드투자통장 해지계좌조회",
+    "synonyms": [
+      "KB골드투자통장",
+      "해지계좌조회",
+      "KB골드뱅킹"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C112301",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C016628",
+    "label": "KB골드투자통장 출금",
+    "synonyms": [
+      "KB골드투자통장",
+      "출금",
+      "KB골드뱅킹"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016628",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C027853",
+    "label": "포인트 금(Gold)전환 서비스(포인트리 포함)",
+    "synonyms": [
+      "포인트",
+      "Gold",
+      "전환",
+      "서비스"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C027853",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016623",
+    "label": "골드 가격조회 및 시장동향",
+    "synonyms": [
+      "골드",
+      "가격조회",
+      "시장동향",
+      "KB골드뱅킹"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016623",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016624",
+    "label": "골드뱅킹 계산기",
+    "synonyms": [
+      "골드뱅킹",
+      "계산기",
+      "KB골드뱅킹"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C016624",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C029412",
+    "label": "골드바",
+    "synonyms": [
+      "골드"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C029412",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C029413",
+    "label": "골드바 안내",
+    "synonyms": [
+      "골드바",
+      "안내"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C029413",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C029414",
+    "label": "골드바 가격조회",
+    "synonyms": [
+      "골드바",
+      "가격조회"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C029414",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C036086",
+    "label": "골드바 구매",
+    "synonyms": [
+      "골드바",
+      "구매"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C036086",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C039197",
+    "label": "실버바",
+    "synonyms": [
+      "골드"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C039197",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C039198",
+    "label": "실버바 안내",
+    "synonyms": [
+      "실버바",
+      "안내"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C039198",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C039199",
+    "label": "실버바 가격조회",
+    "synonyms": [
+      "실버바",
+      "가격조회"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C039199",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C039202",
+    "label": "실버바 구매",
+    "synonyms": [
+      "실버바",
+      "구매"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C039202",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C041535",
+    "label": "기념주화/기념메달",
+    "synonyms": [
+      "기념주화",
+      "기념메달",
+      "골드"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C041535",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C041536",
+    "label": "기념주화/기념메달 구매",
+    "synonyms": [
+      "기념주화",
+      "기념메달",
+      "구매",
+      "기념주화/기념메달"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C041536",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C101324",
+    "label": "외화예금",
+    "synonyms": [
+      "금융상품"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C101324",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C101404",
+    "label": "외화예금상품/가입",
+    "synonyms": [
+      "외화예금상품",
+      "가입",
+      "외화예금"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C101404",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C101501",
+    "label": "전체예금상품",
+    "synonyms": [
+      "외화예금상품/가입"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C101501",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C101502",
+    "label": "판매중지상품",
+    "synonyms": [
+      "외화예금상품/가입"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C101502",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C101405",
+    "label": "외화예금 추가입금",
+    "synonyms": [
+      "외화예금",
+      "추가입금"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C101405",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C101407",
+    "label": "외화예금 조회/해지",
+    "synonyms": [
+      "외화예금",
+      "조회",
+      "해지"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C101407",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C102970",
+    "label": "외화예금자산조회",
+    "synonyms": [
+      "외화예금 조회/해지"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C102970",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C101507",
+    "label": "신규결과조회",
+    "synonyms": [
+      "외화예금 조회/해지"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C101507",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C101508",
+    "label": "자동연장결과조회",
+    "synonyms": [
+      "외화예금 조회/해지"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C101508",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C101509",
+    "label": "외화예금해지",
+    "synonyms": [
+      "외화예금 조회/해지"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C101509",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C101511",
+    "label": "해지결과조회",
+    "synonyms": [
+      "외화예금 조회/해지"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C101511",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C101408",
+    "label": "외화예금 금리안내",
+    "synonyms": [
+      "외화예금",
+      "금리안내"
+    ],
+    "category": "금융상품",
+    "icon": "doc",
+    "route": "/kbstar.C101408",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C101317",
+    "label": "외환정보관리",
+    "synonyms": [
+      "외환"
+    ],
+    "category": "외환",
+    "icon": "doc",
+    "route": "/kbstar.C101317",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C101332",
+    "label": "영문정보관리",
+    "synonyms": [
+      "외환정보관리"
+    ],
+    "category": "외환",
+    "icon": "doc",
+    "route": "/kbstar.C101332",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C101391",
+    "label": "외화송금주소록",
+    "synonyms": [
+      "외환정보관리"
+    ],
+    "category": "외환",
+    "icon": "doc",
+    "route": "/kbstar.C101391",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C101390",
+    "label": "외환알림서비스",
+    "synonyms": [
+      "외환정보관리"
+    ],
+    "category": "외환",
+    "icon": "doc",
+    "route": "/kbstar.C101390",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C101331",
+    "label": "거래외국환은행지정",
+    "synonyms": [
+      "외환정보관리"
+    ],
+    "category": "외환",
+    "icon": "doc",
+    "route": "/kbstar.C101331",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C101806",
+    "label": "SWIFT전신문조회",
+    "synonyms": [
+      "외환정보관리"
+    ],
+    "category": "외환",
+    "icon": "doc",
+    "route": "/kbstar.C101806",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C101392",
+    "label": "월드종합서비스(외환프라자)",
+    "synonyms": [
+      "월드종합서비스",
+      "외환프라자",
+      "외환정보관리"
+    ],
+    "category": "외환",
+    "icon": "doc",
+    "route": "/kbstar.C101392",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C101318",
+    "label": "환율",
+    "synonyms": [
+      "환율",
+      "달러 얼마",
+      "환율 보기"
+    ],
+    "category": "외환",
+    "icon": "globe",
+    "route": "/kbstar.C101318",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C101333",
+    "label": "환율조회",
+    "synonyms": [
+      "오늘 환율",
+      "환율 조회"
+    ],
+    "category": "외환",
+    "icon": "globe",
+    "route": "/kbstar.C101333",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C101334",
+    "label": "환율동향정보",
+    "synonyms": [
+      "환율"
+    ],
+    "category": "외환",
+    "icon": "doc",
+    "route": "/kbstar.C101334",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C101335",
+    "label": "환율알림서비스",
+    "synonyms": [
+      "환율"
+    ],
+    "category": "외환",
+    "icon": "doc",
+    "route": "/kbstar.C101335",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C101336",
+    "label": "환율배너",
+    "synonyms": [
+      "환율"
+    ],
+    "category": "외환",
+    "icon": "doc",
+    "route": "/kbstar.C101336",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C101337",
+    "label": "환율계산기",
+    "synonyms": [
+      "환율"
+    ],
+    "category": "외환",
+    "icon": "doc",
+    "route": "/kbstar.C101337",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C101319",
+    "label": "환전",
+    "synonyms": [
+      "외환"
+    ],
+    "category": "외환",
+    "icon": "doc",
+    "route": "/kbstar.C101319",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C101339",
+    "label": "환전신청",
+    "synonyms": [
+      "환전"
+    ],
+    "category": "외환",
+    "icon": "doc",
+    "route": "/kbstar.C101339",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C101394",
+    "label": "환전조회/관리",
+    "synonyms": [
+      "환전조회",
+      "관리",
+      "환전"
+    ],
+    "category": "외환",
+    "icon": "doc",
+    "route": "/kbstar.C101394",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C111670",
+    "label": "마일리지 제휴 항공사 정보관리",
+    "synonyms": [
+      "마일리지",
+      "제휴",
+      "항공사",
+      "정보관리"
+    ],
+    "category": "외환",
+    "icon": "doc",
+    "route": "/kbstar.C111670",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C101320",
+    "label": "해외송금보내기",
+    "synonyms": [
+      "외환"
+    ],
+    "category": "외환",
+    "icon": "doc",
+    "route": "/kbstar.C101320",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C101342",
+    "label": "바로송금",
+    "synonyms": [
+      "해외송금보내기"
+    ],
+    "category": "외환",
+    "icon": "doc",
+    "route": "/kbstar.C101342",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C101396",
+    "label": "정기예약송금",
+    "synonyms": [
+      "해외송금보내기"
+    ],
+    "category": "외환",
+    "icon": "doc",
+    "route": "/kbstar.C101396",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C101398",
+    "label": "웨스턴유니온송금",
+    "synonyms": [
+      "해외송금보내기"
+    ],
+    "category": "외환",
+    "icon": "doc",
+    "route": "/kbstar.C101398",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C103120",
+    "label": "보낸송금내용변경/반환신청",
+    "synonyms": [
+      "보낸송금내용변경",
+      "반환신청",
+      "해외송금보내기"
+    ],
+    "category": "외환",
+    "icon": "doc",
+    "route": "/kbstar.C103120",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C103401",
+    "label": "보낸송금내역조회",
+    "synonyms": [
+      "해외송금보내기"
+    ],
+    "category": "외환",
+    "icon": "doc",
+    "route": "/kbstar.C103401",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C113273",
+    "label": "무증빙 해외송금 내역조회",
+    "synonyms": [
+      "무증빙",
+      "해외송금",
+      "내역조회",
+      "해외송금보내기"
+    ],
+    "category": "외환",
+    "icon": "doc",
+    "route": "/kbstar.C113273",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C109087",
+    "label": "해외송금수수료납부/조회",
+    "synonyms": [
+      "해외송금수수료납부",
+      "조회",
+      "해외송금보내기"
+    ],
+    "category": "외환",
+    "icon": "doc",
+    "route": "/kbstar.C109087",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C101321",
+    "label": "해외송금받기",
+    "synonyms": [
+      "외환"
+    ],
+    "category": "외환",
+    "icon": "doc",
+    "route": "/kbstar.C101321",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C101343",
+    "label": "받은송금내역조회",
+    "synonyms": [
+      "해외송금받기"
+    ],
+    "category": "외환",
+    "icon": "doc",
+    "route": "/kbstar.C101343",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C101344",
+    "label": "받을송금조회/관리(미입금분)",
+    "synonyms": [
+      "받을송금조회",
+      "관리",
+      "미입금분",
+      "해외송금받기"
+    ],
+    "category": "외환",
+    "icon": "doc",
+    "route": "/kbstar.C101344",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C109013",
+    "label": "외국환매입(예치)증명서",
+    "synonyms": [
+      "외국환매입",
+      "예치",
+      "증명서",
+      "해외송금받기"
+    ],
+    "category": "외환",
+    "icon": "doc",
+    "route": "/kbstar.C109013",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C110118",
+    "label": "해외송금수취정보(통장사본)",
+    "synonyms": [
+      "해외송금수취정보",
+      "통장사본",
+      "해외송금받기"
+    ],
+    "category": "외환",
+    "icon": "doc",
+    "route": "/kbstar.C110118",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C101322",
+    "label": "국내외화이체/외화예금입출금",
+    "synonyms": [
+      "국내외화이체",
+      "외화예금입출금",
+      "외환"
+    ],
+    "category": "외환",
+    "icon": "doc",
+    "route": "/kbstar.C101322",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C101351",
+    "label": "외화이체/외화예금입출금",
+    "synonyms": [
+      "외화이체",
+      "외화예금입출금",
+      "국내외화이체/외화예금입출금"
+    ],
+    "category": "외환",
+    "icon": "doc",
+    "route": "/kbstar.C101351",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C101352",
+    "label": "외화자동이체",
+    "synonyms": [
+      "국내외화이체/외화예금입출금"
+    ],
+    "category": "외환",
+    "icon": "doc",
+    "route": "/kbstar.C101352",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C101353",
+    "label": "외화이체내역조회",
+    "synonyms": [
+      "국내외화이체/외화예금입출금"
+    ],
+    "category": "외환",
+    "icon": "doc",
+    "route": "/kbstar.C101353",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C101325",
+    "label": "KB Star FX (외환매매플랫폼)",
+    "synonyms": [
+      "KB",
+      "Star",
+      "FX",
+      "외환매매플랫폼"
+    ],
+    "category": "외환",
+    "icon": "doc",
+    "route": "/kbstar.C101325",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C108974",
+    "label": "KB Star FX",
+    "synonyms": [
+      "KB",
+      "Star",
+      "FX",
+      "KB Star FX (외환매매플랫폼)"
+    ],
+    "category": "외환",
+    "icon": "doc",
+    "route": "/kbstar.C108974",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C101520",
+    "label": "마이딜링룸PRO",
+    "synonyms": [
+      "KB Star FX (외환매매플랫폼)"
+    ],
+    "category": "외환",
+    "icon": "doc",
+    "route": "/kbstar.C101520",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C101323",
+    "label": "외화수표",
+    "synonyms": [
+      "외환"
+    ],
+    "category": "외환",
+    "icon": "doc",
+    "route": "/kbstar.C101323",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C101360",
+    "label": "외화송금수표보낸내역조회",
+    "synonyms": [
+      "외화수표"
+    ],
+    "category": "외환",
+    "icon": "doc",
+    "route": "/kbstar.C101360",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C102241",
+    "label": "외화수표환전내역조회",
+    "synonyms": [
+      "외화수표"
+    ],
+    "category": "외환",
+    "icon": "doc",
+    "route": "/kbstar.C102241",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C109095",
+    "label": "외화수표수수료납부/조회",
+    "synonyms": [
+      "외화수표수수료납부",
+      "조회",
+      "외화수표"
+    ],
+    "category": "외환",
+    "icon": "doc",
+    "route": "/kbstar.C109095",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C101403",
+    "label": "해외투자",
+    "synonyms": [
+      "외환"
+    ],
+    "category": "외환",
+    "icon": "doc",
+    "route": "/kbstar.C101403",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C101477",
+    "label": "해외투자사후보고대상",
+    "synonyms": [
+      "해외투자"
+    ],
+    "category": "외환",
+    "icon": "doc",
+    "route": "/kbstar.C101477",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C101478",
+    "label": "해외직접투자안내",
+    "synonyms": [
+      "해외투자"
+    ],
+    "category": "외환",
+    "icon": "doc",
+    "route": "/kbstar.C101478",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C101479",
+    "label": "해외부동산투자안내",
+    "synonyms": [
+      "해외투자"
+    ],
+    "category": "외환",
+    "icon": "doc",
+    "route": "/kbstar.C101479",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016582",
+    "label": "제증명발급",
+    "synonyms": [
+      "뱅킹관리"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C016582",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C018930",
+    "label": "연말정산증명서",
+    "synonyms": [
+      "제증명발급"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C018930",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C018931",
+    "label": "통장사본",
+    "synonyms": [
+      "제증명발급"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C018931",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C054735",
+    "label": "예금잔액증명서",
+    "synonyms": [
+      "제증명발급"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C054735",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C045417",
+    "label": "예금잔액증명서 영업점 발급 신청",
+    "synonyms": [
+      "예금잔액증명서",
+      "영업점",
+      "발급",
+      "신청"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C045417",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C035692",
+    "label": "금융거래확인서",
+    "synonyms": [
+      "제증명발급"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C035692",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C056680",
+    "label": "금융거래확인서 예약내역 조회/발급",
+    "synonyms": [
+      "금융거래확인서",
+      "예약내역",
+      "조회",
+      "발급"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C056680",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C035691",
+    "label": "부채증명서",
+    "synonyms": [
+      "제증명발급"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C035691",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C111536",
+    "label": "원천징수영수증 발급",
+    "synonyms": [
+      "원천징수영수증",
+      "발급",
+      "제증명발급"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C111536",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C035798",
+    "label": "증명서재출력",
+    "synonyms": [
+      "제증명발급"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C035798",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C041351",
+    "label": "금융소득종합과세 조회",
+    "synonyms": [
+      "금융소득종합과세",
+      "조회",
+      "제증명발급"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C041351",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C045655",
+    "label": "통장/인감분실 재발행 및 예금잔액증명서 발급내역 조회",
+    "synonyms": [
+      "통장",
+      "인감분실",
+      "재발행",
+      "예금잔액증명서"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C045655",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C045416",
+    "label": "통장/인감분실 재발행 신청",
+    "synonyms": [
+      "통장",
+      "인감분실",
+      "재발행",
+      "신청"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C045416",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C018933",
+    "label": "펀드판매사이동 계좌확인서",
+    "synonyms": [
+      "펀드판매사이동",
+      "계좌확인서",
+      "제증명발급"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C018933",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C108814",
+    "label": "계좌 개설 안내장(BDO Unibank)",
+    "synonyms": [
+      "계좌",
+      "개설",
+      "안내장",
+      "BDO"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C108814",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C108821",
+    "label": "외국환매입(예치)증명서",
+    "synonyms": [
+      "외국환매입",
+      "예치",
+      "증명서",
+      "제증명발급"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C108821",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C110839",
+    "label": "비대면 위임장 제출 서비스",
+    "synonyms": [
+      "비대면",
+      "위임장",
+      "제출",
+      "서비스"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C110839",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C016581",
+    "label": "계좌관리",
+    "synonyms": [
+      "뱅킹관리"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C016581",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C018923",
+    "label": "출금계좌 등록/삭제/순위변경",
+    "synonyms": [
+      "출금계좌",
+      "등록",
+      "삭제",
+      "순위변경"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C018923",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C018925",
+    "label": "계좌비밀번호 신규/변경",
+    "synonyms": [
+      "비밀번호 변경",
+      "비번 바꾸기",
+      "비밀번호 바꾸기",
+      "암호 변경"
+    ],
+    "category": "뱅킹관리",
+    "icon": "lock",
+    "route": "/kbstar.C018925",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C018915",
+    "label": "빠른조회 서비스 등록/해지",
+    "synonyms": [
+      "빠른조회",
+      "서비스",
+      "등록",
+      "해지"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C018915",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C018927",
+    "label": "전자금융거래 제한계좌등록",
+    "synonyms": [
+      "전자금융거래",
+      "제한계좌등록",
+      "계좌관리"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C018927",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C056769",
+    "label": "KB내맘대로 계좌번호서비스",
+    "synonyms": [
+      "KB내맘대로",
+      "계좌번호서비스",
+      "계좌관리"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C056769",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C040709",
+    "label": "자동화기기 이용번호 변경",
+    "synonyms": [
+      "자동화기기",
+      "이용번호",
+      "변경",
+      "계좌관리"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C040709",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C101758",
+    "label": "계좌숨기기 관리",
+    "synonyms": [
+      "계좌숨기기",
+      "관리",
+      "계좌관리"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C101758",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C111645",
+    "label": "오픈뱅킹 장기미사용 이체제한 조회/해제",
+    "synonyms": [
+      "오픈뱅킹",
+      "장기미사용",
+      "이체제한",
+      "조회"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C111645",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C018922",
+    "label": "자주쓰는계좌 등록/삭제",
+    "synonyms": [
+      "자주쓰는계좌",
+      "등록",
+      "삭제",
+      "계좌관리"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C018922",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C036116",
+    "label": "단축이체 등록/삭제",
+    "synonyms": [
+      "단축이체",
+      "등록",
+      "삭제",
+      "계좌관리"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C036116",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C018924",
+    "label": "입금계좌 등록/삭제",
+    "synonyms": [
+      "입금계좌",
+      "등록",
+      "삭제",
+      "계좌관리"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C018924",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C039270",
+    "label": "즉시입금계좌 등록/삭제",
+    "synonyms": [
+      "즉시입금계좌",
+      "등록",
+      "삭제",
+      "계좌관리"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C039270",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C018914",
+    "label": "장기미사용이체제한 조회/해제",
+    "synonyms": [
+      "장기미사용이체제한",
+      "조회",
+      "해제",
+      "계좌관리"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C018914",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C018913",
+    "label": "이체한도 조회/감액",
+    "synonyms": [
+      "이체한도",
+      "조회",
+      "감액",
+      "계좌관리"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C018913",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C016580",
+    "label": "인터넷 뱅킹관리",
+    "synonyms": [
+      "인터넷",
+      "뱅킹관리"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C016580",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C055301",
+    "label": "ID조회/사용자암호 설정",
+    "synonyms": [
+      "ID조회",
+      "사용자암호",
+      "설정",
+      "인터넷 뱅킹관리"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C055301",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C018916",
+    "label": "인터넷뱅킹 해지",
+    "synonyms": [
+      "인터넷뱅킹",
+      "해지",
+      "인터넷 뱅킹관리"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C018916",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C106615",
+    "label": "KB스타뱅킹 알림서비스",
+    "synonyms": [
+      "KB스타뱅킹",
+      "알림서비스",
+      "인터넷 뱅킹관리"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C106615",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C019534",
+    "label": "입출금내역 자동통지 서비스",
+    "synonyms": [
+      "입출금내역",
+      "자동통지",
+      "서비스",
+      "인터넷 뱅킹관리"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C019534",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C059041",
+    "label": "계좌종합관리서비스",
+    "synonyms": [
+      "뱅킹관리"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C059041",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C059060",
+    "label": "계좌종합관리 신청/변경/해지",
+    "synonyms": [
+      "계좌종합관리",
+      "신청",
+      "변경",
+      "해지"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C059060",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C059256",
+    "label": "계좌종합관리 출금계좌등록/해제",
+    "synonyms": [
+      "계좌종합관리",
+      "출금계좌등록",
+      "해제",
+      "계좌종합관리서비스"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C059256",
+    "riskLevel": "high"
+  },
+  {
+    "id": "kbstar.C020776",
+    "label": "이용안내",
+    "synonyms": [
+      "뱅킹관리"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C020776",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C020777",
+    "label": "첫 방문 고객을 위한 안내",
+    "synonyms": [
+      "방문",
+      "고객을",
+      "위한",
+      "안내"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C020777",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C020789",
+    "label": "인터넷뱅킹 FAQ",
+    "synonyms": [
+      "인터넷뱅킹",
+      "FAQ",
+      "이용안내"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C020789",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C020795",
+    "label": "이용시간 안내",
+    "synonyms": [
+      "이용시간",
+      "안내",
+      "이용안내"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C020795",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C024968",
+    "label": "인터넷뱅킹 이용안내",
+    "synonyms": [
+      "인터넷뱅킹",
+      "이용안내"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C024968",
+    "riskLevel": "low"
+  },
+  {
+    "id": "kbstar.C024832",
+    "label": "이용수수료 안내",
+    "synonyms": [
+      "이용수수료",
+      "안내",
+      "이용안내"
+    ],
+    "category": "뱅킹관리",
+    "icon": "doc",
+    "route": "/kbstar.C024832",
+    "riskLevel": "low"
+  }
+]

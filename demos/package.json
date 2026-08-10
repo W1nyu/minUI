@@ -1,0 +1,20 @@
+{
+  "name": "demos",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "실제 금융사 메뉴 위에 MinUI를 얹은 이식 검증 데모",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -p tsconfig.json --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@minui/core": "workspace:*",
+    "@minui/react": "workspace:*",
+    "@minui/voice": "workspace:*",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  }
+}

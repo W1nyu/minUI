@@ -1,0 +1,21 @@
+{
+  "_note": "신한은행. id가 라벨 경로 기반이라 사이트가 문구를 바꾸면 끊어진다 — WebSquare라 링크에 URL도 메뉴 코드도 없어 다른 방법이 없다. 재수집 후 끊어진 id는 빌드 리포트에서 확인한다.",
+
+  "shinhan.개인-조회": { "synonyms": ["잔액 보기", "돈 얼마 있어", "잔고", "통장 확인", "얼마 남았어"], "icon": "wallet", "riskLevel": "low" },
+  "shinhan.개인-조회-예금-신탁": { "synonyms": ["예금 잔액", "통장 잔액", "적금 얼마"], "icon": "wallet", "riskLevel": "low" },
+  "shinhan.개인-조회-대출": { "synonyms": ["대출 얼마 남았어", "빚 얼마", "대출 잔액"], "icon": "bank", "riskLevel": "low" },
+  "shinhan.개인-조회-휴면예금조회": { "synonyms": ["잠자는 돈", "묵은 통장", "휴면 계좌"], "icon": "wallet", "riskLevel": "low" },
+
+  "shinhan.개인-이체": { "synonyms": ["돈 보내기", "송금", "부치기", "이체", "돈 부쳐", "이체하기"], "icon": "transfer", "riskLevel": "high" },
+  "shinhan.개인-이체-당행-다른기관이체": { "synonyms": ["다른 은행으로 보내기", "계좌 이체", "타행 송금"], "icon": "transfer", "riskLevel": "high" },
+  "shinhan.개인-이체-자동이체-등록": { "synonyms": ["자동이체 신청", "매달 자동으로 보내기"], "icon": "repeat", "riskLevel": "high" },
+  "shinhan.개인-이체-자동이체-조회-변경-취소": { "synonyms": ["자동이체", "자동이체 해지", "자동이체 안 나가게", "떼가는 거 그만", "매달 나가는 돈", "빠져나가는 돈"], "icon": "repeat", "riskLevel": "high" },
+
+  "shinhan.개인-공과금-법원": { "synonyms": ["공과금", "관리비", "세금 내기", "고지서"], "icon": "doc", "riskLevel": "low" },
+  "shinhan.개인-금융상품-환전": { "synonyms": ["환전", "달러 바꾸기", "외화 환전"], "icon": "globe", "riskLevel": "low" },
+  "shinhan.개인-금융상품-대출계좌조회": { "synonyms": ["대출 내역", "빌린 돈 보기"], "icon": "bank", "riskLevel": "low" },
+
+  "shinhan.개인-사용자관리-이체한도감액": { "synonyms": ["한도 줄이기", "이체 한도", "보낼 수 있는 금액"], "icon": "gauge", "riskLevel": "high" },
+  "shinhan.은행소개-공동인증서-구-공인인증서-인증서-발급-재발급": { "synonyms": ["인증서 발급", "공동인증서", "공인인증서", "인증서 다시 받기"], "icon": "lock", "riskLevel": "high" },
+  "shinhan.은행소개-공동인증서-구-공인인증서-인증서-갱신": { "synonyms": ["인증서 갱신", "인증서 연장", "인증서 기간 늘리기"], "icon": "lock", "riskLevel": "high" }
+}

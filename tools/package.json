@@ -9,7 +9,9 @@
     "build:index": "tsx src/build-search-index.ts",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "simulate": "tsx src/simulate-personalization.ts",
-    "report": "tsx src/report-metrics.ts"
+    "report": "tsx src/report-metrics.ts",
+    "build:catalog": "tsx src/build-catalog.ts",
+    "measure:portability": "tsx src/measure-portability.ts"
   },
   "dependencies": {
     "@minui/core": "workspace:*"

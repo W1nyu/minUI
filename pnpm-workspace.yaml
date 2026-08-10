@@ -1,6 +1,7 @@
 packages:
   - "packages/*"
   - "frontend"
+  - "demos"
   - "tools"
 allowBuilds:
   esbuild: true
