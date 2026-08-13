@@ -1,11 +1,12 @@
 import type { ColdStartPresets, MenuCatalog } from "@minui/core";
+import kebhana from "./catalogs/kebhana.json" with { type: "json" };
 import kbsec from "./catalogs/kbsec.json" with { type: "json" };
 import kbstar from "./catalogs/kbstar.json" with { type: "json" };
 import miraeasset from "./catalogs/miraeasset.json" with { type: "json" };
 import shinhan from "./catalogs/shinhan.json" with { type: "json" };
 
 /**
- * 이식 대상 네 곳.
+ * 이식 대상 다섯 곳 — 그중 셋을 띄운다.
  *
  * <p>호스트가 제공하는 것은 카탈로그와, 온보딩 프리셋으로 쓸 메뉴 id 목록뿐이다.
  * 그 밖에 `@minui/*`에 넘기는 것은 없다 — 이 파일이 짧은 것이 이식성의 증거다.
@@ -32,20 +33,15 @@ function presets(inquiry: string[], transfer: string[], invest: string[]): ColdS
   return { inquiry, transfer, invest };
 }
 
+/**
+ * 화면에 띄우는 곳. 실제 서비스 대상이다.
+ *
+ * <p>KB국민은행과 미래에셋증권은 여기 없지만 <b>지우지 않았다</b> — `COLD_SITES`에 그대로
+ * 있고 카탈로그·수집 원본·동의어도 전부 남아 있다. 벤치마크와 규모 측정은 다섯 곳을
+ * 모두 돌린다. 두 곳을 지우면 "네 사이트에서 이식 비용 0줄"이라는 M6의 측정이
+ * 재현 불가능해지고, 되돌리는 데 재수집이 필요해진다.
+ */
 export const SITES: SiteMeta[] = [
-  {
-    slug: "kb",
-    name: "KB국민은행",
-    kind: "은행",
-    accent: "#5a4a1f",
-    catalog: kbstar as MenuCatalog,
-    source: "kbstar.com 개인뱅킹 전체메뉴",
-    presets: presets(
-      ["kbstar.C016513", "kbstar.C016536", "kbstar.C016550", "kbstar.C101318"],
-      ["kbstar.C060833", "kbstar.C016540", "kbstar.C016513", "kbstar.C016536"],
-      ["kbstar.C016528", "kbstar.C103425", "kbstar.C016513", "kbstar.C016536"],
-    ),
-  },
   {
     slug: "shinhan",
     name: "신한은행",
@@ -55,21 +51,21 @@ export const SITES: SiteMeta[] = [
     source: "shinhan.com 전체메뉴 (개인·기업·퇴직연금·자산관리·은행소개)",
     presets: presets(
       [
-        "shinhan.개인-조회",
+        "shinhan.개인-조회-전체계좌",
         "shinhan.개인-조회-예금-신탁",
-        "shinhan.개인-공과금-법원",
+        "shinhan.개인-공과금-법원-나의-공과금-조회-납부",
         "shinhan.개인-금융상품-환전",
       ],
       [
-        "shinhan.개인-이체",
         "shinhan.개인-이체-당행-다른기관이체",
-        "shinhan.개인-조회",
+        "shinhan.개인-이체-자동이체-등록",
+        "shinhan.개인-조회-전체계좌",
         "shinhan.개인-이체-자동이체-조회-변경-취소",
       ],
       [
         "shinhan.개인-조회-예금-신탁",
         "shinhan.개인-금융상품-대출계좌조회",
-        "shinhan.개인-조회",
+        "shinhan.개인-조회-전체계좌",
         "shinhan.개인-조회-대출",
       ],
     ),
@@ -82,41 +78,81 @@ export const SITES: SiteMeta[] = [
     catalog: kbsec as MenuCatalog,
     source: "kbsec.com 전체메뉴",
     presets: presets(
-      ["kbsec.m02010000", "kbsec.m02010004", "kbsec.m01060018", "kbsec.m02040023"],
-      ["kbsec.m02020000", "kbsec.m01060018", "kbsec.m02010000", "kbsec.m02010004"],
-      ["kbsec.m01010001", "kbsec.m01110000", "kbsec.m02010004", "kbsec.m02010000"],
+      ["kbsec.m02010002", "kbsec.m02010004", "kbsec.m01060018", "kbsec.m02040023"],
+      ["kbsec.m02020002", "kbsec.m01060018", "kbsec.m02010002", "kbsec.m02010004"],
+      ["kbsec.m01010001", "kbsec.m01010029", "kbsec.m02010004", "kbsec.m02010002"],
+    ),
+  },
+
+  {
+    slug: "hana",
+    name: "하나은행",
+    kind: "은행",
+    // 브랜드 청록 #008485는 흰 글자와 4.53:1로 아슬아슬하다. 한 단계 낮춰 6.07:1로 쓴다.
+    accent: "#006e6f",
+    catalog: kebhana as MenuCatalog,
+    source: "kebhana.com 전체메뉴",
+    presets: presets(
+      ["kebhana.102689", "kebhana.102692", "kebhana.57949", "kebhana.1501"],
+      ["kebhana.57915", "kebhana.57931", "kebhana.102689", "kebhana.102692"],
+      ["kebhana.58030", "kebhana.21101", "kebhana.102689", "kebhana.102692"],
+    ),
+  },
+];
+
+/**
+ * 띄우지 않는 곳. **데이터는 그대로 둔다.**
+ *
+ * <p>서비스 대상에서 빠졌을 뿐 카탈로그도 동의어도 살아 있다. 벤치마크·규모 측정은
+ * 여전히 다섯 곳을 돌리고, 다시 켜려면 이 배열에서 SITES로 옮기기만 하면 된다.
+ */
+export const COLD_SITES: SiteMeta[] = [
+  {
+    slug: "kb",
+    name: "KB국민은행",
+    kind: "은행",
+    accent: "#5a4a1f",
+    catalog: kbstar as MenuCatalog,
+    source: "kbstar.com 개인뱅킹 전체메뉴",
+    presets: presets(
+      ["kbstar.C055066", "kbstar.C016536", "kbstar.C016607", "kbstar.C101333"],
+      ["kbstar.C060833", "kbstar.C018401", "kbstar.C055066", "kbstar.C016536"],
+      ["kbstar.C016613", "kbstar.C103429", "kbstar.C055066", "kbstar.C016536"],
     ),
   },
   {
     slug: "miraeasset",
     name: "미래에셋증권",
     kind: "증권",
-    accent: "#d8500f",
+    // 브랜드색 #d8500f는 흰 글자와 4.14:1이라 작은 글자에 모자란다. 5.53:1로 낮춘다.
+    accent: "#b8410a",
     catalog: miraeasset as MenuCatalog,
     source: "securities.miraeasset.com 전체메뉴",
     presets: presets(
       [
         "miraeasset.금융상품-펀드-펀드잔고",
         "miraeasset.금융상품-펀드-기준가-수익률조회",
-        "miraeasset.연금자산-MY개인연금",
+        "miraeasset.연금자산-MY개인연금-개인연금-잔고",
         "miraeasset.뱅킹-대출-청약-이체-이체계좌-정보조회",
       ],
       [
-        "miraeasset.뱅킹-대출-청약-이체",
         "miraeasset.뱅킹-대출-청약-이체-간편이체",
+        "miraeasset.뱅킹-대출-청약-이체-이체내역조회",
         "miraeasset.금융상품-펀드-펀드잔고",
-        "miraeasset.연금자산-MY개인연금",
+        "miraeasset.연금자산-MY개인연금-개인연금-잔고",
       ],
       [
-        "miraeasset.금융상품-펀드",
+        "miraeasset.금융상품-펀드-펀드검색",
         "miraeasset.금융상품-펀드-기준가-수익률조회",
-        "miraeasset.연금자산-MY개인연금",
+        "miraeasset.연금자산-MY개인연금-개인연금-잔고",
         "miraeasset.금융상품-펀드-펀드잔고",
       ],
     ),
-  },
-];
+  },];
+
+/** 데이터가 있는 전부. 직접 주소를 친 경우에도 찾을 수 있게 한다. */
+export const ALL_SITES: SiteMeta[] = [...SITES, ...COLD_SITES];
 
 export function findSite(slug: string): SiteMeta | undefined {
-  return SITES.find((site) => site.slug === slug);
+  return ALL_SITES.find((site) => site.slug === slug);
 }

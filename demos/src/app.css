@@ -46,27 +46,47 @@ body {
 
 /* ── 사이트 전환 ───────────────────────────────────────── */
 
+/*
+ * 탭 바 색은 토큰을 쓰지 않고 여기서 고정한다.
+ *
+ * --minui-ink는 **테마에 따라 뒤집히는** 토큰이다(밝을 때 #141d1b, 어두울 때 #e9eeec).
+ * 그것을 배경으로 깔고 글자를 흰색으로 두면, 다크 모드에서 흰 바탕에 흰 글자가 된다.
+ * 실제로 그렇게 보이지 않는다는 지적을 받았다. 이 띠는 앱 껍데기라 양쪽 테마에서
+ * 똑같이 어두운 편이 낫고, 그러려면 뒤집히지 않는 값이어야 한다.
+ */
 .sites {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  background: var(--minui-ink);
+  /* 사이트 수만큼 자동으로 나눈다. 늘어날 때마다 여기를 고치지 않도록. */
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  background: #111a18;
 }
 
 .sites button {
-  min-height: 44px;
-  padding: 0 0.3rem;
+  min-height: 48px;
+  padding: 0 0.2rem;
   border: none;
+  border-bottom: 3px solid transparent;
   background: none;
-  color: rgba(255, 255, 255, 0.6);
+  /* 14.2:1. 고른 탭이 아니어도 읽을 수 있어야 고를 수 있다. */
+  color: #dfe8e5;
   font: inherit;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 600;
+  line-height: 1.15;
   cursor: pointer;
 }
 
+.sites button:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* 고른 탭은 밝기가 아니라 **바탕색과 밑줄**로 구분한다. */
 .sites button[aria-current="page"] {
   background: var(--site-accent, var(--minui-accent));
+  border-bottom-color: #fff;
   color: #fff;
+  font-weight: 700;
 }
 
 /* ── 사이트 헤더 ───────────────────────────────────────── */
@@ -155,6 +175,92 @@ body {
   line-height: 1.5;
 }
 
+/* 실제 금융사 사이트에 있는 메뉴 검색창. 글자 그대로 찾는다 — ClassicShell 주석 참고. */
+.classic-search {
+  display: grid;
+  gap: 0.3rem;
+  margin-bottom: 0.4rem;
+}
+
+.classic-search label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--minui-ink-2);
+}
+
+.classic-search input {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 0.75rem;
+  border: 1px solid var(--minui-line);
+  border-radius: 10px;
+  background: var(--minui-surface);
+  color: inherit;
+  font: inherit;
+  font-size: 0.9rem;
+}
+
+.classic-search input::placeholder {
+  color: var(--minui-ink-3);
+}
+
+/* 상위메뉴 이름. 누를 것이 아니라 어디인지 알려 주는 표시다. */
+.classic-hit-head {
+  margin: 0.7rem 0 0.3rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--minui-ink-3);
+}
+
+.classic-hit-group:first-child .classic-hit-head,
+.classic-subgroup:first-child .classic-hit-head {
+  margin-top: 0.2rem;
+}
+
+.classic-subgroup {
+  padding: 0 0.85rem;
+}
+
+.classic-subgroup ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: none;
+}
+
+.classic-hits ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 2px;
+}
+
+.classic-hits li button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  width: 100%;
+  min-height: 44px;
+  padding: 0 0.85rem;
+  border: 1px solid var(--minui-line);
+  border-radius: 10px;
+  background: var(--minui-surface);
+  color: inherit;
+  font: inherit;
+  font-size: 0.88rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.classic-where {
+  flex: none;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--minui-ink-3);
+}
+
 .classic-group {
   border: 1px solid var(--minui-line);
   border-radius: 10px;
@@ -193,13 +299,18 @@ body {
   padding: 0.1rem 0.5rem;
 }
 
+.classic-group > div {
+  border-top: 1px solid var(--minui-line);
+}
+
+.classic-group > div:not(:first-of-type) {
+  border-top-style: dashed;
+}
+
 .classic-group ul {
   margin: 0;
   padding: 0 0 0.4rem;
   list-style: none;
-  border-top: 1px solid var(--minui-line);
-  max-height: 22rem;
-  overflow-y: auto;
 }
 
 .classic-group li button {
@@ -317,6 +428,255 @@ body {
   color: var(--minui-accent-ink);
   font: inherit;
   font-size: var(--minui-text-l);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ── MinUI Studio ──────────────────────────────────────── */
+
+/*
+ * Studio는 데모 다섯 사이트와 성격이 다르다 — "아직 없는 사이트를 얹어 보는 곳"이라
+ * 휴대폰 폭에 갇히지 않는다. 왼쪽에 미리보기(휴대폰), 오른쪽에 이식 방법을 나란히 둔다.
+ */
+.app-wide {
+  max-width: none;
+  background: var(--minui-surface-2);
+  overflow-y: auto;
+}
+
+.studio {
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 3rem;
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+}
+
+.studio-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.studio-head h1 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.studio-head p {
+  margin: 0.3rem 0 0;
+  color: var(--minui-ink-2);
+  font-size: 0.9rem;
+}
+
+.studio-exit,
+.studio-link {
+  min-height: 40px;
+  padding: 0 0.9rem;
+  border: 1px solid var(--minui-line-strong);
+  border-radius: 10px;
+  background: var(--minui-surface);
+  color: var(--minui-ink);
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* 데모 화면 아래에 두는 진입점. 탭 바를 어지럽히지 않는다. */
+.studio-link {
+  margin: 0.5rem auto 0.9rem;
+  display: block;
+}
+
+.studio-form {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.studio-form input {
+  flex: 1;
+  min-height: 48px;
+  padding: 0 0.85rem;
+  border: 1px solid var(--minui-line);
+  border-radius: 10px;
+  background: var(--minui-paper);
+  color: inherit;
+  font: inherit;
+  font-size: 0.95rem;
+}
+
+.studio-form button {
+  min-height: 48px;
+  padding: 0 1.2rem;
+  border: none;
+  border-radius: 10px;
+  background: var(--minui-accent);
+  color: var(--minui-on-accent, #08211d);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.studio-form button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.studio-examples {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--minui-ink-3);
+}
+
+.studio-examples button {
+  margin-right: 0.4rem;
+  padding: 0.25rem 0.6rem;
+  border: 1px solid var(--minui-line);
+  border-radius: 999px;
+  background: var(--minui-surface);
+  color: var(--minui-ink-2);
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.studio-note {
+  margin: 0;
+  color: var(--minui-ink-2);
+  font-size: 0.88rem;
+}
+
+.studio-error {
+  margin: 0;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid var(--minui-line-strong);
+  border-radius: 10px;
+  background: var(--minui-surface);
+  color: var(--minui-ink);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.studio-steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 2px;
+}
+
+.studio-steps li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 0.45rem 0.85rem;
+  border: 1px solid var(--minui-line);
+  border-radius: 10px;
+  background: var(--minui-surface);
+  font-size: 0.86rem;
+}
+
+.studio-steps strong {
+  min-width: 4.5rem;
+}
+
+.studio-steps span {
+  margin-left: auto;
+  color: var(--minui-ink-3);
+  font-size: 0.78rem;
+}
+
+.studio-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.studio-stats > div {
+  flex: 1 1 7rem;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--minui-line);
+  border-radius: 10px;
+  background: var(--minui-surface);
+}
+
+.studio-stats dt {
+  font-size: 0.72rem;
+  color: var(--minui-ink-3);
+}
+
+.studio-stats dd {
+  margin: 0.15rem 0 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.studio-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  align-items: flex-start;
+}
+
+/* 미리보기는 실제 폭에서 봐야 뜻이 있다. 카드 크기가 곧 이 프로젝트의 주장이다. */
+.studio-phone {
+  position: relative;
+  width: 22rem;
+  height: 40rem;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--minui-line-strong);
+  border-radius: 18px;
+  background: var(--minui-paper);
+}
+
+.studio-phone > * {
+  flex: 1;
+  min-height: 0;
+}
+
+.studio-handoff {
+  flex: 1 1 18rem;
+}
+
+.studio-handoff h2 {
+  margin: 0 0 0.6rem;
+  font-size: 1rem;
+}
+
+.studio-handoff pre {
+  margin: 0 0 0.7rem;
+  padding: 0.8rem;
+  border: 1px solid var(--minui-line);
+  border-radius: 10px;
+  background: var(--minui-paper);
+  font-size: 0.8rem;
+  line-height: 1.6;
+  overflow-x: auto;
+}
+
+.studio-handoff p {
+  margin: 0 0 0.9rem;
+  color: var(--minui-ink-2);
+  font-size: 0.86rem;
+  line-height: 1.6;
+}
+
+.studio-handoff .primary {
+  min-height: 46px;
+  padding: 0 1.1rem;
+  border: none;
+  border-radius: 10px;
+  background: var(--minui-accent);
+  color: var(--minui-on-accent, #08211d);
+  font: inherit;
   font-weight: 700;
   cursor: pointer;
 }

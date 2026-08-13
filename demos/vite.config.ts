@@ -1,6 +1,9 @@
 import { fileURLToPath } from "node:url";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
+import { assistRoute } from "./src/assistRoute.js";
+import { explainRoute } from "./src/explainRoute.js";
+import { studioRoute } from "./src/studioRoute.js";
 
 const src = (path: string) => fileURLToPath(new URL(path, import.meta.url));
 
@@ -16,7 +19,8 @@ const src = (path: string) => fileURLToPath(new URL(path, import.meta.url));
  * 더 구체적인 경로를 먼저 둔다.
  */
 export default defineConfig({
-  plugins: [react()],
+  // /api/assist·/api/explain — API 키를 브라우저로 내보내지 않기 위한 중계.
+  plugins: [react(), assistRoute(), explainRoute(), studioRoute()],
   resolve: {
     alias: [
       { find: "@minui/react/tokens.css", replacement: src("../packages/react/src/styles/tokens.css") },
