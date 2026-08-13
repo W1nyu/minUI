@@ -1,16 +1,5 @@
 {
   "_note": "신한은행. WebSquare라 링크에 URL도 메뉴 코드도 없고, 로그인 후에도 없는 것을 확인했다. id가 라벨 경로 기반이라 문구가 바뀌면 끊어지지만, 빌더가 자모 유사도로 다시 붙이고 못 붙인 것은 리포트한다. 자동 재연결이 위험할 만큼 애매하면 match: { label } 을 넣으면 된다.",
-  "shinhan.개인-조회": {
-    "synonyms": [
-      "잔액 보기",
-      "돈 얼마 있어",
-      "잔고",
-      "통장 확인",
-      "얼마 남았어"
-    ],
-    "icon": "wallet",
-    "riskLevel": "low"
-  },
   "shinhan.개인-조회-예금-신탁": {
     "synonyms": [
       "예금 잔액",
@@ -24,7 +13,10 @@
     "synonyms": [
       "대출 얼마 남았어",
       "빚 얼마",
-      "대출 잔액"
+      "대출 잔액",
+      "빚 얼마 남았어",
+      "빌린 돈",
+      "갚을 돈"
     ],
     "icon": "bank",
     "riskLevel": "low"
@@ -38,31 +30,31 @@
     "icon": "wallet",
     "riskLevel": "low"
   },
-  "shinhan.개인-이체": {
+  "shinhan.개인-이체-당행-다른기관이체": {
     "synonyms": [
       "돈 보내기",
       "송금",
       "부치기",
       "이체",
       "돈 부쳐",
-      "이체하기"
-    ],
-    "icon": "transfer",
-    "riskLevel": "high"
-  },
-  "shinhan.개인-이체-당행-다른기관이체": {
-    "synonyms": [
+      "이체하기",
       "다른 은행으로 보내기",
-      "계좌 이체",
-      "타행 송금"
+      "타행 이체",
+      "다른 은행 계좌로",
+      "딸한테 보내기"
     ],
     "icon": "transfer",
-    "riskLevel": "high"
+    "riskLevel": "high",
+    "match": {
+      "label": "당행/다른기관이체",
+      "category": "이체"
+    }
   },
   "shinhan.개인-이체-자동이체-등록": {
     "synonyms": [
       "자동이체 신청",
-      "매달 자동으로 보내기"
+      "매달 자동으로 보내기",
+      "자동이체 새로 걸기"
     ],
     "icon": "repeat",
     "riskLevel": "high"
@@ -78,16 +70,6 @@
     ],
     "icon": "repeat",
     "riskLevel": "high"
-  },
-  "shinhan.개인-공과금-법원": {
-    "synonyms": [
-      "공과금",
-      "관리비",
-      "세금 내기",
-      "고지서"
-    ],
-    "icon": "doc",
-    "riskLevel": "low"
   },
   "shinhan.개인-금융상품-환전": {
     "synonyms": [
@@ -165,5 +147,90 @@
     ],
     "icon": "lock",
     "riskLevel": "high"
+  },
+  "shinhan.개인-조회-전체계좌": {
+    "synonyms": [
+      "잔액 보기",
+      "돈 얼마 있어",
+      "잔고",
+      "통장 확인",
+      "얼마 남았어",
+      "거래 내역",
+      "통장 정리",
+      "입금 확인",
+      "들어온 돈"
+    ],
+    "icon": "wallet",
+    "riskLevel": "low",
+    "match": {
+      "label": "전체계좌",
+      "category": "조회"
+    }
+  },
+  "shinhan.개인-공과금-법원-나의-공과금-조회-납부": {
+    "synonyms": [
+      "공과금",
+      "관리비",
+      "세금 내기",
+      "고지서"
+    ],
+    "icon": "doc",
+    "riskLevel": "low",
+    "match": {
+      "label": "나의 공과금 조회/납부",
+      "category": "공과금/법원"
+    }
+  },
+  "shinhan.개인-기타금융-잔액증명서-발급": {
+    "icon": "doc",
+    "riskLevel": "low",
+    "synonyms": [
+      "잔액증명서",
+      "서류 떼기",
+      "증명서 발급"
+    ]
+  },
+  "shinhan.개인-기타금융-통장재발급": {
+    "icon": "doc",
+    "riskLevel": "low",
+    "synonyms": [
+      "통장 다시",
+      "통장 잃어버림",
+      "통장 재발급"
+    ]
+  },
+  "shinhan.개인-이체-이체결과조회": {
+    "icon": "doc",
+    "riskLevel": "high",
+    "synonyms": [
+      "보낸 거 확인",
+      "이체 됐나",
+      "송금 확인"
+    ]
+  },
+  "shinhan.개인-조회-휴면예금": {
+    "icon": "doc",
+    "riskLevel": "low",
+    "synonyms": [
+      "잠자는 돈",
+      "묵은 통장",
+      "안 쓰는 계좌"
+    ]
+  },
+  "shinhan.개인-조회-펀드": {
+    "icon": "doc",
+    "riskLevel": "low",
+    "synonyms": [
+      "펀드 얼마",
+      "내 펀드"
+    ]
+  },
+  "shinhan.개인-조회-외환": {
+    "icon": "doc",
+    "riskLevel": "low",
+    "synonyms": [
+      "달러 통장",
+      "외화 얼마"
+    ]
   }
 }

@@ -52,6 +52,22 @@ export interface AttachResult {
 export const REMATCH_FLOOR = 0.82;
 
 /**
+ * 자모 재연결을 시도해도 되는 id인가.
+ *
+ * <p>id에 한글이 있으면 그것은 라벨에서 만들어진 id다 — `shinhan.개인-이체-당행이체`처럼
+ * 문구가 그대로 들어 있어서, 사이트가 문구를 조금 바꿔도 자모 수준에서 가깝다.
+ *
+ * <p><b>코드형 id에는 쓰면 안 된다.</b> KB국민은행의 `C016513`과 `C016523`은 문자 93%가
+ * 같지만 각각 "계좌조회"와 "휴면계좌 조회"다 — 서로 아무 관계가 없다. 실제로 이 검사를
+ * 넣기 전에는 "잔액 보기" 동의어가 휴면계좌 조회에, "돈 보내기"가 다른금융 계좌이체에
+ * 붙었다. 코드가 사라졌다는 것은 사이트가 그 메뉴를 없앴거나 우리가 걸러냈다는 뜻이고,
+ * 그때 필요한 것은 추측이 아니라 사람의 확인이다.
+ */
+function isTextualId(id: string): boolean {
+  return /[가-힣]/.test(id);
+}
+
+/**
  * override를 메뉴에 붙인다. **id가 끊어져도 살아남게 하는 것이 목적이다.**
  *
  * <p>순서에 뜻이 있다.
@@ -63,6 +79,11 @@ export const REMATCH_FLOOR = 0.82;
  *       바로 그 함수다. 자동으로 붙이되 <b>전부 리포트한다</b> —
  *       엉뚱한 메뉴에 동의어가 붙는 것은 안 붙는 것보다 나쁘다
  * </ol>
+ *
+ * <p>세 단계를 <b>override 하나씩이 아니라 단계별로 통과시킨다.</b> 순서를 뒤집으면 추측이
+ * 확신을 밀어낸다 — `shinhan.개인-조회`(사라진 갈래)가 자모 1.00으로
+ * `개인-조회-예금-신탁`을 먼저 차지해 버리면, 정작 그 id를 정확히 가진 override가
+ * 갈 곳을 잃는다. 실제로 그렇게 됐었다.
  */
 export function attachOverrides(
   menus: readonly MenuItem[],
@@ -84,16 +105,18 @@ export function attachOverrides(
     byLabel.set(menu.label, [...(byLabel.get(menu.label) ?? []), menu]);
   }
 
-  for (const key of keys) {
-    const override = overrides[key]!;
-
+  // 1단계 — id 일치. 확신이 있는 것부터 자리를 잡는다.
+  let pending = keys.filter((key) => {
     const exact = byId.get(key);
-    if (exact && !taken.has(exact.id)) {
-      resolved.set(exact.id, override);
-      taken.add(exact.id);
-      continue;
-    }
+    if (!exact || taken.has(exact.id)) return true;
+    resolved.set(exact.id, overrides[key]!);
+    taken.add(exact.id);
+    return false;
+  });
 
+  // 2단계 — 작성자가 적어 둔 기준.
+  pending = pending.filter((key) => {
+    const override = overrides[key]!;
     const wanted = override.match;
     const candidates = wanted
       ? ((wanted.category
@@ -101,22 +124,29 @@ export function attachOverrides(
           : byLabel.get(wanted.label)) ?? [])
       : [];
     const byMatch = candidates.find((menu) => !taken.has(menu.id));
-    if (byMatch) {
-      resolved.set(byMatch.id, override);
-      taken.add(byMatch.id);
-      remaps.push({ from: key, to: byMatch.id, how: "match.label" });
-      continue;
-    }
+    if (!byMatch) return true;
+    resolved.set(byMatch.id, override);
+    taken.add(byMatch.id);
+    remaps.push({ from: key, to: byMatch.id, how: "match.label" });
+    return false;
+  });
+
+  // 3단계 — 여기서부터는 추측이다.
+  for (const key of pending) {
+    const override = overrides[key]!;
 
     // id가 끊어졌다. 엔진의 자모 유사도로 가장 가까운 메뉴를 찾는다.
+    // 단 양쪽 id가 모두 라벨에서 만들어진 것일 때만 — 코드끼리의 문자 유사도는 뜻이 없다.
     let best: MenuItem | null = null;
     let bestScore = 0;
-    for (const menu of menus) {
-      if (taken.has(menu.id)) continue;
-      const score = jamoSimilarity(menu.id, key);
-      if (score > bestScore) {
-        bestScore = score;
-        best = menu;
+    if (isTextualId(key)) {
+      for (const menu of menus) {
+        if (taken.has(menu.id) || !isTextualId(menu.id)) continue;
+        const score = jamoSimilarity(menu.id, key);
+        if (score > bestScore) {
+          bestScore = score;
+          best = menu;
+        }
       }
     }
 

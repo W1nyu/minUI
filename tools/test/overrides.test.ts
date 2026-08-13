@@ -152,4 +152,38 @@ describe("코드가 있는 사이트는 애초에 안 끊어진다", () => {
     expect(resolved.get("kbstar.C018401")?.synonyms).toEqual(HAND_WORK.synonyms);
     expect(remaps).toEqual([]);
   });
+
+  /*
+   * 코드가 사라졌을 때 비슷한 코드에 붙이면 안 된다.
+   *
+   * 이것을 안 막았을 때 실제로 일어난 일이다. "계좌조회"(C016513)가 갈래로 걸러지자
+   * 그 동의어 "잔액 보기 / 돈 얼마 있어"가 자모 0.93으로 C016523에 붙었는데,
+   * 그 메뉴는 **휴면계좌 조회**였다. 코드끼리는 한 글자만 달라도 유사도가 높게 나오지만
+   * 그 유사도는 뜻을 담고 있지 않다.
+   */
+  it("코드가 사라지면 비슷한 코드에 붙이지 않고 사람에게 넘긴다", () => {
+    const menus = [
+      menu("kbstar.C016523", "휴면계좌 조회"),
+      menu("kbstar.C016586", "지로 납부/관리"),
+    ];
+
+    const { resolved, remaps, orphans } = attachOverrides(menus, {
+      "kbstar.C016513": { synonyms: ["잔액 보기", "돈 얼마 있어"] },
+    });
+
+    expect(resolved.size).toBe(0);
+    expect(remaps).toEqual([]);
+    expect(orphans.map((o) => o.key)).toEqual(["kbstar.C016513"]);
+  });
+
+  it("코드형 id라도 match.label을 적어 두면 붙는다", () => {
+    const menus = [menu("kbstar.C055066", "잔액조회")];
+
+    const { resolved, remaps } = attachOverrides(menus, {
+      "kbstar.C016513": { synonyms: ["잔액 보기"], match: { label: "잔액조회" } },
+    });
+
+    expect(resolved.get("kbstar.C055066")?.synonyms).toEqual(["잔액 보기"]);
+    expect(remaps[0]?.how).toBe("match.label");
+  });
 });

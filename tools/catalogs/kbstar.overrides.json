@@ -1,20 +1,14 @@
 {
-  "_note": "KB국민은행 개인뱅킹. 자주 쓰일 메뉴에만 구어 표현을 붙인다. id는 사이트의 page 코드라 개편에도 잘 안 끊어진다. M4에서 확인했듯 검색 정확도의 거의 전부를 이 동의어가 만든다.",
-  "kbstar.C016513": {
+  "_note": "KB국민은행 개인뱅킹. 자주 쓰일 메뉴에만 구어 표현을 붙인다. id는 사이트의 page 코드라 개편에도 잘 안 끊어진다. M4에서 확인했듯 검색 정확도의 거의 전부를 이 동의어가 만든다. 갈래(자식 있는 항목)도 카탈로그에 있으므로, 동의어는 사용자가 실제로 가고 싶어 할 화면에 붙인다 — 대개 최하위 메뉴다.",
+  "kbstar.C055066": {
     "synonyms": [
+      "내 통장 잔액",
+      "국민은행 잔액",
       "잔액 보기",
       "돈 얼마 있어",
       "잔고",
       "통장 확인",
       "얼마 남았어"
-    ],
-    "icon": "wallet",
-    "riskLevel": "low"
-  },
-  "kbstar.C055066": {
-    "synonyms": [
-      "내 통장 잔액",
-      "국민은행 잔액"
     ],
     "icon": "wallet",
     "riskLevel": "low"
@@ -25,13 +19,7 @@
       "입금 확인",
       "들어온 돈",
       "통장 정리",
-      "내역 보기"
-    ],
-    "icon": "list",
-    "riskLevel": "low"
-  },
-  "kbstar.C102264": {
-    "synonyms": [
+      "내역 보기",
       "입출금 내역",
       "쓴 돈 보기"
     ],
@@ -45,27 +33,11 @@
       "부치기",
       "이체",
       "돈 부쳐",
-      "이체하기"
-    ],
-    "icon": "transfer",
-    "riskLevel": "high"
-  },
-  "kbstar.C055027": {
-    "synonyms": [
+      "이체하기",
       "계좌로 보내기",
       "다른 통장으로 보내기"
     ],
     "icon": "transfer",
-    "riskLevel": "high"
-  },
-  "kbstar.C016540": {
-    "synonyms": [
-      "자동이체",
-      "매달 나가는 돈",
-      "떼가는 거",
-      "빠져나가는 돈"
-    ],
-    "icon": "repeat",
     "riskLevel": "high"
   },
   "kbstar.C018401": {
@@ -73,20 +45,14 @@
       "자동이체 해지",
       "자동이체 안 나가게",
       "떼가는 거 그만",
-      "자동이체 조회"
+      "자동이체 조회",
+      "자동이체",
+      "매달 나가는 돈",
+      "떼가는 거",
+      "빠져나가는 돈"
     ],
     "icon": "repeat",
     "riskLevel": "high"
-  },
-  "kbstar.C016550": {
-    "synonyms": [
-      "공과금",
-      "관리비",
-      "세금 내기",
-      "고지서"
-    ],
-    "icon": "doc",
-    "riskLevel": "low"
   },
   "kbstar.C016606": {
     "synonyms": [
@@ -96,16 +62,6 @@
     "icon": "doc",
     "riskLevel": "high"
   },
-  "kbstar.C016528": {
-    "synonyms": [
-      "예금",
-      "적금 들기",
-      "저축",
-      "이자 많은 거"
-    ],
-    "icon": "savings",
-    "riskLevel": "low"
-  },
   "kbstar.C105581": {
     "synonyms": [
       "예금 상품",
@@ -114,38 +70,13 @@
     "icon": "savings",
     "riskLevel": "low"
   },
-  "kbstar.C103425": {
-    "synonyms": [
-      "대출",
-      "빌리기",
-      "돈 빌려",
-      "대출 알아보기"
-    ],
-    "icon": "bank",
-    "riskLevel": "low"
-  },
-  "kbstar.C103427": {
-    "synonyms": [
-      "대출 신청",
-      "대출 받기",
-      "돈 빌리기"
-    ],
-    "icon": "bank",
-    "riskLevel": "high"
-  },
-  "kbstar.C101318": {
-    "synonyms": [
-      "환율",
-      "달러 얼마",
-      "환율 보기"
-    ],
-    "icon": "globe",
-    "riskLevel": "low"
-  },
   "kbstar.C101333": {
     "synonyms": [
       "오늘 환율",
-      "환율 조회"
+      "환율 조회",
+      "환율",
+      "달러 얼마",
+      "환율 보기"
     ],
     "icon": "globe",
     "riskLevel": "low"
@@ -173,13 +104,7 @@
     "synonyms": [
       "펀드",
       "펀드 가입",
-      "펀드 알아보기"
-    ],
-    "icon": "chart",
-    "riskLevel": "low"
-  },
-  "kbstar.C016529": {
-    "synonyms": [
+      "펀드 알아보기",
       "펀드 내 것",
       "내 펀드 얼마"
     ],
@@ -199,13 +124,7 @@
     "synonyms": [
       "외화",
       "달러 통장",
-      "외국 돈"
-    ],
-    "icon": "globe",
-    "riskLevel": "low"
-  },
-  "kbstar.C101324": {
-    "synonyms": [
+      "외국 돈",
       "달러 예금",
       "외화 통장"
     ],
@@ -221,19 +140,13 @@
     "icon": "savings",
     "riskLevel": "low"
   },
-  "kbstar.C016545": {
-    "synonyms": [
-      "4대보험",
-      "보험료 내기",
-      "건강보험료"
-    ],
-    "icon": "doc",
-    "riskLevel": "low"
-  },
   "kbstar.C016592": {
     "synonyms": [
       "국민연금 내기",
-      "건강보험 납부"
+      "건강보험 납부",
+      "4대보험",
+      "보험료 내기",
+      "건강보험료"
     ],
     "icon": "doc",
     "riskLevel": "low"
@@ -284,5 +197,38 @@
     ],
     "icon": "wallet",
     "riskLevel": "low"
+  },
+  "kbstar.C016607": {
+    "icon": "doc",
+    "riskLevel": "low",
+    "synonyms": [
+      "공과금",
+      "관리비",
+      "세금 내기",
+      "고지서"
+    ]
+  },
+  "kbstar.C016613": {
+    "icon": "savings",
+    "riskLevel": "low",
+    "synonyms": [
+      "예금",
+      "적금 들기",
+      "저축",
+      "이자 많은 거"
+    ]
+  },
+  "kbstar.C103429": {
+    "icon": "bank",
+    "riskLevel": "low",
+    "synonyms": [
+      "대출",
+      "빌리기",
+      "돈 빌려",
+      "대출 알아보기",
+      "대출 신청",
+      "대출 받기",
+      "돈 빌리기"
+    ]
   }
 }

@@ -1,0 +1,693 @@
+{
+  "source": {
+    "site": "kbstar-auto",
+    "host": "www.kbstar.com",
+    "capturedAt": "2026-08-11T04:03:59.562Z",
+    "note": "자동 수집. 전략=body. 로그인하지 않은 상태에서 내비게이션만 읽음."
+  },
+  "items": [
+    {
+      "path": [
+        "브라우저 업데이트에 대한 ASTx 이용안내"
+      ],
+      "label": "보안프로그램 이용 방법 안내 >",
+      "key": "page:C019391"
+    },
+    {
+      "path": [],
+      "label": "개인",
+      "key": "page:obank"
+    },
+    {
+      "path": [
+        "개인"
+      ],
+      "label": "조회",
+      "key": "page:C055068"
+    },
+    {
+      "path": [
+        "개인"
+      ],
+      "label": "이체",
+      "key": "page:C016524"
+    },
+    {
+      "path": [
+        "개인"
+      ],
+      "label": "공과금",
+      "key": "page:C016526"
+    },
+    {
+      "path": [
+        "개인"
+      ],
+      "label": "금융상품",
+      "key": "page:C030037"
+    },
+    {
+      "path": [
+        "개인"
+      ],
+      "label": "외환",
+      "key": "page:C102239"
+    },
+    {
+      "path": [
+        "개인"
+      ],
+      "label": "뱅킹관리",
+      "key": "page:C016535"
+    },
+    {
+      "path": [],
+      "label": "기업",
+      "key": "page:obiz"
+    },
+    {
+      "path": [
+        "기업"
+      ],
+      "label": "마이페이지",
+      "key": "page:obiz"
+    },
+    {
+      "path": [
+        "기업"
+      ],
+      "label": "조회",
+      "key": "page:C015661"
+    },
+    {
+      "path": [
+        "기업"
+      ],
+      "label": "이체",
+      "key": "page:C064502"
+    },
+    {
+      "path": [
+        "기업"
+      ],
+      "label": "Star CMS",
+      "key": "page:C057030"
+    },
+    {
+      "path": [
+        "기업"
+      ],
+      "label": "외환",
+      "key": "page:C101540"
+    },
+    {
+      "path": [
+        "기업"
+      ],
+      "label": "금융상품",
+      "key": "page:C105749"
+    },
+    {
+      "path": [],
+      "label": "금융상품",
+      "key": "page:C030037"
+    },
+    {
+      "path": [],
+      "label": "자산관리",
+      "key": "page:onmoney"
+    },
+    {
+      "path": [],
+      "label": "퇴직연금",
+      "key": "page:opensn"
+    },
+    {
+      "path": [],
+      "label": "전체서비스",
+      "key": "label:전체서비스"
+    },
+    {
+      "path": [
+        "전체서비스",
+        "금융서비스 에스크로이체 보안센터 인증센터(개인) 인증센터(기업)"
+      ],
+      "label": "에스크로이체",
+      "key": "page:oescrow"
+    },
+    {
+      "path": [
+        "전체서비스",
+        "금융서비스 에스크로이체 보안센터 인증센터(개인) 인증센터(기업)"
+      ],
+      "label": "보안센터",
+      "key": "page:osecure"
+    },
+    {
+      "path": [
+        "전체서비스",
+        "금융서비스 에스크로이체 보안센터 인증센터(개인) 인증센터(기업)"
+      ],
+      "label": "인증센터(개인)",
+      "key": "page:C018872"
+    },
+    {
+      "path": [
+        "전체서비스",
+        "금융서비스 에스크로이체 보안센터 인증센터(개인) 인증센터(기업)"
+      ],
+      "label": "인증센터(기업)",
+      "key": "page:C100996"
+    },
+    {
+      "path": [
+        "전체서비스",
+        "특화서비스 주택청약 국민주택채권 주택도시기금 스마트금융서비스 Liiv M KB국민인증서"
+      ],
+      "label": "주택청약",
+      "key": "page:ohsubs"
+    },
+    {
+      "path": [
+        "전체서비스",
+        "특화서비스 주택청약 국민주택채권 주택도시기금 스마트금융서비스 Liiv M KB국민인증서"
+      ],
+      "label": "국민주택채권",
+      "key": "page:onhbond"
+    },
+    {
+      "path": [
+        "전체서비스",
+        "특화서비스 주택청약 국민주택채권 주택도시기금 스마트금융서비스 Liiv M KB국민인증서"
+      ],
+      "label": "주택도시기금",
+      "key": "page:onhouse"
+    },
+    {
+      "path": [
+        "전체서비스",
+        "특화서비스 주택청약 국민주택채권 주택도시기금 스마트금융서비스 Liiv M KB국민인증서"
+      ],
+      "label": "스마트금융서비스",
+      "key": "page:omobile"
+    },
+    {
+      "path": [
+        "전체서비스",
+        "특화서비스 주택청약 국민주택채권 주택도시기금 스마트금융서비스 Liiv M KB국민인증서"
+      ],
+      "label": "Liiv M",
+      "key": "page:oliivm"
+    },
+    {
+      "path": [
+        "전체서비스",
+        "특화서비스 주택청약 국민주택채권 주택도시기금 스마트금융서비스 Liiv M KB국민인증서"
+      ],
+      "label": "KB국민인증서",
+      "key": "page:C112161"
+    },
+    {
+      "path": [
+        "전체서비스",
+        "멤버십서비스 KB고객우대제도 GOLD&WISE"
+      ],
+      "label": "KB고객우대제도",
+      "key": "page:omember"
+    },
+    {
+      "path": [
+        "전체서비스",
+        "멤버십서비스 KB고객우대제도 GOLD&WISE"
+      ],
+      "label": "GOLD&WISE",
+      "key": "page:ognw"
+    },
+    {
+      "path": [
+        "전체서비스",
+        "KB와 함께 은행소개 지점안내 고객센터 KB정보광장 이벤트 희망금융클리닉 KB굿잡 KB의 생각"
+      ],
+      "label": "은행소개",
+      "key": "page:oabout"
+    },
+    {
+      "path": [
+        "전체서비스",
+        "KB와 함께 은행소개 지점안내 고객센터 KB정보광장 이벤트 희망금융클리닉 KB굿잡 KB의 생각"
+      ],
+      "label": "지점안내",
+      "key": "page:C016505"
+    },
+    {
+      "path": [
+        "전체서비스",
+        "KB와 함께 은행소개 지점안내 고객센터 KB정보광장 이벤트 희망금융클리닉 KB굿잡 KB의 생각"
+      ],
+      "label": "고객센터",
+      "key": "page:osupp"
+    },
+    {
+      "path": [
+        "전체서비스",
+        "KB와 함께 은행소개 지점안내 고객센터 KB정보광장 이벤트 희망금융클리닉 KB굿잡 KB의 생각"
+      ],
+      "label": "KB정보광장",
+      "key": "page:oblog"
+    },
+    {
+      "path": [
+        "전체서비스",
+        "KB와 함께 은행소개 지점안내 고객센터 KB정보광장 이벤트 희망금융클리닉 KB굿잡 KB의 생각"
+      ],
+      "label": "이벤트",
+      "key": "page:oevent"
+    },
+    {
+      "path": [
+        "전체서비스",
+        "KB와 함께 은행소개 지점안내 고객센터 KB정보광장 이벤트 희망금융클리닉 KB굿잡 KB의 생각"
+      ],
+      "label": "희망금융클리닉",
+      "key": "page:ohope"
+    },
+    {
+      "path": [
+        "전체서비스",
+        "KB와 함께 은행소개 지점안내 고객센터 KB정보광장 이벤트 희망금융클리닉 KB굿잡 KB의 생각"
+      ],
+      "label": "KB굿잡",
+      "key": "label:전체서비스/KB와 함께 은행소개 지점안내 고객센터 KB정보광장 이벤트 희망금융클리닉 KB굿잡 KB의 생각/KB굿잡"
+    },
+    {
+      "path": [],
+      "label": "GLOBAL",
+      "key": "label:GLOBAL"
+    },
+    {
+      "path": [
+        "GLOBAL",
+        "LANGUAGE English Chinese Japanese"
+      ],
+      "label": "English",
+      "key": "page:oeng"
+    },
+    {
+      "path": [
+        "GLOBAL",
+        "LANGUAGE English Chinese Japanese"
+      ],
+      "label": "Chinese",
+      "key": "page:ochn"
+    },
+    {
+      "path": [
+        "GLOBAL",
+        "LANGUAGE English Chinese Japanese"
+      ],
+      "label": "Japanese",
+      "key": "page:ojpn"
+    },
+    {
+      "path": [
+        "GLOBAL"
+      ],
+      "label": "KB GLOBAL NETWORK",
+      "key": "label:GLOBAL/KB GLOBAL NETWORK"
+    },
+    {
+      "path": [
+        "GLOBAL",
+        "KB GLOBAL NETWORK"
+      ],
+      "label": "Japan",
+      "key": "path:/tk/main"
+    },
+    {
+      "path": [
+        "GLOBAL",
+        "KB GLOBAL NETWORK"
+      ],
+      "label": "UK",
+      "key": "path:/ld/main"
+    },
+    {
+      "path": [
+        "GLOBAL",
+        "KB GLOBAL NETWORK"
+      ],
+      "label": "New Zealand",
+      "key": "path:/auc/main"
+    },
+    {
+      "path": [
+        "GLOBAL",
+        "KB GLOBAL NETWORK"
+      ],
+      "label": "Cambodia",
+      "key": "path:/cbd/main"
+    },
+    {
+      "path": [
+        "GLOBAL",
+        "KB GLOBAL NETWORK"
+      ],
+      "label": "Vietnam",
+      "key": "path:/vtn/main"
+    },
+    {
+      "path": [
+        "GLOBAL",
+        "KB GLOBAL NETWORK"
+      ],
+      "label": "Hong Kong",
+      "key": "page:C021267"
+    },
+    {
+      "path": [
+        "GLOBAL",
+        "KB GLOBAL NETWORK"
+      ],
+      "label": "Myanmar",
+      "key": "path:/mmr/main"
+    },
+    {
+      "path": [
+        "GLOBAL",
+        "KB GLOBAL NETWORK"
+      ],
+      "label": "Singapore",
+      "key": "path:/sg/main"
+    },
+    {
+      "path": [],
+      "label": "통합검색",
+      "key": "label:통합검색"
+    },
+    {
+      "path": [],
+      "label": "인증센터",
+      "key": "label:인증센터"
+    },
+    {
+      "path": [],
+      "label": "바로가기",
+      "key": "page:C027979"
+    },
+    {
+      "path": [],
+      "label": "바로가기",
+      "key": "page:C027860"
+    },
+    {
+      "path": [],
+      "label": "주거취약계층 이주지원 버팀목 전세자금대출",
+      "key": "label:주거취약계층 이주지원 버팀목 전세자금대출"
+    },
+    {
+      "path": [],
+      "label": "2025 국가고객만족도(NCSI) 1위",
+      "key": "label:2025 국가고객만족도(NCSI) 1위"
+    },
+    {
+      "path": [],
+      "label": "여섯시은행(9To6 Bank)지점 운영 안내",
+      "key": "label:여섯시은행(9To6 Bank)지점 운영 안내"
+    },
+    {
+      "path": [],
+      "label": "전체계좌조회",
+      "key": "page:C019088"
+    },
+    {
+      "path": [],
+      "label": "계좌이체",
+      "key": "page:C055027"
+    },
+    {
+      "path": [],
+      "label": "빠른조회",
+      "key": "code:025255"
+    },
+    {
+      "path": [],
+      "label": "보안센터",
+      "key": "page:osecure"
+    },
+    {
+      "path": [],
+      "label": "고객우대제도",
+      "key": "page:omember"
+    },
+    {
+      "path": [],
+      "label": "소비자보호",
+      "key": "page:C036336"
+    },
+    {
+      "path": [],
+      "label": "상담/예약",
+      "key": "page:C029656"
+    },
+    {
+      "path": [],
+      "label": "상품공시실",
+      "key": "page:C022180"
+    },
+    {
+      "path": [],
+      "label": "KB스타뱅킹「실손24 간편청구」서비스 출시 안내 07.30",
+      "key": "page:C019391"
+    },
+    {
+      "path": [],
+      "label": "2026년 KB국민은행 「숨은 금융자산 찾아주기」 캠페인 실시 안내 07.21",
+      "key": "page:C019391"
+    },
+    {
+      "path": [],
+      "label": "가계 신용대출 중도상환수수료 한시적 면제 시행 안내 07.16",
+      "key": "page:C019391"
+    },
+    {
+      "path": [],
+      "label": "KB국민은행과 KB증권의 투샷, 엔딩은 100만원 행운 07.29 ~ 08.31",
+      "key": "page:C016559"
+    },
+    {
+      "path": [],
+      "label": "KB 크리에이터님들 모여라100% 환율우대 & 시원한 커피 동시에 챙기세요~! 07.20 ~ 08.31",
+      "key": "page:C016559"
+    },
+    {
+      "path": [],
+      "label": "트래블러스 통화확대 완료! 외화계좌 연결하고 공항 라운지 혜택까지! 07.14 ~ 09.13",
+      "key": "page:C016559"
+    },
+    {
+      "path": [],
+      "label": "서비스 건강한 자산관리 KB마이데이터 각 기관에 흩어진 나의 자산을 한 곳에 모아서 관리해보세요.",
+      "key": "page:C043279"
+    },
+    {
+      "path": [],
+      "label": "서비스 이동통신서비스 Liiv M KB국민은행의 혁신금융서비스로금융권 최초로 제공하는 이동통신서비스",
+      "key": "page:oliivm"
+    },
+    {
+      "path": [],
+      "label": "서비스 KB환전서비스 최대 90%까지 환율우대 받고인터넷으로 편하게 환전 하세요",
+      "key": "page:C101339"
+    },
+    {
+      "path": [],
+      "label": "서비스 KBot SAM (케이봇쌤) 로봇과 인간이 함께 추천하는최적의 포트폴리오",
+      "key": "page:onmoney"
+    },
+    {
+      "path": [],
+      "label": "추천상품 KB Young Youth 적금 나와 내아이를 위한 상품다양한 부가서비스까지 한가득",
+      "key": "page:C016613"
+    },
+    {
+      "path": [],
+      "label": "추천상품 KB Star 정기예금 Digital KB의 대표 정기예금알아서 자동재예치/자동해지",
+      "key": "page:C016613"
+    },
+    {
+      "path": [],
+      "label": "서비스 KB에스크로 이체 안전한 상거래를 위해 매매보호서비스를 이용하세요",
+      "key": "page:oescrow"
+    },
+    {
+      "path": [],
+      "label": "예금",
+      "key": "page:C016528"
+    },
+    {
+      "path": [],
+      "label": "펀드",
+      "key": "page:C016529"
+    },
+    {
+      "path": [],
+      "label": "대출",
+      "key": "page:C016530"
+    },
+    {
+      "path": [],
+      "label": "신탁",
+      "key": "page:C016531"
+    },
+    {
+      "path": [],
+      "label": "ISA",
+      "key": "page:C040686"
+    },
+    {
+      "path": [],
+      "label": "보험/공제",
+      "key": "page:C016533"
+    },
+    {
+      "path": [],
+      "label": "골드",
+      "key": "page:C016622"
+    },
+    {
+      "path": [],
+      "label": "외화예금",
+      "key": "page:C101324"
+    },
+    {
+      "path": [],
+      "label": "전자금융사기예방 서비스 각종 금융사기수법에 한층 강화된 다양한전자금융사기예방 서비스로 안전한인터넷뱅킹 사용이 가능합니다.",
+      "key": "page:C034288"
+    },
+    {
+      "path": [],
+      "label": "통장(카드) 매매·양도는 불법 고객님의 자산을 보호하고 금융사기를예방하기 위한 최선의 방법은대포통장 근절입니다.",
+      "key": "page:C047785"
+    },
+    {
+      "path": [],
+      "label": "사진촬영·QR스캔 절대금지 타인이 OTP/보안카드 번호를 요구(2개 초과) 하는 경우는 금융사기이니절대 응하지 마십시오.",
+      "key": "page:C034305"
+    },
+    {
+      "path": [],
+      "label": "미수령주식 찾기",
+      "key": "page:C039486"
+    },
+    {
+      "path": [],
+      "label": "KB스타뱅킹",
+      "key": "page:C028156"
+    },
+    {
+      "path": [],
+      "label": "KB기업뱅킹",
+      "key": "page:C030160"
+    },
+    {
+      "path": [],
+      "label": "리브똑똑",
+      "key": "page:C056265"
+    },
+    {
+      "path": [],
+      "label": "보호금융상품등록부",
+      "key": "page:C023000"
+    },
+    {
+      "path": [],
+      "label": "전자민원접수",
+      "key": "page:C036346"
+    },
+    {
+      "path": [],
+      "label": "전자금융거래기본약관",
+      "key": "path:/obj/ocommon/BasicTerms_Electronic_20210419.pdf"
+    },
+    {
+      "path": [],
+      "label": "개인정보 처리방침",
+      "key": "page:C108662"
+    },
+    {
+      "path": [],
+      "label": "신용정보활용체제",
+      "key": "page:C110585"
+    },
+    {
+      "path": [],
+      "label": "위치기반서비스 이용약관",
+      "key": "page:C110586"
+    },
+    {
+      "path": [],
+      "label": "경영공시",
+      "key": "page:C017681"
+    },
+    {
+      "path": [],
+      "label": "이용상담",
+      "key": "page:C019763"
+    },
+    {
+      "path": [],
+      "label": "보안프로그램",
+      "key": "page:C040531"
+    },
+    {
+      "path": [],
+      "label": "사고신고",
+      "key": "page:C019933"
+    },
+    {
+      "path": [],
+      "label": "그룹 내 고객정보 제공안내",
+      "key": "page:C040593"
+    },
+    {
+      "path": [],
+      "label": "스튜어드십 코드",
+      "key": "page:C057315"
+    },
+    {
+      "path": [],
+      "label": "KB국민인증서 제휴문의",
+      "key": "page:C112164"
+    },
+    {
+      "path": [],
+      "label": "KB스타뱅킹 Ads",
+      "key": "page:C113095"
+    },
+    {
+      "path": [],
+      "label": "KB금융그룹네트워크",
+      "key": "label:KB금융그룹네트워크"
+    },
+    {
+      "path": [],
+      "label": "대표번호 1588-9999",
+      "key": "label:대표번호 1588-9999"
+    },
+    {
+      "path": [],
+      "label": "챗봇/채팅/이메일상담(24시간)",
+      "key": "page:C043954"
+    },
+    {
+      "path": [],
+      "label": "비교조회서비스",
+      "key": "label:비교조회서비스"
+    },
+    {
+      "path": [],
+      "label": "ISMS-P 인증, Global CBPR 인증, ISO27701 인증",
+      "key": "page:C034312"
+    }
+  ]
+}

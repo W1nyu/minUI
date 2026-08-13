@@ -12,7 +12,11 @@
     "report": "tsx src/report-metrics.ts",
     "build:catalog": "tsx src/build-catalog.ts",
     "measure:portability": "tsx src/measure-portability.ts",
-    "bench:sites": "tsx src/bench-sites.ts"
+    "bench:sites": "tsx src/bench-sites.ts",
+    "diagnose": "tsx src/diagnose-misses.ts",
+    "tune:threshold": "tsx src/tune-threshold.ts",
+    "bench:expand": "tsx src/bench-expand.ts",
+    "tune:search": "tsx src/tune-search.ts"
   },
   "dependencies": {
     "@minui/core": "workspace:*"

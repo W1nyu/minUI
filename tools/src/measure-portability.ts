@@ -9,7 +9,7 @@ import { MenuIndex, NgramTfIdfProvider, type MenuCatalog } from "@minui/core";
  * 미니은행 25개에서 잰 수치가 수백~천 개에서도 성립하는지 확인한다.
  */
 const HERE = dirname(fileURLToPath(import.meta.url));
-const SITES = ["kbstar", "kbsec", "miraeasset", "shinhan"] as const;
+const SITES = ["kbstar", "kbsec", "miraeasset", "shinhan", "kebhana"] as const;
 
 console.log(
   `\n  ${"사이트".padEnd(12)}${"메뉴".padStart(7)}${"카테고리".padStart(9)}` +

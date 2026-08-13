@@ -1,6 +1,6 @@
 {
   "_note": "미래에셋증권. 프레임셋이라 링크가 전부 javascript:이고 메뉴 코드가 없어 id가 라벨 경로 기반이다. 사이트가 문구를 바꾸면 끊어진다.",
-  "miraeasset.뱅킹-대출-청약-이체": {
+  "miraeasset.뱅킹-대출-청약-이체-간편이체": {
     "synonyms": [
       "돈 보내기",
       "송금",
@@ -9,15 +9,11 @@
       "돈 빼기"
     ],
     "icon": "transfer",
-    "riskLevel": "high"
-  },
-  "miraeasset.뱅킹-대출-청약-이체-간편이체": {
-    "synonyms": [
-      "빠른 이체",
-      "간편 송금"
-    ],
-    "icon": "transfer",
-    "riskLevel": "high"
+    "riskLevel": "high",
+    "match": {
+      "label": "간편이체",
+      "category": "뱅킹/대출/청약"
+    }
   },
   "miraeasset.뱅킹-대출-청약-이체-다계좌-예약이체": {
     "synonyms": [
@@ -34,15 +30,6 @@
       "보낼 계좌 조회"
     ],
     "icon": "list",
-    "riskLevel": "low"
-  },
-  "miraeasset.금융상품-펀드": {
-    "synonyms": [
-      "펀드",
-      "펀드 가입",
-      "펀드 찾기"
-    ],
-    "icon": "chart",
     "riskLevel": "low"
   },
   "miraeasset.금융상품-펀드-펀드잔고": {
@@ -64,25 +51,6 @@
     "icon": "chart",
     "riskLevel": "low"
   },
-  "miraeasset.연금자산-MY개인연금": {
-    "synonyms": [
-      "연금",
-      "노후 준비",
-      "개인연금",
-      "연금 얼마"
-    ],
-    "icon": "coin",
-    "riskLevel": "low"
-  },
-  "miraeasset.서비스-신청-변경-계좌개설-ID": {
-    "synonyms": [
-      "계좌 만들기",
-      "계좌 개설",
-      "새 계좌"
-    ],
-    "icon": "person",
-    "riskLevel": "low"
-  },
   "miraeasset.뱅킹-대출-청약-청약-공모주청약": {
     "synonyms": [
       "공모주 넣기",
@@ -100,15 +68,6 @@
     "icon": "calendar",
     "riskLevel": "low"
   },
-  "miraeasset.투자정보-해외주식-선물옵션안내": {
-    "synonyms": [
-      "해외주식",
-      "미국 주식",
-      "외국 주식"
-    ],
-    "icon": "globe",
-    "riskLevel": "low"
-  },
   "miraeasset.연금자산-사업자공시-운용-자산관리-수수료": {
     "synonyms": [
       "수수료 얼마",
@@ -118,57 +77,19 @@
     "icon": "doc",
     "riskLevel": "low"
   },
-  "miraeasset.금융상품-ISA종합": {
-    "synonyms": [
-      "ISA",
-      "절세 계좌"
-    ],
-    "icon": "savings",
-    "riskLevel": "low"
-  },
-  "miraeasset.금융상품-CMA": {
-    "synonyms": [
-      "CMA",
-      "파킹통장",
-      "하루만 맡기기"
-    ],
-    "icon": "wallet",
-    "riskLevel": "low"
-  },
-  "miraeasset.금융상품-채권-RP": {
-    "synonyms": [
-      "채권",
-      "RP",
-      "안전한 투자"
-    ],
-    "icon": "chart",
-    "riskLevel": "low"
-  },
-  "miraeasset.금융상품-ELS-DLS-ETN-ELW": {
-    "synonyms": [
-      "ELS",
-      "DLS",
-      "파생상품"
-    ],
-    "icon": "chart",
-    "riskLevel": "low"
-  },
-  "miraeasset.뱅킹-대출-청약-대출": {
-    "synonyms": [
-      "대출",
-      "돈 빌리기",
-      "빌리기"
-    ],
-    "icon": "bank",
-    "riskLevel": "low"
-  },
   "miraeasset.연금자산-MY개인연금-개인연금-잔고": {
     "synonyms": [
-      "개인연금 얼마",
-      "연금 잔고"
+      "연금",
+      "노후 준비",
+      "개인연금",
+      "연금 얼마"
     ],
     "icon": "coin",
-    "riskLevel": "low"
+    "riskLevel": "low",
+    "match": {
+      "label": "개인연금 잔고",
+      "category": "연금자산"
+    }
   },
   "miraeasset.금융상품-ELS-DLS-ETN-ELW-ELS-DLS보유잔고": {
     "synonyms": [
@@ -185,5 +106,108 @@
     ],
     "icon": "chart",
     "riskLevel": "low"
+  },
+  "miraeasset.금융상품-펀드-펀드검색": {
+    "synonyms": [
+      "펀드",
+      "펀드 가입",
+      "펀드 찾기"
+    ],
+    "icon": "chart",
+    "riskLevel": "low",
+    "match": {
+      "label": "펀드검색",
+      "category": "금융상품"
+    }
+  },
+  "miraeasset.서비스-신청-변경-계좌개설-ID-온라인-계좌개설": {
+    "synonyms": [
+      "계좌 만들기",
+      "계좌 개설",
+      "새 계좌"
+    ],
+    "icon": "person",
+    "riskLevel": "low",
+    "match": {
+      "label": "온라인 계좌개설",
+      "category": "서비스 신청/변경"
+    }
+  },
+  "miraeasset.투자정보-해외주식-선물옵션안내-해외주식-거래안내": {
+    "synonyms": [
+      "해외주식",
+      "미국 주식",
+      "외국 주식"
+    ],
+    "icon": "globe",
+    "riskLevel": "low",
+    "match": {
+      "label": "해외주식 거래안내",
+      "category": "투자정보"
+    }
+  },
+  "miraeasset.금융상품-ISA종합-ISA-제도안내": {
+    "synonyms": [
+      "ISA",
+      "절세 계좌"
+    ],
+    "icon": "savings",
+    "riskLevel": "low",
+    "match": {
+      "label": "ISA 제도안내",
+      "category": "금융상품"
+    }
+  },
+  "miraeasset.금융상품-CMA-CMA상품소개": {
+    "synonyms": [
+      "CMA",
+      "파킹통장",
+      "하루만 맡기기"
+    ],
+    "icon": "wallet",
+    "riskLevel": "low",
+    "match": {
+      "label": "CMA상품소개",
+      "category": "금융상품"
+    }
+  },
+  "miraeasset.금융상품-채권-RP-장외채권": {
+    "synonyms": [
+      "채권",
+      "RP",
+      "안전한 투자"
+    ],
+    "icon": "chart",
+    "riskLevel": "low",
+    "match": {
+      "label": "장외채권",
+      "category": "금융상품"
+    }
+  },
+  "miraeasset.금융상품-ELS-DLS-ETN-ELW-ELS-DLS-검색": {
+    "synonyms": [
+      "ELS",
+      "DLS",
+      "파생상품"
+    ],
+    "icon": "chart",
+    "riskLevel": "low",
+    "match": {
+      "label": "ELS/DLS 검색",
+      "category": "금융상품"
+    }
+  },
+  "miraeasset.뱅킹-대출-청약-대출-신용-대출-안내": {
+    "synonyms": [
+      "대출",
+      "돈 빌리기",
+      "빌리기"
+    ],
+    "icon": "bank",
+    "riskLevel": "low",
+    "match": {
+      "label": "신용/대출 안내",
+      "category": "뱅킹/대출/청약"
+    }
   }
 }

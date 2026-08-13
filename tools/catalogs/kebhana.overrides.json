@@ -1,0 +1,249 @@
+{
+  "_note": "하나은행 전체메뉴. 사이트가 숫자 메뉴 코드를 onclick에 실어 줘서 id가 개편에 잘 안 끊어진다. 다른 네 곳과 같은 기준으로 골랐다 — 자주 쓰일 메뉴에만 구어 표현을 붙이고, 자금이 움직이는 것은 riskLevel: high.",
+  "kebhana.102689": {
+    "synonyms": [
+      "잔액 보기",
+      "돈 얼마 있어",
+      "잔고",
+      "통장 확인",
+      "얼마 남았어"
+    ],
+    "icon": "wallet",
+    "riskLevel": "low"
+  },
+  "kebhana.102692": {
+    "synonyms": [
+      "거래 내역",
+      "입금 확인",
+      "들어온 돈",
+      "통장 정리",
+      "쓴 돈 보기"
+    ],
+    "icon": "list",
+    "riskLevel": "low"
+  },
+  "kebhana.57915": {
+    "synonyms": [
+      "돈 보내기",
+      "송금",
+      "부치기",
+      "이체",
+      "돈 부쳐",
+      "이체하기"
+    ],
+    "icon": "transfer",
+    "riskLevel": "high"
+  },
+  "kebhana.57931": {
+    "synonyms": [
+      "자동이체 해지",
+      "자동이체 안 나가게",
+      "떼가는 거 그만",
+      "매달 나가는 돈"
+    ],
+    "icon": "repeat",
+    "riskLevel": "high"
+  },
+  "kebhana.57932": {
+    "synonyms": [
+      "자동이체 걸기",
+      "자동이체 새로",
+      "매달 자동으로 보내기"
+    ],
+    "icon": "repeat",
+    "riskLevel": "high"
+  },
+  "kebhana.57949": {
+    "synonyms": [
+      "공과금",
+      "관리비",
+      "세금 내기",
+      "고지서"
+    ],
+    "icon": "doc",
+    "riskLevel": "high"
+  },
+  "kebhana.57939": {
+    "synonyms": [
+      "지로",
+      "지로 용지",
+      "고지서 내기"
+    ],
+    "icon": "doc",
+    "riskLevel": "high"
+  },
+  "kebhana.57960": {
+    "synonyms": [
+      "4대보험",
+      "보험료 내기",
+      "건강보험료"
+    ],
+    "icon": "doc",
+    "riskLevel": "high"
+  },
+  "kebhana.1501": {
+    "synonyms": [
+      "환율",
+      "달러 얼마",
+      "환율 보기",
+      "오늘 환율"
+    ],
+    "icon": "globe",
+    "riskLevel": "low"
+  },
+  "kebhana.101639": {
+    "synonyms": [
+      "환전",
+      "달러 바꾸기",
+      "돈 바꾸기"
+    ],
+    "icon": "globe",
+    "riskLevel": "high"
+  },
+  "kebhana.58030": {
+    "synonyms": [
+      "예금",
+      "적금",
+      "저축",
+      "목돈 굴리기"
+    ],
+    "icon": "savings",
+    "riskLevel": "low"
+  },
+  "kebhana.21101": {
+    "synonyms": [
+      "대출",
+      "빚 얼마 남았어",
+      "빌린 돈",
+      "대출 확인"
+    ],
+    "icon": "bank",
+    "riskLevel": "low"
+  },
+  "kebhana.58056": {
+    "synonyms": [
+      "대출 갚기",
+      "빚 갚기",
+      "원금 상환"
+    ],
+    "icon": "bank",
+    "riskLevel": "high"
+  },
+  "kebhana.102581": {
+    "synonyms": [
+      "펀드 얼마 벌었어",
+      "내 펀드",
+      "수익률"
+    ],
+    "icon": "chart",
+    "riskLevel": "low"
+  },
+  "kebhana.18501": {
+    "synonyms": [
+      "펀드",
+      "펀드 가입",
+      "펀드 알아보기"
+    ],
+    "icon": "chart",
+    "riskLevel": "low"
+  },
+  "kebhana.31100": {
+    "synonyms": [
+      "인증서",
+      "공동인증서",
+      "인증서 새로 받기",
+      "인증서 재발급"
+    ],
+    "icon": "lock",
+    "riskLevel": "high"
+  },
+  "kebhana.57842": {
+    "synonyms": [
+      "인증서 갱신",
+      "인증서 연장",
+      "인증서 기간"
+    ],
+    "icon": "lock",
+    "riskLevel": "high"
+  },
+  "kebhana.26404": {
+    "synonyms": [
+      "비밀번호 변경",
+      "비번 바꾸기",
+      "암호 변경"
+    ],
+    "icon": "lock",
+    "riskLevel": "high"
+  },
+  "kebhana.99003": {
+    "synonyms": [
+      "잔액증명서",
+      "증명서 떼기",
+      "서류 떼기"
+    ],
+    "icon": "doc",
+    "riskLevel": "low"
+  },
+  "kebhana.57901": {
+    "synonyms": [
+      "분실 신고",
+      "카드 잃어버림",
+      "사고 신고"
+    ],
+    "icon": "bell",
+    "riskLevel": "high"
+  },
+  "kebhana.58045": {
+    "synonyms": [
+      "잠자는 돈",
+      "묵은 계좌",
+      "휴면계좌"
+    ],
+    "icon": "wallet",
+    "riskLevel": "low"
+  },
+  "kebhana.58044": {
+    "synonyms": [
+      "세금우대 한도",
+      "비과세 한도"
+    ],
+    "icon": "gauge",
+    "riskLevel": "low"
+  },
+  "kebhana.외환-외화송금-해외송금-보내기": {
+    "icon": "doc",
+    "riskLevel": "high",
+    "synonyms": [
+      "해외로 보내기",
+      "외국으로 송금",
+      "달러 보내기"
+    ]
+  },
+  "kebhana.0502": {
+    "icon": "doc",
+    "riskLevel": "low",
+    "synonyms": [
+      "분실 신고",
+      "잃어버렸어",
+      "카드 정지"
+    ]
+  },
+  "kebhana.고객센터-영업점": {
+    "icon": "doc",
+    "riskLevel": "low",
+    "synonyms": [
+      "지점 찾기",
+      "가까운 은행",
+      "영업점 위치"
+    ]
+  },
+  "kebhana.57951": {
+    "icon": "doc",
+    "riskLevel": "low",
+    "synonyms": [
+      "낸 내역",
+      "납부 확인",
+      "공과금 냈나"
+    ]
+  }
+}

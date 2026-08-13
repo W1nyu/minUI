@@ -2,6 +2,9 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import type { MenuItem, RiskLevel } from "@minui/core";
+import { cleanLabel, NOT_A_MENU } from "./labels.js";
+import { guessIcon } from "./icons.js";
+import { guessRisk } from "./risk.js";
 import { attachOverrides, type Override } from "./overrides.js";
 
 /**
@@ -19,7 +22,7 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const CATALOGS = join(HERE, "../catalogs");
 const OUT_DIR = join(HERE, "../../demos/src/catalogs");
 
-export const SITES = ["kbstar", "kbsec", "miraeasset", "shinhan"] as const;
+export const SITES = ["kbstar", "kbsec", "miraeasset", "shinhan", "kebhana"] as const;
 export type Site = (typeof SITES)[number];
 
 /**
@@ -35,57 +38,21 @@ const CATEGORY_DEPTH: Record<Site, number> = {
   shinhan: 1,
   kbsec: 0,
   miraeasset: 0,
+  // 하나은행의 전체메뉴에는 개인/기업 같은 최상위 구분이 없다. 첫 칸이 곧 갈래다.
+  kebhana: 0,
 };
 
-interface RawItem {
+export interface RawItem {
   path: string[];
   label: string;
   key: string;
 }
 
-interface RawFile {
+export interface RawFile {
   source: { site: string; host: string; capturedAt: string; note?: string };
   items: RawItem[];
 }
 
-
-// ── 라벨 정리 ────────────────────────────────────────────────────────────
-
-/**
- * 수집물에 섞여 들어오는 것들.
- *
- * <p>미래에셋은 앵커 안에 `<span class="mb">로그인필요</span>` 같은 스크린리더용 배지를
- * 두는데, 그대로 두면 "이체로그인필요"가 메뉴 이름이 된다. 수집 스니펫에서 걸러도 되지만
- * 여기서 하는 편이 낫다 — 재수집할 때마다 스니펫을 다시 고칠 필요가 없다.
- */
-const LABEL_NOISE = [
-  /로그인\s*필요$/,
-  /새창\s*열기$/,
-  /새\s*창$/,
-  /바로가기$/,
-  /\s*열기$/,
-  /하위메뉴$/,
-];
-
-/** 메뉴가 아닌 것. 사이트 UI 컨트롤이 링크로 만들어져 섞여 들어온다. */
-const NOT_A_MENU = new Set([
-  "검색창 열기",
-  "검색창",
-  "전체메뉴 열기",
-  "전체메뉴",
-  "전체 메뉴 보기",
-  "이전",
-  "다음",
-  "닫기",
-  "더보기",
-  "TOP",
-]);
-
-function cleanLabel(raw: string): string {
-  let label = raw.replace(/\s+/g, " ").trim();
-  for (const pattern of LABEL_NOISE) label = label.replace(pattern, "").trim();
-  return label;
-}
 
 // ── 안전 검증 ────────────────────────────────────────────────────────────
 
@@ -99,20 +66,34 @@ function cleanLabel(raw: string): string {
 const PERSONAL_DATA = [
   { name: "계좌번호 형태", pattern: /\d{2,6}-\d{2,6}-\d{4,}/ },
   { name: "연속 숫자 8자리 이상", pattern: /\d{8,}/ },
-  { name: "이름+님", pattern: /[가-힣]{2,4}\s*님/ },
+  {
+    name: "이름+님",
+    pattern: /[가-힣]{2,4}\s*님/,
+    /*
+     * "님"으로 끝나는 일반 호칭은 사람 이름이 아니다.
+     *
+     * 하나은행의 `장애손님 지원서비스`가 "애손님"으로 걸렸다. 검사를 느슨하게 하는 대신
+     * 이렇게 좁게 예외를 두는 이유는, 이 검사가 막으려는 것이 <b>실제 사용자 이름이
+     * 저장소에 커밋되는 것</b>이기 때문이다. 규칙을 통째로 없애면 그 위험이 돌아온다.
+     */
+    allow: /(손|고객|회원|사장|선생|어머|아버|부모|기사|주주|가입자|이용자|보호자)\s*님/,
+  },
   { name: "이메일", pattern: /[\w.+-]+@[\w-]+\.[\w.]+/ },
-];
+] satisfies { name: string; pattern: RegExp; allow?: RegExp }[];
 
-/** 자금이 움직이거나 인증을 건드리는 갈래. 음성 자동 실행을 막아야 한다 (§9.3). */
-const HIGH_RISK_HINTS =
-  /이체|송금|출금|해지|비밀번호|비번|인증|보안|한도|등록|변경|신청|매수|매도|주문|청약|대출실행|OTP/;
+/** 개인정보 의심 문자열인가. 일반 호칭 같은 예외는 뺀다. */
+function looksPersonal(check: { pattern: RegExp; allow?: RegExp }, text: string): boolean {
+  if (!check.pattern.test(text)) return false;
+  return !(check.allow?.test(text) ?? false);
+}
 
 /** 실시간성이 중요해 카드로 고정하기에 맞지 않는 화면 (§15). */
 const NOT_CARDABLE_HINTS = /시세|호가|차트|실시간|현재가|체결|지수|랭킹|종목검색/;
 
 function guessRiskLevel(item: RawItem): RiskLevel {
-  const haystack = [...item.path, item.label].join(" ");
-  return HIGH_RISK_HINTS.test(haystack) ? "high" : "low";
+  // 규칙은 tools/src/risk.ts에 있다. LLM 보강기가 같은 규칙을 써야 하기 때문이다 —
+  // 두 곳이 다르게 판정하면 "더 위험한 쪽을 택한다"는 합의가 뜻을 잃는다.
+  return guessRisk(item.label, item.path);
 }
 
 // ── 동의어 ────────────────────────────────────────────────────────────────
@@ -156,11 +137,11 @@ function slugify(value: string): string {
  * <b>라벨 기반 id는 사이트가 문구를 바꾸면 끊어진다</b> — overrides가 함께 무효가 되므로,
  * 재수집 시 끊어진 id를 리포트한다.
  */
-function toId(site: Site, item: RawItem, cleanPath: string[], label: string): string {
+function toId(site: string, item: RawItem, cleanPath: string[], label: string): string {
   const [kind, ...rest] = item.key.split(":");
   const value = rest.join(":");
 
-  if (kind === "page" || kind === "linkcd") return `${site}.${value}`;
+  if (kind === "page" || kind === "linkcd" || kind === "code") return `${site}.${value}`;
   if (kind === "path" && value && value !== "/" && !/void|null/.test(value)) {
     return `${site}.${slugify(value)}`;
   }
@@ -179,10 +160,16 @@ interface BuildResult {
     excluded: number;
     deduped: number;
     handSynonyms: number;
+    /** LLM이 붙인 뜻풀이 수. 동의어는 색인에 넣지 않는다 — 위 주석 참고. */
+    aiSynonyms: number;
     autoSynonyms: number;
     highRisk: number;
     notCardable: number;
     unstableIds: number;
+    /** 자식을 가져 제외한 갈래 수. */
+    branches: number;
+    /** 이름이 겹쳐 제외한 수. */
+    duplicateLabels: number;
     /** id가 끊어졌지만 라벨·자모로 다시 붙인 override 수. */
     rematched: number;
   };
@@ -194,15 +181,29 @@ interface BuildResult {
 }
 
 
-function build(site: Site): BuildResult {
-  const raw = JSON.parse(
-    readFileSync(join(CATALOGS, `${site}.raw.json`), "utf8"),
-  ) as RawFile;
+/** LLM이 만든 것과 사람이 쓴 것. 둘 다 없어도 카탈로그는 만들어진다. */
+export interface BuildInputs {
+  ai?: Record<string, Override & { hint?: string }>;
+  overrides?: Record<string, Override>;
+}
 
-  const overridesPath = join(CATALOGS, `${site}.overrides.json`);
-  const overrides: Record<string, Override> = existsSync(overridesPath)
-    ? (JSON.parse(readFileSync(overridesPath, "utf8")) as Record<string, Override>)
-    : {};
+/**
+ * 수집 원본 → 카탈로그. **파일을 읽지 않는다.**
+ *
+ * <p>파일 입출력에서 떼어 낸 이유는 Studio 때문이다. 링크를 넣으면 그 자리에서 카탈로그를
+ * 만들어 미리 보여 줘야 하는데, 그때 <b>빌더와 다른 규칙을 쓰면 미리보기가 거짓말이 된다.</b>
+ * 갈래·이름 겹침·개인정보 검사·병합 순서가 전부 같아야 한다.
+ *
+ * <p>카테고리 깊이만 사이트별 표에 없을 수 있어 인자로 받는다.
+ */
+export function buildMenus(
+  site: string,
+  raw: RawFile,
+  inputs: BuildInputs = {},
+  categoryDepth = 0,
+): BuildResult {
+  const ai = inputs.ai ?? {};
+  const overrides = inputs.overrides ?? {};
 
   const problems: string[] = [];
   const menus: MenuItem[] = [];
@@ -212,6 +213,27 @@ function build(site: Site): BuildResult {
   let handSynonyms = 0;
   let autoCount = 0;
   let unstableIds = 0;
+
+  /*
+   * 갈래(자식을 가진 항목)도 메뉴로 남긴다.
+   *
+   * <p>한때 뺐었다 — "이체" 안에 간편이체·자동이체가 들어 있으면 "이체"는 목적지가 아니라
+   * 이름표라고 봤기 때문이다. 하지만 두 가지가 걸렸다. 하나는 KB국민은행의 `계좌이체`처럼
+   * <b>갈래이면서 그 자체가 실제 화면</b>인 것이 있다는 것, 다른 하나는 갈래를 빼면
+   * 목록에서 계층이 사라져 `펀드검색`이 어디에 속한 것인지 알 수 없게 된다는 것이다.
+   *
+   * <p>그래서 지금은 전부 남기고, 대신 <b>어디에 속했는지를 함께 싣는다</b>(`path`).
+   * 화면이 그것으로 "상위메뉴 - 하위메뉴"를 묶어 보여 준다. 갈래를 눌러 또 고르게 되는
+   * 문제(§2.2)는 여전하지만, 묶어 보여 주면 사용자가 그것이 묶음인지 아닌지를 안다.
+   */
+  let branches = 0;
+  const parentPaths = new Set(
+    raw.items.map((item) => item.path.map(cleanLabel).filter(Boolean).join(">")),
+  );
+
+  /** 같은 이름의 메뉴는 하나만 남긴다. 사용자에게 구별되지 않는 선택지는 선택지가 아니다. */
+  const seenLabels = new Set<string>();
+  let duplicateLabels = 0;
 
   for (const item of raw.items) {
     const label = cleanLabel(item.label);
@@ -232,7 +254,7 @@ function build(site: Site): BuildResult {
     }
 
     for (const check of PERSONAL_DATA) {
-      if (check.pattern.test(label) || cleanPath.some((p) => check.pattern.test(p))) {
+      if (looksPersonal(check, label) || cleanPath.some((p) => looksPersonal(check, p))) {
         problems.push(`[개인정보 의심 · ${check.name}] ${cleanPath.join(">")} > ${label}`);
       }
     }
@@ -240,12 +262,22 @@ function build(site: Site): BuildResult {
     const id = toId(site, item, cleanPath, label);
     if (id.startsWith(`${site}.`) && item.key.startsWith("label:")) unstableIds += 1;
 
+    // 갈래인지만 세어 둔다. 빼지는 않는다 — 위 주석 참고.
+    if (parentPaths.has([...cleanPath, label].join(">"))) branches += 1;
+
+    if (seenLabels.has(label)) {
+      duplicateLabels += 1;
+      continue;
+    }
+
     if (byId.has(id)) {
       deduped += 1;
       continue;
     }
+    seenLabels.add(label);
 
-    const category = cleanPath[CATEGORY_DEPTH[site]] ?? cleanPath[0] ?? "기타";
+    // 최상위 메뉴는 그 자신이 갈래다. "기타"로 몰아넣으면 되묻기 선택지가 뭉개진다.
+    const category = cleanPath[categoryDepth] ?? cleanPath[0] ?? label;
     const haystack = [...cleanPath, label].join(" ");
 
     // 1차: 사이트에서 온 것만으로 메뉴를 만든다. override는 붙인 뒤에 얹는다 —
@@ -256,7 +288,10 @@ function build(site: Site): BuildResult {
       // 자동 생성은 재 보고 껐다. 아래 autoSynonyms 주석 참고.
       synonyms: [],
       category,
-      icon: "doc",
+      // 어디에 속한 메뉴인가. 엔진은 안 쓰고 화면이 묶어 보여 줄 때만 쓴다.
+      ...(cleanPath.length > 0 ? { path: cleanPath } : {}),
+      // 라벨에서 고른다. 전부 같은 아이콘이면 카드가 목록과 다를 바 없다.
+      icon: guessIcon(label, cleanPath),
       // 실제 라우팅은 하지 않는다. 데모의 ActionHandler가 스텁 화면을 연다.
       route: `/${id}`,
       riskLevel: guessRiskLevel({ ...item, label }),
@@ -271,7 +306,39 @@ function build(site: Site): BuildResult {
   const { resolved, remaps, orphans } = attachOverrides(menus, overrides);
 
   const kept: MenuItem[] = [];
+  let aiSynonyms = 0;
   for (const menu of menus) {
+    /*
+     * ① LLM 결과를 먼저 얹는다. id는 같은 raw에서 나왔으므로 정확히 일치한다 —
+     *    사람 override와 달리 자모 재연결이 필요 없다.
+     */
+    const generated = ai[menu.id];
+    if (generated) {
+      /*
+       * **동의어는 색인에 넣지 않는다.** 실측 결과다.
+       *
+       * 사람이 쓴 것만 썼을 때 85%였는데, LLM이 만든 것을 전 메뉴에 얹으니 67%로
+       * 떨어졌다. 사람이 손대지 않은 2,800개에 동의어가 붙으면서 정답을 밀어냈다.
+       * M4에서 라벨 토큰을 자동 생성했을 때와 같은 현상이며, **동의어는 많을수록
+       * 좋은 것이 아니다** — 서로를 방해한다.
+       *
+       * 미리 붙이는 방식은 <b>모든 가능한 표현을 미리 알아맞혀야</b> 해서 구조적으로
+       * 불리하다. 그래서 LLM은 색인이 아니라 <b>런타임에 사용자가 한 말을 보고</b>
+       * 고르는 쪽으로 옮겼다(`services/enricher/src/assist.ts`).
+       * 생성된 동의어는 파일에 그대로 두되 여기서 쓰지 않는다 — 그쪽에서 후보를
+       * 추릴 때 쓸 수 있고, 무엇보다 <b>지웠다는 사실보다 왜 안 쓰는지가 남아야 한다.</b>
+       *
+       * 나머지 셋은 검색을 방해하지 않으므로 그대로 쓴다.
+       */
+      if (generated.riskLevel) menu.riskLevel = generated.riskLevel;
+      if (generated.cardable !== undefined) menu.cardable = generated.cardable;
+      if (generated.hint) {
+        menu.hint = generated.hint;
+        aiSynonyms += 1;
+      }
+    }
+
+    // ② 그 위에 사람이 쓴 것. 언제나 이긴다.
     const override = resolved.get(menu.id);
     if (override?.exclude) {
       excluded += 1;
@@ -281,7 +348,7 @@ function build(site: Site): BuildResult {
     if (override?.synonyms && override.synonyms.length > 0) {
       menu.synonyms = override.synonyms;
       handSynonyms += 1;
-    } else {
+    } else if ((menu.synonyms?.length ?? 0) === 0) {
       autoCount += 1;
     }
     if (override?.riskLevel) menu.riskLevel = override.riskLevel;
@@ -292,23 +359,53 @@ function build(site: Site): BuildResult {
   }
 
   return {
-    site,
+    site: site as Site,
     menus: kept,
     stats: {
       raw: raw.items.length,
       excluded,
       deduped,
       handSynonyms,
+      aiSynonyms,
       autoSynonyms: autoCount,
       highRisk: kept.filter((m) => m.riskLevel === "high").length,
       notCardable: kept.filter((m) => m.cardable === false).length,
       unstableIds,
+      branches,
+      duplicateLabels,
       rematched: remaps.length,
     },
     problems,
     remaps,
     orphans,
   };
+}
+
+/** 파일에서 읽어 `buildMenus`에 넘기는 껍데기. CLI가 쓰는 경로다. */
+function build(site: Site): BuildResult {
+  const raw = JSON.parse(
+    readFileSync(join(CATALOGS, `${site}.raw.json`), "utf8"),
+  ) as RawFile;
+
+  /*
+   * 합치는 순서는 `raw < ai < 사람`이다. 자동 생성물이 사람의 판단을 덮으면 다음에
+   * 사람이 무엇을 왜 고쳤는지 알 수 없게 된다. 그리고 재생성할 때마다 손으로 쓴 것이
+   * 날아가면 이 구조 전체가 성립하지 않는다 — 파일을 둘로 나눈 원래 이유와 같다.
+   */
+  const read = <T,>(path: string): T | undefined =>
+    existsSync(path) ? (JSON.parse(readFileSync(path, "utf8")) as T) : undefined;
+
+  const ai = read<Record<string, Override & { hint?: string }>>(
+    join(CATALOGS, `${site}.ai.json`),
+  );
+  const overrides = read<Record<string, Override>>(join(CATALOGS, `${site}.overrides.json`));
+
+  return buildMenus(
+    site,
+    raw,
+    { ...(ai ? { ai } : {}), ...(overrides ? { overrides } : {}) },
+    CATEGORY_DEPTH[site],
+  );
 }
 
 // ── 실행 ─────────────────────────────────────────────────────────────────
@@ -319,15 +416,15 @@ const results = SITES.map(build);
 const allProblems = results.flatMap((r) => r.problems.map((p) => `${r.site}: ${p}`));
 
 console.log(
-  `\n  ${"사이트".padEnd(12)}${"원본".padStart(7)}${"메뉴".padStart(7)}${"제외".padStart(7)}` +
-    `${"중복".padStart(7)}${"수작업".padStart(9)}${"high".padStart(7)}${"카드제외".padStart(9)}${"불안정id".padStart(9)}${"재연결".padStart(8)}`,
+  `\n  ${"사이트".padEnd(12)}${"원본".padStart(7)}${"메뉴".padStart(7)}${"갈래포함".padStart(9)}${"이름겹침".padStart(9)}` +
+    `${"id겹침".padStart(8)}${"제외".padStart(7)}${"수작업".padStart(9)}${"AI뜻풀이".padStart(9)}${"high".padStart(7)}${"카드제외".padStart(9)}${"불안정id".padStart(9)}${"재연결".padStart(8)}`,
 );
 
 for (const r of results) {
   console.log(
     `  ${r.site.padEnd(12)}${String(r.stats.raw).padStart(7)}${String(r.menus.length).padStart(7)}` +
-      `${String(r.stats.excluded).padStart(7)}${String(r.stats.deduped).padStart(7)}` +
-      `${String(r.stats.handSynonyms).padStart(9)}${String(r.stats.highRisk).padStart(7)}` +
+      `${String(r.stats.branches).padStart(9)}${String(r.stats.duplicateLabels).padStart(9)}${String(r.stats.deduped).padStart(8)}${String(r.stats.excluded).padStart(7)}` +
+      `${String(r.stats.handSynonyms).padStart(9)}${String(r.stats.aiSynonyms).padStart(9)}${String(r.stats.highRisk).padStart(7)}` +
       `${String(r.stats.notCardable).padStart(9)}${String(r.stats.unstableIds).padStart(9)}${String(r.stats.rematched).padStart(8)}`,
   );
   writeFileSync(
