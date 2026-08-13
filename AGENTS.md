@@ -12,7 +12,7 @@
 |---|---|---|
 | `packages/core` | 배포 대상 라이브러리 | **의존성 0.** 순수 TypeScript |
 | `packages/react` | 배포 대상 라이브러리 | React 바인딩. peer로만 react 의존 |
-| `packages/voice` | 배포 대상 라이브러리 | STT Provider. 브라우저 API는 구현체 안에서만 |
+| `packages/voice` | 배포 대상 라이브러리 | STT Provider. 브라우저 API는 구현체 안에서만. **본 진입점은 의존성 0** — 온디바이스 모델은 `@minui/voice/whisper` 서브패스에만 있고 optional peer다 |
 | `frontend` | 데모 호스트 앱 | 엔진의 **소비자**일 뿐. 여기 코드는 배포물이 아님 |
 | `backend` | 데모 계정계 (Spring Boot) | 엔진과 무관. 순수 금융 도메인 |
 | `tools` | 빌드/벤치/리포트 스크립트 | 런타임에 포함되지 않음 |
@@ -86,6 +86,9 @@ pnpm --filter @minui/harvester probe -- <URL>    # 왜 못 읽었는지 볼 때
 pnpm --filter @minui/enricher enrich -- <사이트> [--limit N]
 pnpm --filter @minui/enricher bench:assist       # 런타임 폴백 이득/손해
 
+# 예비 음성 엔진 가중치 (73MB, 저장소에 없음. 안 받아도 CDN에서 받는다)
+pnpm --filter tools fetch:model
+
 # 측정
 pnpm --filter tools bench:sites        # 동의어 출처별 4구성 비교
 pnpm --filter tools bench:search       # 미니은행 50문항
@@ -112,5 +115,9 @@ TypeScript(엔진) / React + Vite(프런트) / Spring Boot 4.1 + JPA + PostgreSQ
 - **런타임 폴백**은 온디바이스가 실패했을 때만, 정답 있는 질의의 15%에서만 호출된다.
   꺼도 서비스가 100% 돈다
 - 외부 임베딩 서비스는 여전히 쓰지 않는다. n-gram은 온디바이스로 남는다
+- **메뉴를 만드는 데는 LLM을 쓰지 않는다** (2026-08-14). Studio의 수집·조립·첫 화면이
+  전부 결정론이라 키가 없어도 같은 결과가 나온다. 첫 화면 넉 장은 LLM에게 물었었는데,
+  품질이 낮은 데다 며칠이면 사용 기록에 밀려 사라지는 배치라 값이 맞지 않았다
+  (`tools/src/presets.ts`). LLM은 **사용자가 물었을 때만** 부른다 — 검색 폴백과 뜻풀이
 
 바뀐 근거와 측정치는 `docs/검증결과.md`에 있다. 규칙을 되돌리려면 그 측정을 다시 보라.

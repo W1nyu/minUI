@@ -19,8 +19,12 @@ pnpm --filter demos dev     # → http://localhost:5174/studio
 
 같은 앱의 `/shinhan` `/kbsec` `/hana`는 미리 만들어 둔 세 곳이다.
 
-> LLM 기능(첫 화면 선정·음성 폴백)은 저장소 루트의 `api.txt`에 Google AI Studio 키가
-> 있을 때 켜진다. **없어도 전부 돌아간다** — 되묻기로 되돌아갈 뿐이다.
+> **이 경로에는 LLM이 없다.** 수집(Playwright)·조립·첫 화면 넉 장이 전부 결정론이라
+> 같은 주소를 넣으면 같은 결과가 나오고, 키가 없어도 완전히 같은 것이 나온다.
+>
+> LLM은 **사용자가 무언가를 물었을 때만** 부른다 — 온디바이스 검색이 놓친 질의(`/api/assist`)와
+> 어려운 말 풀이(`/api/explain`). 저장소 루트 `api.txt`에 Google AI Studio 키가 있으면
+> 켜지고, **없어도 전부 돌아간다** — 되묻기로 되돌아갈 뿐이다.
 
 ## 데모 은행 앱 띄우기
 
@@ -64,17 +68,25 @@ UI 외의 변수가 통제된다 (기획안 §12.2).
 음성 버튼은 Chrome에서 마이크 권한을 주면 실제로 동작한다. 권한이 없거나 지원되지
 않는 브라우저에서는 같은 화면의 텍스트 입력으로 똑같이 찾을 수 있다.
 
+**음성 엔진은 둘이다.** 주 엔진은 브라우저 Web Speech, 예비는 온디바이스 Whisper다.
+파이어폭스처럼 Web Speech가 없는 브라우저에서 음성이 통째로 사라지지 않게 하려는 것이고,
+둘 다 안 되면 텍스트 검색이 그대로 남는다. 예비 엔진을 직접 보려면 주소에
+`?stt=whisper`를 붙인다 — 두 엔진을 같은 발화로 비교하려면 필요하다(기획안 §12.2-C).
+
+Whisper 가중치(73MB)는 저장소에 없다. `pnpm --filter tools fetch:model`로 받으면
+데모가 직접 서빙하고, 안 받으면 Hugging Face CDN에서 받는다.
+
 ## 구조
 
 ```
 packages/core     @minui/core    프레임워크 무관 엔진. 의존성 0
 packages/react    @minui/react   React 바인딩 + 접근성 디자인 토큰
-packages/voice    @minui/voice   STT Provider 인터페이스와 구현체
+packages/voice    @minui/voice   STT Provider — Web Speech · 온디바이스 Whisper · 예비 전환
 frontend                         데모 은행 앱 (두 UI 모드)
 backend                          Spring Boot 계정계 (복식부기 원장)
 demos                            실제 금융사 5곳 + MinUI Studio
 services/harvester               URL → 수집 원본 (Playwright) + 브라우저 스니펫
-services/enricher                LLM 연결 — 빌드 타임 보강, 런타임 폴백
+services/enricher                LLM 연결 — 빌드 타임 보강, 런타임 폴백·뜻풀이
 tools                            카탈로그 빌드·벤치마크·리포트
 docs                             기획안과 측정 결과
 ```
@@ -85,7 +97,7 @@ docs                             기획안과 측정 결과
 ## 검증
 
 ```bash
-pnpm test                              # 393 tests
+pnpm test                              # 440 tests
 pnpm typecheck
 cd backend && ./gradlew test           # Testcontainers 통합 테스트 6종
 
@@ -94,12 +106,13 @@ pnpm --filter tools bench:sites        # 동의어를 누가 붙였을 때 잘 �
 pnpm --filter tools bench:search       # 구어체 질의 50건
 pnpm --filter tools diagnose           # 놓친 질의가 왜 놓쳤는가
 pnpm --filter tools tune:threshold     # 임계값 — 정답 세트와 답 없는 세트를 함께
+pnpm --filter tools fetch:model        # 예비 음성 엔진 가중치 (73MB, 저장소에 없음)
 
 pnpm --filter @minui/harvester recall  # 자동 수집 회수율 (손 수집본 대비)
 pnpm --filter @minui/enricher bench:assist   # 런타임 LLM 폴백의 이득과 손해
 ```
 
-주요 수치 (2026-08-11)
+주요 수치 (2026-08-14)
 
 | | |
 |---|---|
@@ -107,6 +120,7 @@ pnpm --filter @minui/enricher bench:assist   # 런타임 LLM 폴백의 이득과
 | 검색 — 온디바이스만 | 85% |
 | 검색 — LLM 폴백까지 | **95%** |
 | 답 없는 질의 100건 | 97건 옳게 거절 |
+| 어려운 말 풀이 커버리지 | 86% (2,522/2,948) |
 | 이식 시간 | 10초 (반나절 → ) |
 
 **이 수치들에는 흠이 있다.** 질의도 내가 쓰고 동의어도 내가 썼다 —
