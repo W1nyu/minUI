@@ -92,6 +92,9 @@ describe("터치 타깃 (기획안 §11.3: 최소 88×88dp)", () => {
     ".minui-sheet-close",
     ".minui-menu-row",
     ".minui-menu-row-pin",
+    // 보조 동작이라고 작게 두면 안 된다 — 작은 표적을 못 누르는 것이 이 사용자층의
+    // 문제 그 자체다. 세로 길이를 쓰는 대가는 치른다.
+    ".minui-menu-row-ask",
     ".minui-scale-button",
   ];
 

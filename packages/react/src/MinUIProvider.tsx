@@ -12,7 +12,16 @@ import {
 
 export interface MinUIContextValue {
   engine: MinUIEngine;
-  /** 홈에 그릴 카드. 세션 도중에는 핀 조작으로만 바뀐다. */
+  /** 호스트가 넘긴 도우미. 없으면 undefined. */
+  assist?: ((query: string, candidates: MenuId[]) => Promise<MenuId | null>) | undefined;
+  /** 호스트가 넘긴 뜻풀이 도우미. 없으면 undefined. */
+  explain?: ((menuId: MenuId) => Promise<string | null>) | undefined;
+  /**
+   * 홈에 그릴 카드.
+   *
+   * <p>기본 설정에서는 세션 도중 핀 조작으로만 바뀐다.
+   * `stability.liveReorder`를 켠 호스트에서는 메뉴를 열 때마다 바뀔 수 있다.
+   */
   cards: RankedCard[];
   profile: ColdStartProfile;
   setTextScale: (scale: TextScale) => void;
@@ -29,6 +38,28 @@ export interface MinUIProviderProps extends MinUIEngineOptions {
   children: ReactNode;
   /** 엔진이 준비될 때까지 보여줄 것. 기본은 아무것도 그리지 않음 */
   fallback?: ReactNode;
+  /**
+   * 온디바이스가 못 찾았을 때 부르는 도우미. **선택이다.**
+   *
+   * <p>없으면 지금까지와 똑같이 되묻는다. 있으면 사용자가 한 말과 후보 목록을 넘겨
+   * 그중 하나를 고르게 한다 — 실측에서 정확 매칭이 85% → 95%가 됐다.
+   *
+   * <p>이 계약이 좁은 것이 중요하다. 엔진은 <b>이것이 LLM인지 무엇인지 모른다.</b>
+   * 네트워크·API 키·모델 이름이 코어와 React 어디에도 들어오지 않는다.
+   * `null`을 돌려주면 "맞는 것 없음"이고, 그때는 원래대로 되묻는다.
+   */
+  assist?: (query: string, candidates: MenuId[]) => Promise<MenuId | null>;
+  /**
+   * 카탈로그에 뜻풀이가 없는 메뉴를 그 자리에서 푸는 도우미. **선택이다.**
+   *
+   * <p>`assist`와 같은 모양의 계약이다 — 엔진은 이것이 LLM인지 사전인지 사람인지 모른다.
+   * 없으면 묻는 버튼조차 뜨지 않고, `null`을 돌려주면 모른다고 말한다.
+   * <b>틀린 뜻풀이는 없는 것보다 나쁘다.</b>
+   *
+   * <p>빌드 타임 보강이 대부분을 미리 채우므로 여기까지 오는 것은 나머지뿐이다
+   * (신한 930개 중 185개). 검색 폴백과 같은 구조다.
+   */
+  explain?: (menuId: MenuId) => Promise<string | null>;
 }
 
 /**
@@ -41,6 +72,8 @@ export interface MinUIProviderProps extends MinUIEngineOptions {
 export function MinUIProvider({
   children,
   fallback = null,
+  assist,
+  explain,
   ...options
 }: MinUIProviderProps) {
   const [engine, setEngine] = useState<MinUIEngine | null>(null);
@@ -75,7 +108,20 @@ export function MinUIProvider({
   }, []);
 
   const refresh = useCallback((instance: MinUIEngine) => {
-    setCards(instance.getCards());
+    // 같은 구성이면 상태를 갈아 끼우지 않는다. 카드가 안 바뀐 것을 리렌더로 알리면
+    // "세션 도중 화면이 그대로"라는 규칙이 코드에서는 지켜져도 화면에서는 깜빡인다.
+    setCards((previous) => {
+      const next = instance.getCards();
+      const same =
+        previous.length === next.length &&
+        previous.every(
+          (card, index) =>
+            card.menuId === next[index]?.menuId &&
+            card.pinned === next[index]?.pinned &&
+            card.isNew === next[index]?.isNew,
+        );
+      return same ? previous : next;
+    });
     setProfileState(instance.getProfile());
   }, []);
 
@@ -84,13 +130,19 @@ export function MinUIProvider({
 
     return {
       engine,
+      assist,
+      explain,
       cards,
       profile,
+      // 여닫을 때마다 카드를 다시 읽는다. stability.liveReorder가 꺼져 있으면 엔진이
+      // 배치를 바꾸지 않으므로 refresh는 아무것도 하지 않는다 — 위 동일성 검사 참고.
       open: (menuId, params) => {
         engine.open(menuId, params);
+        refresh(engine);
       },
       complete: (menuId) => {
         engine.complete(menuId);
+        refresh(engine);
       },
       togglePin: (menuId) => {
         const action = engine.isPinned(menuId)
@@ -108,7 +160,7 @@ export function MinUIProvider({
         void engine.setProfile(next).then(() => refresh(engine));
       },
     };
-  }, [engine, cards, profile, refresh]);
+  }, [engine, assist, explain, cards, profile, refresh]);
 
   // 글씨 크기는 문서 루트에 얹는다. 시트·모달처럼 포털로 나가는 요소까지
   // 같은 배율을 받아야 하기 때문이다.

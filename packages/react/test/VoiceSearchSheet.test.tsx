@@ -30,6 +30,7 @@ const CATALOG: MenuCatalog = [
     id: "transfer.account",
     label: "계좌 이체",
     synonyms: ["돈 보내기", "송금"],
+    hint: "다른 사람 계좌로 돈을 보내요",
     category: "이체",
     icon: "transfer",
     route: "/t",
@@ -156,6 +157,20 @@ describe("텍스트 검색", () => {
     await waitFor(() =>
       expect(screen.queryByRole("region", { name: "다시 찾기" })).not.toBeInTheDocument(),
     );
+  });
+
+  /**
+   * 후보 셋 중에서 고르려면 이름만으로는 부족하다. 어디 있는지(경로)와
+   * 무엇인지(뜻풀이)가 다른 정보라, 둘 다 있으면 둘 다 준다.
+   */
+  it("후보에 뜻풀이가 함께 뜬다", async () => {
+    await openSearch();
+
+    await userEvent.type(screen.getByLabelText("글로 찾기"), "송금");
+    await userEvent.click(screen.getByRole("button", { name: "찾기" }));
+
+    const list = await screen.findByRole("region", { name: "찾은 메뉴" });
+    expect(within(list).getByText("다른 사람 계좌로 돈을 보내요")).toBeInTheDocument();
   });
 
   it("빈 입력으로는 아무 일도 일어나지 않는다", async () => {

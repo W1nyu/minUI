@@ -1,4 +1,11 @@
-import type { MenuCatalog, MenuId, SearchCandidate, VoiceAction } from "@minui/core";
+import {
+  groupByPath,
+  headingText,
+  type MenuCatalog,
+  type MenuId,
+  type SearchCandidate,
+  type VoiceAction,
+} from "@minui/core";
 import { useEffect, useId, useRef, useState } from "react";
 import { useMinUI } from "./useMinUI.js";
 
@@ -45,10 +52,11 @@ export function VoiceSearchSheet({
   onSelect,
   stt,
 }: VoiceSearchSheetProps) {
-  const { engine } = useMinUI();
+  const { engine, assist } = useMinUI();
   const [phase, setPhase] = useState<Phase>({ kind: "idle" });
   const [text, setText] = useState("");
   const [notice, setNotice] = useState<string | null>(null);
+  const [asking, setAsking] = useState(false);
   const inputId = useId();
   const closeRef = useRef<HTMLButtonElement>(null);
 
@@ -81,10 +89,47 @@ export function VoiceSearchSheet({
     }
   }
 
+  /**
+   * 온디바이스로 먼저 찾고, 못 찾으면 도우미에게 묻는다.
+   *
+   * <p>순서가 중요하다. `"계좌이체"`처럼 이름을 아는 질의는 여기서 끝나므로 도우미를
+   * 부르지 않는다 — 실측에서 정답 있는 질의의 15%만 도우미까지 갔다.
+   * 도우미가 없거나 `null`을 돌려주면 원래대로 되묻는다.
+   */
   function runTextSearch(query: string) {
     if (query.trim().length === 0) return;
     setNotice(null);
-    apply(engine.voiceAction(query));
+
+    const action = engine.voiceAction(query);
+    if (action.kind !== "reprompt" || !assist) {
+      apply(action);
+      return;
+    }
+
+    // 되묻기 화면을 먼저 띄워 둔다. 도우미가 늦어도 사용자가 멈춰 있지 않게.
+    apply(action);
+    setAsking(true);
+
+    // 관련도 순 후보. 카탈로그 순서로 자르면 아무 관계 없는 메뉴가 후보가 된다.
+    void assist(query, engine.candidates(query))
+      .then((menuId) => {
+        if (!menuId) return;
+        const menu = engine.getMenu(menuId);
+        if (!menu) return;
+        /*
+         * 도우미가 골라도 **바로 열지 않는다.** 후보로 보여 주고 사용자가 누른다.
+         * `riskLevel: high`는 §9.3이 자동 실행을 막고, 낮은 것도 도우미의 판단이라
+         * 한 번 확인받는 편이 맞다 — 틀린 화면이 저절로 열리는 것이 되묻기보다 나쁘다.
+         */
+        setPhase({
+          kind: "candidates",
+          candidates: [{ menuId, score: 0, matchedBy: "semantic", matchedTerm: query }],
+        });
+      })
+      .catch(() => {
+        // 도우미가 죽어도 서비스는 돈다. 되묻기 화면이 이미 떠 있다.
+      })
+      .finally(() => setAsking(false));
   }
 
   useEffect(() => {
@@ -162,7 +207,9 @@ export function VoiceSearchSheet({
             ? phase.heard
               ? `"${phase.heard}"`
               : "말씀해 주세요"
-            : notice}
+            : asking
+              ? "찾아보는 중이에요…"
+              : notice}
         </p>
 
         <form
@@ -204,7 +251,19 @@ export function VoiceSearchSheet({
                       onClick={() => onSelect(candidate.menuId)}
                     >
                       <span className="minui-candidate-label">{menu.label}</span>
-                      <span className="minui-candidate-why">{menu.category}</span>
+                      {/*
+                        **무엇인지**와 **어디 있는지**는 다른 정보라 둘 다 준다.
+                        뜻풀이는 `예수금` 같은 말이 뭔지 모를 때, 경로는 후보 이름이
+                        서로 닮았을 때(`펀드검색` / `세제혜택펀드검색`) 필요하다.
+                        후보는 최대 3개뿐이라 두 줄을 감당할 수 있다 — 전체 메뉴와
+                        다른 판단이다.
+                      */}
+                      {menu.hint && (
+                        <span className="minui-candidate-hint">{menu.hint}</span>
+                      )}
+                      <span className="minui-candidate-why">
+                        {headingText(menu.path?.join(">") ?? "") || menu.category}
+                      </span>
                     </button>
                   </li>
                 );
@@ -242,21 +301,33 @@ export function VoiceSearchSheet({
         {phase.kind === "category" && (
           <section className="minui-group" aria-label="찾은 메뉴">
             <h3 className="minui-group-name">{phase.name}</h3>
-            <ul className="minui-group-list">
-              {catalog
-                .filter((menu) => menu.category === phase.name)
-                .map((menu) => (
-                  <li key={menu.id}>
-                    <button
-                      type="button"
-                      className="minui-candidate"
-                      onClick={() => onSelect(menu.id)}
-                    >
-                      <span className="minui-candidate-label">{menu.label}</span>
-                    </button>
-                  </li>
-                ))}
-            </ul>
+            {/*
+              한 갈래가 수백 개일 수 있다(신한 `개인` 아래 400개 넘음). 평평하게 쏟으면
+              되묻기를 없애려던 화면이 다시 탐색 문제가 된다 — 상위메뉴로 묶어 보여 준다.
+            */}
+            {groupByPath(
+              catalog.filter((menu) => menu.category === phase.name),
+              catalog,
+            ).map((group) => (
+              <div key={group.heading}>
+                {group.heading !== "" && (
+                  <p className="minui-subgroup-name">{headingText(group.heading)}</p>
+                )}
+                <ul className="minui-group-list">
+                  {group.menus.map((menu) => (
+                    <li key={menu.id}>
+                      <button
+                        type="button"
+                        className="minui-candidate"
+                        onClick={() => onSelect(menu.id)}
+                      >
+                        <span className="minui-candidate-label">{menu.label}</span>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </section>
         )}
       </div>

@@ -7,13 +7,17 @@ import { MinUIHome } from "../src/MinUIHome.js";
 import { MinUIProvider } from "../src/MinUIProvider.js";
 import { TextScaleControl } from "../src/TextScaleControl.js";
 
+/**
+ * `hint`가 붙은 메뉴와 안 붙은 메뉴를 섞어 둔다. 실제 카탈로그가 그렇다 —
+ * 신한 930개 중 745개에만 있다. 없는 쪽이 빈 자리를 만들지 않는 것도 요구사항이다.
+ */
 const CATALOG: MenuCatalog = [
-  { id: "inquiry.balance", label: "잔액 보기", category: "조회", icon: "wallet", route: "/b", riskLevel: "low" },
+  { id: "inquiry.balance", label: "잔액 보기", hint: "지금 통장에 남아 있는 돈이에요", category: "조회", icon: "wallet", route: "/b", riskLevel: "low" },
   { id: "inquiry.history", label: "거래 내역", category: "조회", icon: "list", route: "/h", riskLevel: "low" },
   { id: "transfer.account", label: "계좌 이체", category: "이체", icon: "transfer", route: "/t", riskLevel: "high" },
-  { id: "transfer.auto", label: "자동이체 관리", category: "이체", icon: "repeat", route: "/a", riskLevel: "high" },
-  { id: "settings.limit", label: "한도 변경", category: "설정", icon: "gauge", route: "/l", riskLevel: "high" },
-  { id: "support.call", label: "전화 상담", category: "설정", icon: "phone", route: "/c", riskLevel: "low" },
+  { id: "transfer.auto", label: "자동이체 관리", hint: "매달 저절로 나가는 돈이에요", category: "이체", icon: "repeat", route: "/a", riskLevel: "high" },
+  { id: "settings.limit", label: "한도 변경", hint: "하루에 보낼 수 있는 최대 금액을 바꿔요", category: "설정", icon: "gauge", route: "/l", riskLevel: "high" },
+  { id: "support.call", label: "전화 상담", hint: "궁금한 걸 사람에게 물어봐요", category: "설정", icon: "phone", route: "/c", riskLevel: "low" },
 ];
 
 const PRESETS: ColdStartPresets = {
@@ -22,7 +26,10 @@ const PRESETS: ColdStartPresets = {
   invest: ["inquiry.balance", "inquiry.history", "transfer.account", "support.call"],
 };
 
-function renderHome(onAction = vi.fn()) {
+function renderHome(
+  onAction = vi.fn(),
+  explain?: (menuId: string) => Promise<string | null>,
+) {
   const result = render(
     <MinUIProvider
       catalog={CATALOG}
@@ -30,6 +37,7 @@ function renderHome(onAction = vi.fn()) {
       storage={new MemoryStorageAdapter()}
       coldStartPresets={PRESETS}
       fallback={<p>불러오는 중</p>}
+      {...(explain ? { explain } : {})}
     >
       <MinUIHome
         catalog={CATALOG}
@@ -81,6 +89,161 @@ describe("카드 홈", () => {
     for (const icon of icons) {
       expect(icon).toHaveAttribute("aria-hidden", "true");
     }
+  });
+});
+
+/**
+ * 어려운 말 풀이 (기획안 §15).
+ *
+ * 메뉴를 찾는 것과 그게 뭔지 아는 것은 다른 문제다. `예수금`·`반대매매`처럼
+ * 도착해도 못 쓰는 말이 있다. 카탈로그에 `hint`가 이미 들어 있는데 화면에 나오지
+ * 않는 상태였다 — 여기서 실제로 보이게 한다.
+ */
+describe("어려운 말 풀이", () => {
+  it("답이 없는 카드는 뜻풀이를 대신 보여 준다", async () => {
+    renderHome();
+    await waitForCards();
+
+    expect(screen.getByRole("button", { name: /전화 상담/ })).toHaveTextContent(
+      "궁금한 걸 사람에게 물어봐요",
+    );
+  });
+
+  it("답이 있으면 답만 보여 준다 — 카드에 두 줄을 겹쳐 쓰지 않는다 (원칙 P1)", async () => {
+    renderHome();
+    await waitForCards();
+
+    const card = screen.getByRole("button", { name: /잔액 보기/ });
+    expect(card).toHaveTextContent("1,243,500원");
+    expect(card).not.toHaveTextContent("지금 통장에 남아 있는 돈이에요");
+  });
+
+  it("전체 메뉴에서 뜻풀이가 함께 뜬다", async () => {
+    renderHome();
+    await waitForCards();
+    await userEvent.click(screen.getByRole("button", { name: /전체 메뉴/ }));
+
+    const dialog = screen.getByRole("dialog", { name: "전체 메뉴" });
+    expect(
+      within(dialog).getByText("하루에 보낼 수 있는 최대 금액을 바꿔요"),
+    ).toBeInTheDocument();
+  });
+
+  /**
+   * 이름이 아니라 설명으로 붙어야 한다. 700줄짜리 목록에서 모든 버튼 이름이
+   * "메뉴명 + 한 문장"이 되면 스크린리더 사용자가 훑어 나갈 수가 없다.
+   */
+  it("전체 메뉴의 뜻풀이는 이름이 아니라 설명으로 붙는다", async () => {
+    renderHome();
+    await waitForCards();
+    await userEvent.click(screen.getByRole("button", { name: /전체 메뉴/ }));
+
+    const dialog = screen.getByRole("dialog", { name: "전체 메뉴" });
+    const open = within(dialog).getByRole("button", { name: "한도 변경" });
+
+    const describedBy = open.getAttribute("aria-describedby");
+    expect(describedBy).toBeTruthy();
+    expect(document.getElementById(describedBy!)).toHaveTextContent(
+      "하루에 보낼 수 있는 최대 금액을 바꿔요",
+    );
+  });
+
+  it("뜻풀이가 없는 메뉴에는 빈 자리를 만들지 않는다", async () => {
+    renderHome();
+    await waitForCards();
+    await userEvent.click(screen.getByRole("button", { name: /전체 메뉴/ }));
+
+    const dialog = screen.getByRole("dialog", { name: "전체 메뉴" });
+    expect(within(dialog).getByRole("button", { name: "거래 내역" })).not.toHaveAttribute(
+      "aria-describedby",
+    );
+  });
+});
+
+/**
+ * 카탈로그가 못 채운 메뉴는 그 자리에서 묻는다.
+ *
+ * 빌드 타임 보강이 대부분을 채우지만 전부는 아니다(신한 930개 중 745개).
+ * 나머지에만 도우미가 붙는다 — 검색 폴백과 같은 구조다.
+ */
+describe("이게 무슨 뜻이에요? (런타임 뜻풀이)", () => {
+  const ASK = "이게 무슨 뜻이에요?";
+
+  async function openMenus(explain?: (menuId: string) => Promise<string | null>) {
+    renderHome(vi.fn(), explain);
+    await waitForCards();
+    await userEvent.click(screen.getByRole("button", { name: /전체 메뉴/ }));
+    return screen.getByRole("dialog", { name: "전체 메뉴" });
+  }
+
+  function rowOf(dialog: HTMLElement, label: string) {
+    return within(dialog).getByRole("button", { name: label }).closest("li")!;
+  }
+
+  it("도우미가 없으면 묻는 버튼도 없다 — LLM 없이 100% 돈다", async () => {
+    const dialog = await openMenus();
+
+    expect(within(dialog).queryByRole("button", { name: ASK })).not.toBeInTheDocument();
+  });
+
+  it("뜻풀이가 이미 있는 메뉴에는 묻지 않는다", async () => {
+    const dialog = await openMenus(async () => "쓰이지 않아야 한다");
+
+    expect(
+      within(rowOf(dialog, "한도 변경")).queryByRole("button", { name: ASK }),
+    ).not.toBeInTheDocument();
+  });
+
+  it("뜻풀이가 없는 메뉴에만 묻는 버튼이 붙는다", async () => {
+    const dialog = await openMenus(async () => "지난 거래를 모아 봐요");
+
+    expect(
+      within(rowOf(dialog, "거래 내역")).getByRole("button", { name: ASK }),
+    ).toBeInTheDocument();
+  });
+
+  it("누르면 그 자리에 풀이가 뜨고 설명으로 연결된다", async () => {
+    const dialog = await openMenus(async () => "지난 거래를 모아 봐요");
+
+    await userEvent.click(
+      within(rowOf(dialog, "거래 내역")).getByRole("button", { name: ASK }),
+    );
+
+    const open = within(dialog).getByRole("button", { name: "거래 내역" });
+    await waitFor(() => expect(open).toHaveAttribute("aria-describedby"));
+    expect(
+      document.getElementById(open.getAttribute("aria-describedby")!),
+    ).toHaveTextContent("지난 거래를 모아 봐요");
+  });
+
+  /** 도우미가 모르면 모른다고 한다. 틀린 풀이는 없는 것보다 나쁘다. */
+  it("도우미가 답을 못 주면 막다른 길을 만들지 않는다", async () => {
+    const dialog = await openMenus(async () => null);
+
+    await userEvent.click(
+      within(rowOf(dialog, "거래 내역")).getByRole("button", { name: ASK }),
+    );
+
+    await waitFor(() =>
+      expect(within(rowOf(dialog, "거래 내역"))
+        .getByText(/알 수 없|찾지 못/)).toBeInTheDocument(),
+    );
+  });
+
+  it("도우미가 죽어도 화면은 그대로다", async () => {
+    const dialog = await openMenus(async () => {
+      throw new Error("네트워크 끊김");
+    });
+
+    await userEvent.click(
+      within(rowOf(dialog, "거래 내역")).getByRole("button", { name: ASK }),
+    );
+
+    await waitFor(() =>
+      expect(within(rowOf(dialog, "거래 내역"))
+        .getByText(/알 수 없|찾지 못/)).toBeInTheDocument(),
+    );
+    expect(within(dialog).getByRole("button", { name: "거래 내역" })).toBeInTheDocument();
   });
 });
 

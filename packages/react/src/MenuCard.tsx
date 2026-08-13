@@ -49,7 +49,16 @@ export function MenuCard({ menu, card, detail, onSelect }: MenuCardProps) {
       </span>
       <span className="minui-card-label">{menu.label}</span>
       {marks.length > 0 && <span className="minui-marks">{marks}</span>}
-      {detail !== undefined && <span className="minui-card-detail">{detail}</span>}
+      {/*
+        답이 있으면 답을, 없으면 뜻풀이를. **둘을 함께 쓰지 않는다** (원칙 P1).
+        카드에 줄이 늘어나면 "한눈에 알아본다"가 무너지고, 그러면 카드는 목록과
+        다를 바 없어진다. 답이 있는 카드는 이미 사용자가 아는 메뉴이기도 하다.
+      */}
+      {detail !== undefined ? (
+        <span className="minui-card-detail">{detail}</span>
+      ) : menu.hint ? (
+        <span className="minui-card-hint">{menu.hint}</span>
+      ) : null}
     </button>
   );
 }
