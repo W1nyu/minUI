@@ -3,5 +3,6 @@ packages:
   - "frontend"
   - "demos"
   - "tools"
+  - "services/*"
 allowBuilds:
   esbuild: true

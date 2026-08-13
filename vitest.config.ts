@@ -60,6 +60,27 @@ export default defineConfig({
         },
       },
       {
+        test: {
+          // 수집기의 DOM 순회는 브라우저 안에서만 돌지만, 링크에서 id를 뽑는 판단은
+          // 순수 함수라 여기서 잰다. 그 판단이 수집기 품질을 거의 전부 결정한다.
+          name: "harvester",
+          root: "./services/harvester",
+          environment: "node",
+          include: ["test/**/*.test.ts"],
+        },
+      },
+      {
+        resolve: { alias: workspaceAliases },
+        test: {
+          // LLM 호출은 네트워크라 여기서 안 돈다. 대신 **응답을 검증하는 부분**을 잰다 —
+          // 모델이 없는 메뉴를 지어내거나 위험도를 낮추는 것을 못 막으면 그대로 화면까지 간다.
+          name: "enricher",
+          root: "./services/enricher",
+          environment: "node",
+          include: ["test/**/*.test.ts"],
+        },
+      },
+      {
         plugins: [react()],
         resolve: { alias: workspaceAliases },
         test: {

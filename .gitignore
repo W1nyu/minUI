@@ -15,6 +15,11 @@ backend/bin/
 .env.local
 *.local
 
+# API 키. 저장소에 들어가면 안 된다 — 들어간 키는 폐기 말고는 되돌릴 방법이 없다.
+api.txt
+*.key
+secrets/
+
 # editors / OS
 .DS_Store
 Thumbs.db

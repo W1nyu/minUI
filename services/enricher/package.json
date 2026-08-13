@@ -1,0 +1,11 @@
+{
+  "name": "@minui/enricher",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "enrich": "tsx src/cli.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "bench:assist": "tsx src/bench-assist.ts"
+  }
+}
