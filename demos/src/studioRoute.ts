@@ -1,10 +1,8 @@
-import { fileURLToPath } from "node:url";
-import type { MenuCatalog } from "@minui/core";
+import type { ColdStartPresets, MenuCatalog } from "@minui/core";
 import type { Connect, Plugin } from "vite";
 import { harvest, siteNameFrom } from "../../services/harvester/src/harvest.js";
-import { Gemini, readApiKey } from "../../services/enricher/src/gemini.js";
-import { pickPresets, type Presets } from "../../services/enricher/src/presets.js";
 import { buildMenus } from "../../tools/src/build-catalog.js";
+import { firstCards } from "../../tools/src/presets.js";
 
 /**
  * `/api/studio` — 링크 하나로 카탈로그를 만든다.
@@ -14,25 +12,24 @@ import { buildMenus } from "../../tools/src/build-catalog.js";
  *   <li><b>수집</b> — Playwright가 전체메뉴를 열고 계층을 읽는다 (로그인 불필요 4곳 회수율 99%)
  *   <li><b>조립</b> — `buildMenus`. 갈래·이름 겹침·개인정보 검사가 <b>CLI와 같은 함수</b>다.
  *       미리보기가 실제 산출물과 달라지면 미리보기가 거짓말이 된다
- *   <li><b>첫 화면</b> — LLM이 카드 넉 장을 고른다. 호출 한 번이다
+ *   <li><b>첫 화면</b> — 카탈로그 앞 넉 장 (`firstCards`)
  * </ol>
  *
- * <p>동의어 생성은 여기서 하지 않는다. 실측에서 색인에 넣으면 해로웠고(85% → 67%),
- * LLM은 런타임에 사용자가 한 말을 보고 고르는 쪽으로 옮겼다(`/api/assist`).
- * 뜻풀이는 있으면 좋지만 600개를 기다리게 할 수는 없어 CLI로 따로 돌린다.
+ * <p><b>이 경로에는 LLM이 없다.</b> 셋 다 결정론이라 같은 주소를 넣으면 같은 결과가 나오고,
+ * 키가 없어도 완전히 같은 것이 나온다. 동의어 생성은 색인에 넣으면 해로웠고(85% → 67%),
+ * 뜻풀이는 600개를 기다리게 할 수 없어 CLI로 따로 돌린다. 첫 화면 고르기도 물어봤었는데
+ * 품질이 그저 그런 데다 며칠이면 사용 기록에 밀려 사라지는 배치라 그만뒀다
+ * (`tools/src/presets.ts`).
+ *
+ * <p>LLM은 <b>사용자가 무언가를 물었을 때만</b> 부른다 — `/api/assist`(못 찾은 검색)와
+ * `/api/explain`(어려운 말 풀이). 메뉴를 만드는 데는 쓰이지 않는다.
  */
-
-const KEY_FILE = fileURLToPath(new URL("../../api.txt", import.meta.url));
-const MODEL = process.env["GEMINI_MODEL"] ?? "gemini-3.1-flash-lite";
-
-/** 프리셋을 고를 때 모델에게 보여 줄 후보 수. 전부 보내면 토큰이 낭비된다. */
-const PRESET_POOL = 120;
 
 export interface StudioResult {
   site: string;
   host: string;
   catalog: MenuCatalog;
-  presets: Presets;
+  presets: ColdStartPresets;
   steps: { name: string; detail: string; ms: number }[];
   problems: string[];
   stats: {
@@ -89,30 +86,10 @@ export function studioRoute(): Plugin {
               const built = buildMenus(site, { source: harvested.source, items: harvested.items });
               mark("정리", `메뉴 ${built.menus.length}개`, at);
 
-              // ③ 첫 화면
+              // ③ 첫 화면 — 카탈로그 앞 넉 장. 짐작하지 않는다.
               at = Date.now();
-              let presets: Presets = { inquiry: [], transfer: [], invest: [] };
-              try {
-                const gemini = new Gemini(readApiKey(KEY_FILE), { model: MODEL });
-                const pool = built.menus
-                  .filter((menu) => menu.cardable !== false)
-                  .slice(0, PRESET_POOL)
-                  .map((menu) => ({
-                    menuId: menu.id,
-                    label: menu.label,
-                    ...(menu.path ? { path: menu.path } : {}),
-                  }));
-                presets = await pickPresets(gemini, pool);
-                mark("첫 화면", "AI가 카드 넉 장을 골랐습니다", at);
-              } catch {
-                // 키가 없거나 모델이 죽어도 Studio는 돈다. 카탈로그 순서로 채운다.
-                const fallback = built.menus
-                  .filter((menu) => menu.cardable !== false)
-                  .slice(0, 4)
-                  .map((menu) => menu.id);
-                presets = { inquiry: fallback, transfer: fallback, invest: fallback };
-                mark("첫 화면", "AI 없이 카탈로그 순서로 채웠습니다", at);
-              }
+              const presets = firstCards(built.menus);
+              mark("첫 화면", "카탈로그 앞 넉 장으로 시작합니다", at);
 
               const result: StudioResult = {
                 site,
