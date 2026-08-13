@@ -10,6 +10,14 @@ export interface IndexedMenu {
   category: string;
   /** 원본 카테고리 — 사용자에게 보여줄 때 쓴다. */
   categoryLabel: string;
+  /**
+   * 이 메뉴 아래에 다른 메뉴가 있는가.
+   *
+   * <p>점수에는 관여하지 않는다. <b>동점을 깰 때만</b> 쓴다 — 자식이 있는 항목은
+   * 목적지이기도 하지만 이름표이기도 해서, 같은 점수라면 자식 쪽이 사용자가 가려던 곳일
+   * 가능성이 높다.
+   */
+  hasChildren: boolean;
 }
 
 /**
@@ -23,6 +31,11 @@ export class MenuIndex {
   readonly menus: readonly IndexedMenu[];
 
   constructor(catalog: MenuCatalog) {
+    // 누군가의 부모인 경로들. 자식의 path가 [부모의 path, 부모의 label]이다.
+    const parents = new Set(
+      catalog.map((menu) => (menu.path ?? []).join(">")).filter((path) => path.length > 0),
+    );
+
     this.menus = catalog.map((menu) => ({
       menuId: menu.id,
       terms: dedupe([
@@ -31,6 +44,7 @@ export class MenuIndex {
       ]).filter((term) => term.length > 0),
       category: normalize(menu.category),
       categoryLabel: menu.category,
+      hasChildren: parents.has([...(menu.path ?? []), menu.label].join(">")),
     }));
   }
 

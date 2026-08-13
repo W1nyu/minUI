@@ -139,8 +139,12 @@ export class MinUIEngine {
         this.#coldStartRanking(now),
         now,
       ).state;
-    } else if (!this.#inColdStart()) {
-      this.#layout = this.#stabilizer.recompute(this.#layout, this.#rank(now), now).state;
+    } else if (!this.#inColdStart() || this.#config.stability.liveReorder) {
+      this.#layout = this.#stabilizer.recompute(
+        this.#layout,
+        this.#rankingNow(now),
+        now,
+      ).state;
     }
 
     this.#persist();
@@ -172,12 +176,15 @@ export class MinUIEngine {
   open(menuId: MenuId, params?: Record<string, unknown>): void {
     if (!this.#byId.has(menuId)) return;
     this.recordEvent({ type: "menu_enter", menuId });
+    if (this.#config.stability.liveReorder) this.#applyForced();
     this.#onAction(menuId, params);
   }
 
   /** 호스트가 "이 화면에서 할 일을 끝냈다"고 알리는 지점. */
   complete(menuId: MenuId): void {
     this.recordEvent({ type: "task_complete", menuId });
+    // 완료는 방문보다 무겁게 세므로(incompleteVisitWeight) 점수가 여기서 또 움직인다.
+    if (this.#config.stability.liveReorder) this.#applyForced();
   }
 
   // ── 검색·음성 ───────────────────────────────────────────────────────────
@@ -188,6 +195,17 @@ export class MinUIEngine {
    */
   search(query: string): SearchOutcome {
     return this.#search.search(query);
+  }
+
+  /**
+   * 문턱 없이 추린 후보. **호스트가 바깥 도우미에게 넘길 때 쓴다.**
+   *
+   * <p>`search()`가 되묻기를 냈다는 것은 확신이 낮다는 뜻이지 순서가 없다는 뜻은 아니다.
+   * 900개를 통째로 넘길 수 없고 카탈로그 순서로 자르면 관계없는 메뉴가 후보가 되므로,
+   * 낮은 점수라도 순위가 필요하다. 이 함수는 아무것도 열지 않는다.
+   */
+  candidates(query: string, limit = 20): MenuId[] {
+    return this.#search.rank(query, limit).map((candidate) => candidate.menuId);
   }
 
   /**
@@ -331,6 +349,10 @@ export class MinUIEngine {
         pin: base?.pin ?? 0,
         // 프리셋 순서를 유지하되, 고정된 메뉴는 그 위로 올라오게 한다.
         total: (base?.pin ?? 0) + (preset.length - index),
+        // 횟수와 시각은 꾸며내지 않는다. 카드 순서를 정하는 것이 이 값들이라,
+        // 프리셋 순서를 여기에 섞으면 "많이 본 것부터"가 거짓말이 된다.
+        views: base?.views ?? 0,
+        lastUsedAt: base?.lastUsedAt ?? null,
       } satisfies ScoreBreakdown;
     });
   }
@@ -342,10 +364,23 @@ export class MinUIEngine {
     );
   }
 
+  /**
+   * 지금 쓸 랭킹.
+   *
+   * <p>기록이 모자란 구간에서는 프리셋 순서를 쓴다 — 설치 이틀째의 오탭 하나가
+   * 온보딩 카드를 밀어내지 않게 하려는 것이다(coldStart.ts 참고).
+   * `liveReorder`를 켠 호스트는 그 보호를 포기하고 실제 기록을 바로 쓰겠다는 뜻이다.
+   * 기록이 아직 전부 0점이면 도전자가 마진을 넘지 못해 어차피 화면은 그대로다.
+   */
+  #rankingNow(now: number): ScoreBreakdown[] {
+    return this.#inColdStart() && !this.#config.stability.liveReorder
+      ? this.#coldStartRanking(now)
+      : this.#rank(now);
+  }
+
   #applyForced(): void {
     const now = this.#clock();
-    const ranked = this.#inColdStart() ? this.#coldStartRanking(now) : this.#rank(now);
-    this.#layout = this.#stabilizer.recompute(this.#layout, ranked, now, {
+    this.#layout = this.#stabilizer.recompute(this.#layout, this.#rankingNow(now), now, {
       force: true,
     }).state;
     this.#persist();

@@ -91,6 +91,10 @@ export class RankingEngine {
       context,
       pin,
       total: frequency + recency + context + pin,
+      // 점수와 별개로 원본 수치를 함께 싣는다. 카드 순서는 점수가 아니라 이것으로 정한다
+      // (LayoutStabilizer#cards 참고).
+      views: this.#events.viewCount(menuId),
+      lastUsedAt: lastAt,
     };
   }
 }

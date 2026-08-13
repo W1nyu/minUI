@@ -52,6 +52,18 @@ export interface MinUIConfig {
     maxSwapsPerRecompute: number;
     /** "새로 추가됨" 배지 유지 기간 */
     newBadgeDurationMs: number;
+    /**
+     * 메뉴를 열 때마다 카드를 다시 계산할 것인가. **기본은 끔.**
+     *
+     * <p>켜면 위 세 가지(마진·쿨다운·지연 커밋) 중 뒤의 둘이 사실상 사라진다. 마진과
+     * "한 번에 한 장"은 그대로 살아 있어서 화면이 통째로 뒤집히지는 않지만, 카드가
+     * <b>세션 도중에 바뀐다.</b> 기획안 §8.2가 막으려던 바로 그 일이다 — 고령 사용자에게는
+     * 화면이 그대로 있는 것이 개인화보다 값지다는 것이 P3의 판단이었다.
+     *
+     * <p>그럼에도 설정으로 남긴 이유는, "많이 누른 메뉴가 바로 올라오는" 동작을 요구하는
+     * 호스트가 실재하고, 그 판단은 호스트의 몫이기 때문이다. 기본값을 바꾸지는 않는다.
+     */
+    liveReorder: boolean;
   };
   retention: {
     /** 원본 방문 기록 보존 일수. 초과분은 집계 카운터로 접힌다 */
@@ -75,7 +87,26 @@ export interface MinUIConfig {
     utcOffsetMinutes: number;
   };
   search: {
-    /** 이 아래면 후보를 제시하지 않고 되묻는다 (기획안 §8.3 ⑤) */
+    /**
+     * 이 아래면 후보를 제시하지 않고 되묻는다 (기획안 §8.3 ⑤).
+     *
+     * <p>0.55에서 0.40으로 내렸다. 실측 근거는 이렇다 — 놓친 19건 중 7건이
+     * <b>정답이 이미 1위인데 점수가 0.22~0.47이라 되물은</b> 것이었다. 검색이 틀린 게
+     * 아니라 문턱이 높았다. n-gram 의미 매칭은 순서를 맞히지만 절대 점수가 낮다.
+     *
+     * <p>내린 대가도 함께 쟀다(`pnpm --filter tools tune:threshold`).
+     * 정답 60문항과 <b>답이 없어야 하는 20문항</b>을 같은 표에 놓았다.
+     * <pre>
+     *   0.55  1순위 73%  후보3개 80%  옳게 되물음 100%  잘못된 확신 0건
+     *   0.40  1순위 77%  후보3개 85%  옳게 되물음  94%  잘못된 확신 5건
+     *   0.30  1순위 82%  후보3개 92%  옳게 되물음  85%  잘못된 확신 12건
+     * </pre>
+     *
+     * <p>0.30이 정확도는 더 높지만 답 없는 질의의 15%에 엉뚱한 메뉴를 자신 있게 내민다.
+     * 0.40을 고른 것은 그 지점이 무릎이라고 봤기 때문이고, 근거 있는 판단이지 계산 결과는
+     * 아니다. 안전 경계는 이 값과 무관하다 — 자동 실행은 `autoOpenConfidence`(0.9)와
+     * `riskLevel`이 따로 막으므로, 이 값이 바꾸는 것은 "되묻기 → 후보 제시"까지다.
+     */
     minConfidence: number;
     maxCandidates: number;
     /** STT 신뢰도가 이 아래면 검색조차 하지 않는다 (기획안 §9.2) */
@@ -88,8 +119,32 @@ export interface MinUIConfig {
     phoneticFloor: number;
     /** 자모 유사도에 곱하는 가중치 */
     phoneticWeight: number;
-    /** 의미 유사도에 곱하는 가중치 */
+    /**
+     * 의미 유사도에 곱하는 가중치.
+     *
+     * <p>1.0에서 0.85로 낮췄다. n-gram은 이 파이프라인에서 가장 약한 근거인데
+     * <b>가장 큰 점수를 낼 수 있는</b> 항이기도 하다 — 짧은 라벨은 질의에 그 글자가 들어 있기만
+     * 하면 코사인 유사도 1.000을 받는다. 그래서 갈래 `자동이체`가 semantic 0.837로
+     * 자식 `자동이체내역 조회/해지/변경`의 synonym 0.792를 이기는 일이 생겼다.
+     * 사람이 붙인 동의어보다 통계가 앞서는 것은 §8.3이 정한 단계 순서와 어긋난다.
+     *
+     * <p>튜닝 세트와 검증 세트를 나눠 골랐다(`pnpm --filter tools tune:search`).
+     * 효과는 작다 — 검증 세트 30문항 중 1건이다. 표본이 작아 이 수치 자체를 근거로 삼기는
+     * 어렵고, 채택한 이유는 <b>방향이 진단과 맞고 잃는 것이 없었기</b> 때문이다
+     * (후보 3개 포함과 되묻기는 그대로).
+     */
     semanticWeight: number;
+    /**
+     * 짧은 표현이 긴 질의에 걸렸을 때 남겨 줄 점수의 바닥.
+     *
+     * <p>점수는 `floor + (1 - floor) × 겹치는 비율`이 곱해진다. 1.0이면 길이를 안 보고,
+     * 0에 가까울수록 "질의와 길이가 비슷한 표현"만 인정한다.
+     *
+     * <p>왜 필요한가. `계좌이체`에는 동의어 "이체"가 붙어 있어서 "이체 한도 늘려줘"라는
+     * 질의에 통째로 걸린다. 정작 사용자가 가려던 `이체한도 조회/감액`보다 높은 점수를
+     * 받는다 — 두 글자가 일곱 글자 문장 안에 있다는 사실만으로.
+     */
+    termSpecificityFloor: number;
     /**
      * 후보가 하나뿐이고 위험하지 않을 때, 확인 없이 화면을 열어도 되는 확신 수준.
      * 조회성 화면이 잘못 열리는 비용은 낮지만, 그래도 애매하면 물어보는 편이 낫다.
@@ -116,6 +171,7 @@ export const DEFAULT_CONFIG: MinUIConfig = {
     recomputeCooldownMs: DAY_MS,
     maxSwapsPerRecompute: 1,
     newBadgeDurationMs: 3 * DAY_MS,
+    liveReorder: false,
   },
   retention: {
     rawVisitWindowDays: 90,
@@ -129,14 +185,15 @@ export const DEFAULT_CONFIG: MinUIConfig = {
     utcOffsetMinutes: 540, // KST. 데모 대상이 국내 금융 앱이라 이 값을 기본으로 둔다.
   },
   search: {
-    minConfidence: 0.55,
+    minConfidence: 0.4,
     maxCandidates: 3,
     minSttConfidence: 0.5,
     containmentScore: 0.9,
     partialScore: 0.8,
     phoneticFloor: 0.75,
     phoneticWeight: 0.95,
-    semanticWeight: 1.0,
+    semanticWeight: 0.85,
+    termSpecificityFloor: 0.8,
     autoOpenConfidence: 0.9,
   },
   coldStart: {

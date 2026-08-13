@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { MinUIEngine } from "../src/MinUIEngine.js";
 import { MemoryStorageAdapter } from "../src/storage/MemoryStorageAdapter.js";
-import { DAY_MS, DEFAULT_CONFIG } from "../src/config.js";
+import { DAY_MS, DEFAULT_CONFIG, type PartialConfig } from "../src/config.js";
 import type { ColdStartPresets, MenuId, StorageAdapter } from "../src/types.js";
 import { CATALOG, T0 } from "./helpers.js";
 
@@ -30,7 +30,9 @@ function harness() {
       now += ms;
     },
     /** `presets: null`을 주면 프리셋 없이 연다. */
-    open(overrides: { presets?: ColdStartPresets | null } = {}) {
+    open(
+      overrides: { presets?: ColdStartPresets | null; config?: PartialConfig } = {},
+    ) {
       const presets = overrides.presets === undefined ? PRESETS : overrides.presets;
       return MinUIEngine.create({
         catalog: CATALOG,
@@ -38,6 +40,7 @@ function harness() {
         storage,
         now: () => now,
         ...(presets ? { coldStartPresets: presets } : {}),
+        ...(overrides.config ? { config: overrides.config } : {}),
       });
     },
   };
@@ -373,5 +376,188 @@ describe("보존 기간", () => {
     const saved = (await h.storage.load())!;
     expect(saved.visits).toHaveLength(0);
     expect(saved.aggregates["inquiry.history"]?.completed).toBe(4);
+  });
+});
+
+describe("stability.liveReorder", () => {
+  const LIVE: PartialConfig = { stability: { liveReorder: true } };
+
+  it("꺼져 있으면 아무리 눌러도 세션 도중 카드가 그대로다 (기본값)", async () => {
+    const h = harness();
+    const engine = await h.open();
+    const before = engine.getCards().map((c) => c.menuId);
+
+    // 프리셋에 없는 메뉴를 20번 쓴다.
+    await warmUp(engine, "product.loan", 20);
+
+    expect(engine.getCards().map((c) => c.menuId)).toEqual(before);
+    expect(before).not.toContain("product.loan");
+  });
+
+  it("켜면 많이 쓴 메뉴가 그 자리에서 카드로 올라온다", async () => {
+    const h = harness();
+    const engine = await h.open({ config: LIVE });
+    const before = engine.getCards().map((c) => c.menuId);
+    expect(before).not.toContain("product.loan");
+
+    await warmUp(engine, "product.loan", 3);
+
+    expect(engine.getCards().map((c) => c.menuId)).toContain("product.loan");
+  });
+
+  it("켜도 한 번에 한 장만 바뀐다 — 화면이 통째로 뒤집히지 않는다", async () => {
+    const h = harness();
+    const engine = await h.open({ config: LIVE });
+    const before = engine.getCards().map((c) => c.menuId);
+
+    engine.open("product.loan");
+    engine.complete("product.loan");
+    await engine.flush();
+
+    const after = engine.getCards().map((c) => c.menuId);
+    const changed = after.filter((id) => !before.includes(id));
+    expect(changed).toHaveLength(1);
+  });
+
+  it("켜도 고정한 카드는 밀려나지 않는다", async () => {
+    const h = harness();
+    const engine = await h.open({ config: LIVE });
+
+    await engine.pin("settings.limit");
+    await warmUp(engine, "product.loan", 30);
+
+    expect(engine.getCards().map((c) => c.menuId)).toContain("settings.limit");
+  });
+
+  it("아무도 쓰지 않았으면 프리셋이 그대로 남는다", async () => {
+    const h = harness();
+    const engine = await h.open({ config: LIVE });
+
+    expect(engine.getCards().map((c) => c.menuId)).toEqual([
+      "inquiry.balance",
+      "inquiry.history",
+      "transfer.account",
+      "settings.limit",
+    ]);
+  });
+
+  it("cardable: false인 메뉴는 아무리 써도 카드가 되지 않는다", async () => {
+    const h = harness();
+    const engine = await h.open({ config: LIVE });
+
+    await warmUp(engine, "market.quote", 30);
+
+    expect(engine.getCards().map((c) => c.menuId)).not.toContain("market.quote");
+  });
+});
+
+describe("카드 순서 — 중요한 것이 앞에", () => {
+  const LIVE: PartialConfig = { stability: { liveReorder: true } };
+
+  /** n번 열고 닫는다. 시각을 조금씩 밀어 최신성 순서를 만든다. */
+  async function view(engine: MinUIEngine, h: ReturnType<typeof harness>, menuId: MenuId, times: number) {
+    for (let i = 0; i < times; i++) {
+      h.advance(60_000);
+      engine.open(menuId);
+      engine.complete(menuId);
+    }
+    await engine.flush();
+  }
+
+  it("고정하지 않은 카드는 조회 횟수가 많은 것부터", async () => {
+    const h = harness();
+    const engine = await h.open({ config: LIVE });
+
+    await view(engine, h, "inquiry.history", 5);
+    await view(engine, h, "inquiry.balance", 9);
+    await view(engine, h, "transfer.account", 7);
+
+    const order = engine.getCards().map((c) => c.menuId);
+    expect(order.slice(0, 3)).toEqual([
+      "inquiry.balance",
+      "transfer.account",
+      "inquiry.history",
+    ]);
+  });
+
+  it("횟수가 같으면 최근에 본 것이 앞에", async () => {
+    const h = harness();
+    const engine = await h.open({ config: LIVE });
+
+    await view(engine, h, "inquiry.balance", 4);
+    await view(engine, h, "inquiry.history", 4);
+
+    expect(engine.getCards().map((c) => c.menuId).slice(0, 2)).toEqual([
+      "inquiry.history",
+      "inquiry.balance",
+    ]);
+  });
+
+  it("고정한 카드가 1행 1열에 온다 — 더 많이 본 카드가 있어도", async () => {
+    const h = harness();
+    const engine = await h.open({ config: LIVE });
+
+    await view(engine, h, "inquiry.balance", 20);
+    await engine.pin("settings.limit");
+
+    const cards = engine.getCards();
+    expect(cards[0]?.menuId).toBe("settings.limit");
+    expect(cards[0]?.pinned).toBe(true);
+  });
+
+  it("고정한 것끼리는 먼저 고정한 순서 — 조회 횟수가 같을 때", async () => {
+    const h = harness();
+    const engine = await h.open({ config: LIVE });
+
+    await engine.pin("settings.limit");
+    await engine.pin("product.loan");
+
+    expect(engine.getCards().map((c) => c.menuId).slice(0, 2)).toEqual([
+      "settings.limit",
+      "product.loan",
+    ]);
+  });
+
+  it("나중에 고정했어도 더 많이 보면 앞으로 온다", async () => {
+    const h = harness();
+    const engine = await h.open({ config: LIVE });
+
+    await engine.pin("settings.limit");
+    await view(engine, h, "settings.limit", 3);
+    await engine.pin("product.loan");
+    await view(engine, h, "product.loan", 4);
+
+    expect(engine.getCards().map((c) => c.menuId).slice(0, 2)).toEqual([
+      "product.loan",
+      "settings.limit",
+    ]);
+  });
+
+  it("나중에 고정한 것이 덜 보였으면 뒤에 남는다", async () => {
+    const h = harness();
+    const engine = await h.open({ config: LIVE });
+
+    await engine.pin("settings.limit");
+    await view(engine, h, "settings.limit", 5);
+    await engine.pin("product.loan");
+    await view(engine, h, "product.loan", 5);
+
+    // 횟수가 같으므로 고정 순서가 이긴다.
+    expect(engine.getCards().map((c) => c.menuId).slice(0, 2)).toEqual([
+      "settings.limit",
+      "product.loan",
+    ]);
+  });
+
+  it("아무 기록도 없으면 프리셋 순서가 그대로 남는다", async () => {
+    const h = harness();
+    const engine = await h.open({ config: LIVE });
+
+    expect(engine.getCards().map((c) => c.menuId)).toEqual([
+      "inquiry.balance",
+      "inquiry.history",
+      "transfer.account",
+      "settings.limit",
+    ]);
   });
 });

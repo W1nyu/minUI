@@ -37,6 +37,7 @@ export {
   type CalendarFields,
 } from "./calendar.js";
 export { DEFAULT_PROFILE, coldStartCards, isColdStart } from "./coldStart.js";
+export { groupByPath, headingText, type MenuGroup } from "./menuGroups.js";
 export { MemoryStorageAdapter } from "./storage/MemoryStorageAdapter.js";
 
 export {

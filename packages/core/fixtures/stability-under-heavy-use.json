@@ -29,13 +29,13 @@
     { "at": "2026-02-06T09:00:00Z", "maxChangesFromPrevious": 1 },
     {
       "at": "2026-02-07T09:00:00Z",
-      "note": "엿새가 지나서야 실제로 쓰는 메뉴들이 화면을 차지한다. 느린 것이 의도다. 순서가 사용량 순(대출>자동이체>상담)이 아닌 것도 의도다 — 새 카드는 나간 카드의 자리에 들어갈 뿐, 화면을 점수순으로 재정렬하지 않는다. 뒤 자리부터 차례로 비워졌으므로 순서가 뒤집혀 보인다.",
+      "note": "엿새가 지나서야 실제로 쓰는 메뉴들이 화면을 차지한다. 느린 것이 의도다 — 구성이 바뀌는 속도는 여전히 하루 한 장이다. 다만 순서는 조회 횟수를 따른다: 대출 10회 > 자동이체 9회 > 상담 8회 > 잔액 0회.",
       "maxChangesFromPrevious": 1,
       "expectCards": [
-        "inquiry.balance",
-        "support.call",
+        "product.loan",
         "transfer.auto",
-        "product.loan"
+        "support.call",
+        "inquiry.balance"
       ]
     },
     {

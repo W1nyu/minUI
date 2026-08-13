@@ -108,6 +108,23 @@ export class EventStore {
     return total;
   }
 
+  /**
+   * 연 횟수 그대로. 가중치도 로그도 없다.
+   *
+   * <p>`weightedFrequency`와 나눠 둔 이유는 쓰임이 다르기 때문이다. 저쪽은 점수를 만드는
+   * 입력이고 이쪽은 <b>사용자가 세는 것과 같은 수</b>다. 카드 순서를 "많이 본 것부터"로
+   * 정할 때 사용자가 기대하는 것은 후자다.
+   */
+  viewCount(menuId: MenuId): number {
+    let total = 0;
+    for (const visit of this.#visits) {
+      if (visit.menuId === menuId) total += 1;
+    }
+    const agg = this.#aggregates[menuId];
+    if (agg) total += agg.completed + agg.incomplete;
+    return total;
+  }
+
   /** 최신성 항의 입력값. 집계로 접힌 오래된 사용도 시각을 잃지 않는다. */
   lastUsedAt(menuId: MenuId): number | null {
     let last: number | null = null;

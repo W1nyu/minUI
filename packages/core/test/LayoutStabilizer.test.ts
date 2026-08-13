@@ -99,12 +99,12 @@ describe("히스테리시스 ① 20% 마진 (기획안 §8.2)", () => {
     // 정렬을 입력 쪽에 맡기면 강한 도전자가 배열 뒤에 있을 때 조용히 무시된다.
     const state = seeded();
     const unsorted = [
-      { menuId: "a", frequency: 4, recency: 0, context: 0, pin: 0, total: 4 },
-      { menuId: "b", frequency: 3, recency: 0, context: 0, pin: 0, total: 3 },
-      { menuId: "c", frequency: 2, recency: 0, context: 0, pin: 0, total: 2 },
-      { menuId: "d", frequency: 1, recency: 0, context: 0, pin: 0, total: 1 },
-      { menuId: "weak", frequency: 0.5, recency: 0, context: 0, pin: 0, total: 0.5 },
-      { menuId: "strong", frequency: 0, recency: 0, context: 0, pin: 100, total: 100 },
+      { menuId: "a", frequency: 4, recency: 0, context: 0, pin: 0, total: 4, views: 0, lastUsedAt: null },
+      { menuId: "b", frequency: 3, recency: 0, context: 0, pin: 0, total: 3, views: 0, lastUsedAt: null },
+      { menuId: "c", frequency: 2, recency: 0, context: 0, pin: 0, total: 2, views: 0, lastUsedAt: null },
+      { menuId: "d", frequency: 1, recency: 0, context: 0, pin: 0, total: 1, views: 0, lastUsedAt: null },
+      { menuId: "weak", frequency: 0.5, recency: 0, context: 0, pin: 0, total: 0.5, views: 0, lastUsedAt: null },
+      { menuId: "strong", frequency: 0, recency: 0, context: 0, pin: 100, total: 100, views: 0, lastUsedAt: null },
     ];
 
     const result = stabilizer.recompute(state, unsorted, T0 + 2 * DAY_MS);

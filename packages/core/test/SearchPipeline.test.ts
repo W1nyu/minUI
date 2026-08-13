@@ -162,3 +162,72 @@ describe("임베딩 없이도 동작한다", () => {
     expect(bare.search("돈 보내기").status).toBe("ok");
   });
 });
+
+describe("동점이면 자식이 갈래를 이긴다", () => {
+  /**
+   * 실측에서 나온 상황 그대로다. 동의어 "환율"이 갈래 `환율`과 자식 `환율조회`에 똑같이
+   * 걸려 점수가 0.810으로 같았고, 카탈로그 순서(=사이트 DOM 순서)가 갈래를 앞세웠다.
+   */
+  const TREE: MenuCatalog = [
+    {
+      id: "x.환율",
+      label: "환율",
+      synonyms: ["환율"],
+      category: "외환",
+      path: ["개인뱅킹", "외환"],
+      icon: "globe",
+      route: "/x/환율",
+      riskLevel: "low",
+    },
+    {
+      id: "x.환율조회",
+      label: "환율조회",
+      synonyms: ["환율"],
+      category: "외환",
+      path: ["개인뱅킹", "외환", "환율"],
+      icon: "globe",
+      route: "/x/환율조회",
+      riskLevel: "low",
+    },
+  ];
+
+  function pipeline(catalog: MenuCatalog) {
+    const index = new MenuIndex(catalog);
+    return new SearchPipeline(index, DEFAULT_CONFIG, NgramTfIdfProvider.build(index.documents()));
+  }
+
+  it("점수가 같으면 자식이 앞에 온다", () => {
+    const result = pipeline(TREE).search("환율");
+
+    expect(result.status).toBe("ok");
+    if (result.status !== "ok") return;
+    expect(result.candidates[0]?.menuId).toBe("x.환율조회");
+    expect(result.candidates[0]?.score).toBe(result.candidates[1]?.score);
+  });
+
+  it("점수가 다르면 갈래라도 이긴다 — 감점이 아니라 동점 규칙이다", () => {
+    // 갈래에만 정확 매칭되는 표현을 준다.
+    const catalog: MenuCatalog = [
+      { ...TREE[0]!, synonyms: ["환율", "오늘 환율"] },
+      TREE[1]!,
+    ];
+
+    const result = pipeline(catalog).search("오늘 환율");
+
+    expect(result.status).toBe("ok");
+    if (result.status !== "ok") return;
+    expect(result.candidates[0]?.menuId).toBe("x.환율");
+  });
+
+  it("계층 정보가 없는 호스트에서는 아무것도 달라지지 않는다", () => {
+    const flat = TREE.map(({ path: _path, ...menu }) => menu);
+
+    const result = pipeline(flat).search("환율");
+
+    expect(result.status).toBe("ok");
+    if (result.status !== "ok") return;
+    // 동점이므로 카탈로그 순서 그대로.
+    expect(result.candidates[0]?.menuId).toBe("x.환율");
+    expect(result.candidates).toHaveLength(2);
+  });
+});

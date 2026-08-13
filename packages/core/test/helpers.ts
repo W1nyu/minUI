@@ -86,15 +86,21 @@ export function makeStore(config: MinUIConfig = DEFAULT_CONFIG): EventStore {
  * 점수만 지정해 랭킹 결과를 만든다. LayoutStabilizer 테스트는 점수가 *어떻게*
  * 나왔는지와 무관해야 하므로 RankingEngine을 거치지 않는다.
  */
-export function rankedList(entries: readonly [MenuId, number][]): ScoreBreakdown[] {
+export function rankedList(
+  entries: readonly (readonly [MenuId, number] | readonly [MenuId, number, number])[],
+): ScoreBreakdown[] {
   return entries
-    .map(([menuId, total]) => ({
+    .map(([menuId, total, views]) => ({
       menuId,
       frequency: total,
       recency: 0,
       context: 0,
       pin: 0,
       total,
+      // 세 번째 값을 안 주면 점수를 횟수로 삼는다. 순서 규칙(횟수 우선)을 따로 재는
+      // 테스트가 아니면 둘을 나눠 줄 이유가 없다.
+      views: views ?? total,
+      lastUsedAt: null,
     }))
     .sort((a, b) => b.total - a.total);
 }

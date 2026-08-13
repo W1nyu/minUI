@@ -175,26 +175,71 @@ export class LayoutStabilizer {
     };
   }
 
-  /** 화면에 보이는 카드. 순서는 배치 그대로이며 점수로 다시 정렬하지 않는다. */
+  /**
+   * 화면에 보이는 카드. **중요한 것부터 앞에 온다** — 위에서 아래로, 왼쪽에서 오른쪽으로.
+   *
+   * <p>순서 규칙은 점수 하나로 뭉뚱그리지 않고 단계로 정한다. 점수는 빈도·최신성·상황을
+   * 더한 값이라 "왜 이 카드가 위에 있는가"를 사용자에게 설명할 수 없는데, 여기서 필요한
+   * 것은 설명 가능한 순서다.
+   *
+   * <ol>
+   *   <li><b>고정한 것이 먼저</b> — 사용자가 직접 정한 것이 자동 판단보다 위다
+   *   <li><b>조회 횟수가 많은 것부터</b> — 고정한 것끼리도 이 규칙을 먼저 적용한다.
+   *       그래서 나중에 고정한 메뉴라도 더 많이 보면 앞으로 올라온다
+   *   <li>횟수가 같으면 — 고정한 것은 <b>먼저 고정한 순서</b>,
+   *       고정하지 않은 것은 <b>최근에 본 순서</b>
+   * </ol>
+   *
+   * <p>이것은 §8.2의 "자리를 지킨다"를 <b>버린 것이다.</b> 원래는 랭킹이 바뀌어도 남아 있는
+   * 카드를 움직이지 않았다 — 같은 자리에 같은 것이 있는 편이 고령 사용자에게 낫다는 판단이었다.
+   * 대신 지금은 중요도가 자리로 드러난다. 어느 쪽이 나은지는 사용자 테스트로만 답할 수 있고,
+   * 아직 하지 않았다. 카드 <b>구성</b>이 바뀌는 것을 막는 규칙(마진·쿨다운·1회 1장)은 그대로다.
+   */
   cards(
     state: LayoutState,
     ranked: readonly ScoreBreakdown[],
     pinned: readonly MenuId[],
     now: number,
   ): RankedCard[] {
-    const scores = new Map(ranked.map((r) => [r.menuId, r.total]));
-    const pins = new Set(pinned);
+    const byMenu = new Map(ranked.map((r) => [r.menuId, r]));
+    const pinOrder = new Map(pinned.map((menuId, index) => [menuId, index]));
     const badgeWindow = this.#config.stability.newBadgeDurationMs;
 
-    return state.current.map((menuId) => {
+    const cards = state.current.map((menuId, slot): RankedCard & { slot: number } => {
       const introducedAt = state.introducedAt[menuId];
       return {
         menuId,
-        score: scores.get(menuId) ?? 0,
-        pinned: pins.has(menuId),
+        score: byMenu.get(menuId)?.total ?? 0,
+        pinned: pinOrder.has(menuId),
         isNew: introducedAt !== undefined && now - introducedAt < badgeWindow,
+        slot,
       };
     });
+
+    cards.sort((a, b) => {
+      if (a.pinned !== b.pinned) return a.pinned ? -1 : 1;
+
+      const views = (byMenu.get(b.menuId)?.views ?? 0) - (byMenu.get(a.menuId)?.views ?? 0);
+      if (views !== 0) return views;
+
+      if (a.pinned) {
+        return (pinOrder.get(a.menuId) ?? 0) - (pinOrder.get(b.menuId) ?? 0);
+      }
+
+      const lastA = byMenu.get(a.menuId)?.lastUsedAt ?? null;
+      const lastB = byMenu.get(b.menuId)?.lastUsedAt ?? null;
+      if (lastA !== lastB) {
+        if (lastA === null) return 1;
+        if (lastB === null) return -1;
+        return lastB - lastA;
+      }
+
+      // 여기까지 같으면 배치 순서를 유지한다. 아직 아무도 쓰지 않은 첫 화면에서
+      // 온보딩 프리셋이 정한 순서가 뒤집히지 않게 하는 지점이다.
+      return a.slot - b.slot;
+    });
+
+    return cards.map(({ slot: _slot, ...card }) => card);
   }
 
   #weakestSlot(
