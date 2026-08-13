@@ -1,13 +1,30 @@
 # MinUI Engine
 
 > 자주 쓰는 기능만 큰 카드로 남기고, 나머지 메뉴는 음성으로 불러내는 **이식형 UI 레이어**.
-> 어떤 금융 앱에도 얹을 수 있게 설계하고, 이체 기능을 갖춘 데모 은행 앱 위에서 검증한다.
+> 어떤 금융 앱에도 얹을 수 있게 설계하고, 실제 금융사 5곳과 데모 은행 앱 위에서 검증한다.
 
 기획안은 [`docs/기획안.md`](docs/기획안.md), 측정 결과는 [`docs/검증결과.md`](docs/검증결과.md).
 
-## 띄우기
+## 빨리 보려면 — MinUI Studio
 
-세 가지를 순서대로 켠다.
+**금융사 주소를 넣으면 10초 만에 그 회사에 얹힌 쉬운 모드가 뜬다.**
+
+```bash
+pnpm install
+pnpm --filter demos dev     # → http://localhost:5174/studio
+```
+
+주소를 넣으면 전체메뉴를 읽어 카탈로그를 만들고, 첫 화면 카드를 고르고, 미리보기와
+이식 코드 두 줄을 보여 준다. 하나은행 10.7초 / KB증권 5.3초에 끝난다.
+
+같은 앱의 `/shinhan` `/kbsec` `/hana`는 미리 만들어 둔 세 곳이다.
+
+> LLM 기능(첫 화면 선정·음성 폴백)은 저장소 루트의 `api.txt`에 Google AI Studio 키가
+> 있을 때 켜진다. **없어도 전부 돌아간다** — 되묻기로 되돌아갈 뿐이다.
+
+## 데모 은행 앱 띄우기
+
+거래까지 도는 검증 베드다. 세 가지를 순서대로 켠다.
 
 ```bash
 pnpm install
@@ -55,7 +72,10 @@ packages/react    @minui/react   React 바인딩 + 접근성 디자인 토큰
 packages/voice    @minui/voice   STT Provider 인터페이스와 구현체
 frontend                         데모 은행 앱 (두 UI 모드)
 backend                          Spring Boot 계정계 (복식부기 원장)
-tools                            벤치마크·시뮬레이션·리포트
+demos                            실제 금융사 5곳 + MinUI Studio
+services/harvester               URL → 수집 원본 (Playwright) + 브라우저 스니펫
+services/enricher                LLM 연결 — 빌드 타임 보강, 런타임 폴백
+tools                            카탈로그 빌드·벤치마크·리포트
 docs                             기획안과 측정 결과
 ```
 
@@ -65,14 +85,32 @@ docs                             기획안과 측정 결과
 ## 검증
 
 ```bash
-pnpm test                              # 256 tests (core · voice · react · frontend)
+pnpm test                              # 393 tests
 pnpm typecheck
 cd backend && ./gradlew test           # Testcontainers 통합 테스트 6종
 
-pnpm --filter tools bench:search       # 구어체 질의 50건 검색 정확도
-pnpm --filter tools simulate           # 120일 개인화 시뮬레이션
-pnpm --filter tools report             # §12.1 지표 표
+pnpm --filter tools build:catalog      # 수집 원본 + ai + 사람 → 카탈로그
+pnpm --filter tools bench:sites        # 동의어를 누가 붙였을 때 잘 찾는가 (4구성)
+pnpm --filter tools bench:search       # 구어체 질의 50건
+pnpm --filter tools diagnose           # 놓친 질의가 왜 놓쳤는가
+pnpm --filter tools tune:threshold     # 임계값 — 정답 세트와 답 없는 세트를 함께
+
+pnpm --filter @minui/harvester recall  # 자동 수집 회수율 (손 수집본 대비)
+pnpm --filter @minui/enricher bench:assist   # 런타임 LLM 폴백의 이득과 손해
 ```
+
+주요 수치 (2026-08-11)
+
+| | |
+|---|---|
+| 자동 수집 회수율 | 99% (로그인 불필요 4곳) |
+| 검색 — 온디바이스만 | 85% |
+| 검색 — LLM 폴백까지 | **95%** |
+| 답 없는 질의 100건 | 97건 옳게 거절 |
+| 이식 시간 | 10초 (반나절 → ) |
+
+**이 수치들에는 흠이 있다.** 질의도 내가 쓰고 동의어도 내가 썼다 —
+자세한 것은 `docs/검증결과.md`에 적어 뒀다.
 
 과제 수행 계측은 앱에 켜져 있다. 사용자 테스트 진행자는 콘솔에서 이렇게 쓴다.
 
@@ -92,4 +130,7 @@ copy(minuiMetrics.toJSON())                             // 회수
 | `packages/core/src/search/voiceAction.ts` | 음성으로 할 수 있는 일의 경계 |
 | `packages/core/src/contextBoost.ts` | 우연을 주기로 오인하지 않는 법 |
 | `backend/.../TransferService.java` | 격리 수준과 락이 각자 맡는 몫 |
-| `docs/검증결과.md` | 목표에 미달한 지표와 그 이유 |
+| `services/harvester/src/extract.ts` | 다섯 사이트가 서로 다른 방식으로 메뉴를 그린다 |
+| `services/enricher/src/prompt.ts` | 모델을 믿지 않고 검증하는 자리 |
+| `demos/src/studioRoute.ts` | 링크 하나가 카탈로그가 되는 전 과정 |
+| `docs/검증결과.md` | 목표에 미달한 지표, 실패한 실험, 그 이유 |
