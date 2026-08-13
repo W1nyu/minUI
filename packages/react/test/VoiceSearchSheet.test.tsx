@@ -6,6 +6,7 @@ import axe from "axe-core";
 import { describe, expect, it, vi } from "vitest";
 import { MinUIHome } from "../src/MinUIHome.js";
 import { MinUIProvider } from "../src/MinUIProvider.js";
+import type { SttLike } from "../src/VoiceSearchSheet.js";
 
 const CATALOG: MenuCatalog = [
   {
@@ -192,8 +193,12 @@ describe("음성 검색", () => {
     await userEvent.click(screen.getByRole("button", { name: /눌러서 말하기/ }));
 
     await waitFor(() => expect(screen.getByRole("status")).toHaveTextContent("자동이체"));
-    // 버튼 글자도 함께 바뀐다 — 색만으로 알리지 않는다.
-    expect(screen.getByRole("button", { name: /듣고 있어요/ })).toBeInTheDocument();
+    /*
+     * 버튼 글자도 함께 바뀐다 — 색만으로 알리지 않는다.
+     * MockSttProvider는 끝을 알려야 하는 엔진(`finish`)이라 "다 말했어요"가 된다.
+     * 스스로 끝나는 엔진에서는 "듣고 있어요"로 남는다 — 아래 별도 테스트가 잰다.
+     */
+    expect(screen.getByRole("button", { name: /다 말했어요/ })).toBeInTheDocument();
   });
 
   it("음성으로 찾은 위험 메뉴도 사용자가 눌러야 열린다", async () => {
@@ -227,6 +232,59 @@ describe("음성 검색", () => {
     await waitFor(() =>
       expect(screen.getByRole("status")).toHaveTextContent("글로 입력해 주세요"),
     );
+  });
+});
+
+/**
+ * 온디바이스 Whisper는 스트리밍이 아니다 — 말이 끝나야 옮기기 시작한다.
+ *
+ * Web Speech는 말이 끊기면 스스로 확정하지만 Whisper는 그럴 수 없어, 사용자가
+ * "다 말했어요"를 눌러 끝을 알려야 한다. 두 방식이 같은 화면에서 돌아야 한다.
+ */
+describe("말이 끝나는 시점을 사용자가 정하는 엔진", () => {
+  it("듣는 중에는 끝내는 버튼이 된다", async () => {
+    const stt = new MockSttProvider([{ partials: ["자동"], text: "자동이체", holdFinal: true }]);
+    await openSearch(stt);
+
+    await userEvent.click(screen.getByRole("button", { name: /눌러서 말하기/ }));
+
+    await waitFor(() =>
+      expect(screen.getByRole("button", { name: /다 말했어요/ })).toBeInTheDocument(),
+    );
+  });
+
+  it("끝내는 버튼을 누르면 그제야 결과가 나온다", async () => {
+    const stt = new MockSttProvider([{ partials: ["잔고"], text: "잔고", holdFinal: true }]);
+    const { onAction } = await openSearch(stt);
+
+    await userEvent.click(screen.getByRole("button", { name: /눌러서 말하기/ }));
+    await waitFor(() =>
+      expect(screen.getByRole("button", { name: /다 말했어요/ })).toBeInTheDocument(),
+    );
+    expect(onAction).not.toHaveBeenCalled();
+
+    await userEvent.click(screen.getByRole("button", { name: /다 말했어요/ }));
+
+    await waitFor(() => expect(onAction).toHaveBeenCalledWith("inquiry.balance", undefined));
+  });
+
+  /** 스스로 확정하는 엔진에서는 끝내라고 시키지 않는다. */
+  it("스스로 끝나는 엔진에서는 끝내는 버튼을 만들지 않는다", async () => {
+    const stt = new MockSttProvider([{ text: "잔고" }]);
+    const noFinish: SttLike = {
+      isSupported: true,
+      start: () => stt.start(),
+      stop: () => stt.stop(),
+      onPartial: (cb) => stt.onPartial(cb),
+      onFinal: (cb) => stt.onFinal(cb),
+      onError: (cb) => stt.onError(cb),
+    };
+    const { onAction } = await openSearch(noFinish as MockSttProvider);
+
+    await userEvent.click(screen.getByRole("button", { name: /눌러서 말하기/ }));
+
+    await waitFor(() => expect(onAction).toHaveBeenCalledWith("inquiry.balance", undefined));
+    expect(screen.queryByRole("button", { name: /다 말했어요/ })).not.toBeInTheDocument();
   });
 });
 

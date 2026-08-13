@@ -27,6 +27,7 @@ export default defineConfig({
       { find: "@minui/react/minui.css", replacement: src("../packages/react/src/styles/minui.css") },
       { find: "@minui/react", replacement: src("../packages/react/src/index.ts") },
       { find: "@minui/core", replacement: src("../packages/core/src/index.ts") },
+      { find: "@minui/voice/whisper", replacement: src("../packages/voice/src/whisper.ts") },
       { find: "@minui/voice", replacement: src("../packages/voice/src/index.ts") },
     ],
   },

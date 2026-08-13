@@ -6,3 +6,9 @@ packages:
   - "services/*"
 allowBuilds:
   esbuild: true
+  # Whisper는 브라우저에서만 돈다(onnxruntime-web). 아래 셋은 서버측 추론과 이미지
+  # 처리에 쓰이는 것들이라 설치 스크립트를 돌릴 이유가 없다 — 네이티브 바이너리를
+  # 내려받는 스크립트는 필요할 때만 켜는 편이 낫다.
+  onnxruntime-node: false
+  protobufjs: false
+  sharp: false

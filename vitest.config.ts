@@ -11,7 +11,13 @@ const resolve = (path: string) => fileURLToPath(new URL(path, import.meta.url));
  * 옛 코어를 검사하게 된다. 실제로 그 함정에 한 번 빠져 고정(핀) 버그를 놓칠 뻔했다.
  * 빌드 산출물의 정합성은 `pnpm build`와 typecheck가 따로 책임진다.
  */
+/*
+ * 별칭은 접두사 치환이라 **더 구체적인 경로를 먼저 둔다.** `@minui/voice`만 걸어 두면
+ * `@minui/voice/whisper`가 `.../src/index.ts/whisper`로 망가진다.
+ * (`demos/vite.config.ts`가 CSS 서브패스에서 같은 함정에 빠진 적이 있다.)
+ */
 const workspaceAliases = {
+  "@minui/voice/whisper": resolve("./packages/voice/src/whisper.ts"),
   "@minui/core": resolve("./packages/core/src/index.ts"),
   "@minui/react": resolve("./packages/react/src/index.ts"),
   "@minui/voice": resolve("./packages/voice/src/index.ts"),

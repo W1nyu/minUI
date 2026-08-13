@@ -13,6 +13,14 @@ export interface SttLike {
   readonly isSupported: boolean;
   start(): Promise<void>;
   stop(): void;
+  /**
+   * 말이 끝났음을 알린다. **스트리밍이 아닌 엔진에만 있다.**
+   *
+   * <p>Web Speech는 말이 끊기면 스스로 확정하지만, 온디바이스 Whisper는 말이 끝나야
+   * 옮기기 시작하므로 끝을 누가 알려 줘야 한다. 있으면 화면이 끝내는 버튼을 만들고,
+   * 없으면 지금까지처럼 저절로 끝나기를 기다린다.
+   */
+  finish?(): void | Promise<void>;
   onPartial(callback: (text: string) => void): () => void;
   onFinal(callback: (result: { text: string; confidence: number }) => void): () => void;
   onError(callback: (error: { code: string; message: string }) => void): () => void;
@@ -167,6 +175,25 @@ export function VoiceSearchSheet({
     await stt.start();
   }
 
+  /**
+   * 말이 끝났다고 알린다.
+   *
+   * <p>온디바이스 모델은 여기서부터 옮기기 시작한다 — 짧지 않은 시간이 걸리므로
+   * 무엇이 일어나는지 글자로 알린다. 침묵은 고장으로 읽힌다.
+   */
+  async function finishListening() {
+    if (!stt?.finish) return;
+    setPhase({ kind: "idle" });
+    setNotice("들은 말을 옮기는 중이에요…");
+    try {
+      await stt.finish();
+    } finally {
+      setNotice((current) =>
+        current === "들은 말을 옮기는 중이에요…" ? null : current,
+      );
+    }
+  }
+
   return (
     <div
       className="minui-sheet"
@@ -194,10 +221,23 @@ export function VoiceSearchSheet({
             type="button"
             className="minui-mic"
             data-listening={phase.kind === "listening"}
-            onClick={() => void startListening()}
+            onClick={() =>
+              void (phase.kind === "listening" && stt?.finish
+                ? finishListening()
+                : startListening())
+            }
           >
             <span aria-hidden="true">🎤</span>
-            {phase.kind === "listening" ? "듣고 있어요" : "눌러서 말하기"}
+            {phase.kind !== "listening"
+              ? "눌러서 말하기"
+              : /*
+                 * 스스로 끝나는 엔진에서는 누를 것이 없으므로 상태만 알린다.
+                 * 끝을 알려야 하는 엔진에서는 무엇을 해야 하는지 글자로 말한다 —
+                 * "듣고 있어요"만 떠 있으면 사용자는 계속 기다린다.
+                 */
+                stt?.finish
+                ? "다 말했어요"
+                : "듣고 있어요"}
           </button>
         )}
 

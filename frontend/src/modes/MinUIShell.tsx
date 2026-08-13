@@ -1,6 +1,6 @@
 import type { MenuId } from "@minui/core";
 import { MinUIHome, type SttLike } from "@minui/react";
-import { WebSpeechSttProvider } from "@minui/voice";
+import { makeStt } from "../stt.js";
 import { useMemo } from "react";
 import { useBank } from "../BankContext.js";
 import { CATALOG } from "../catalog.js";
@@ -16,10 +16,10 @@ export function MinUIShell({ stt }: { stt?: SttLike } = {}) {
   const { accounts, deposits, autoTransfers, transactions } = useBank();
 
   /**
-   * 데모는 브라우저 Web Speech API로 검증한다 (기획안 §9.1의 개발·데모 단계).
+   * 온디바이스 Whisper를 주로, 브라우저 Web Speech를 예비로 쓴다 (`../stt.ts`).
    * 상용 전환 시 이 한 줄만 다른 구현체로 바꾸면 된다 — 그것이 Provider를 둔 이유다.
    */
-  const provider = useMemo<SttLike>(() => stt ?? new WebSpeechSttProvider(), [stt]);
+  const provider = useMemo<SttLike>(() => stt ?? makeStt(), [stt]);
 
   /**
    * 카드가 들고 있는 답 (기획안 S2: 잔액 확인은 탭 0회).

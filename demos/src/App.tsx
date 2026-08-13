@@ -1,6 +1,6 @@
 import type { MenuId } from "@minui/core";
 import { IndexedDbStorageAdapter, MinUIHome, MinUIProvider } from "@minui/react";
-import { WebSpeechSttProvider } from "@minui/voice";
+import { makeStt, sttPreferenceFromUrl } from "./stt.js";
 import { useCallback, useMemo, useState } from "react";
 import { makeAssist } from "./assist.js";
 import { makeExplain } from "./explain.js";
@@ -79,7 +79,14 @@ function SiteDemo({ site }: { site: SiteMeta }) {
     () => new IndexedDbStorageAdapter(`demo-${site.slug}`),
     [site.slug],
   );
-  const stt = useMemo(() => new WebSpeechSttProvider(), []);
+  /*
+   * 브라우저 Web Speech가 주, 온디바이스 Whisper가 예비 (`stt.ts`).
+   * `?stt=whisper`를 붙이면 뒤집힌다 — 두 엔진을 같은 발화로 비교하려면 필요하다.
+   */
+  const stt = useMemo(
+    () => makeStt({ prefer: sttPreferenceFromUrl(window.location.search) }),
+    [],
+  );
   // 온디바이스가 못 찾았을 때만 부른다. 키는 서버에 있고 여기로 오지 않는다.
   const assist = useMemo(() => makeAssist(site.catalog), [site.catalog]);
   // 카탈로그에 뜻풀이가 없는 메뉴에만 붙는다. 같은 이유로 서버를 거친다.

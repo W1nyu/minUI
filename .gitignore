@@ -36,3 +36,6 @@ backend/build/
 
 # 데모 빌드 산출물
 demos/dist/
+
+# Whisper 모델 (73MB). tools의 fetch:model로 다시 만든다.
+demos/public/models/
