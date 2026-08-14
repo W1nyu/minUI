@@ -35,7 +35,7 @@ UPDATE 하면 원장과 어긋날 수 있고, 어긋난 뒤에는 무엇이 옳�
 잠그면 데드락이 나지만, 모두 같은 순서로 잠그면 그 순환이 생기지 않는다.
 
 격리 수준은 **READ COMMITTED**다. REPEATABLE READ가 더 안전해 보이지만 여기서는 반대다 —
-이유는 `TransferService#transfer`의 주석과 `docs/검증결과.md`에 적어 두었다.
+이유는 `TransferService#transfer`의 주석과 `docs/기획안.md` §12.3에 적어 두었다.
 
 ## 멱등성
 

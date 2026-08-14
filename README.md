@@ -3,7 +3,7 @@
 > 자주 쓰는 기능만 큰 카드로 남기고, 나머지 메뉴는 음성으로 불러내는 **이식형 UI 레이어**.
 > 어떤 금융 앱에도 얹을 수 있게 설계하고, 실제 금융사 5곳과 데모 은행 앱 위에서 검증한다.
 
-기획안은 [`docs/기획안.md`](docs/기획안.md), 측정 결과는 [`docs/검증결과.md`](docs/검증결과.md).
+설계·측정·실패 기록이 [`docs/기획안.md`](docs/기획안.md) 한 파일에 있다.
 
 ## 빨리 보려면 — MinUI Studio
 
@@ -63,6 +63,10 @@ UI 외의 변수가 통제된다 (기획안 §12.2).
 - **쉬운 모드** — 큰 카드 4장. 잔액은 카드에 이미 떠 있어 탭 0회로 읽힌다
 - **말로 찾기** — 카드에 없는 21개 메뉴를 구어체로 부른다. "자동이체 안 나가게 해야 하는데"
 - **전체 메뉴** — 25개 전부. 여기서 카드를 홈에 고정하거나 글씨 크기를 바꾼다
+- **한 번 헤맨 말은 기억한다** — 검색이 못 알아들은 말로 갈래를 타고 끝내 찾아내면,
+  그 말이 이 기기에서 그 메뉴의 이름이 된다. 다음부터는 한 번에 나온다
+- **왜 이렇게 보이나요?** — 카드 아래 링크. 카드가 왜 그 자리인지 답하고,
+  기억해 둔 말을 보여 주고 지운다. 개인화가 조용한 것과 깜깜한 것은 다르다
 - **기본 UI** — 대조군. 실제 은행 앱 구조(배너·계좌 카드·아이콘 격자·탭바)를 따랐다
 
 음성 버튼은 Chrome에서 마이크 권한을 주면 실제로 동작한다. 권한이 없거나 지원되지
@@ -99,13 +103,14 @@ docs                             기획안과 측정 결과
 ## 검증
 
 ```bash
-pnpm test                              # 440 tests
+pnpm test                              # 503 tests
 pnpm typecheck
 cd backend && ./gradlew test           # Testcontainers 통합 테스트 6종
 
 pnpm --filter tools build:catalog      # 수집 원본 + ai + 사람 → 카탈로그
 pnpm --filter tools bench:sites        # 동의어를 누가 붙였을 때 잘 찾는가 (4구성)
 pnpm --filter tools bench:search       # 구어체 질의 50건
+pnpm --filter tools bench:learning     # 개인 동의어 학습이 나머지를 망치는가
 pnpm --filter tools diagnose           # 놓친 질의가 왜 놓쳤는가
 pnpm --filter tools tune:threshold     # 임계값 — 정답 세트와 답 없는 세트를 함께
 pnpm --filter tools fetch:model        # 예비 음성 엔진 가중치 (73MB, 저장소에 없음)
@@ -123,10 +128,11 @@ pnpm --filter @minui/enricher bench:assist   # 런타임 LLM 폴백의 이득과
 | 검색 — LLM 폴백까지 | **95%** |
 | 답 없는 질의 100건 | 97건 옳게 거절 |
 | 어려운 말 풀이 커버리지 | 86% (2,522/2,948) |
+| 개인 동의어 학습이 다른 질의를 망친 건수 | 0건 (64문항) |
 | 이식 시간 | 10초 (반나절 → ) |
 
 **이 수치들에는 흠이 있다.** 질의도 내가 쓰고 동의어도 내가 썼다 —
-자세한 것은 `docs/검증결과.md`에 적어 뒀다.
+자세한 것은 `docs/기획안.md` §0에 적어 뒀다.
 
 과제 수행 계측은 앱에 켜져 있다. 사용자 테스트 진행자는 콘솔에서 이렇게 쓴다.
 
@@ -144,9 +150,11 @@ copy(minuiMetrics.toJSON())                             // 회수
 |---|---|
 | `packages/core/src/LayoutStabilizer.ts` | 개인화가 화면을 흔들지 않게 하는 네 장치 |
 | `packages/core/src/search/voiceAction.ts` | 음성으로 할 수 있는 일의 경계 |
+| `packages/core/src/search/LearnedTerms.ts` | 사용자 말을 배우면서 개인정보는 안 배우는 법 |
+| `packages/react/src/AdaptationSheet.tsx` | 적응했다는 것을 어떻게 말해 주는가 |
 | `packages/core/src/contextBoost.ts` | 우연을 주기로 오인하지 않는 법 |
 | `backend/.../TransferService.java` | 격리 수준과 락이 각자 맡는 몫 |
 | `services/harvester/src/extract.ts` | 다섯 사이트가 서로 다른 방식으로 메뉴를 그린다 |
 | `services/enricher/src/prompt.ts` | 모델을 믿지 않고 검증하는 자리 |
 | `demos/src/studioRoute.ts` | 링크 하나가 카탈로그가 되는 전 과정 |
-| `docs/검증결과.md` | 목표에 미달한 지표, 실패한 실험, 그 이유 |
+| `docs/기획안.md` §16 | 실패하고 되돌린 것들 — 되돌린 이유가 더 쓸모 있다 |
