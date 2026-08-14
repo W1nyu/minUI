@@ -1,25 +1,47 @@
 import type { MinUIConfig } from "../config.js";
 import type { MenuId } from "../types.js";
 import type { EmbeddingProvider } from "./EmbeddingProvider.js";
+import type { LearnedMatch, LearnedTerms } from "./LearnedTerms.js";
 import type { IndexedMenu, MenuIndex } from "./MenuIndex.js";
 import { jamoSimilarity } from "./hangul.js";
 import { normalize } from "./normalize.js";
 
 /** 어느 단계가 이 후보를 올렸는가. 왜 이게 나왔는지 설명하고 벤치마크를 분석할 때 쓴다. */
-export type MatchStage = "exact" | "synonym" | "semantic" | "phonetic";
+export type MatchStage = "exact" | "learned" | "synonym" | "semantic" | "phonetic";
 
 /**
  * 같은 점수라면 어느 단계를 근거로 볼 것인가. 클수록 강하다.
  *
  * <p>"사용자가 말한 그대로"가 가장 강한 근거이고, 통계적 유사도가 가장 약하다.
  * 이 순서는 기획안 §8.3의 단계 순서와 같다.
+ *
+ * <p>`learned`(M7)가 `exact` 바로 아래에 있는 이유: 이 기기의 사용자가 그 말을 하고 그
+ * 메뉴로 갔다는 <b>관찰</b>은 카탈로그를 쓴 사람의 짐작보다 그 사람에게 잘 맞는다.
+ * 그렇다고 이름을 정확히 부른 것을 이길 수는 없다 — 한때 잘못 배운 표현 하나가
+ * 이름으로 부르는 사람을 계속 엉뚱한 곳으로 보내게 된다.
  */
 const STAGE_STRENGTH: Record<MatchStage, number> = {
-  exact: 3,
+  exact: 4,
+  learned: 3,
   synonym: 2,
   phonetic: 1,
   semantic: 0,
 };
+
+/**
+ * 정확 매칭이 있으면 뒤 단계의 후보를 볼 필요가 없다.
+ *
+ * <p><b>학습(M7)은 여기 넣지 않는다 — 한 번 넣었다가 되돌렸다.</b> 넣으면 학습이 걸린
+ * 순간 나머지 후보가 전부 사라지는데, 사용자가 후보를 훑다 엉뚱한 것을 한 번 누른 경우
+ * <b>정답이 후보 목록에서 통째로 없어진다.</b> 실측에서 정답이 후보 안에 있던 4건이
+ * 0건이 됐고, 되묻던 질의는 "오답 하나를 확신 있게 내미는" 상태가 됐다.
+ *
+ * <p>그것은 임계값을 0.30 대신 0.40으로 고른 이유(잘못된 확신)와 같은 실패다. 게다가
+ * 후보가 하나뿐이면 사용자는 누르지 않고 창을 닫으므로 <b>올바른 학습이 일어날 기회조차
+ * 없다</b> — 잘못 배운 말이 망각 기한까지 그대로 남는다. 후보를 남겨 두면 사용자가 옳은
+ * 것을 눌러 스스로 바로잡는다(F4). 학습은 순위를 올릴 뿐 다른 후보를 지우지 않는다.
+ */
+const DECISIVE: ReadonlySet<MatchStage> = new Set<MatchStage>(["exact"]);
 
 export interface SearchCandidate {
   menuId: MenuId;
@@ -49,6 +71,7 @@ export interface SearchOptions {
  *
  *   ① 정규화      조사·어미 제거, NFC
  *   ② 동의어      정확 매칭 — 확실한 것부터, 최우선
+ *   ②' 학습       이 기기의 사용자가 전에 그 말로 갔던 곳 (M7)
  *   ③ 의미 유사도  n-gram TF-IDF (EmbeddingProvider로 교체 가능)
  *   ④ 자모 보정    STT 오인식 복구
  *   ⑤ 임계치      최고 점수가 낮으면 후보를 내지 않고 되묻는다
@@ -65,11 +88,19 @@ export class SearchPipeline {
   readonly #index: MenuIndex;
   readonly #config: MinUIConfig;
   readonly #embedding: EmbeddingProvider | undefined;
+  readonly #learned: LearnedTerms | undefined;
 
-  constructor(index: MenuIndex, config: MinUIConfig, embedding?: EmbeddingProvider) {
+  constructor(
+    index: MenuIndex,
+    config: MinUIConfig,
+    embedding?: EmbeddingProvider,
+    /** 이 기기가 배운 표현들 (M7). 없으면 학습 단계가 통째로 빠진다. */
+    learned?: LearnedTerms,
+  ) {
     this.#index = index;
     this.#config = config;
     this.#embedding = embedding;
+    this.#learned = learned;
   }
 
   /**
@@ -116,19 +147,30 @@ export class SearchPipeline {
   #scoreAll(normalized: string): SearchCandidate[] {
     const semantic = this.#embedding?.similarity(normalized) ?? new Map<MenuId, number>();
 
+    // ②' 이 기기가 배운 표현 (M7). 정확히 같을 때만 걸리므로 메뉴별 점수로 미리 펼친다.
+    const learned = new Map<MenuId, LearnedMatch>();
+    for (const match of this.#learned?.match(normalized) ?? []) {
+      learned.set(match.menuId, match);
+    }
+
     const scored: SearchCandidate[] = [];
-    let hasExact = false;
+    let decided = false;
 
     for (const menu of this.#index.menus) {
-      const candidate = this.#scoreMenu(menu, normalized, semantic.get(menu.menuId) ?? 0);
+      const candidate = this.#scoreMenu(
+        menu,
+        normalized,
+        semantic.get(menu.menuId) ?? 0,
+        learned.get(menu.menuId),
+      );
       if (candidate.score <= 0) continue;
-      if (candidate.matchedBy === "exact") hasExact = true;
+      if (DECISIVE.has(candidate.matchedBy)) decided = true;
       scored.push(candidate);
     }
 
     // ② 정확 매칭이 있으면 거기서 끝낸다. 사전이 확실하다고 말한 것을
-    // 유사도 점수로 다시 흔들 이유가 없다.
-    const pool = hasExact ? scored.filter((c) => c.matchedBy === "exact") : scored;
+    // 유사도 점수로 다시 흔들 이유가 없다. 학습은 여기 끼지 않는다(DECISIVE 참고).
+    const pool = decided ? scored.filter((c) => DECISIVE.has(c.matchedBy)) : scored;
 
     /*
      * 동점이면 **자식 있는 항목을 뒤로 보낸다.**
@@ -151,7 +193,12 @@ export class SearchPipeline {
     return pool;
   }
 
-  #scoreMenu(menu: IndexedMenu, normalized: string, semantic: number): SearchCandidate {
+  #scoreMenu(
+    menu: IndexedMenu,
+    normalized: string,
+    semantic: number,
+    learned: LearnedMatch | undefined,
+  ): SearchCandidate {
     const settings = this.#config.search;
     let best: SearchCandidate = {
       menuId: menu.menuId,
@@ -183,6 +230,9 @@ export class SearchPipeline {
     if (semantic > 0) {
       consider(semantic * settings.semanticWeight, "semantic", menu.terms[0] ?? "");
     }
+
+    // ②' 이 기기가 배운 표현. 점수는 관찰 횟수가 정한다(`LearnedTerms`).
+    if (learned) consider(learned.score, "learned", learned.term);
 
     for (const term of menu.terms) {
       if (term === normalized) {

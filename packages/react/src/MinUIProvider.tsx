@@ -1,5 +1,12 @@
 import { MinUIEngine, type MinUIEngineOptions } from "@minui/core";
-import type { ColdStartProfile, MenuId, RankedCard, TextScale } from "@minui/core";
+import type {
+  CardExplanation,
+  ColdStartProfile,
+  LearnedTerm,
+  MenuId,
+  RankedCard,
+  TextScale,
+} from "@minui/core";
 import {
   createContext,
   useCallback,
@@ -24,6 +31,17 @@ export interface MinUIContextValue {
    */
   cards: RankedCard[];
   profile: ColdStartProfile;
+  /**
+   * 이 기기가 배운 말 (M7). 자주 쓴 것부터.
+   *
+   * <p>state로 들고 있는 이유는 지울 수 있기 때문이다 — 지운 것이 화면에서 바로
+   * 사라지지 않으면 사용자는 지워졌는지 알 수 없다.
+   */
+  learnedTerms: readonly LearnedTerm[];
+  /** 카드가 왜 그 자리에 있는가 (M8). 판단은 엔진이 하고 문구는 화면이 고른다. */
+  explainCards: () => CardExplanation[];
+  forgetTerm: (term: string, menuId: MenuId) => void;
+  forgetAllTerms: () => void;
   setTextScale: (scale: TextScale) => void;
   setProfile: (profile: ColdStartProfile) => void;
   open: (menuId: MenuId, params?: Record<string, unknown>) => void;
@@ -82,6 +100,7 @@ export function MinUIProvider({
     intent: "inquiry",
     textScale: "normal",
   });
+  const [learnedTerms, setLearnedTerms] = useState<readonly LearnedTerm[]>([]);
 
   // 옵션 객체가 매 렌더 새로 만들어지더라도 엔진을 다시 만들면 안 된다.
   // 엔진 재생성은 곧 새 세션이고, 새 세션은 카드가 바뀔 수 있는 시점이다.
@@ -99,6 +118,7 @@ export function MinUIProvider({
       setEngine(created);
       setCards(created.getCards());
       setProfileState(created.getProfile());
+      setLearnedTerms(created.getLearnedTerms());
     });
 
     return () => {
@@ -123,6 +143,20 @@ export function MinUIProvider({
       return same ? previous : next;
     });
     setProfileState(instance.getProfile());
+    // 카드와 같은 이유로 동일성을 검사한다. `getLearnedTerms()`는 매번 새 배열을 주므로
+    // 그냥 넣으면 메뉴를 열 때마다 화면 전체가 리렌더된다.
+    setLearnedTerms((previous) => {
+      const next = instance.getLearnedTerms();
+      const same =
+        previous.length === next.length &&
+        previous.every(
+          (entry, index) =>
+            entry.term === next[index]?.term &&
+            entry.menuId === next[index]?.menuId &&
+            entry.count === next[index]?.count,
+        );
+      return same ? previous : next;
+    });
   }, []);
 
   const value = useMemo<MinUIContextValue | null>(() => {
@@ -134,6 +168,14 @@ export function MinUIProvider({
       explain,
       cards,
       profile,
+      learnedTerms,
+      explainCards: () => engine.explainCards(),
+      forgetTerm: (term, menuId) => {
+        void engine.forgetTerm(term, menuId).then(() => refresh(engine));
+      },
+      forgetAllTerms: () => {
+        void engine.forgetAllTerms().then(() => refresh(engine));
+      },
       // 여닫을 때마다 카드를 다시 읽는다. stability.liveReorder가 꺼져 있으면 엔진이
       // 배치를 바꾸지 않으므로 refresh는 아무것도 하지 않는다 — 위 동일성 검사 참고.
       open: (menuId, params) => {
@@ -160,7 +202,7 @@ export function MinUIProvider({
         void engine.setProfile(next).then(() => refresh(engine));
       },
     };
-  }, [engine, assist, explain, cards, profile, refresh]);
+  }, [engine, assist, explain, cards, profile, learnedTerms, refresh]);
 
   // 글씨 크기는 문서 루트에 얹는다. 시트·모달처럼 포털로 나가는 요소까지
   // 같은 배율을 받아야 하기 때문이다.

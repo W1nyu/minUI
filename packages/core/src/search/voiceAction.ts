@@ -61,8 +61,20 @@ export function resolveVoiceAction({
   const menu = menus.get(first.menuId);
   const needsConfirmation = menu === undefined || CONFIRM_REQUIRED.has(menu.riskLevel);
 
-  // 후보가 여럿이면 사용자가 고른다 (기획안 F4).
-  if (candidates.length > 1) return { kind: "choose", candidates };
+  /*
+   * 후보가 여럿이면 사용자가 고른다 (기획안 F4).
+   *
+   * <p>**세는 것은 문턱을 넘은 후보뿐이다.** `search()`는 1위가 문턱을 넘으면 아래 것들을
+   * 함께 돌려준다 — "이거 말씀하신 건가요" 목록에 보여 주기 위해서다. 그러나 문턱 아래
+   * 점수는 그것만 있었다면 되물었을 점수이므로, 자동 실행 여부를 정할 때 그것을 "경쟁하는
+   * 후보"로 세면 <b>확신이 분명한 경우까지 되묻게 된다.</b>
+   *
+   * <p>M7에서 실제로 그랬다. 학습이 다른 후보를 지우지 않게 고쳤더니 0.95짜리 학습 매칭에
+   * 0.288짜리 유사도 잡음이 딸려 와서, 사용자가 직접 가르친 말이 영영 자동으로 열리지
+   * 않게 됐다. 보여 주는 목록은 그대로 두고 <b>세는 기준만</b> 바꾼다.
+   */
+  const credible = candidates.filter((c) => c.score >= settings.minConfidence);
+  if (credible.length > 1) return { kind: "choose", candidates };
 
   // 후보가 하나여도, 위험한 메뉴이거나 확신이 부족하면 사용자 확인을 거친다.
   if (needsConfirmation || first.score < settings.autoOpenConfidence) {

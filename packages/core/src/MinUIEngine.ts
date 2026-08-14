@@ -3,6 +3,7 @@ import { LayoutStabilizer } from "./LayoutStabilizer.js";
 import { RankingEngine } from "./RankingEngine.js";
 import { DEFAULT_PROFILE, coldStartCards, isColdStart } from "./coldStart.js";
 import { type MinUIConfig, type PartialConfig, resolveConfig } from "./config.js";
+import { LearnedTerms } from "./search/LearnedTerms.js";
 import { MenuIndex } from "./search/MenuIndex.js";
 import { NgramTfIdfProvider } from "./search/NgramTfIdfProvider.js";
 import { SearchPipeline, type SearchOutcome } from "./search/SearchPipeline.js";
@@ -11,10 +12,12 @@ import type { EmbeddingProvider } from "./search/EmbeddingProvider.js";
 import { MemoryStorageAdapter } from "./storage/MemoryStorageAdapter.js";
 import type {
   ActionHandler,
+  CardExplanation,
   Clock,
   ColdStartPresets,
   ColdStartProfile,
   LayoutState,
+  LearnedTerm,
   MenuCatalog,
   MenuId,
   MenuItem,
@@ -25,7 +28,8 @@ import type {
   UsageEvent,
 } from "./types.js";
 
-const STATE_VERSION = 1;
+/** 2 — M7이 `learned`를 더했다. 없는 저장본은 빈 목록으로 읽는다. */
+const STATE_VERSION = 2;
 
 export interface MinUIEngineOptions {
   /** 이식 계약 ① */
@@ -69,6 +73,7 @@ export class MinUIEngine {
   readonly #ranking: RankingEngine;
   readonly #stabilizer: LayoutStabilizer;
   readonly #search: SearchPipeline;
+  readonly #learned: LearnedTerms;
 
   #layout: LayoutState;
   #pinned: MenuId[];
@@ -94,11 +99,14 @@ export class MinUIEngine {
     this.#ranking = new RankingEngine(this.#config, this.#events);
     this.#stabilizer = new LayoutStabilizer(this.#config);
 
+    this.#learned = new LearnedTerms(this.#config, restored?.learned);
+
     const index = new MenuIndex(options.catalog);
     this.#search = new SearchPipeline(
       index,
       this.#config,
       options.embedding ?? NgramTfIdfProvider.build(index.documents()),
+      this.#learned,
     );
 
     this.#pinned = restored ? [...restored.pinned] : [];
@@ -131,6 +139,7 @@ export class MinUIEngine {
 
     this.#layout = this.#stabilizer.startSession(this.#layout, now);
     this.#events.rollup(now);
+    this.#learned.rollup(now);
 
     if (this.#layout.current.length === 0) {
       // 최초 실행: 온보딩 프로파일로 첫 화면을 만든다.
@@ -228,6 +237,58 @@ export class MinUIEngine {
     this.#persist();
   }
 
+  // ── 개인 동의어 학습 (M7) ───────────────────────────────────────────────
+
+  /**
+   * **검색 결과에서** 사용자가 이 메뉴를 골랐다고 알린다.
+   *
+   * <p>카드 탭이나 전체 메뉴에서 연 것과 반드시 구분해야 한다. 검색을 거치지 않은 진입은
+   * 그 질의가 그 메뉴를 뜻한다는 근거가 아니다 — 시각으로 짝을 맞추면 검색해 놓고 마음이
+   * 바뀌어 카드를 누른 경우까지 배우게 된다. 그래서 <b>질의와 메뉴를 함께 받는다.</b>
+   *
+   * <p>화면을 열지 않는다. 여는 것은 지금까지처럼 `open()`이다 — 이 함수가 화면까지
+   * 열면 §9.3의 안전 경계를 우회하는 두 번째 경로가 생긴다.
+   *
+   * <p>호스트가 따로 할 일은 없다. `@minui/react`의 말로 찾기 화면이 이미 부른다.
+   */
+  noteSearchChoice(query: string, menuId: MenuId): void {
+    if (!this.#byId.has(menuId)) return;
+
+    /*
+     * 이미 1위로 내주던 것을 또 적으면 색인만 부푼다.
+     *
+     * 단, **학습으로 1위가 된 것은 "이미 찾던 것"이 아니다.** 그것까지 걸러 내면 횟수가
+     * 영영 1에서 멈춰 반복이 점수에 반영되지 않는다 — 한 번 눌러 본 것과 석 달째 쓰는 말이
+     * 같은 무게가 된다. 카탈로그가 스스로 찾아내는 것만 걸러야 한다.
+     */
+    const top = this.#search.search(query);
+    const first = top.status === "ok" ? top.candidates[0] : undefined;
+    const foundAlready = first?.menuId === menuId && first.matchedBy !== "learned";
+
+    if (this.#learned.learn({ query, menuId, foundAlready, now: this.#clock() })) {
+      this.#persist();
+    }
+  }
+
+  /** 이 기기가 배운 표현들. 자주 쓴 것부터. 보여 주는 화면은 호스트가 만든다. */
+  getLearnedTerms(): readonly LearnedTerm[] {
+    return this.#learned.snapshot();
+  }
+
+  /** 사용자가 하나를 지운다. 즉시 반영한다 — 나중에 사라지는 탈출구는 탈출구가 아니다. */
+  async forgetTerm(term: string, menuId: MenuId): Promise<void> {
+    this.#learned.forget(term, menuId);
+    this.#persist();
+    await this.flush();
+  }
+
+  /** 사용자가 전부 지운다. 되돌릴 수 없다. */
+  async forgetAllTerms(): Promise<void> {
+    this.#learned.forgetAll();
+    this.#persist();
+    await this.flush();
+  }
+
   // ── 수동 고정 ───────────────────────────────────────────────────────────
 
   isPinned(menuId: MenuId): boolean {
@@ -284,9 +345,41 @@ export class MinUIEngine {
     await this.flush();
   }
 
+  // ── 설명 (M8) ───────────────────────────────────────────────────────────
+
+  /**
+   * 지금 카드가 **왜** 그 자리에 있는지. `getCards()`와 같은 순서로 준다.
+   *
+   * <p>이 판단이 엔진에 있어야 하는 이유는 `getCards()`가 엔진에 있는 이유와 같다.
+   * UI가 점수를 다시 해석하기 시작하면 <b>화면이 하는 설명과 엔진의 판단이 갈린다</b> —
+   * 그때 사용자는 틀린 설명을 듣게 되고, 틀린 설명은 없는 설명보다 나쁘다.
+   *
+   * <p>문구는 만들지 않는다. 무엇 때문인지와 얼마인지만 주고 말은 호스트가 고른다.
+   */
+  explainCards(): CardExplanation[] {
+    const now = this.#clock();
+    const scores = new Map(this.#rank(now).map((entry) => [entry.menuId, entry]));
+
+    return this.getCards().map((card): CardExplanation => {
+      const score = scores.get(card.menuId);
+      return {
+        menuId: card.menuId,
+        isNew: card.isNew,
+        // 순서에 뜻이 있다. 고정은 사용자가 직접 정한 것이라 언제나 먼저다 —
+        // 많이 쓴 카드를 고정했을 때 "많이 쓰셔서요"라고 답하면, 사용자가 한 일이
+        // 화면에서 지워진다.
+        reason: card.pinned
+          ? { kind: "pinned" }
+          : score && score.views > 0
+            ? { kind: "used", views: score.views, lastUsedAt: score.lastUsedAt ?? now }
+            : { kind: "preset" },
+      };
+    });
+  }
+
   // ── 진단용 ──────────────────────────────────────────────────────────────
 
-  /** 어떤 카드가 왜 그 자리에 있는지. 측정(M5)과 디버깅에 쓴다. */
+  /** 어떤 카드가 왜 그 자리에 있는지 — **점수**. 측정(M5)과 디버깅에 쓴다. */
   explain(): ScoreBreakdown[] {
     return this.#rank(this.#clock());
   }
@@ -396,6 +489,7 @@ export class MinUIEngine {
       layout: this.#layout,
       profile: this.#profile,
       sessionCount: this.#sessionCount,
+      learned: this.#learned.snapshot(),
     };
   }
 

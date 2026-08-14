@@ -71,6 +71,23 @@ export function VoiceSearchSheet({
   const byId = new Map(catalog.map((menu) => [menu.id, menu]));
   const voiceAvailable = stt?.isSupported === true;
 
+  /**
+   * 이 말로 찾다가 이 메뉴를 골랐다 — **개인 동의어 학습의 유일한 입구다** (M7).
+   *
+   * <p>이 화면을 거친 선택만 학습 신호가 된다. 카드나 전체 메뉴에서 연 것은 그 질의가
+   * 그 메뉴를 뜻한다는 근거가 아니기 때문이다. 되묻기에서 갈래를 타고 들어가 고른 것도
+   * 여기로 온다 — 검색이 못 알아들었지만 사용자가 끝내 도달한 경우이므로,
+   * 오히려 가장 배울 값이 있는 신호다.
+   *
+   * <p>`query`를 따로 받는 이유: 음성 인식이 끝난 <b>그 순간</b>에는 `setText`가 아직
+   * 반영되지 않아 `text`가 직전 값이다. 버튼으로 고를 때는 이미 반영돼 있으므로
+   * 기본값이 맞다.
+   */
+  function choose(menuId: MenuId, query: string = text) {
+    engine.noteSearchChoice(query, menuId);
+    onSelect(menuId);
+  }
+
   useEffect(() => {
     closeRef.current?.focus();
   }, []);
@@ -83,10 +100,10 @@ export function VoiceSearchSheet({
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [onClose]);
 
-  function apply(action: VoiceAction) {
+  function apply(action: VoiceAction, query: string) {
     switch (action.kind) {
       case "open":
-        onSelect(action.menuId);
+        choose(action.menuId, query);
         return;
       case "choose":
         setPhase({ kind: "candidates", candidates: action.candidates });
@@ -110,12 +127,12 @@ export function VoiceSearchSheet({
 
     const action = engine.voiceAction(query);
     if (action.kind !== "reprompt" || !assist) {
-      apply(action);
+      apply(action, query);
       return;
     }
 
     // 되묻기 화면을 먼저 띄워 둔다. 도우미가 늦어도 사용자가 멈춰 있지 않게.
-    apply(action);
+    apply(action, query);
     setAsking(true);
 
     // 관련도 순 후보. 카탈로그 순서로 자르면 아무 관계 없는 메뉴가 후보가 된다.
@@ -148,7 +165,7 @@ export function VoiceSearchSheet({
       stt.onFinal((result) => {
         stt.stop();
         setText(result.text);
-        apply(engine.voiceAction(result.text, result.confidence));
+        apply(engine.voiceAction(result.text, result.confidence), result.text);
       }),
       stt.onError((error) => {
         stt.stop();
@@ -288,7 +305,7 @@ export function VoiceSearchSheet({
                     <button
                       type="button"
                       className="minui-candidate"
-                      onClick={() => onSelect(candidate.menuId)}
+                      onClick={() => choose(candidate.menuId)}
                     >
                       <span className="minui-candidate-label">{menu.label}</span>
                       {/*
@@ -300,6 +317,17 @@ export function VoiceSearchSheet({
                       */}
                       {menu.hint && (
                         <span className="minui-candidate-hint">{menu.hint}</span>
+                      )}
+                      {/*
+                        **왜 이게 나왔는지**를 배운 말일 때만 적는다 (M8). 카탈로그에
+                        원래 있던 말로 찾은 것은 사용자가 설명을 필요로 하지 않는다 —
+                        모든 후보에 근거를 달면 그것이 다시 읽을 것이 되어 후보가
+                        세 개뿐인 이 화면의 뜻이 사라진다.
+                      */}
+                      {candidate.matchedBy === "learned" && (
+                        <span className="minui-candidate-learned">
+                          전에 이렇게 찾으셨어요
+                        </span>
                       )}
                       <span className="minui-candidate-why">
                         {headingText(menu.path?.join(">") ?? "") || menu.category}
@@ -359,7 +387,7 @@ export function VoiceSearchSheet({
                       <button
                         type="button"
                         className="minui-candidate"
-                        onClick={() => onSelect(menu.id)}
+                        onClick={() => choose(menu.id)}
                       >
                         <span className="minui-candidate-label">{menu.label}</span>
                       </button>

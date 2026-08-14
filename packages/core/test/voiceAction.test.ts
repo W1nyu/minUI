@@ -1,7 +1,8 @@
 import { describe, expect, it, vi } from "vitest";
 import { MinUIEngine } from "../src/MinUIEngine.js";
 import { MemoryStorageAdapter } from "../src/storage/MemoryStorageAdapter.js";
-import { resolveConfig } from "../src/config.js";
+import { resolveVoiceAction } from "../src/search/voiceAction.js";
+import { DEFAULT_CONFIG, resolveConfig } from "../src/config.js";
 import type { MenuCatalog, MenuId } from "../src/types.js";
 import { T0 } from "./helpers.js";
 
@@ -172,6 +173,61 @@ describe("엔진 밖에서도 같은 규칙이 강제된다", () => {
     void onAction;
 
     const action = engine.voiceAction("계좌 이체");
+    expect(action.kind).toBe("choose");
+  });
+});
+
+/**
+ * 자동 실행 여부를 정할 때 무엇을 "경쟁하는 후보"로 세는가.
+ *
+ * <p>`search()`는 1위가 문턱을 넘으면 아래 것들도 함께 돌려준다 — "이거 말씀하신 건가요"
+ * 목록에 보여 주기 위해서다. 그것을 경쟁자로 세면 확신이 분명한 경우까지 되묻게 된다.
+ *
+ * <p>M7에서 실제로 그랬다. 학습이 다른 후보를 지우지 않게 고친 순간, 0.95짜리 학습 매칭에
+ * 문턱 아래 유사도 잡음이 딸려 와서 사용자가 직접 가르친 말이 영영 자동으로 열리지 않았다.
+ */
+describe("문턱 아래 후보는 경쟁자가 아니다", () => {
+  /** 문턱(0.4) 아래 잡음이 딸려 온 상태를 만든다. */
+  function withNoise(menuId: MenuId, score: number) {
+    return resolveVoiceAction({
+      outcome: {
+        status: "ok",
+        query: "관리비",
+        candidates: [
+          { menuId, score, matchedBy: "learned", matchedTerm: "관리비" },
+          { menuId: "inquiry.history", score: 0.28, matchedBy: "semantic", matchedTerm: "거래내역" },
+        ],
+      },
+      menus: new Map(CATALOG.map((menu) => [menu.id, menu])),
+      config: DEFAULT_CONFIG,
+    });
+  }
+
+  it("잡음이 딸려 와도 확신이 분명한 조회성 메뉴는 연다", () => {
+    expect(withNoise("inquiry.balance", 0.95)).toEqual({
+      kind: "open",
+      menuId: "inquiry.balance",
+    });
+  });
+
+  it("잡음만 딸려 와도 위험한 메뉴는 열지 않는다 (§9.3) ★", () => {
+    expect(withNoise("transfer.account", 0.95).kind).toBe("choose");
+  });
+
+  it("문턱을 넘은 후보가 둘이면 사용자가 고른다", () => {
+    const action = resolveVoiceAction({
+      outcome: {
+        status: "ok",
+        query: "관리비",
+        candidates: [
+          { menuId: "inquiry.balance", score: 0.95, matchedBy: "learned", matchedTerm: "관리비" },
+          { menuId: "inquiry.history", score: 0.62, matchedBy: "synonym", matchedTerm: "내역" },
+        ],
+      },
+      menus: new Map(CATALOG.map((menu) => [menu.id, menu])),
+      config: DEFAULT_CONFIG,
+    });
+
     expect(action.kind).toBe("choose");
   });
 });

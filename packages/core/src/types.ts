@@ -80,6 +80,23 @@ export interface Visit {
   completed: boolean;
 }
 
+/**
+ * 이 기기의 사용자가 실제로 쓴 표현 하나 (M7).
+ *
+ * <p>§11.1이 저장을 허용한 범위를 넘는 유일한 구조다. 넘는 대신 좁혔다 — 여기 오는 것은
+ * 사용자가 <b>스스로 검색창에 넣은</b> 짧은 표현이고, <b>숫자가 없다</b>(금액·계좌번호 차단).
+ * 그리고 기기를 떠나지 않는다. 판단과 근거는 `search/LearnedTerms.ts`에 적어 뒀다.
+ */
+export interface LearnedTerm {
+  /** 정규화된 표현. 사용자가 친 문장 원본이 아니다. */
+  term: string;
+  menuId: MenuId;
+  /** 같은 짝이 관찰된 횟수. 얼마나 믿을지가 여기서 나온다. */
+  count: number;
+  /** 마지막으로 관찰된 시각. 잊을지 판단하는 기준. */
+  lastAt: number;
+}
+
 /** 보존 기간이 지난 방문을 대체하는 집계 카운터 (기획안 F1). */
 export interface VisitAggregate {
   completed: number;
@@ -95,6 +112,36 @@ export interface RankedCard {
   score: number;
   pinned: boolean;
   /** 최근 교체로 새로 들어온 카드. UI가 "새로 추가됨" 배지를 붙인다. */
+  isNew: boolean;
+}
+
+/**
+ * 이 카드가 왜 홈에 있는가 (M8) — **사용자에게 보여 줄 이유.**
+ *
+ * <p>`ScoreBreakdown`과 목적이 다르다. 그쪽은 개발자가 랭킹을 디버깅하려고 보는 점수이고,
+ * 이쪽은 사용자가 "왜 화면이 이렇게 됐지"라고 물었을 때의 답이다. 점수를 그대로 보여 주는
+ * 것은 답이 아니다 — <b>"1.79점이라 여기 있어요"는 설명이 아니다.</b>
+ *
+ * <p>문구는 담지 않는다. 판단은 엔진이 하고 말은 호스트가 고른다 — 한국어 문장이 core에
+ * 들어오면 다른 언어로 포팅할 때 함께 끌려온다.
+ */
+export type CardReason =
+  /** 사용자가 직접 고정했다. 자동 판단보다 위다 */
+  | { kind: "pinned" }
+  /** 실제로 써서 올라왔다 */
+  | { kind: "used"; views: number; lastUsedAt: number }
+  /** 아직 기록이 없어 처음 자리 그대로다 */
+  | { kind: "preset" };
+
+export interface CardExplanation {
+  menuId: MenuId;
+  reason: CardReason;
+  /**
+   * 최근 교체로 새로 들어왔는가 (F3의 변경 고지).
+   *
+   * <p>이유와 <b>따로</b> 둔다. 합쳐 두면 배지가 만료된 뒤 이유까지 사라진다 —
+   * "새로 왔다"는 한때의 사실이고 "왜 여기 있다"는 지금의 사실이다.
+   */
   isNew: boolean;
 }
 
@@ -159,6 +206,11 @@ export interface PersistedState {
   profile: ColdStartProfile | null;
   /** 엔진 초기화 횟수. 콜드 스타트 프리셋에서 개인화로 넘어가는 판단에 쓴다. */
   sessionCount: number;
+  /**
+   * 이 기기가 배운 표현들 (M7). 없으면 빈 목록으로 읽는다 —
+   * M7 이전에 저장된 상태도 그대로 열려야 한다.
+   */
+  learned?: LearnedTerm[];
 }
 
 /**

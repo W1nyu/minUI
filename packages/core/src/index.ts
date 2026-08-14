@@ -12,6 +12,12 @@ export {
 export { contextBoost } from "./contextBoost.js";
 export { MenuIndex, type IndexedMenu } from "./search/MenuIndex.js";
 export {
+  LearnedTerms,
+  isLearnable,
+  type LearnInput,
+  type LearnedMatch,
+} from "./search/LearnedTerms.js";
+export {
   SearchPipeline,
   type MatchStage,
   type SearchCandidate,
@@ -52,10 +58,13 @@ export {
 
 export type {
   ActionHandler,
+  CardExplanation,
+  CardReason,
   Clock,
   ColdStartPresets,
   ColdStartProfile,
   LayoutState,
+  LearnedTerm,
   MenuCatalog,
   MenuId,
   MenuItem,

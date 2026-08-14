@@ -311,3 +311,62 @@ describe("axe 자동 검사", () => {
     expect(results.violations.map((v) => `${v.id}: ${v.help}`)).toEqual([]);
   });
 });
+
+/**
+ * 개인 동의어 학습 (M7) — 화면을 통해서만 잰다.
+ *
+ * <p>엔진을 직접 찔러 보지 않는 이유: 이 기능이 실제로 값을 하려면 <b>사용자가 실제로
+ * 밟는 경로</b>에서 배워야 한다. 되묻기를 만나 갈래를 타고 들어가 끝내 찾아낸 그 길이
+ * 바로 배울 값이 있는 길이고, 엔진 API만 검사하면 그 배선이 끊겨도 초록이 뜬다.
+ */
+describe("메뉴가 내 말을 배운다 (M7)", () => {
+  /** 되묻기 → 갈래 → 메뉴. 검색이 못 알아들었지만 사용자가 끝내 도달하는 길. */
+  async function findTheHardWay(query: string, category: string, label: string) {
+    await userEvent.type(screen.getByLabelText("글로 찾기"), query);
+    await userEvent.click(screen.getByRole("button", { name: "찾기" }));
+
+    const reprompt = await screen.findByRole("region", { name: "다시 찾기" });
+    await userEvent.click(within(reprompt).getByRole("button", { name: category }));
+
+    const found = await screen.findByRole("region", { name: "찾은 메뉴" });
+    await userEvent.click(within(found).getByRole("button", { name: new RegExp(label) }));
+  }
+
+  it("한 번 헤맨 말을 다음에는 알아듣는다", async () => {
+    const { onAction } = await openSearch();
+
+    // ① 검색이 모르는 말이다. 되묻기를 거쳐 갈래로 찾아 들어간다.
+    await findTheHardWay("관리비", "조회", "거래 내역");
+    expect(onAction).toHaveBeenCalledWith("inquiry.history", undefined);
+
+    // ② 같은 말로 다시 찾는다. 이번에는 후보로 나온다.
+    await userEvent.click(screen.getByRole("button", { name: /말로 찾기/ }));
+    await userEvent.type(screen.getByLabelText("글로 찾기"), "관리비");
+    await userEvent.click(screen.getByRole("button", { name: "찾기" }));
+
+    const found = await screen.findByRole("region", { name: "찾은 메뉴" });
+    expect(within(found).getByRole("button", { name: /거래 내역/ })).toBeInTheDocument();
+  });
+
+  /*
+   * §9.3은 학습과 무관하게 성립해야 한다. 배운 말로 위험한 메뉴를 불러도 자동으로
+   * 열리지 않는다 — 이 경계가 학습으로 뚫리면 "말로 이체가 실행되는" 경로가 생긴다.
+   */
+  it("배운 말이라도 위험한 메뉴는 눌러야 열린다 ★", async () => {
+    const { onAction } = await openSearch();
+
+    await findTheHardWay("관리비", "이체", "자동이체 관리");
+    onAction.mockClear();
+
+    for (let i = 0; i < 5; i++) {
+      await userEvent.click(screen.getByRole("button", { name: /말로 찾기/ }));
+      await userEvent.type(screen.getByLabelText("글로 찾기"), "관리비");
+      await userEvent.click(screen.getByRole("button", { name: "찾기" }));
+
+      const found = await screen.findByRole("region", { name: "찾은 메뉴" });
+      expect(onAction).not.toHaveBeenCalled();
+      await userEvent.click(within(found).getByRole("button", { name: /자동이체 관리/ }));
+      onAction.mockClear();
+    }
+  });
+});

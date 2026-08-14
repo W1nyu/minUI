@@ -9,6 +9,10 @@ export { MinUIHome, type MinUIHomeProps } from "./MinUIHome.js";
 export { MenuCard, type MenuCardProps } from "./MenuCard.js";
 export { AllMenuSheet, type AllMenuSheetProps } from "./AllMenuSheet.js";
 export {
+  AdaptationSheet,
+  type AdaptationSheetProps,
+} from "./AdaptationSheet.js";
+export {
   VoiceSearchSheet,
   type SttLike,
   type VoiceSearchSheetProps,
