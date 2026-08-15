@@ -107,9 +107,9 @@ export function MinUIHome({ catalog, renderCardDetail, header, stt }: MinUIHomeP
         <VoiceSearchSheet
           catalog={catalog}
           onClose={() => setSheet("none")}
-          onSelect={(menuId) => {
+          onSelect={(menuId, prefill) => {
             setSheet("none");
-            open(menuId);
+            open(menuId, prefill);
           }}
           {...(stt ? { stt } : {})}
         />

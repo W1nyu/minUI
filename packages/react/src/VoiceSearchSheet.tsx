@@ -29,7 +29,13 @@ export interface SttLike {
 export interface VoiceSearchSheetProps {
   catalog: MenuCatalog;
   onClose: () => void;
-  onSelect: (menuId: MenuId) => void;
+  /**
+   * 사용자가 고른 메뉴. **미리 채울 값이 함께 온다** (M9).
+   *
+   * <p>값을 만드는 것은 호스트가 엔진에 준 추출기이고, 그것이 없으면 두 번째 인자가
+   * 비어 있을 뿐이다. 화면을 여는 것은 지금까지처럼 호스트다.
+   */
+  onSelect: (menuId: MenuId, prefill?: Record<string, unknown>) => void;
   /** `@minui/voice`의 SttProvider. 없으면 텍스트 검색만 노출한다. */
   stt?: SttLike;
 }
@@ -85,7 +91,13 @@ export function VoiceSearchSheet({
    */
   function choose(menuId: MenuId, query: string = text) {
     engine.noteSearchChoice(query, menuId);
-    onSelect(menuId);
+    /*
+     * 미리 채울 값은 **고른 뒤에** 묻는다 (M9). 후보가 셋일 때는 어느 것을 고를지
+     * 모르므로 값도 정해지지 않는다 — `voiceAction`이 후보 제시에 프리필을 붙이지 않는
+     * 이유가 그것이다.
+     */
+    const prefill = engine.prefillFor(query, menuId);
+    onSelect(menuId, Object.keys(prefill).length > 0 ? prefill : undefined);
   }
 
   useEffect(() => {

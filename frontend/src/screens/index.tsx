@@ -1,4 +1,4 @@
-import type { MenuId } from "@minui/core";
+import type { MenuId, Slots } from "@minui/core";
 import { MENU_BY_ID } from "../catalog.js";
 import { AutoTransferScreen } from "./AutoTransferScreen.js";
 import { BalanceScreen } from "./BalanceScreen.js";
@@ -15,14 +15,30 @@ import { TransferScreen } from "./TransferScreen.js";
  * 스텁 화면은 작업 완료(`complete`)를 기록하지 않는다. 들어갔다 그냥 나온 방문으로
  * 남는 것이 실제로 일어난 일이고, 랭킹도 그렇게 취급해야 맞다 (기획안 F1).
  */
-export function Screen({ menuId, onBack }: { menuId: MenuId; onBack: () => void }) {
+export function Screen({
+  menuId,
+  prefill = {},
+  onBack,
+}: {
+  menuId: MenuId;
+  /** 음성이 데려온 값 (M9). 화면이 자기 도메인으로 해석한다. */
+  prefill?: Slots;
+  onBack: () => void;
+}) {
   switch (menuId) {
     case "inquiry.balance":
       return <BalanceScreen onBack={onBack} />;
     case "inquiry.history":
       return <HistoryScreen onBack={onBack} />;
     case "transfer.account":
-      return <TransferScreen onBack={onBack} />;
+      return (
+        <TransferScreen
+          onBack={onBack}
+          {...(typeof prefill["spoken"] === "string"
+            ? { spoken: prefill["spoken"] }
+            : {})}
+        />
+      );
     case "transfer.auto":
       return <AutoTransferScreen onBack={onBack} />;
     default:

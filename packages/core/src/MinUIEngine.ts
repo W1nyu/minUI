@@ -24,6 +24,8 @@ import type {
   PersistedState,
   RankedCard,
   ScoreBreakdown,
+  SlotExtractor,
+  Slots,
   StorageAdapter,
   UsageEvent,
 } from "./types.js";
@@ -47,6 +49,16 @@ export interface MinUIEngineOptions {
    * 빌드 타임에 만든 색인을 쓰려면 `NgramTfIdfProvider.fromJSON(...)`을 넘긴다.
    */
   embedding?: EmbeddingProvider;
+  /**
+   * 이식 계약 ④ (선택) — 발화에서 화면에 미리 채울 값을 뽑는다 (M9, §9.3).
+   *
+   * <p>엔진은 무엇을 채우는지 모른다. 수취인·계좌 별명은 호스트만 아는 것이고, 도메인이
+   * 엔진에 들어오면 이식성이 사라진다. 한국어를 읽는 부분은 `parseAmount`·`pickFromList`가
+   * 돕는다.
+   *
+   * <p>주지 않으면 프리필이 붙지 않을 뿐 나머지는 그대로 돈다. 던져도 마찬가지다.
+   */
+  slots?: SlotExtractor;
 }
 
 /**
@@ -68,6 +80,7 @@ export class MinUIEngine {
   readonly #storage: StorageAdapter;
   readonly #clock: Clock;
   readonly #presets: ColdStartPresets | undefined;
+  readonly #slots: SlotExtractor | undefined;
 
   readonly #events: EventStore;
   readonly #ranking: RankingEngine;
@@ -91,6 +104,7 @@ export class MinUIEngine {
     this.#storage = options.storage ?? new MemoryStorageAdapter();
     this.#clock = options.now ?? (() => Date.now());
     this.#presets = options.coldStartPresets;
+    this.#slots = options.slots;
 
     this.#events = new EventStore(
       this.#config,
@@ -229,7 +243,28 @@ export class MinUIEngine {
       menus: this.#byId,
       config: this.#config,
       ...(sttConfidence !== undefined ? { sttConfidence } : {}),
+      ...(this.#slots ? { slots: this.#slots } : {}),
     });
+  }
+
+  /**
+   * 이 발화로 이 메뉴를 열 때 미리 채울 값 (M9).
+   *
+   * <p>후보 목록에서 사용자가 <b>고른 뒤에</b> 호스트가 부른다. `voiceAction`이 후보 제시에
+   * 프리필을 붙이지 않는 이유가 여기 있다 — 어느 후보를 고를지 모르는 상태에서는 채울 값도
+   * 정해지지 않는다.
+   *
+   * <p>화면을 열지 않는다. 여는 것은 지금까지처럼 `open()`이고, `riskLevel: high`는
+   * 이 값이 있든 없든 사용자의 탭을 거친다.
+   */
+  prefillFor(query: string, menuId: MenuId): Slots {
+    if (!this.#slots || !this.#byId.has(menuId)) return {};
+    try {
+      return this.#slots(query, menuId);
+    } catch {
+      // 호스트 코드가 던져도 음성 경로가 죽으면 안 된다. 프리필은 편의이지 전제가 아니다.
+      return {};
+    }
   }
 
   recordEvent(event: UsageEvent): void {

@@ -231,3 +231,132 @@ describe("문턱 아래 후보는 경쟁자가 아니다", () => {
     expect(action.kind).toBe("choose");
   });
 });
+
+/**
+ * 음성 프리필 (M9, 기획안 §9.3).
+ *
+ * <p>§9.3이 허용한 것은 <b>"메뉴 호출과 화면 프리필"까지</b>다. 값이 미리 채워진 화면이
+ * 열리는 것과 그 값으로 무언가가 실행되는 것은 다르고, 그 사이에는 언제나 사용자의 탭이
+ * 있어야 한다.
+ *
+ * <p>엔진이 값을 뽑지는 않는다 — 무엇이 수취인이고 무엇이 금액인지는 호스트만 안다.
+ * 엔진이 지키는 것은 <b>프리필이 안전 경계를 넘지 않는다</b>는 것 하나다.
+ */
+describe("음성 프리필 (M9) ★", () => {
+  /** 호스트가 주는 추출기. 여기서는 "엄마"만 알아본다고 치자. */
+  const slots = (query: string) =>
+    query.includes("엄마") ? { payee: "엄마" } : {};
+
+  async function withSlots() {
+    const opened: { menuId: MenuId; params?: Record<string, unknown> }[] = [];
+    const engine = await MinUIEngine.create({
+      catalog: CATALOG,
+      onAction: (menuId, params) => opened.push({ menuId, ...(params ? { params } : {}) }),
+      storage: new MemoryStorageAdapter(),
+      now: () => T0,
+      slots,
+    });
+    return { engine, opened };
+  }
+
+  /*
+   * **프리필이 붙은 자동 실행은 드물다.** 말에 군더더기가 하나라도 붙으면 정확 매칭이
+   * 깨져 점수가 `autoOpenConfidence`(0.9)에 못 미치고, 그러면 후보 제시로 간다.
+   * 실제로 여기까지 오는 것은 사용자가 그 말로 두 번 이상 도달해 <b>엔진이 배운</b>
+   * 경우다(M7). 두 마일스톤이 만나는 자리이므로 그 경로로 잰다.
+   */
+  it("배운 말로 조회성 메뉴가 바로 열릴 때 미리 채울 값이 함께 온다", async () => {
+    const { engine } = await withSlots();
+
+    // 두 번 도달해야 학습 점수가 자동 실행 문턱(0.9)에 닿는다.
+    engine.noteSearchChoice("엄마 용돈", "inquiry.balance");
+    engine.noteSearchChoice("엄마 용돈", "inquiry.balance");
+
+    expect(engine.voiceAction("엄마 용돈")).toEqual({
+      kind: "open",
+      menuId: "inquiry.balance",
+      prefill: { payee: "엄마" },
+    });
+  });
+
+  it("배우기 전에는 열리지 않고, 그때는 프리필도 붙지 않는다", async () => {
+    const { engine } = await withSlots();
+
+    const action = engine.voiceAction("엄마 용돈");
+
+    expect(action.kind).toBe("reprompt");
+    expect(action).not.toHaveProperty("prefill");
+  });
+
+  /*
+   * **이 테스트가 M9의 경계다.** 프리필이 붙었다고 자동 실행이 열리면, "엄마한테
+   * 보내줘" 한마디로 수취인이 채워진 이체 화면이 저절로 뜨게 된다. §9.3이 막는 것이
+   * 정확히 그 경로다 — 옆에서 시키는 대로 말하게 하는 공격에 문이 열린다.
+   */
+  it("위험한 메뉴는 프리필이 있어도 자동으로 열리지 않는다", async () => {
+    const { engine, opened } = await withSlots();
+
+    const action = engine.voiceAction("엄마한테 송금");
+
+    expect(action.kind).toBe("choose");
+    expect(opened).toEqual([]);
+  });
+
+  /*
+   * 못 알아들은 발화에서 뽑은 값은 근거가 없다. 되묻는 화면에 프리필을 실어 보내면
+   * 호스트가 그것을 쓸 수 있게 되고, 그러면 "무엇을 여는지도 모르는데 값은 안다"는
+   * 이상한 상태가 된다.
+   */
+  it("되묻기에는 프리필이 붙지 않는다", async () => {
+    const { engine } = await withSlots();
+
+    const action = engine.voiceAction("엄마 날씨");
+
+    expect(action.kind).toBe("reprompt");
+    expect(action).not.toHaveProperty("prefill");
+  });
+
+  it("추출기를 주지 않은 호스트에서는 아무것도 달라지지 않는다", async () => {
+    const { engine } = await makeEngine();
+
+    expect(engine.voiceAction("잔고")).toEqual({
+      kind: "open",
+      menuId: "inquiry.balance",
+    });
+  });
+
+  it("호스트가 고른 뒤에도 같은 값을 다시 물을 수 있다", async () => {
+    const { engine } = await withSlots();
+
+    // 후보 목록에서 사용자가 고른 시점에 호스트가 부른다.
+    expect(engine.prefillFor("엄마한테 송금", "transfer.account")).toEqual({
+      payee: "엄마",
+    });
+  });
+
+  it("카탈로그에 없는 메뉴에는 값을 주지 않는다", async () => {
+    const { engine } = await withSlots();
+    expect(engine.prefillFor("엄마한테 송금", "없는메뉴")).toEqual({});
+  });
+
+  /*
+   * 호스트 코드가 던져도 음성 경로가 죽으면 안 된다. 프리필은 편의이지 기능의
+   * 전제가 아니다 — 도우미가 죽어도 서비스가 도는 것과 같은 판단이다.
+   */
+  it("추출기가 던져도 메뉴는 열린다", async () => {
+    const engine = await MinUIEngine.create({
+      catalog: CATALOG,
+      onAction: () => {},
+      storage: new MemoryStorageAdapter(),
+      now: () => T0,
+      slots: () => {
+        throw new Error("호스트 버그");
+      },
+    });
+
+    expect(engine.voiceAction("잔고")).toEqual({
+      kind: "open",
+      menuId: "inquiry.balance",
+    });
+  });
+});

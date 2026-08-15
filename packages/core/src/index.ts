@@ -35,6 +35,11 @@ export {
   type VoiceActionInput,
 } from "./search/voiceAction.js";
 export { normalize } from "./search/normalize.js";
+export {
+  parseAmount,
+  pickFromList,
+  type PickOptions,
+} from "./search/slots.js";
 export { jamoDistance, jamoSimilarity, toJamo } from "./search/hangul.js";
 export {
   calendarFields,
@@ -72,6 +77,8 @@ export type {
   RankedCard,
   RiskLevel,
   ScoreBreakdown,
+  SlotExtractor,
+  Slots,
   StorageAdapter,
   TextScale,
   UsageEvent,

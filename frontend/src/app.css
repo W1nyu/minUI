@@ -484,6 +484,32 @@ body {
   color: var(--minui-ink-2);
 }
 
+/*
+ * 들은 금액 제안 (M9, §9.3).
+ *
+ * 입력칸처럼 보이면 안 된다 — 이미 채워진 것으로 읽히면 "누르지 않으면 아무 일도
+ * 일어나지 않는다"는 성질이 사라진다. 눌러야 하는 물건으로 보이게 두고, 88dp 규칙은
+ * 다른 버튼과 똑같이 지킨다.
+ */
+.suggestion {
+  width: 100%;
+  min-height: var(--minui-touch-min);
+  padding: 0 0.9rem;
+  border: 1px dashed var(--minui-accent);
+  border-radius: 10px;
+  background: var(--minui-accent-soft);
+  color: var(--minui-accent);
+  font: inherit;
+  font-size: var(--minui-text-s);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.suggestion:focus-visible {
+  outline: 3px solid var(--minui-ink);
+  outline-offset: 2px;
+}
+
 .field {
   width: 100%;
   min-height: var(--minui-touch-min);

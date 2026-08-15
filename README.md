@@ -65,6 +65,8 @@ UI 외의 변수가 통제된다 (기획안 §12.2).
 - **전체 메뉴** — 25개 전부. 여기서 카드를 홈에 고정하거나 글씨 크기를 바꾼다
 - **한 번 헤맨 말은 기억한다** — 검색이 못 알아들은 말로 갈래를 타고 끝내 찾아내면,
   그 말이 이 기기에서 그 메뉴의 이름이 된다. 다음부터는 한 번에 나온다
+- **말한 순서대로 받는다** — "김미영한테 3만원 송금"이든 "3만원 김미영한테 송금"이든
+  같게 받는다. 수취인은 골라 두고 **금액은 채우지 않는다** — 눌러서 넣는 제안으로 둔다
 - **왜 이렇게 보이나요?** — 카드 아래 링크. 카드가 왜 그 자리인지 답하고,
   기억해 둔 말을 보여 주고 지운다. 개인화가 조용한 것과 깜깜한 것은 다르다
 - **기본 UI** — 대조군. 실제 은행 앱 구조(배너·계좌 카드·아이콘 격자·탭바)를 따랐다
@@ -103,7 +105,7 @@ docs                             기획안과 측정 결과
 ## 검증
 
 ```bash
-pnpm test                              # 503 tests
+pnpm test                              # 541 tests
 pnpm typecheck
 cd backend && ./gradlew test           # Testcontainers 통합 테스트 6종
 
@@ -152,6 +154,7 @@ copy(minuiMetrics.toJSON())                             // 회수
 | `packages/core/src/search/voiceAction.ts` | 음성으로 할 수 있는 일의 경계 |
 | `packages/core/src/search/LearnedTerms.ts` | 사용자 말을 배우면서 개인정보는 안 배우는 법 |
 | `packages/react/src/AdaptationSheet.tsx` | 적응했다는 것을 어떻게 말해 주는가 |
+| `packages/core/src/search/slots.ts` | 이름 하나 잘못 고르는 값이 얼마인가 |
 | `packages/core/src/contextBoost.ts` | 우연을 주기로 오인하지 않는 법 |
 | `backend/.../TransferService.java` | 격리 수준과 락이 각자 맡는 몫 |
 | `services/harvester/src/extract.ts` | 다섯 사이트가 서로 다른 방식으로 메뉴를 그린다 |

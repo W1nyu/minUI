@@ -55,6 +55,23 @@ export type ActionHandler = (
   params?: Record<string, unknown>,
 ) => void;
 
+/**
+ * 발화에서 뽑아 화면에 미리 채울 값 (M9). 호스트가 정의한다.
+ *
+ * <p>엔진은 이 안에 무엇이 들었는지 <b>모른다.</b> 수취인인지 기간인지 계좌 별명인지는
+ * 금융 도메인이고, 도메인이 엔진에 들어오면 이식성이 사라진다 (기획안 §7.2).
+ * 엔진이 지키는 것은 이 값이 §9.3의 안전 경계를 넘지 않는다는 것 하나다.
+ */
+export type Slots = Readonly<Record<string, unknown>>;
+
+/**
+ * 발화와 열릴 메뉴를 받아 미리 채울 값을 만든다. 이식 계약 ④ (선택).
+ *
+ * <p>`@minui/core`의 `parseAmount`·`pickFromList`가 한국어를 읽는 부분을 도와주지만,
+ * <b>무엇을 채울지는 호스트가 정한다.</b> 수취인 목록도 계좌 별명도 호스트만 안다.
+ */
+export type SlotExtractor = (query: string, menuId: MenuId) => Slots;
+
 /** 현재 시각(epoch ms). 엔진은 절대 `Date.now()`를 직접 부르지 않는다. */
 export type Clock = () => number;
 

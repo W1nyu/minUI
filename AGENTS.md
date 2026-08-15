@@ -81,7 +81,7 @@
 
 ```bash
 pnpm install
-pnpm test           # vitest 503개 (전 패키지)
+pnpm test           # vitest 541개 (전 패키지)
 pnpm typecheck
 pnpm build
 

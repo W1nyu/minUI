@@ -82,6 +82,32 @@ engine.explainCards();
 **문구는 담지 않는다.** 판단은 엔진이 하고 말은 호스트가 고른다. `@minui/react`의
 `<AdaptationSheet>`가 기본 문구를 갖고 있다.
 
+## 말한 것을 화면에 미리 채우기
+
+```ts
+const engine = await MinUIEngine.create({
+  catalog, onAction,
+  // 이식 계약 ④ (선택) — 어느 메뉴가 사용자의 말을 받아도 되는지 호스트가 정한다
+  slots: (query, menuId) =>
+    menuId === "transfer.account" ? { spoken: query } : {},
+});
+```
+
+엔진은 이 값에 무엇이 들었는지 **모른다.** 수취인 목록도 계좌 별명도 호스트만 아는
+것이라, 도메인은 밖에 남는다. 한국어를 읽는 부분만 돕는다.
+
+```ts
+parseAmount("김미영한테 3만원 송금");            // 30000
+parseAmount("30일에 나가는 거");                 // null — 단위가 없으면 금액이 아니다
+pickFromList("업마한테", ["엄마", "김철수"]);     // "엄마" — 오인식도 복구한다
+pickFromList("김철시한테", ["김철수", "김철순"]); // null — 애매하면 고르지 않는다
+```
+
+엔진이 지키는 것은 **프리필이 안전 경계를 넘지 않는다**는 것 하나다 —
+`riskLevel: "high"`는 프리필이 있어도 자동으로 열리지 않고, 되묻기와 후보 제시에는
+프리필이 붙지 않는다. 사용자가 후보를 고른 뒤 `engine.prefillFor(query, menuId)`로 묻는다.
+근거는 `docs/기획안.md` §9.3.
+
 ## 다른 언어로 포팅할 때
 
 `fixtures/*.json`이 언어 중립 동작 명세다. 설정과 시나리오가 모두 JSON이므로,

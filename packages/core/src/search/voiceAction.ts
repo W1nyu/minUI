@@ -1,5 +1,5 @@
 import type { MinUIConfig } from "../config.js";
-import type { MenuId, MenuItem, RiskLevel } from "../types.js";
+import type { MenuId, MenuItem, RiskLevel, SlotExtractor, Slots } from "../types.js";
 import type { SearchCandidate, SearchOutcome } from "./SearchPipeline.js";
 
 /**
@@ -20,8 +20,13 @@ import type { SearchCandidate, SearchOutcome } from "./SearchPipeline.js";
 
 export type VoiceAction =
   /** 바로 열어도 되는 경우 — 조회성 메뉴에 확신이 높을 때만. */
-  | { kind: "open"; menuId: MenuId }
-  /** 사용자가 눌러야 열린다. riskLevel high는 언제나 여기로 온다. */
+  | { kind: "open"; menuId: MenuId; prefill?: Slots }
+  /**
+   * 사용자가 눌러야 열린다. riskLevel high는 언제나 여기로 온다.
+   *
+   * <p><b>프리필이 붙지 않는다.</b> 어느 후보를 고를지 아직 모르므로 채울 값도 정해지지
+   * 않는다. 사용자가 고른 뒤에 호스트가 `engine.prefillFor()`로 묻는다.
+   */
   | { kind: "choose"; candidates: SearchCandidate[] }
   /** 알아듣지 못했다. 선택지를 주고 다시 묻는다. */
   | { kind: "reprompt"; prompt: string; choices: string[] };
@@ -33,6 +38,8 @@ export interface VoiceActionInput {
   config: MinUIConfig;
   /** STT가 준 신뢰도. 텍스트 검색이면 생략한다. */
   sttConfidence?: number;
+  /** 호스트가 준 값 추출기 (M9). 없으면 프리필이 붙지 않는다. */
+  slots?: SlotExtractor;
 }
 
 /** 음성으로 자동 실행할 수 없는 위험도. */
@@ -43,6 +50,7 @@ export function resolveVoiceAction({
   menus,
   config,
   sttConfidence,
+  slots,
 }: VoiceActionInput): VoiceAction {
   const settings = config.search;
 
@@ -81,7 +89,33 @@ export function resolveVoiceAction({
     return { kind: "choose", candidates };
   }
 
-  return { kind: "open", menuId: first.menuId };
+  /*
+   * 여기까지 온 것만 프리필을 받는다 — 조회성 메뉴에 확신이 높아 바로 여는 경우다.
+   * 되묻기와 후보 제시에는 붙이지 않는다. 못 알아들은 발화에서 뽑은 값은 근거가 없고,
+   * 어느 후보를 고를지 모르는 상태에서 채울 값을 정할 수도 없다.
+   */
+  const prefill = extract(slots, outcome.query, first.menuId);
+  return prefill ? { kind: "open", menuId: first.menuId, prefill } : { kind: "open", menuId: first.menuId };
+}
+
+/**
+ * 호스트 추출기를 부른다. **던져도 음성 경로를 죽이지 않는다.**
+ *
+ * <p>프리필은 편의이지 기능의 전제가 아니다. 도우미가 죽어도 서비스가 도는 것과 같은
+ * 판단이며, 값이 안 채워진 화면은 사용자가 채우면 되지만 열리지 않는 화면은 막다른 길이다.
+ */
+function extract(
+  slots: SlotExtractor | undefined,
+  query: string,
+  menuId: MenuId,
+): Slots | undefined {
+  if (!slots) return undefined;
+  try {
+    const values = slots(query, menuId);
+    return Object.keys(values).length > 0 ? values : undefined;
+  } catch {
+    return undefined;
+  }
 }
 
 function reprompt(outcome: SearchOutcome): VoiceAction {
