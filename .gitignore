@@ -30,6 +30,11 @@ Thumbs.db
 # 측정 산출물
 tools/out/
 
+# 사용자 테스트 세션 기록 (M10). 실제 참가자의 것이므로 저장소에 올리지 않는다.
+# 형식은 tools/sessions/EXAMPLE.json 하나만 남긴다.
+tools/sessions/*.json
+!tools/sessions/EXAMPLE.json
+
 # Spring Boot / Gradle
 backend/.gradle/
 backend/build/

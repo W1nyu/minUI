@@ -1,0 +1,35 @@
+{
+  "participant": "P01",
+  "ageBand": "60+",
+  "firstMode": "minui",
+  "runs": [
+    {
+      "taskId": "T1",
+      "mode": "minui",
+      "targetMenuId": "inquiry.balance",
+      "startedAt": 1755300000000,
+      "endedAt": 1755300012000,
+      "elapsedMs": 12000,
+      "taps": 1,
+      "screens": ["inquiry.balance"],
+      "offTarget": 0,
+      "completed": true
+    },
+    {
+      "taskId": "T2",
+      "mode": "classic",
+      "targetMenuId": "transfer.auto",
+      "startedAt": 1755300100000,
+      "endedAt": 1755300221000,
+      "elapsedMs": 121000,
+      "taps": 9,
+      "screens": ["product.savings", "settings.alarm", "transfer.auto"],
+      "offTarget": 2,
+      "completed": true
+    }
+  ],
+  "interventions": { "T2:classic": 2 },
+  "words": { "T2": ["자동으로 나가는 거", "그 매달 빠지는 거"] },
+  "f9": "read-not-tapped",
+  "m7Repeat": "same"
+}
