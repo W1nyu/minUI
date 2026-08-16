@@ -112,6 +112,7 @@ pnpm --filter tools diagnose           # 놓친 질의가 왜 놓쳤는가
 pnpm --filter tools tune:threshold     # 임계값 저울 (정답 세트 + 답 없는 세트)
 pnpm --filter tools tune:search        # 파라미터 — 튜닝/검증 세트 분리
 pnpm --filter tools measure:portability
+pnpm --filter tools report:usertest    # 사용자 테스트 1차 지표 (M10). 세션이 없으면 미측정을 그대로 찍는다
 
 # 백엔드 (M1)
 docker compose -f backend/compose.yaml up -d
