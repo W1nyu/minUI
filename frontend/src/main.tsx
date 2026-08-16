@@ -3,7 +3,10 @@ import { createRoot } from "react-dom/client";
 import { App } from "./App.js";
 import { HttpBankApi } from "./api/httpApi.js";
 import { MetricsBridge } from "./instrumentation/MetricsBridge.js";
+import { ScriptedOverrideStt } from "./instrumentation/ScriptedOverrideStt.js";
+import { SttBridge } from "./instrumentation/SttBridge.js";
 import { TaskRecorderProvider } from "./instrumentation/TaskRecorder.js";
+import { makeStt } from "./stt.js";
 
 import "@minui/react/tokens.css";
 import "@minui/react/minui.css";
@@ -21,6 +24,15 @@ const api = new HttpBankApi(
   import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8080",
 );
 
+/**
+ * `?stt=script`일 때만 음성 덮어쓰기를 끼운다 (F9 프로토콜, 기획안 §12.10).
+ *
+ * 플래그가 없으면 `null`이고, 그러면 `MinUIShell`이 지금까지처럼 스스로 `makeStt()`를
+ * 만든다 — 이 파일이 기본 경로에 손대지 않는다는 뜻이다.
+ */
+const scripted = new URLSearchParams(window.location.search).get("stt") === "script";
+const stt = scripted ? new ScriptedOverrideStt(makeStt()) : null;
+
 createRoot(container).render(
   <StrictMode>
     {/*
@@ -29,7 +41,8 @@ createRoot(container).render(
     */}
     <TaskRecorderProvider>
       <MetricsBridge />
-      <App api={api} />
+      {stt && <SttBridge stt={stt} />}
+      <App api={api} {...(stt ? { stt } : {})} />
     </TaskRecorderProvider>
   </StrictMode>,
 );
