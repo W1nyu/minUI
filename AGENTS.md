@@ -114,8 +114,9 @@ pnpm --filter tools tune:search        # 파라미터 — 튜닝/검증 세트 �
 pnpm --filter tools measure:portability
 pnpm --filter tools report:usertest    # 사용자 테스트 1차 지표 (M10). 세션이 없으면 미측정을 그대로 찍는다
 
-# 백엔드 (M1)
-docker compose -f backend/compose.yaml up -d
+# 백엔드 (M1) — compose는 **PostgreSQL만** 띄운다. 앱은 bootRun으로 따로 올린다
+docker compose -f backend/compose.yaml up -d   # Docker Desktop이 켜져 있어야 한다
+cd backend && ./gradlew bootRun                # 8080. 데모 데이터는 빈 DB에서 자동 생성
 cd backend && ./gradlew test
 ```
 
