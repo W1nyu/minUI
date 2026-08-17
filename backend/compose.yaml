@@ -3,6 +3,11 @@
 # SQLite가 아니라 PostgreSQL을 쓰는 이유는 기획안 §10.1이 요구하는 것을 실제로
 # 검증하기 위해서다 — 비관적 락(SELECT ... FOR UPDATE)과 동시 이체에서의 직렬화는
 # 진짜 RDBMS 위에서 재야 의미가 있다.
+# 프로젝트 이름을 못박는다. 안 적으면 Compose가 **파일이 든 폴더 이름**을 쓰므로
+# Docker Desktop에 `backend`로 뜬다 — 저장소에 백엔드가 여럿인 것처럼 보인다.
+# 소문자·숫자·`_`·`-`만 쓸 수 있어서 `minUI`가 아니라 `minui`다.
+name: minui
+
 services:
   postgres:
     image: postgres:18-alpine
