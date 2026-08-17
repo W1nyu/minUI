@@ -49,7 +49,29 @@ export class ScriptedOverrideStt implements SttLike {
     });
 
     // 있을 때만 단다. 없는데 만들면 화면에 "끝내기" 버튼이 생겨 기본 경로와 달라진다.
-    if (inner.finish) this.finish = () => inner.finish!();
+    if (inner.finish) this.finish = () => this.#finish();
+  }
+
+  /**
+   * "다 말했어요"를 눌렀을 때.
+   *
+   * <p><b>조용히 끝나는 엔진이 있다.</b> `WebSpeechSttProvider`에는 `finish()`가 없어서
+   * `FallbackSttProvider.finish()`가 `stop()`으로 내려가고, `stop()`은 핸들러를 전부
+   * null로 만들고 abort한다 — 최종 결과도 오류도 나오지 않는다. 참가자가 말없이,
+   * 혹은 너무 작게 말하고 버튼을 누르면 정확히 이 경로다.
+   *
+   * <p>그래서 넣어 둔 것이 있으면 <b>감싼 쪽을 기다리지 않고 여기서 내보낸다.</b>
+   * 기다리면 영영 안 온다. 마이크는 닫는다 — 열어 둔 채 결과만 내보내면 화면의
+   * 마이크 불이 켜진 채로 남는다.
+   */
+  async #finish(): Promise<void> {
+    const override = this.#take();
+    if (override === null) {
+      await this.#inner.finish?.();
+      return;
+    }
+    this.#inner.stop();
+    this.#emitFinal({ text: override, confidence: 1 });
   }
 
   get isSupported(): boolean {

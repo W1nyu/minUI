@@ -95,4 +95,62 @@ describe("ScriptedOverrideStt", () => {
 
     expect(stt.isSupported).toBe(true);
   });
+
+  /*
+   * 조용히 끝나는 엔진 — 실제 Web Speech가 그렇다.
+   *
+   * `WebSpeechSttProvider`에는 `finish()`가 없어서 `FallbackSttProvider.finish()`가
+   * `stop()`으로 내려가고, `stop()`은 핸들러를 전부 null로 만들고 abort한다.
+   * **최종 결과도 오류도 나오지 않는다.** 참가자가 말없이 "다 말했어요"를 누르면
+   * 정확히 이 경로다.
+   */
+  function silentInner() {
+    const listeners = { partial: [] as ((t: string) => void)[] };
+    let stopped = false;
+    return {
+      isSupported: true,
+      start: async () => {},
+      stop: () => {
+        stopped = true;
+      },
+      finish: () => {},
+      onPartial: (cb: (t: string) => void) => {
+        listeners.partial.push(cb);
+        return () => {};
+      },
+      onFinal: () => () => {},
+      onError: () => () => {},
+      get stopped() {
+        return stopped;
+      },
+    };
+  }
+
+  it("말없이 끝내도 넣어 둔 것이 나간다 — 조용히 끝나는 엔진", async () => {
+    const inner = silentInner();
+    const stt = new ScriptedOverrideStt(inner);
+    const finals: string[] = [];
+    stt.onFinal((result) => finals.push(result.text));
+
+    stt.next("우리 딸한테 십삼만원 보내줘");
+    await stt.start();
+    await stt.finish?.();
+
+    expect(finals).toEqual(["우리 딸한테 십삼만원 보내줘"]);
+    // 마이크는 닫아야 한다. 열어 둔 채 결과만 내보내면 불이 켜진 채로 남는다.
+    expect(inner.stopped).toBe(true);
+  });
+
+  it("넣어 둔 것이 없으면 finish는 그냥 감싼 쪽으로 간다", async () => {
+    const inner = silentInner();
+    const stt = new ScriptedOverrideStt(inner);
+    const finals: string[] = [];
+    stt.onFinal((result) => finals.push(result.text));
+
+    await stt.start();
+    await stt.finish?.();
+
+    expect(finals).toEqual([]);
+    expect(inner.stopped).toBe(false);
+  });
 });
