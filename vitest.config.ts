@@ -12,12 +12,11 @@ const resolve = (path: string) => fileURLToPath(new URL(path, import.meta.url));
  * 빌드 산출물의 정합성은 `pnpm build`와 typecheck가 따로 책임진다.
  */
 /*
- * 별칭은 접두사 치환이라 **더 구체적인 경로를 먼저 둔다.** `@minui/voice`만 걸어 두면
- * `@minui/voice/whisper`가 `.../src/index.ts/whisper`로 망가진다.
- * (`demos/vite.config.ts`가 CSS 서브패스에서 같은 함정에 빠진 적이 있다.)
+ * 별칭은 접두사 치환이라 **더 구체적인 경로를 먼저 둔다.** 지금은 여기 서브패스가
+ * 하나도 없지만(`@minui/voice/whisper`는 M11에서 사라졌다) 규칙은 남겨 둔다 —
+ * `demos/vite.config.ts`가 CSS 서브패스에서 같은 함정에 빠진 적이 있다.
  */
 const workspaceAliases = {
-  "@minui/voice/whisper": resolve("./packages/voice/src/whisper.ts"),
   "@minui/core": resolve("./packages/core/src/index.ts"),
   "@minui/react": resolve("./packages/react/src/index.ts"),
   "@minui/voice": resolve("./packages/voice/src/index.ts"),
@@ -61,6 +60,20 @@ export default defineConfig({
         test: {
           name: "tools",
           root: "./tools",
+          environment: "node",
+          include: ["test/**/*.test.ts"],
+        },
+      },
+      {
+        resolve: { alias: workspaceAliases },
+        test: {
+          /*
+           * 모델은 여기서 안 돈다. onnx가 붙은 부분(인코더·재순위)은 가중치 수백 MB가
+           * 있어야 돌아서 CI에서 영영 안 돌기 때문이다 — 안 도는 테스트는 없는 테스트다.
+           * 대신 **인코더가 낸 숫자를 다루는 부분**을 잰다. 검색 품질의 절반이 거기 있다.
+           */
+          name: "matcher",
+          root: "./services/matcher",
           environment: "node",
           include: ["test/**/*.test.ts"],
         },

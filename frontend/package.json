@@ -10,7 +10,6 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@huggingface/transformers": "^4.2.0",
     "@minui/core": "workspace:*",
     "@minui/react": "workspace:*",
     "@minui/voice": "workspace:*",

@@ -24,7 +24,7 @@ export class ScriptedOverrideStt implements SttLike {
 
   #queued: string | null = null;
 
-  /** 감싼 엔진이 끝을 알려 줘야 하는 종류일 때만 생긴다 (`SttLike.finish`). */
+  /** 감싼 엔진이 끝내는 손잡이를 줄 때만 생긴다 (`SttLike.finish`). */
   finish?: () => void | Promise<void>;
 
   constructor(inner: SttLike) {
@@ -55,14 +55,18 @@ export class ScriptedOverrideStt implements SttLike {
   /**
    * "다 말했어요"를 눌렀을 때.
    *
-   * <p><b>조용히 끝나는 엔진이 있다.</b> `WebSpeechSttProvider`에는 `finish()`가 없어서
-   * `FallbackSttProvider.finish()`가 `stop()`으로 내려가고, `stop()`은 핸들러를 전부
-   * null로 만들고 abort한다 — 최종 결과도 오류도 나오지 않는다. 참가자가 말없이,
-   * 혹은 너무 작게 말하고 버튼을 누르면 정확히 이 경로다.
+   * <p><b>조용히 끝날 수 있다.</b> 참가자가 말없이, 혹은 너무 작게 말하고 버튼을 누르면
+   * 인식기가 확정할 것이 없어 최종 결과도 오류도 나오지 않는다. 고령 발화에서 흔한 일이고,
+   * 그때마다 프로토콜이 무너지면 F9를 잴 기회가 사라진다.
    *
    * <p>그래서 넣어 둔 것이 있으면 <b>감싼 쪽을 기다리지 않고 여기서 내보낸다.</b>
-   * 기다리면 영영 안 온다. 마이크는 닫는다 — 열어 둔 채 결과만 내보내면 화면의
+   * 기다리면 영영 안 올 수도 있다. 마이크는 닫는다 — 열어 둔 채 결과만 내보내면 화면의
    * 마이크 불이 켜진 채로 남는다.
+   *
+   * <p>M11 기록: 예전에는 이 자리에 "`WebSpeechSttProvider`에는 `finish()`가 없어서
+   * `FallbackSttProvider`가 `stop()`으로 내려간다"고 적혀 있었다. 엔진을 하나로 줄이면서
+   * Web Speech가 <b>진짜 `finish()`를 갖게 됐다</b>(native `stop()` — 버리지 않고 확정한다).
+   * 아래 `if (inner.finish)`는 그래서 이제 실제 경로에서 항상 걸린다.
    */
   async #finish(): Promise<void> {
     const override = this.#take();

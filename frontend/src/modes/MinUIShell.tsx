@@ -16,7 +16,7 @@ export function MinUIShell({ stt }: { stt?: SttLike } = {}) {
   const { accounts, deposits, autoTransfers, transactions } = useBank();
 
   /**
-   * 온디바이스 Whisper를 주로, 브라우저 Web Speech를 예비로 쓴다 (`../stt.ts`).
+   * 브라우저 Web Speech 하나를 쓴다 (`../stt.ts`).
    * 상용 전환 시 이 한 줄만 다른 구현체로 바꾸면 된다 — 그것이 Provider를 둔 이유다.
    */
   const provider = useMemo<SttLike>(() => stt ?? makeStt(), [stt]);

@@ -10,10 +10,6 @@
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
-    },
-    "./whisper": {
-      "types": "./dist/whisper.d.ts",
-      "default": "./dist/whisper.js"
     }
   },
   "files": [
@@ -23,17 +19,5 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.test.json"
-  },
-  "peerDependencies": {
-    "@huggingface/transformers": ">=4"
-  },
-  "peerDependenciesMeta": {
-    "//": "`@minui/voice/whisper`를 쓸 때만 필요하다. 본 진입점은 의존성이 없다.",
-    "@huggingface/transformers": {
-      "optional": true
-    }
-  },
-  "devDependencies": {
-    "@huggingface/transformers": "^4.2.0"
   }
 }

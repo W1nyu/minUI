@@ -1,6 +1,7 @@
-import { MockSttProvider } from "@minui/voice";
+import { MockSttProvider, WebSpeechSttProvider } from "@minui/voice";
 import { describe, expect, it } from "vitest";
 import { ScriptedOverrideStt } from "../src/instrumentation/ScriptedOverrideStt.js";
+import { makeStt } from "../src/stt.js";
 
 function harness(script: NonNullable<ConstructorParameters<typeof MockSttProvider>[0]>) {
   const stt = new ScriptedOverrideStt(new MockSttProvider(script));
@@ -152,5 +153,29 @@ describe("ScriptedOverrideStt", () => {
 
     expect(finals).toEqual([]);
     expect(inner.stopped).toBe(false);
+  });
+});
+
+/**
+ * 엔진이 하나가 된 뒤에도 F9 프로토콜이 도는가 (M11).
+ *
+ * <p>여기가 살아 있는 위험이다. M10은 아직 안 돌았다 — 참가자를 기다리는 중이고,
+ * 그날 진행자가 쓸 손잡이가 이것이다. 예전에는 `makeStt()`가 `FallbackSttProvider`를
+ * 돌려줬고 그것이 `finish()`를 흉내 내 줬다. 이제는 `WebSpeechSttProvider`가 직접
+ * 준다(M11 Task 1). <b>그 연결이 끊기면 세션 당일에 알게 된다.</b>
+ */
+describe("F9 프로토콜 — 엔진이 하나가 된 뒤", () => {
+  it("Web Speech를 감싸도 진행자의 끝내기 손잡이가 남는다", () => {
+    const stt = new ScriptedOverrideStt(new WebSpeechSttProvider());
+
+    // 없으면 화면에 "다 말했어요" 버튼이 안 생기고, F9를 시작할 방법이 사라진다.
+    expect(typeof stt.finish).toBe("function");
+  });
+
+  it("makeStt()가 돌려주는 것에도 그대로 남아 있다", () => {
+    // 호스트가 실제로 조립하는 경로. 위 테스트가 통과해도 배선이 어긋나면 소용없다.
+    const stt = new ScriptedOverrideStt(makeStt());
+
+    expect(typeof stt.finish).toBe("function");
   });
 });

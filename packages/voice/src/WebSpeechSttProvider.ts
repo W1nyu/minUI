@@ -86,6 +86,25 @@ export class WebSpeechSttProvider implements SttProvider {
     recognition.start();
   }
 
+  /**
+   * 말이 끝났다고 사용자가 직접 알린다.
+   *
+   * <p><b>`stop()`과 버리는 것이 다르다.</b> 브라우저 API의 `abort()`는 지금까지 들은 것을
+   * 버리고, `stop()`은 그것을 확정해 마지막 결과를 한 번 더 준다. 여기서 native `stop()`을
+   * 부르는 이유가 그것뿐이다 — 핸들러도 떼지 않는다. 떼면 확정된 결과가 갈 곳이 없다.
+   *
+   * <p>왜 필요한가. Web Speech는 말이 끊기면 스스로 확정하지만, <b>조용히 말하거나 말끝을
+   * 흐리면</b> 브라우저가 `no-speech`로 끊을 때까지 사용자가 기다린다. 고령 사용자가 정확히
+   * 그렇게 말한다(§9.2). 끝을 본인이 정할 수 있으면 그 기다림이 사라진다.
+   *
+   * <p>한때 이 손잡이는 온디바이스 Whisper의 것이었다 — 스스로 끝나지 않는 엔진이라
+   * 누군가 끝을 알려 줘야 했다. 엔진을 하나로 줄이면서 같이 지울 뻔했는데, 남길 이유가
+   * 엔진이 아니라 <b>사람 쪽</b>에 있었다.
+   */
+  finish(): void {
+    this.#recognition?.stop();
+  }
+
   /** 마이크는 버튼을 누른 동안만 열린다. 상시 대기 웨이크워드는 채용하지 않았다 (§11.2). */
   stop(): void {
     if (!this.#recognition) return;
@@ -154,6 +173,9 @@ interface SpeechRecognitionLike {
   onerror: ((event: { error: string }) => void) | null;
   onend: (() => void) | null;
   start(): void;
+  /** 들은 것을 확정하고 끝낸다. 최종 결과가 한 번 더 온다. */
+  stop(): void;
+  /** 들은 것을 버리고 끝낸다. */
   abort(): void;
 }
 
