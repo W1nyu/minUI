@@ -58,6 +58,15 @@ pnpm --filter frontend dev
 
 → http://localhost:5173
 
+**실계좌·마이데이터는 연결하지 않는다.** 백엔드 없이 정적 데모를 열면 브라우저 탭 안의
+가상 원장으로, 위 백엔드를 함께 띄우면 `/mock/openbanking/v2.0/*` Mock endpoint로 동작한다.
+두 경우 모두 테스트 계좌 6개와 가상 OAuth 표기만 사용한다. 음성/AI는 메뉴와 입력 제안을
+도울 뿐, 사용자가 이체 내용을 확인하고 **보내기**를 누르기 전에는 원장을 호출하지 않는다.
+
+Mock은 금융결제원 오픈뱅킹의 잔액조회·핀테크이용번호 기반 입금이체에서 화면에 필요한
+JSON 필드와 Bearer 흐름을 본뜬 부분집합이다. 실제 API 호환·OAuth 보안·금융 연동을 주장하지
+않는다. 기준은 [금융결제원 잔액조회](https://developers.kftc.or.kr/dev/openapi/open-banking/balance)와 [입금이체](https://developers.kftc.or.kr/dev/openapi/open-banking/deposit)다.
+
 내리기:
 
 ```bash
@@ -83,6 +92,9 @@ UI 외의 변수가 통제된다 (기획안 §12.2).
 - **왜 이렇게 보이나요?** — 카드 아래 링크. 카드가 왜 그 자리인지 답하고,
   기억해 둔 말을 보여 주고 지운다. 개인화가 조용한 것과 깜깜한 것은 다르다
 - **기본 UI** — 대조군. 실제 은행 앱 구조(배너·계좌 카드·아이콘 격자·탭바)를 따랐다
+- **화면 도움 맞추기** — 사용자가 허용하면 누름 지연·빠른 되돌아감·음성 대기 시간을
+  **탭 안의 합계로만** 보고 완전 단순형/하이브리드 안내형/일반 단순형을 조절한다. 심리적
+  "불안도"를 진단하거나 원문·메뉴 ID·계좌 정보·음성을 저장/전송하지 않으며, 기록은 지울 수 있다
 
 음성 버튼은 Chrome에서 마이크 권한을 주면 실제로 동작한다. 권한이 없거나 지원되지
 않는 브라우저에서는 같은 화면의 텍스트 입력으로 똑같이 찾을 수 있다.
@@ -98,7 +110,7 @@ packages/core     @minui/core    프레임워크 무관 엔진. 의존성 0
 packages/react    @minui/react   React 바인딩 + 접근성 디자인 토큰
 packages/voice    @minui/voice   STT Provider — Web Speech · 텍스트 검색 전환
 frontend                         데모 은행 앱 (두 UI 모드)
-backend                          Spring Boot 계정계 (복식부기 원장)
+backend                          Spring Boot 가상 계정계 + Open Banking Mock (복식부기 원장)
 demos                            실제 금융사 5곳 + MinUI Studio
 services/harvester               URL → 수집 원본 (Playwright) + 브라우저 스니펫
 services/enricher                LLM 연결 — 빌드 타임 보강, 런타임 폴백·뜻풀이
