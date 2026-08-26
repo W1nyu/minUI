@@ -2,7 +2,7 @@ import type { ColdStartPresets, MenuCatalog, MenuId } from "@minui/core";
 import { IndexedDbStorageAdapter, MinUIHome, MinUIProvider } from "@minui/react";
 import { WebSpeechSttProvider } from "@minui/voice";
 import { useCallback, useMemo, useState } from "react";
-import { makeAssist } from "./assist.js";
+import { makeAssist } from "@host-ai/assist.js";
 import { StubScreen } from "./StubScreen.js";
 import type { SiteMeta } from "./sites.js";
 

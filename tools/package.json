@@ -12,6 +12,7 @@
     "report": "tsx src/report-metrics.ts",
     "report:usertest": "tsx src/report-usertest.ts",
     "build:catalog": "tsx src/build-catalog-cli.ts",
+    "build:explain-cache": "tsx src/build-explain-cache.ts",
     "measure:portability": "tsx src/measure-portability.ts",
     "bench:sites": "tsx src/bench-sites.ts",
     "diagnose": "tsx src/diagnose-misses.ts",

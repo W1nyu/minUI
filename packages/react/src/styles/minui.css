@@ -718,3 +718,86 @@
   font-weight: 600;
   color: var(--minui-accent);
 }
+
+/* ── 온보딩 2문항 (F5) ────────────────────────────────────────────────
+ *
+ * 선택지 버튼이 카드만큼 크다. 여기서 한 번 크게 눌러 본 경험이 곧 이 앱의
+ * 사용법이라, 온보딩만 작게 만들면 첫인상이 나머지와 어긋난다.
+ */
+.minui-onboarding .minui-sheet-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--minui-gap);
+  padding: 1.25rem 1rem 1.5rem;
+}
+
+.minui-onboarding-step {
+  margin: 0;
+  color: var(--minui-ink-3);
+  font-size: var(--minui-text-s);
+}
+
+.minui-onboarding-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--minui-gap);
+}
+
+.minui-onboarding-choice {
+  width: 100%;
+  min-height: var(--minui-touch-min);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  align-items: flex-start;
+  text-align: left;
+  border: 1px solid var(--minui-line-strong);
+  border-radius: var(--minui-radius);
+  background: var(--minui-surface);
+  color: var(--minui-ink);
+  font: inherit;
+  cursor: pointer;
+}
+
+.minui-onboarding-choice:hover,
+.minui-onboarding-choice:focus-visible {
+  border-color: var(--minui-accent);
+}
+
+.minui-onboarding-choice-label {
+  font-size: var(--minui-text-m);
+  font-weight: 700;
+}
+
+.minui-onboarding-choice-detail {
+  color: var(--minui-ink-2);
+  font-size: var(--minui-text-s);
+}
+
+/*
+ * 건너뛰기는 일부러 선택지보다 작다 — 답하는 쪽이 기본이고 건너뛰는 쪽이 예외다.
+ * 다만 터치 영역은 다른 곳과 같은 규칙을 지킨다.
+ */
+.minui-onboarding-skip {
+  align-self: center;
+  min-height: var(--minui-touch-min);
+  padding: 0 1.25rem;
+  border: none;
+  background: none;
+  color: var(--minui-ink-2);
+  font: inherit;
+  font-size: var(--minui-text-s);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.minui-onboarding-note {
+  margin: 0;
+  text-align: center;
+  color: var(--minui-ink-3);
+  font-size: var(--minui-text-s);
+}

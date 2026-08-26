@@ -1,7 +1,7 @@
 import type { MenuId } from "@minui/core";
-import { MinUIHome, type SttLike } from "@minui/react";
+import { MinUIHome, OnboardingSheet, type SttLike } from "@minui/react";
 import { makeStt } from "../stt.js";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useBank } from "../BankContext.js";
 import { CATALOG } from "../catalog.js";
 import { formatWon } from "../screens/ScreenFrame.js";
@@ -12,6 +12,8 @@ import { formatWon } from "../screens/ScreenFrame.js";
  * 이 파일이 짧은 것이 이식 계약의 증거다. 호스트가 하는 일은 카탈로그를 넘기고,
  * 카드가 들고 있을 답을 채워 주는 것뿐이다. 어떤 카드를 보여줄지는 엔진이 정한다.
  */
+const ONBOARDED_KEY = "minui.demo.onboarded";
+
 export function MinUIShell({ stt }: { stt?: SttLike } = {}) {
   const { accounts, deposits, autoTransfers, transactions } = useBank();
 
@@ -57,6 +59,37 @@ export function MinUIShell({ stt }: { stt?: SttLike } = {}) {
         return null;
     }
   }
+
+  /*
+   * 온보딩 2문항 (F5). **언제 띄울지는 호스트가 정한다.**
+   *
+   * "봤다"를 엔진 상태가 아니라 localStorage에 두는 이유: 엔진 상태에 넣으면
+   * `STATE_VERSION`을 올려야 하고, 그러면 이미 쓰던 사람의 카드 배치와 배운 말이
+   * 마이그레이션 대상이 된다. 온보딩을 봤는지는 **화면 쪽 사실**이지 엔진이 알아야 할
+   * 것이 아니다.
+   *
+   * 저장소를 못 읽는 환경(사생활 보호 창 등)에서는 매번 뜬다. 건너뛰기가 한 번의
+   * 탭이라 그 편이 아예 안 뜨는 것보다 낫다 — 첫 화면이 이미 내 것이어야 한다는 것이
+   * F5의 요점이다.
+   */
+  const [onboarded, setOnboarded] = useState(() => {
+    try {
+      return localStorage.getItem(ONBOARDED_KEY) === "1";
+    } catch {
+      return false;
+    }
+  });
+
+  const finishOnboarding = () => {
+    try {
+      localStorage.setItem(ONBOARDED_KEY, "1");
+    } catch {
+      // 못 써도 이번 세션은 넘어간다.
+    }
+    setOnboarded(true);
+  };
+
+  if (!onboarded) return <OnboardingSheet onDone={finishOnboarding} />;
 
   return (
     <MinUIHome

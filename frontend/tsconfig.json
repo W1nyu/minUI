@@ -4,7 +4,10 @@
     "noEmit": true,
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "jsx": "react-jsx",
-    "types": ["node"]
+    "types": ["node"],
+    "resolveJsonModule": true,
+    // 두 호스트 앱이 나눠 쓰는 AI 클라이언트 (`shared/host-ai`).
+    "paths": { "@host-ai/*": ["../shared/host-ai/*"] }
   },
-  "include": ["src/**/*", "test/**/*", "vite.config.ts"]
+  "include": ["../shared/host-ai/**/*", "src/**/*", "test/**/*", "vite.config.ts"]
 }

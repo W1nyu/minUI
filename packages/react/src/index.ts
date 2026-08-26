@@ -17,5 +17,9 @@ export {
   type SttLike,
   type VoiceSearchSheetProps,
 } from "./VoiceSearchSheet.js";
+export {
+  OnboardingSheet,
+  type OnboardingSheetProps,
+} from "./OnboardingSheet.js";
 export { TextScaleControl } from "./TextScaleControl.js";
 export { IndexedDbStorageAdapter } from "./storage/IndexedDbStorageAdapter.js";

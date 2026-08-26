@@ -4,6 +4,7 @@ packages:
   - "demos"
   - "tools"
   - "services/*"
+  - "shared/*"
 allowBuilds:
   esbuild: true
   # 네이티브 바이너리를 내려받는 설치 스크립트는 필요할 때만 켠다.

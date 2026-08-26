@@ -128,6 +128,12 @@ importers:
         specifier: ^4.2.0
         version: 4.2.0
 
+  shared/host-ai:
+    dependencies:
+      '@minui/core':
+        specifier: workspace:*
+        version: link:../../packages/core
+
   tools:
     dependencies:
       '@huggingface/transformers':

@@ -1,0 +1,10 @@
+{
+  "name": "@minui/host-ai",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "//": "호스트 앱(frontend·demos)이 나눠 쓰는 AI 클라이언트. packages/*가 아닌 이유는 불변 규칙 9 — @minui/core와 @minui/react에는 네트워크가 들어가면 안 된다. 여기는 호스트 쪽이라 fetch를 해도 된다. 소스를 그대로 import하므로 빌드 산출물이 없고, package.json은 @minui/core를 이 폴더에서 해석할 수 있게 하려고 둔다.",
+  "dependencies": {
+    "@minui/core": "workspace:*"
+  }
+}

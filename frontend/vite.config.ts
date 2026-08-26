@@ -29,6 +29,9 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: [
+      // 두 호스트 앱이 나눠 쓰는 AI 클라이언트. packages/*에는 넣지 않는다 —
+      // 코어에 네트워크가 들어가면 안 된다(불변 규칙 9).
+      { find: "@host-ai", replacement: src("../shared/host-ai") },
       { find: "@minui/react/tokens.css", replacement: src("../packages/react/src/styles/tokens.css") },
       { find: "@minui/react/minui.css", replacement: src("../packages/react/src/styles/minui.css") },
       { find: "@minui/react", replacement: src("../packages/react/src/index.ts") },

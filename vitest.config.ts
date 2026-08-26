@@ -17,6 +17,9 @@ const resolve = (path: string) => fileURLToPath(new URL(path, import.meta.url));
  * `demos/vite.config.ts`가 CSS 서브패스에서 같은 함정에 빠진 적이 있다.
  */
 const workspaceAliases = {
+  // 두 호스트 앱이 나눠 쓰는 AI 클라이언트. 앱의 vite.config에도 같은 별칭이 있다 —
+  // 테스트는 그 파일들을 안 읽으므로 여기에도 두어야 한다.
+  "@host-ai": resolve("./shared/host-ai"),
   "@minui/core": resolve("./packages/core/src/index.ts"),
   "@minui/react": resolve("./packages/react/src/index.ts"),
   "@minui/voice": resolve("./packages/voice/src/index.ts"),

@@ -1,4 +1,5 @@
 import type { MenuId, Slots } from "@minui/core";
+import { makeExplain } from "@host-ai/explain.js";
 import { IndexedDbStorageAdapter, MinUIProvider, type SttLike } from "@minui/react";
 import { useCallback, useMemo, useState } from "react";
 import { BankProvider } from "./BankContext.js";
@@ -81,6 +82,19 @@ export function App({
     [],
   );
 
+  /*
+   * 「이해 지원」 — 뜻풀이를 비워 둔 여섯 메뉴에서 "이게 무슨 뜻이에요?"가 뜬다.
+   *
+   * 이 앱은 전에 `explain`을 아예 안 넘겼고, 그래서 그 버튼이 한 번도 안 떴다.
+   * `makeExplain`은 배포에서는 미리 구워 둔 답을 조회하고, 로컬 개발에서는
+   * `/api/explain`까지 간다 (`shared/host-ai/explain.ts`).
+   *
+   * `assist`는 넘기지 않는다. 정적 배포에 중계가 없어 항상 null이 되는데, 그러면
+   * 되묻기 화면이 잠깐 떴다가 아무 일도 안 일어나는 것을 기다리게 된다.
+   * 되묻기가 곧 답인 편이 낫다 — 그것이 §9.2가 설계한 실패 회복이다.
+   */
+  const explain = useMemo(() => makeExplain(CATALOG), []);
+
   return (
     <MinUIProvider
       catalog={CATALOG}
@@ -88,6 +102,7 @@ export function App({
       slots={slots}
       storage={storage}
       coldStartPresets={COLD_START_PRESETS}
+      explain={explain}
       fallback={<p className="loading">불러오는 중…</p>}
     >
       <BankProvider api={bankApi}>
