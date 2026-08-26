@@ -112,7 +112,7 @@ docs                             기획안과 측정 결과
 ## 검증
 
 ```bash
-pnpm test                              # 541 tests
+pnpm test                              # 704 tests
 pnpm typecheck
 cd backend && ./gradlew test           # Testcontainers 통합 테스트 6종
 
@@ -122,7 +122,11 @@ pnpm --filter tools bench:search       # 구어체 질의 50건
 pnpm --filter tools bench:learning     # 개인 동의어 학습이 나머지를 망치는가
 pnpm --filter tools diagnose           # 놓친 질의가 왜 놓쳤는가
 pnpm --filter tools tune:threshold     # 임계값 — 정답 세트와 답 없는 세트를 함께
-pnpm --filter tools fetch:model        # 예비 음성 엔진 가중치 (73MB, 저장소에 없음)
+pnpm --filter tools fetch:model        # 임베딩 모델 (bge-m3 560MB, 저장소에 없음)
+
+# 배포에 담아 갈 것을 미리 굽는다. GitHub Pages는 정적이라 런타임 API가 없다.
+pnpm --filter tools build:explain-cache   # 뜻풀이 451개 (Gemini 키 필요)
+pnpm --filter tools build:studio-samples  # Studio 재생용 3곳 (Chrome 필요)
 
 pnpm --filter @minui/harvester recall  # 자동 수집 회수율 (손 수집본 대비)
 pnpm --filter @minui/enricher bench:assist   # 런타임 LLM 폴백의 이득과 손해

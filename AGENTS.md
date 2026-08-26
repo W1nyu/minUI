@@ -138,8 +138,13 @@ pnpm --filter @minui/harvester probe -- <URL>    # 왜 못 읽었는지 볼 때
 pnpm --filter @minui/enricher enrich -- <사이트> [--limit N]
 pnpm --filter @minui/enricher bench:assist       # 런타임 폴백 이득/손해
 
-# 예비 음성 엔진 가중치 (73MB, 저장소에 없음. 안 받아도 CDN에서 받는다)
+# 임베딩 모델 (bge-m3 560MB, 저장소에 없음). 원격 검색은 기본으로 꺼져 있다 —
+# semantic-focus 12.4%로 사전 등록 게이트를 못 넘겨 코드만 남기고 껐다.
 pnpm --filter tools fetch:model
+
+# 배포(GitHub Pages)에 담아 갈 것. 정적 호스팅이라 런타임 API가 없어 미리 굽는다.
+pnpm --filter tools build:explain-cache   # 뜻풀이 451개 (Gemini 키 필요)
+pnpm --filter tools build:studio-samples  # Studio 재생용 3곳 (Chrome 필요)
 
 # 측정
 pnpm --filter tools bench:sites        # 동의어 출처별 4구성 비교
