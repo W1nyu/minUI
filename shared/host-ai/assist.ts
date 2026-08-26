@@ -15,6 +15,26 @@ import type { MenuCatalog, MenuId } from "@minui/core";
 const CANDIDATE_COUNT = 20;
 
 /**
+ * Remote assistance is for menu discovery, not financial personal data.
+ *
+ * <p>The local search path still receives every query.  This guard only
+ * decides whether a query may cross the optional `/api/assist` boundary.
+ * Numbers, transaction wording, account wording, and ordinary Korean
+ * addressee forms are deliberately handled locally instead.
+ */
+export function isSafeAssistQuery(query: string): boolean {
+  const normalized = query.normalize("NFC").trim();
+  if (normalized.length === 0) return false;
+
+  return !(
+    /[0-9０-９]/.test(normalized) ||
+    /송금|입금|출금|보내|받아|계좌|잔액|금액/.test(normalized) ||
+    /(?<!자동)이체/.test(normalized) ||
+    /[가-힣]{2,}(?:에게|한테|께|님)/.test(normalized)
+  );
+}
+
+/**
  * 도우미가 있는 곳. 없으면 도우미 자체를 만들지 않는다.
  *
  * <p>배포는 GitHub Pages(정적)라 같은 오리진에 `/api/assist`가 없다. 별도로 띄운
@@ -37,6 +57,9 @@ export function makeAssist(catalog: MenuCatalog, endpoint: string) {
   const byId = new Map(catalog.map((menu) => [menu.id, menu]));
 
   return async (query: string, pool: MenuId[]): Promise<MenuId | null> => {
+    // 금융 개인정보일 수 있는 발화는 외부 모델 대신 항상 로컬 검색 결과로 끝낸다.
+    if (!isSafeAssistQuery(query)) return null;
+
     const candidates = pool.slice(0, CANDIDATE_COUNT).flatMap((menuId) => {
       const menu = byId.get(menuId);
       if (!menu) return [];
