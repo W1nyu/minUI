@@ -3,6 +3,7 @@ import { IndexedDbStorageAdapter, MinUIHome, MinUIProvider } from "@minui/react"
 import { WebSpeechSttProvider } from "@minui/voice";
 import { useCallback, useMemo, useState } from "react";
 import { makeAssist } from "@host-ai/assist.js";
+import { runStudio, type StudioResult } from "@host-ai/studio.js";
 import { StubScreen } from "./StubScreen.js";
 import type { SiteMeta } from "./sites.js";
 
@@ -17,23 +18,6 @@ import type { SiteMeta } from "./sites.js";
  * 보는 사람이 직접 확인하게 하는 것이 이 화면의 목적이다.
  */
 
-interface StudioResult {
-  site: string;
-  host: string;
-  catalog: MenuCatalog;
-  presets: ColdStartPresets;
-  steps: { name: string; detail: string; ms: number }[];
-  problems: string[];
-  stats: {
-    harvested: number;
-    menus: number;
-    branches: number;
-    duplicateLabels: number;
-    highRisk: number;
-    codedIds: number;
-  };
-}
-
 const EXAMPLES = [
   { label: "하나은행", url: "https://www.kebhana.com/" },
   { label: "신한은행", url: "https://www.shinhan.com/index.jsp" },
@@ -45,26 +29,28 @@ export function Studio({ onExit }: { onExit: () => void }) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<StudioResult | null>(null);
+  /** 재생 중 끝난 단계. 진행이 눈에 보여야 "10초 만에"가 10초로 느껴진다. */
+  const [done, setDone] = useState<string[]>([]);
 
+  /*
+   * 배포(GitHub Pages)에는 수집기가 없다. 미리 구워 둔 세 곳은 같은 단계·같은 시간으로
+   * 재생하고, 그 밖의 주소는 로컬 dev의 `/api/studio`가 있으면 그쪽이 답한다
+   * (`shared/host-ai/studio.ts`).
+   */
   async function run(target: string) {
     if (target.trim().length === 0) return;
     setBusy(true);
     setError(null);
     setResult(null);
-    try {
-      const response = await fetch("/api/studio", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ url: target }),
-      });
-      const body = (await response.json()) as StudioResult & { error?: string };
-      if (body.error) setError(body.error);
-      else setResult(body);
-    } catch {
-      setError("서버에 닿지 못했습니다. 개발 서버가 떠 있는지 확인해 주세요.");
-    } finally {
-      setBusy(false);
-    }
+    setDone([]);
+
+    const outcome = await runStudio(target, {
+      onStep: (step) => setDone((steps) => [...steps, step.name]),
+    });
+
+    if ("error" in outcome) setError(outcome.error);
+    else setResult(outcome.result);
+    setBusy(false);
   }
 
   return (
@@ -116,8 +102,9 @@ export function Studio({ onExit }: { onExit: () => void }) {
       </p>
 
       {busy && (
-        <p className="studio-note">
+        <p className="studio-note" role="status">
           전체메뉴를 찾아 여는 중입니다. 사이트에 따라 10초쯤 걸립니다.
+          {done.length > 0 && <> — {done.join(" · ")} 끝</>}
         </p>
       )}
 

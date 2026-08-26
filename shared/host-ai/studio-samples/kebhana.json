@@ -1,0 +1,9124 @@
+{
+  "site": "kebhana",
+  "host": "www.kebhana.com",
+  "catalog": [
+    {
+      "id": "kebhana.12000",
+      "label": "조회",
+      "synonyms": [],
+      "category": "조회",
+      "icon": "doc",
+      "route": "/kebhana.12000",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.102689",
+      "label": "계좌조회",
+      "synonyms": [],
+      "category": "조회",
+      "path": [
+        "조회"
+      ],
+      "icon": "wallet",
+      "route": "/kebhana.102689",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.102692",
+      "label": "거래내역조회",
+      "synonyms": [],
+      "category": "조회",
+      "path": [
+        "조회"
+      ],
+      "icon": "list",
+      "route": "/kebhana.102692",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.조회-거래중지-휴면계좌조회",
+      "label": "거래중지/휴면계좌조회",
+      "synonyms": [],
+      "category": "조회",
+      "path": [
+        "조회"
+      ],
+      "icon": "wallet",
+      "route": "/kebhana.조회-거래중지-휴면계좌조회",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.62422",
+      "label": "거래중지계좌조회",
+      "synonyms": [],
+      "category": "조회",
+      "path": [
+        "조회",
+        "거래중지/휴면계좌조회"
+      ],
+      "icon": "wallet",
+      "route": "/kebhana.62422",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.58045",
+      "label": "휴면계좌조회",
+      "synonyms": [],
+      "category": "조회",
+      "path": [
+        "조회",
+        "거래중지/휴면계좌조회"
+      ],
+      "icon": "wallet",
+      "route": "/kebhana.58045",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.58049",
+      "label": "장기미거래신탁",
+      "synonyms": [],
+      "category": "조회",
+      "path": [
+        "조회",
+        "거래중지/휴면계좌조회"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.58049",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.58050",
+      "label": "미수령연금신탁",
+      "synonyms": [],
+      "category": "조회",
+      "path": [
+        "조회",
+        "거래중지/휴면계좌조회"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.58050",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.62527",
+      "label": "미수령주식찾기",
+      "synonyms": [],
+      "category": "조회",
+      "path": [
+        "조회",
+        "거래중지/휴면계좌조회"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.62527",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.조회-해지계좌-조회",
+      "label": "해지계좌 조회",
+      "synonyms": [],
+      "category": "조회",
+      "path": [
+        "조회"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.조회-해지계좌-조회",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.57914",
+      "label": "해지(지급)예상조회",
+      "synonyms": [],
+      "category": "조회",
+      "path": [
+        "조회",
+        "해지계좌 조회"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.57914",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.58046",
+      "label": "해지계좌조회",
+      "synonyms": [],
+      "category": "조회",
+      "path": [
+        "조회",
+        "해지계좌 조회"
+      ],
+      "icon": "wallet",
+      "route": "/kebhana.58046",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.58044",
+      "label": "세금우대한도조회",
+      "synonyms": [],
+      "category": "조회",
+      "path": [
+        "조회"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.58044",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.12110",
+      "label": "기일도래현황",
+      "synonyms": [],
+      "category": "조회",
+      "path": [
+        "조회"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.12110",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.조회-기타조회",
+      "label": "기타조회",
+      "synonyms": [],
+      "category": "조회",
+      "path": [
+        "조회"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.조회-기타조회",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.조회-기타조회-수표-어음",
+      "label": "수표/어음",
+      "synonyms": [],
+      "category": "조회",
+      "path": [
+        "조회",
+        "기타조회"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.조회-기타조회-수표-어음",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.58073",
+      "label": "수표조회",
+      "synonyms": [],
+      "category": "조회",
+      "path": [
+        "조회",
+        "기타조회",
+        "수표/어음"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.58073",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.58074",
+      "label": "본인발행수표조회",
+      "synonyms": [],
+      "category": "조회",
+      "path": [
+        "조회",
+        "기타조회",
+        "수표/어음"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.58074",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.58075",
+      "label": "어음조회",
+      "synonyms": [],
+      "category": "조회",
+      "path": [
+        "조회",
+        "기타조회",
+        "수표/어음"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.58075",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.조회-기타조회-전자어음",
+      "label": "전자어음",
+      "synonyms": [],
+      "category": "조회",
+      "path": [
+        "조회",
+        "기타조회"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.조회-기타조회-전자어음",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57971",
+      "label": "어음할인",
+      "synonyms": [],
+      "category": "조회",
+      "path": [
+        "조회",
+        "기타조회",
+        "전자어음"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.57971",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57970",
+      "label": "배서/수령거부/반환",
+      "synonyms": [],
+      "category": "조회",
+      "path": [
+        "조회",
+        "기타조회",
+        "전자어음"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.57970",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.58076",
+      "label": "전자어음 발행 전/후 보증",
+      "synonyms": [],
+      "category": "조회",
+      "path": [
+        "조회",
+        "기타조회",
+        "전자어음"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.58076",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.58077",
+      "label": "배서후보증내역조회",
+      "synonyms": [],
+      "category": "조회",
+      "path": [
+        "조회",
+        "기타조회",
+        "전자어음"
+      ],
+      "icon": "list",
+      "route": "/kebhana.58077",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.58078",
+      "label": "수취어음조회",
+      "synonyms": [],
+      "category": "조회",
+      "path": [
+        "조회",
+        "기타조회",
+        "전자어음"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.58078",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.58079",
+      "label": "만기결제어음조회",
+      "synonyms": [],
+      "category": "조회",
+      "path": [
+        "조회",
+        "기타조회",
+        "전자어음"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.58079",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.58080",
+      "label": "배서정보조회",
+      "synonyms": [],
+      "category": "조회",
+      "path": [
+        "조회",
+        "기타조회",
+        "전자어음"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.58080",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.58081",
+      "label": "반환관련정보조회",
+      "synonyms": [],
+      "category": "조회",
+      "path": [
+        "조회",
+        "기타조회",
+        "전자어음"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.58081",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57972",
+      "label": "부도어음정보조회",
+      "synonyms": [],
+      "category": "조회",
+      "path": [
+        "조회",
+        "기타조회",
+        "전자어음"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.57972",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.58082",
+      "label": "부도어음상환청구",
+      "synonyms": [],
+      "category": "조회",
+      "path": [
+        "조회",
+        "기타조회",
+        "전자어음"
+      ],
+      "icon": "bank",
+      "route": "/kebhana.58082",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.58083",
+      "label": "부도어음반환",
+      "synonyms": [],
+      "category": "조회",
+      "path": [
+        "조회",
+        "기타조회",
+        "전자어음"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.58083",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.62695",
+      "label": "만기전지급제시",
+      "synonyms": [],
+      "category": "조회",
+      "path": [
+        "조회",
+        "기타조회",
+        "전자어음"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.62695",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.58084",
+      "label": "입금내역조회",
+      "synonyms": [],
+      "category": "조회",
+      "path": [
+        "조회",
+        "기타조회",
+        "전자어음"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.58084",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57995",
+      "label": "전자어음수수료조회",
+      "synonyms": [],
+      "category": "조회",
+      "path": [
+        "조회",
+        "기타조회",
+        "전자어음"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.57995",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57973",
+      "label": "판매기업약정",
+      "synonyms": [],
+      "category": "조회",
+      "path": [
+        "조회",
+        "기타조회",
+        "전자어음"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.57973",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62401",
+      "label": "사고신고사전조회",
+      "synonyms": [],
+      "category": "조회",
+      "path": [
+        "조회",
+        "기타조회",
+        "전자어음"
+      ],
+      "icon": "bell",
+      "route": "/kebhana.62401",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.62662",
+      "label": "약정조회(확인서출력)",
+      "synonyms": [],
+      "category": "조회",
+      "path": [
+        "조회",
+        "기타조회",
+        "전자어음"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.62662",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.조회-기타조회-증권대행업무",
+      "label": "증권대행업무",
+      "synonyms": [],
+      "category": "조회",
+      "path": [
+        "조회",
+        "기타조회"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.조회-기타조회-증권대행업무",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.13000",
+      "label": "이체",
+      "synonyms": [],
+      "category": "이체",
+      "icon": "transfer",
+      "route": "/kebhana.13000",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57915",
+      "label": "계좌이체",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.57915",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.이체-이체-결과조회",
+      "label": "이체 결과조회",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.이체-이체-결과조회",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.57921",
+      "label": "계좌이체내역조회",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체",
+        "이체 결과조회"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.57921",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.58116",
+      "label": "지연이체내역조회",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체",
+        "이체 결과조회"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.58116",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.57922",
+      "label": "폰뱅킹이체내역조회",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체",
+        "이체 결과조회"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.57922",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.57917",
+      "label": "다계좌이체",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.57917",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.이체-예약이체",
+      "label": "예약이체",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.이체-예약이체",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57916",
+      "label": "예약이체등록",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체",
+        "예약이체"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.57916",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57923",
+      "label": "예약이체내역조회",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체",
+        "예약이체"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.57923",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.이체-자동이체",
+      "label": "자동이체",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체"
+      ],
+      "icon": "repeat",
+      "route": "/kebhana.이체-자동이체",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57932",
+      "label": "계좌간 자동이체 등록",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체",
+        "자동이체"
+      ],
+      "icon": "repeat",
+      "route": "/kebhana.57932",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57931",
+      "label": "자동이체 조회/변경/취소",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체",
+        "자동이체"
+      ],
+      "icon": "repeat",
+      "route": "/kebhana.57931",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57933",
+      "label": "관리비자동납부",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체",
+        "자동이체"
+      ],
+      "icon": "repeat",
+      "route": "/kebhana.57933",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57934",
+      "label": "전화요금자동납부",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체",
+        "자동이체"
+      ],
+      "icon": "repeat",
+      "route": "/kebhana.57934",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57935",
+      "label": "이동통신요금자동납부",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체",
+        "자동이체"
+      ],
+      "icon": "repeat",
+      "route": "/kebhana.57935",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57936",
+      "label": "국민연금/국민건강보험료 자동납부",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체",
+        "자동이체"
+      ],
+      "icon": "repeat",
+      "route": "/kebhana.57936",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.99099",
+      "label": "서울시지방세자동납부",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체",
+        "자동이체"
+      ],
+      "icon": "repeat",
+      "route": "/kebhana.99099",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57937",
+      "label": "카드대금자동납부",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체",
+        "자동이체"
+      ],
+      "icon": "repeat",
+      "route": "/kebhana.57937",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62528",
+      "label": "하나머니자동이체",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체",
+        "자동이체"
+      ],
+      "icon": "repeat",
+      "route": "/kebhana.62528",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57927",
+      "label": "자동이체내역조회",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체",
+        "자동이체"
+      ],
+      "icon": "repeat",
+      "route": "/kebhana.57927",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.이체-기타이체서비스",
+      "label": "기타이체서비스",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.이체-기타이체서비스",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.이체-기타이체서비스-그룹이체",
+      "label": "그룹이체",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체",
+        "기타이체서비스"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.이체-기타이체서비스-그룹이체",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.13506",
+      "label": "이체그룹관리",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체",
+        "기타이체서비스",
+        "그룹이체"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.13506",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57925",
+      "label": "그룹이체내역조회",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체",
+        "기타이체서비스",
+        "그룹이체"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.57925",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.이체-기타이체서비스-파일이체",
+      "label": "파일이체",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체",
+        "기타이체서비스"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.이체-기타이체서비스-파일이체",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57918",
+      "label": "파일이체등록",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체",
+        "기타이체서비스",
+        "파일이체"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.57918",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.13502",
+      "label": "파일이체조회/실행",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체",
+        "기타이체서비스",
+        "파일이체"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.13502",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57924",
+      "label": "파일이체내역조회",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체",
+        "기타이체서비스",
+        "파일이체"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.57924",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.98852",
+      "label": "심플이체",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체",
+        "기타이체서비스"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.98852",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.이체-기타이체서비스-증권자금이체",
+      "label": "증권자금이체",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체",
+        "기타이체서비스"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.이체-기타이체서비스-증권자금이체",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57926",
+      "label": "증권자금이체내역조회",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체",
+        "기타이체서비스",
+        "증권자금이체"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.57926",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.58035",
+      "label": "중도금납부",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체",
+        "기타이체서비스"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.58035",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.이체-기타이체서비스-연금납부",
+      "label": "연금납부",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체",
+        "기타이체서비스"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.이체-기타이체서비스-연금납부",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.58037",
+      "label": "공무원연금납부",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체",
+        "기타이체서비스",
+        "연금납부"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.58037",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62652",
+      "label": "교직원연금납부",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체",
+        "기타이체서비스",
+        "연금납부"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.62652",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.이체-기타이체서비스-이체수수료조회",
+      "label": "이체수수료조회",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체",
+        "기타이체서비스"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.이체-기타이체서비스-이체수수료조회",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.57928",
+      "label": "이체수수료면제횟수조회",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체",
+        "기타이체서비스",
+        "이체수수료조회"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.57928",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.57929",
+      "label": "이체수수료 면제내역조회",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체",
+        "기타이체서비스",
+        "이체수수료조회"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.57929",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.이체-기타이체서비스-현금담보-관세청",
+      "label": "현금담보(관세청)",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체",
+        "기타이체서비스"
+      ],
+      "icon": "bank",
+      "route": "/kebhana.이체-기타이체서비스-현금담보-관세청",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.99097",
+      "label": "현금담보납부/납부내역조회",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체",
+        "기타이체서비스",
+        "현금담보(관세청)"
+      ],
+      "icon": "bank",
+      "route": "/kebhana.99097",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.이체-계좌이동-계좌통합관리",
+      "label": "계좌이동/계좌통합관리",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.이체-계좌이동-계좌통합관리",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62552",
+      "label": "하나은행우대혜택",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체",
+        "계좌이동/계좌통합관리"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.62552",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62553",
+      "label": "계좌이동서비스알아두세요",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체",
+        "계좌이동/계좌통합관리"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.62553",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.이체-계좌이동-계좌통합관리-계좌이동",
+      "label": "계좌이동",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체",
+        "계좌이동/계좌통합관리"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.이체-계좌이동-계좌통합관리-계좌이동",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62555",
+      "label": "계좌이동조회/변경",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체",
+        "계좌이동/계좌통합관리",
+        "계좌이동"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.62555",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62556",
+      "label": "계좌이동결과조회/취소",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체",
+        "계좌이동/계좌통합관리",
+        "계좌이동"
+      ],
+      "icon": "list",
+      "route": "/kebhana.62556",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62676",
+      "label": "계좌통합관리서비스",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체",
+        "계좌이동/계좌통합관리"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.62676",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.99075",
+      "label": "착오송금 조회/반환",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.99075",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.99071",
+      "label": "연금계좌이체",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.99071",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.이체-간편-에스크로",
+      "label": "간편 에스크로",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.이체-간편-에스크로",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102636",
+      "label": "예치금 이체 확인",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체",
+        "간편 에스크로"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.102636",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102637",
+      "label": "거래내역 조회",
+      "synonyms": [],
+      "category": "이체",
+      "path": [
+        "이체",
+        "간편 에스크로"
+      ],
+      "icon": "list",
+      "route": "/kebhana.102637",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.57938",
+      "label": "공과금",
+      "synonyms": [],
+      "category": "공과금",
+      "icon": "doc",
+      "route": "/kebhana.57938",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.공과금-My공과금",
+      "label": "My공과금",
+      "synonyms": [],
+      "category": "공과금",
+      "path": [
+        "공과금"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.공과금-My공과금",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57949",
+      "label": "공과금등록/납부",
+      "synonyms": [],
+      "category": "공과금",
+      "path": [
+        "공과금",
+        "My공과금"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.57949",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57952",
+      "label": "공과금스케줄러",
+      "synonyms": [],
+      "category": "공과금",
+      "path": [
+        "공과금",
+        "My공과금"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.57952",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57951",
+      "label": "납부내역조회",
+      "synonyms": [],
+      "category": "공과금",
+      "path": [
+        "공과금",
+        "My공과금"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.57951",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.공과금-지로-생활요금-기타",
+      "label": "지로/생활요금/기타",
+      "synonyms": [],
+      "category": "공과금",
+      "path": [
+        "공과금"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.공과금-지로-생활요금-기타",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57939",
+      "label": "지로납부",
+      "synonyms": [],
+      "category": "공과금",
+      "path": [
+        "공과금",
+        "지로/생활요금/기타"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.57939",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57940",
+      "label": "지로납부내역조회",
+      "synonyms": [],
+      "category": "공과금",
+      "path": [
+        "공과금",
+        "지로/생활요금/기타"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.57940",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57953",
+      "label": "KT통신요금",
+      "synonyms": [],
+      "category": "공과금",
+      "path": [
+        "공과금",
+        "지로/생활요금/기타"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.57953",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57954",
+      "label": "전기요금/TV수신료",
+      "synonyms": [],
+      "category": "공과금",
+      "path": [
+        "공과금",
+        "지로/생활요금/기타"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.57954",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57955",
+      "label": "상하수도요금",
+      "synonyms": [],
+      "category": "공과금",
+      "path": [
+        "공과금",
+        "지로/생활요금/기타"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.57955",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57964",
+      "label": "보관금",
+      "synonyms": [],
+      "category": "공과금",
+      "path": [
+        "공과금",
+        "지로/생활요금/기타"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.57964",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57965",
+      "label": "송달료",
+      "synonyms": [],
+      "category": "공과금",
+      "path": [
+        "공과금",
+        "지로/생활요금/기타"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.57965",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.101731",
+      "label": "공탁금",
+      "synonyms": [],
+      "category": "공과금",
+      "path": [
+        "공과금",
+        "지로/생활요금/기타"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.101731",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.공과금-지방세",
+      "label": "지방세",
+      "synonyms": [],
+      "category": "공과금",
+      "path": [
+        "공과금"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.공과금-지방세",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57956",
+      "label": "환경개선부담금",
+      "synonyms": [],
+      "category": "공과금",
+      "path": [
+        "공과금",
+        "지방세"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.57956",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57959",
+      "label": "세외수입",
+      "synonyms": [],
+      "category": "공과금",
+      "path": [
+        "공과금",
+        "지방세"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.57959",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.공과금-국세-관세",
+      "label": "국세/관세",
+      "synonyms": [],
+      "category": "공과금",
+      "path": [
+        "공과금"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.공과금-국세-관세",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57942",
+      "label": "국세",
+      "synonyms": [],
+      "category": "공과금",
+      "path": [
+        "공과금",
+        "국세/관세"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.57942",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57943",
+      "label": "관세",
+      "synonyms": [],
+      "category": "공과금",
+      "path": [
+        "공과금",
+        "국세/관세"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.57943",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57963",
+      "label": "기금/기타국고",
+      "synonyms": [],
+      "category": "공과금",
+      "path": [
+        "공과금",
+        "국세/관세"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.57963",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.공과금-범칙금-벌과금",
+      "label": "범칙금/벌과금",
+      "synonyms": [],
+      "category": "공과금",
+      "path": [
+        "공과금"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.공과금-범칙금-벌과금",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57966",
+      "label": "교통범칙금",
+      "synonyms": [],
+      "category": "공과금",
+      "path": [
+        "공과금",
+        "범칙금/벌과금"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.57966",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57967",
+      "label": "검찰청벌과금",
+      "synonyms": [],
+      "category": "공과금",
+      "path": [
+        "공과금",
+        "범칙금/벌과금"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.57967",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.공과금-대학등록금",
+      "label": "대학등록금",
+      "synonyms": [],
+      "category": "공과금",
+      "path": [
+        "공과금"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.공과금-대학등록금",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57945",
+      "label": "원화",
+      "synonyms": [],
+      "category": "공과금",
+      "path": [
+        "공과금",
+        "대학등록금"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.57945",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57946",
+      "label": "외화",
+      "synonyms": [],
+      "category": "공과금",
+      "path": [
+        "공과금",
+        "대학등록금"
+      ],
+      "icon": "globe",
+      "route": "/kebhana.57946",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57947",
+      "label": "등록금 납부내역",
+      "synonyms": [],
+      "category": "공과금",
+      "path": [
+        "공과금",
+        "대학등록금"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.57947",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.공과금-4대-보험료",
+      "label": "4대 보험료",
+      "synonyms": [],
+      "category": "공과금",
+      "path": [
+        "공과금"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.공과금-4대-보험료",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57961",
+      "label": "국민연금(반납/추납보험료)",
+      "synonyms": [],
+      "category": "공과금",
+      "path": [
+        "공과금",
+        "4대 보험료"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.57961",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57960",
+      "label": "통합징수보험료",
+      "synonyms": [],
+      "category": "공과금",
+      "path": [
+        "공과금",
+        "4대 보험료"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.57960",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57962",
+      "label": "고용/산재보험(연납/분기납)",
+      "synonyms": [],
+      "category": "공과금",
+      "path": [
+        "공과금",
+        "4대 보험료"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.57962",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57957",
+      "label": "아파트관리비",
+      "synonyms": [],
+      "category": "공과금",
+      "path": [
+        "공과금"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.57957",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.16001",
+      "label": "지로/공과금예약납부조회",
+      "synonyms": [],
+      "category": "공과금",
+      "path": [
+        "공과금"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.16001",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.102716",
+      "label": "지역개발채권",
+      "synonyms": [],
+      "category": "공과금",
+      "path": [
+        "공과금"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.102716",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.23000",
+      "label": "외환",
+      "synonyms": [],
+      "category": "외환",
+      "icon": "doc",
+      "route": "/kebhana.23000",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.1501",
+      "label": "환율/외화예금 금리",
+      "synonyms": [],
+      "category": "외환",
+      "path": [
+        "외환"
+      ],
+      "icon": "globe",
+      "route": "/kebhana.1501",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.101639",
+      "label": "환전지갑",
+      "synonyms": [],
+      "category": "외환",
+      "path": [
+        "외환"
+      ],
+      "icon": "globe",
+      "route": "/kebhana.101639",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.외환-외화송금",
+      "label": "외화송금",
+      "synonyms": [],
+      "category": "외환",
+      "path": [
+        "외환"
+      ],
+      "icon": "globe",
+      "route": "/kebhana.외환-외화송금",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.24201",
+      "label": "송금안내",
+      "synonyms": [],
+      "category": "외환",
+      "path": [
+        "외환",
+        "외화송금"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.24201",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.외환-외화송금-송금정보-등록-조회-변경",
+      "label": "송금정보 등록/조회/변경",
+      "synonyms": [],
+      "category": "외환",
+      "path": [
+        "외환",
+        "외화송금"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.외환-외화송금-송금정보-등록-조회-변경",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.24210",
+      "label": "등록",
+      "synonyms": [],
+      "category": "외환",
+      "path": [
+        "외환",
+        "외화송금",
+        "송금정보 등록/조회/변경"
+      ],
+      "icon": "globe",
+      "route": "/kebhana.24210",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.24209",
+      "label": "조회 및 변경",
+      "synonyms": [],
+      "category": "외환",
+      "path": [
+        "외환",
+        "외화송금",
+        "송금정보 등록/조회/변경"
+      ],
+      "icon": "globe",
+      "route": "/kebhana.24209",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.외환-외화송금-해외송금-보내기",
+      "label": "해외송금 보내기",
+      "synonyms": [],
+      "category": "외환",
+      "path": [
+        "외환",
+        "외화송금"
+      ],
+      "icon": "globe",
+      "route": "/kebhana.외환-외화송금-해외송금-보내기",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.24202",
+      "label": "일반송금",
+      "synonyms": [],
+      "category": "외환",
+      "path": [
+        "외환",
+        "외화송금",
+        "해외송금 보내기"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.24202",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.외환-외화송금-해외송금-보내기-자동-예약-환율지정예약송금",
+      "label": "자동/예약/환율지정예약송금",
+      "synonyms": [],
+      "category": "외환",
+      "path": [
+        "외환",
+        "외화송금",
+        "해외송금 보내기"
+      ],
+      "icon": "globe",
+      "route": "/kebhana.외환-외화송금-해외송금-보내기-자동-예약-환율지정예약송금",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.24206",
+      "label": "국내송금 보내기",
+      "synonyms": [],
+      "category": "외환",
+      "path": [
+        "외환",
+        "외화송금"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.24206",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.24211",
+      "label": "송금내역 조회",
+      "synonyms": [],
+      "category": "외환",
+      "path": [
+        "외환",
+        "외화송금"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.24211",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.외환-외화송금-거래외국환은행-지정",
+      "label": "거래외국환은행 지정",
+      "synonyms": [],
+      "category": "외환",
+      "path": [
+        "외환",
+        "외화송금"
+      ],
+      "icon": "globe",
+      "route": "/kebhana.외환-외화송금-거래외국환은행-지정",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62413",
+      "label": "등록하기",
+      "synonyms": [],
+      "category": "외환",
+      "path": [
+        "외환",
+        "외화송금",
+        "거래외국환은행 지정"
+      ],
+      "icon": "globe",
+      "route": "/kebhana.62413",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62412",
+      "label": "조회하기",
+      "synonyms": [],
+      "category": "외환",
+      "path": [
+        "외환",
+        "외화송금",
+        "거래외국환은행 지정"
+      ],
+      "icon": "globe",
+      "route": "/kebhana.62412",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.24207",
+      "label": "외화수표 추심결과조회",
+      "synonyms": [],
+      "category": "외환",
+      "path": [
+        "외환",
+        "외화송금"
+      ],
+      "icon": "globe",
+      "route": "/kebhana.24207",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.외환-외화계좌이체",
+      "label": "외화계좌이체",
+      "synonyms": [],
+      "category": "외환",
+      "path": [
+        "외환"
+      ],
+      "icon": "globe",
+      "route": "/kebhana.외환-외화계좌이체",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.33508",
+      "label": "당행외화이체안내",
+      "synonyms": [],
+      "category": "외환",
+      "path": [
+        "외환",
+        "외화계좌이체"
+      ],
+      "icon": "globe",
+      "route": "/kebhana.33508",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.33522",
+      "label": "당행외화계좌이체",
+      "synonyms": [],
+      "category": "외환",
+      "path": [
+        "외환",
+        "외화계좌이체"
+      ],
+      "icon": "globe",
+      "route": "/kebhana.33522",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.33526",
+      "label": "당행외화계좌이체결과조회",
+      "synonyms": [],
+      "category": "외환",
+      "path": [
+        "외환",
+        "외화계좌이체"
+      ],
+      "icon": "globe",
+      "route": "/kebhana.33526",
+      "riskLevel": "medium",
+      "cardable": false
+    },
+    {
+      "id": "kebhana.33509",
+      "label": "타행외화이체안내",
+      "synonyms": [],
+      "category": "외환",
+      "path": [
+        "외환",
+        "외화계좌이체"
+      ],
+      "icon": "globe",
+      "route": "/kebhana.33509",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.33529",
+      "label": "타행외화계좌이체",
+      "synonyms": [],
+      "category": "외환",
+      "path": [
+        "외환",
+        "외화계좌이체"
+      ],
+      "icon": "globe",
+      "route": "/kebhana.33529",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.33530",
+      "label": "타행외화계좌이체결과조회",
+      "synonyms": [],
+      "category": "외환",
+      "path": [
+        "외환",
+        "외화계좌이체"
+      ],
+      "icon": "globe",
+      "route": "/kebhana.33530",
+      "riskLevel": "medium",
+      "cardable": false
+    },
+    {
+      "id": "kebhana.101752",
+      "label": "외환매매 예약서비스",
+      "synonyms": [],
+      "category": "외환",
+      "path": [
+        "외환"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.101752",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.외환-외화예금",
+      "label": "외화예금",
+      "synonyms": [],
+      "category": "외환",
+      "path": [
+        "외환"
+      ],
+      "icon": "globe",
+      "route": "/kebhana.외환-외화예금",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.62420",
+      "label": "해지",
+      "synonyms": [],
+      "category": "외환",
+      "path": [
+        "외환",
+        "외화예금"
+      ],
+      "icon": "globe",
+      "route": "/kebhana.62420",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62421",
+      "label": "만기일관리",
+      "synonyms": [],
+      "category": "외환",
+      "path": [
+        "외환",
+        "외화예금"
+      ],
+      "icon": "globe",
+      "route": "/kebhana.62421",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.외환-글로벌뱅킹",
+      "label": "글로벌뱅킹",
+      "synonyms": [],
+      "category": "외환",
+      "path": [
+        "외환"
+      ],
+      "icon": "globe",
+      "route": "/kebhana.외환-글로벌뱅킹",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.58011",
+      "label": "글로벌뱅킹안내",
+      "synonyms": [],
+      "category": "외환",
+      "path": [
+        "외환",
+        "글로벌뱅킹"
+      ],
+      "icon": "globe",
+      "route": "/kebhana.58011",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.외환-송금클럽",
+      "label": "송금클럽",
+      "synonyms": [],
+      "category": "외환",
+      "path": [
+        "외환"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.외환-송금클럽",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.24101",
+      "label": "송금클럽 홈",
+      "synonyms": [],
+      "category": "외환",
+      "path": [
+        "외환",
+        "송금클럽"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.24101",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.24102",
+      "label": "송금클럽안내",
+      "synonyms": [],
+      "category": "외환",
+      "path": [
+        "외환",
+        "송금클럽"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.24102",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.24103",
+      "label": "송금클럽가입",
+      "synonyms": [],
+      "category": "외환",
+      "path": [
+        "외환",
+        "송금클럽"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.24103",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.24104",
+      "label": "My송금클럽",
+      "synonyms": [],
+      "category": "외환",
+      "path": [
+        "외환",
+        "송금클럽"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.24104",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.24106",
+      "label": "새클럽만들기",
+      "synonyms": [],
+      "category": "외환",
+      "path": [
+        "외환",
+        "송금클럽"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.24106",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.98766",
+      "label": "금융상품",
+      "synonyms": [],
+      "category": "금융상품",
+      "icon": "doc",
+      "route": "/kebhana.98766",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.금융상품-추천상품",
+      "label": "추천상품",
+      "synonyms": [],
+      "category": "금융상품",
+      "path": [
+        "금융상품"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.금융상품-추천상품",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.금융상품-예금",
+      "label": "예금",
+      "synonyms": [],
+      "category": "금융상품",
+      "path": [
+        "금융상품"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.금융상품-예금",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0805",
+      "label": "상품&가입",
+      "synonyms": [],
+      "category": "금융상품",
+      "path": [
+        "금융상품",
+        "예금"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.0805",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.58030",
+      "label": "예금조회/추가입금",
+      "synonyms": [],
+      "category": "금융상품",
+      "path": [
+        "금융상품",
+        "예금"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.58030",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.58047",
+      "label": "계좌해지",
+      "synonyms": [],
+      "category": "금융상품",
+      "path": [
+        "금융상품",
+        "예금"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.58047",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.금융상품-대출",
+      "label": "대출",
+      "synonyms": [],
+      "category": "금융상품",
+      "path": [
+        "금융상품"
+      ],
+      "icon": "bank",
+      "route": "/kebhana.금융상품-대출",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.58055",
+      "label": "이자납입",
+      "synonyms": [],
+      "category": "금융상품",
+      "path": [
+        "금융상품",
+        "대출"
+      ],
+      "icon": "bank",
+      "route": "/kebhana.58055",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.58056",
+      "label": "대출상환(원금)",
+      "synonyms": [],
+      "category": "금융상품",
+      "path": [
+        "금융상품",
+        "대출"
+      ],
+      "icon": "bank",
+      "route": "/kebhana.58056",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.0802",
+      "label": "예금담보대출",
+      "synonyms": [],
+      "category": "금융상품",
+      "path": [
+        "금융상품",
+        "대출"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.0802",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.금융상품-펀드",
+      "label": "펀드",
+      "synonyms": [],
+      "category": "금융상품",
+      "path": [
+        "금융상품"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.금융상품-펀드",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.62639",
+      "label": "펀드메인",
+      "synonyms": [],
+      "category": "금융상품",
+      "path": [
+        "금융상품",
+        "펀드"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.62639",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.102581",
+      "label": "내펀드수익률조회",
+      "synonyms": [],
+      "category": "금융상품",
+      "path": [
+        "금융상품",
+        "펀드"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.102581",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.18501",
+      "label": "펀드조회/추가입금",
+      "synonyms": [],
+      "category": "금융상품",
+      "path": [
+        "금융상품",
+        "펀드"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.18501",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.18401",
+      "label": "펀드환매",
+      "synonyms": [],
+      "category": "금융상품",
+      "path": [
+        "금융상품",
+        "펀드"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.18401",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.금융상품-신탁",
+      "label": "신탁",
+      "synonyms": [],
+      "category": "금융상품",
+      "path": [
+        "금융상품"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.금융상품-신탁",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.58051",
+      "label": "특정금전신탁(MMT/CMT)",
+      "synonyms": [],
+      "category": "금융상품",
+      "path": [
+        "금융상품",
+        "신탁"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.58051",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.102620",
+      "label": "연금저축신탁 해지/해지예상조회",
+      "synonyms": [],
+      "category": "금융상품",
+      "path": [
+        "금융상품",
+        "신탁"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.102620",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.금융상품-퇴직연금-IRP",
+      "label": "퇴직연금/IRP",
+      "synonyms": [],
+      "category": "금융상품",
+      "path": [
+        "금융상품"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.금융상품-퇴직연금-IRP",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.99006",
+      "label": "연금메인",
+      "synonyms": [],
+      "category": "금융상품",
+      "path": [
+        "금융상품",
+        "퇴직연금/IRP"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.99006",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.99017",
+      "label": "나의퇴직연금",
+      "synonyms": [],
+      "category": "금융상품",
+      "path": [
+        "금융상품",
+        "퇴직연금/IRP"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.99017",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.101741",
+      "label": "개인형IRP신규",
+      "synonyms": [],
+      "category": "금융상품",
+      "path": [
+        "금융상품",
+        "퇴직연금/IRP"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.101741",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.99019",
+      "label": "추가입금/조회",
+      "synonyms": [],
+      "category": "금융상품",
+      "path": [
+        "금융상품",
+        "퇴직연금/IRP"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.99019",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.99018",
+      "label": "통지서비스",
+      "synonyms": [],
+      "category": "금융상품",
+      "path": [
+        "금융상품",
+        "퇴직연금/IRP"
+      ],
+      "icon": "bell",
+      "route": "/kebhana.99018",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.금융상품-ISA",
+      "label": "ISA",
+      "synonyms": [],
+      "category": "금융상품",
+      "path": [
+        "금융상품"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.금융상품-ISA",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.2201",
+      "label": "ISA소개/가입",
+      "synonyms": [],
+      "category": "금융상품",
+      "path": [
+        "금융상품",
+        "ISA"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.2201",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62646",
+      "label": "ISA조회/변경",
+      "synonyms": [],
+      "category": "금융상품",
+      "path": [
+        "금융상품",
+        "ISA"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.62646",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.금융상품-보험",
+      "label": "보험",
+      "synonyms": [],
+      "category": "금융상품",
+      "path": [
+        "금융상품"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.금융상품-보험",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.98924",
+      "label": "보험메인",
+      "synonyms": [],
+      "category": "금융상품",
+      "path": [
+        "금융상품",
+        "보험"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.98924",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.58061",
+      "label": "보험가입내역",
+      "synonyms": [],
+      "category": "금융상품",
+      "path": [
+        "금융상품",
+        "보험"
+      ],
+      "icon": "list",
+      "route": "/kebhana.58061",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.58062",
+      "label": "계약상세조회",
+      "synonyms": [],
+      "category": "금융상품",
+      "path": [
+        "금융상품",
+        "보험"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.58062",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.58065",
+      "label": "보험료 납입내역조회",
+      "synonyms": [],
+      "category": "금융상품",
+      "path": [
+        "금융상품",
+        "보험"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.58065",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.62684",
+      "label": "영업점 추천상품 신규",
+      "synonyms": [],
+      "category": "예금",
+      "path": [
+        "예금"
+      ],
+      "icon": "person",
+      "route": "/kebhana.62684",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.예금-추가납부",
+      "label": "추가납부",
+      "synonyms": [],
+      "category": "예금",
+      "path": [
+        "예금"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.예금-추가납부",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.58031",
+      "label": "적금/신탁/일임형ISA 예약납부",
+      "synonyms": [],
+      "category": "예금",
+      "path": [
+        "예금",
+        "추가납부"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.58031",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.예금-통장전환",
+      "label": "통장전환",
+      "synonyms": [],
+      "category": "예금",
+      "path": [
+        "예금"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.예금-통장전환",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.58040",
+      "label": "하나 플러스 통장전환",
+      "synonyms": [],
+      "category": "예금",
+      "path": [
+        "예금",
+        "통장전환"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.58040",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.58041",
+      "label": "입출금통장타상품전환",
+      "synonyms": [],
+      "category": "예금",
+      "path": [
+        "예금",
+        "통장전환"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.58041",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.58039",
+      "label": "하나모임통장",
+      "synonyms": [],
+      "category": "예금",
+      "path": [
+        "예금"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.58039",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.예금-자동갱신-재예치",
+      "label": "자동갱신(재예치)",
+      "synonyms": [],
+      "category": "예금",
+      "path": [
+        "예금"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.예금-자동갱신-재예치",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.99110",
+      "label": "자동갱신(재예치) 신청",
+      "synonyms": [],
+      "category": "예금",
+      "path": [
+        "예금",
+        "자동갱신(재예치)"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.99110",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.99111",
+      "label": "자동갱신(재예치) 조회/해지",
+      "synonyms": [],
+      "category": "예금",
+      "path": [
+        "예금",
+        "자동갱신(재예치)"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.99111",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102585",
+      "label": "만기해지방법변경",
+      "synonyms": [],
+      "category": "예금",
+      "path": [
+        "예금"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.102585",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.21101",
+      "label": "대출계좌조회",
+      "synonyms": [],
+      "category": "대출",
+      "path": [
+        "대출"
+      ],
+      "icon": "bank",
+      "route": "/kebhana.21101",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.21102",
+      "label": "대출거래내역조회(이자납입내역서)",
+      "synonyms": [],
+      "category": "대출",
+      "path": [
+        "대출"
+      ],
+      "icon": "bank",
+      "route": "/kebhana.21102",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.대출-대출조회",
+      "label": "대출조회",
+      "synonyms": [],
+      "category": "대출",
+      "path": [
+        "대출"
+      ],
+      "icon": "bank",
+      "route": "/kebhana.대출-대출조회",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.21103",
+      "label": "기일도래현황조회",
+      "synonyms": [],
+      "category": "대출",
+      "path": [
+        "대출",
+        "대출조회"
+      ],
+      "icon": "bank",
+      "route": "/kebhana.21103",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.21109",
+      "label": "분할상환계획표조회",
+      "synonyms": [],
+      "category": "대출",
+      "path": [
+        "대출",
+        "대출조회"
+      ],
+      "icon": "bank",
+      "route": "/kebhana.21109",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.21104",
+      "label": "할인어음내역조회",
+      "synonyms": [],
+      "category": "대출",
+      "path": [
+        "대출",
+        "대출조회"
+      ],
+      "icon": "list",
+      "route": "/kebhana.21104",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.21105",
+      "label": "할인어음만기도래내역조회",
+      "synonyms": [],
+      "category": "대출",
+      "path": [
+        "대출",
+        "대출조회"
+      ],
+      "icon": "list",
+      "route": "/kebhana.21105",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.21106",
+      "label": "지급보증내역조회",
+      "synonyms": [],
+      "category": "대출",
+      "path": [
+        "대출",
+        "대출조회"
+      ],
+      "icon": "list",
+      "route": "/kebhana.21106",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.21107",
+      "label": "해지대출조회",
+      "synonyms": [],
+      "category": "대출",
+      "path": [
+        "대출",
+        "대출조회"
+      ],
+      "icon": "bank",
+      "route": "/kebhana.21107",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.58054",
+      "label": "대출이율조회",
+      "synonyms": [],
+      "category": "대출",
+      "path": [
+        "대출"
+      ],
+      "icon": "bank",
+      "route": "/kebhana.58054",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.102802",
+      "label": "신용대출한도증액신청",
+      "synonyms": [],
+      "category": "대출",
+      "path": [
+        "대출"
+      ],
+      "icon": "bank",
+      "route": "/kebhana.102802",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.58057",
+      "label": "신용대출한도약정해지",
+      "synonyms": [],
+      "category": "대출",
+      "path": [
+        "대출"
+      ],
+      "icon": "bank",
+      "route": "/kebhana.58057",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.101732",
+      "label": "신용대출한도감액",
+      "synonyms": [],
+      "category": "대출",
+      "path": [
+        "대출"
+      ],
+      "icon": "bank",
+      "route": "/kebhana.101732",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.21401",
+      "label": "예금담보대출(고정방식)",
+      "synonyms": [],
+      "category": "대출",
+      "path": [
+        "대출",
+        "예금담보대출"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.21401",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.21402",
+      "label": "예금담보대출(자동증액방식)",
+      "synonyms": [],
+      "category": "대출",
+      "path": [
+        "대출",
+        "예금담보대출"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.21402",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.21405",
+      "label": "예금담보대출한도약정해지",
+      "synonyms": [],
+      "category": "대출",
+      "path": [
+        "대출",
+        "예금담보대출"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.21405",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.21407",
+      "label": "예금담보대출해지(상계)",
+      "synonyms": [],
+      "category": "대출",
+      "path": [
+        "대출",
+        "예금담보대출"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.21407",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.22000",
+      "label": "질권설정예정계좌등록",
+      "synonyms": [],
+      "category": "대출",
+      "path": [
+        "대출"
+      ],
+      "icon": "bank",
+      "route": "/kebhana.22000",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.대출-대출신청결과조회-약정",
+      "label": "대출신청결과조회/약정",
+      "synonyms": [],
+      "category": "대출",
+      "path": [
+        "대출"
+      ],
+      "icon": "bank",
+      "route": "/kebhana.대출-대출신청결과조회-약정",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.21903",
+      "label": "신용대출 약정/약정서조회",
+      "synonyms": [],
+      "category": "대출",
+      "path": [
+        "대출",
+        "대출신청결과조회/약정"
+      ],
+      "icon": "bank",
+      "route": "/kebhana.21903",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.102683",
+      "label": "예금담보대출 약정서조회",
+      "synonyms": [],
+      "category": "대출",
+      "path": [
+        "대출",
+        "대출신청결과조회/약정"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.102683",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.102598",
+      "label": "하나원큐비상금대출 약정/약정서조회",
+      "synonyms": [],
+      "category": "대출",
+      "path": [
+        "대출",
+        "대출신청결과조회/약정"
+      ],
+      "icon": "bank",
+      "route": "/kebhana.102598",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.62696",
+      "label": "사잇돌중금리대출 약정/약정서조회",
+      "synonyms": [],
+      "category": "대출",
+      "path": [
+        "대출",
+        "대출신청결과조회/약정"
+      ],
+      "icon": "bank",
+      "route": "/kebhana.62696",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.22002",
+      "label": "아낌e-보금자리론(서민형안심전환대출 포함) 약정/약정서조회",
+      "synonyms": [],
+      "category": "대출",
+      "path": [
+        "대출",
+        "대출신청결과조회/약정"
+      ],
+      "icon": "bank",
+      "route": "/kebhana.22002",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.62679",
+      "label": "하나금리고정형 적격대출 약정/약정서조회",
+      "synonyms": [],
+      "category": "대출",
+      "path": [
+        "대출",
+        "대출신청결과조회/약정"
+      ],
+      "icon": "bank",
+      "route": "/kebhana.62679",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.33525",
+      "label": "1Q오토론 약정/약정서조회",
+      "synonyms": [],
+      "category": "대출",
+      "path": [
+        "대출",
+        "대출신청결과조회/약정"
+      ],
+      "icon": "bank",
+      "route": "/kebhana.33525",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.102686",
+      "label": "EV오토론 약정/약정서조회",
+      "synonyms": [],
+      "category": "대출",
+      "path": [
+        "대출",
+        "대출신청결과조회/약정"
+      ],
+      "icon": "bank",
+      "route": "/kebhana.102686",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.99041",
+      "label": "1Q오토론(하나카드) 약정서조회",
+      "synonyms": [],
+      "category": "대출",
+      "path": [
+        "대출",
+        "대출신청결과조회/약정"
+      ],
+      "icon": "card",
+      "route": "/kebhana.99041",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.99123",
+      "label": "안심오토론 약정서조회",
+      "synonyms": [],
+      "category": "대출",
+      "path": [
+        "대출",
+        "대출신청결과조회/약정"
+      ],
+      "icon": "bank",
+      "route": "/kebhana.99123",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.21502",
+      "label": "원클릭모기지대출 약정서조회",
+      "synonyms": [],
+      "category": "대출",
+      "path": [
+        "대출",
+        "대출신청결과조회/약정"
+      ],
+      "icon": "bank",
+      "route": "/kebhana.21502",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.62656",
+      "label": "대출계약철회신청및조회",
+      "synonyms": [],
+      "category": "대출",
+      "path": [
+        "대출"
+      ],
+      "icon": "bank",
+      "route": "/kebhana.62656",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.62689",
+      "label": "부동산담보대출전자서명",
+      "synonyms": [],
+      "category": "대출",
+      "path": [
+        "대출"
+      ],
+      "icon": "bank",
+      "route": "/kebhana.62689",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.99001",
+      "label": "대출상각채권 채무면제결과조회",
+      "synonyms": [],
+      "category": "대출",
+      "path": [
+        "대출"
+      ],
+      "icon": "bank",
+      "route": "/kebhana.99001",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.99107",
+      "label": "금리인하요구권 신청",
+      "synonyms": [],
+      "category": "대출",
+      "path": [
+        "대출"
+      ],
+      "icon": "bank",
+      "route": "/kebhana.99107",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102857",
+      "label": "여신거래안심차단신청",
+      "synonyms": [],
+      "category": "대출",
+      "path": [
+        "대출"
+      ],
+      "icon": "bank",
+      "route": "/kebhana.102857",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102862",
+      "label": "주요통지서확인",
+      "synonyms": [],
+      "category": "대출",
+      "path": [
+        "대출"
+      ],
+      "icon": "bell",
+      "route": "/kebhana.102862",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.펀드-펀드상품-가입",
+      "label": "펀드상품&가입",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.펀드-펀드상품-가입",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102701",
+      "label": "펀드전문가검색",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "펀드상품&가입"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.102701",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.2603",
+      "label": "수익률/판매량 BEST",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "펀드상품&가입"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.2603",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.2604",
+      "label": "이달의 펀드",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "펀드상품&가입"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.2604",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.18202",
+      "label": "금주의 ELF",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "펀드상품&가입"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.18202",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102703",
+      "label": "인덱스 펀드",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "펀드상품&가입"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.102703",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102764",
+      "label": "해외뮤추얼펀드",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "펀드상품&가입"
+      ],
+      "icon": "globe",
+      "route": "/kebhana.102764",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.2605",
+      "label": "테마/이슈펀드",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "펀드상품&가입"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.2605",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102702",
+      "label": "NOW투자",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "펀드상품&가입"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.102702",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102796",
+      "label": "펀드기초가이드",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "펀드상품&가입"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.102796",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.102582",
+      "label": "펀드실질투자수익률보고서(전월말)",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "내펀드수익률조회"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.102582",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.18502",
+      "label": "추가입금취소",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "펀드조회/추가입금"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.18502",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.18503",
+      "label": "예약추가입금",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "펀드조회/추가입금"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.18503",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.58028",
+      "label": "예약입금내역 조회/취소",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "펀드조회/추가입금"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.58028",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.18504",
+      "label": "자동추가입금",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "펀드조회/추가입금"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.18504",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57829",
+      "label": "외화펀드계좌조회/추가입금",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "펀드조회/추가입금"
+      ],
+      "icon": "globe",
+      "route": "/kebhana.57829",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57826",
+      "label": "펀드거래내역조회",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "펀드조회/추가입금"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.57826",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.18205",
+      "label": "신규조회 및 취소(철회)",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "펀드조회/추가입금"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.18205",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.58027",
+      "label": "펀드 적립기간 변경",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.58027",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.18705",
+      "label": "(구)연금펀드 종목전환",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.18705",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.18402",
+      "label": "환매신청취소",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "펀드환매"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.18402",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.18403",
+      "label": "환매내역조회",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "펀드환매"
+      ],
+      "icon": "list",
+      "route": "/kebhana.18403",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57817",
+      "label": "외화펀드조회/환매",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "펀드환매"
+      ],
+      "icon": "globe",
+      "route": "/kebhana.57817",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62625",
+      "label": "펀드연결계좌변경",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "펀드환매"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.62625",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.99103",
+      "label": "0원 계좌 해지",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "펀드환매"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.99103",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.펀드-펀드서비스",
+      "label": "펀드서비스",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.펀드-펀드서비스",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.18601",
+      "label": "펀드실질투자보고(잔고알림)서비스 신청/해제",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "펀드서비스"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.18601",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.18604",
+      "label": "목표수익률도달 자동환매서비스 신청/변경/해제",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "펀드서비스"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.18604",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.18602",
+      "label": "운용/자산보관관리보고서 통보 신청",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "펀드서비스"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.18602",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.18603",
+      "label": "연금저축펀드 수익률보고서 신청/변경",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "펀드서비스"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.18603",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102586",
+      "label": "벤처기업투자신탁(코스닥벤처펀드) 출자(투자)확인서 발급",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "펀드서비스"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.102586",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.펀드-판매사이동",
+      "label": "판매사이동",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.펀드-판매사이동",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.18701",
+      "label": "계좌정보확인서발급",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "판매사이동"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.18701",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.18702",
+      "label": "계좌정보확인서발급취소",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "판매사이동"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.18702",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.18703",
+      "label": "이동신청",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "판매사이동"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.18703",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.18704",
+      "label": "계좌정보확인서 발급내역조회",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "판매사이동"
+      ],
+      "icon": "list",
+      "route": "/kebhana.18704",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.펀드-연금저축펀드-관리",
+      "label": "연금저축펀드 관리",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.펀드-연금저축펀드-관리",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.62559",
+      "label": "연금저축계좌신규",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "연금저축펀드 관리"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.62559",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62564",
+      "label": "하위펀드신규",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "연금저축펀드 관리"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.62564",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62565",
+      "label": "보유펀드조회",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "연금저축펀드 관리"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.62565",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.62566",
+      "label": "분배비율등록/수정",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "연금저축펀드 관리"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.62566",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62567",
+      "label": "상품매매/종목전환",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "연금저축펀드 관리"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.62567",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.99104",
+      "label": "0원 하위펀드 해지",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "연금저축펀드 관리"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.99104",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102677",
+      "label": "과세제외신청 결과조회",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "연금저축펀드 관리"
+      ],
+      "icon": "list",
+      "route": "/kebhana.102677",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.펀드-연금저축펀드-환매예상조회-환매",
+      "label": "연금저축펀드 환매예상조회/환매",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.펀드-연금저축펀드-환매예상조회-환매",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102628",
+      "label": "환매예상조회/환매",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "연금저축펀드 환매예상조회/환매"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.102628",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102629",
+      "label": "환매결과조회",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "연금저축펀드 환매예상조회/환매"
+      ],
+      "icon": "list",
+      "route": "/kebhana.102629",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.펀드-연금저축펀드-개시신청-조회",
+      "label": "연금저축펀드 개시신청/조회",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.펀드-연금저축펀드-개시신청-조회",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.102630",
+      "label": "연금개시 시뮬레이션/개시신청",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "연금저축펀드 개시신청/조회"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.102630",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102631",
+      "label": "개시신청 결과조회/취소",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "연금저축펀드 개시신청/조회"
+      ],
+      "icon": "list",
+      "route": "/kebhana.102631",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.펀드-연금계좌이체-펀드",
+      "label": "연금계좌이체(펀드)",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.펀드-연금계좌이체-펀드",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102339",
+      "label": "연금저축펀드로 연금가져오기",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "연금계좌이체(펀드)"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.102339",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102340",
+      "label": "가져온 연금조회/취소",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "연금계좌이체(펀드)"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.102340",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.펀드-펀드-투자정보",
+      "label": "펀드 투자정보",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.펀드-펀드-투자정보",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.102674",
+      "label": "주요지수",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "펀드 투자정보"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.102674",
+      "riskLevel": "low",
+      "cardable": false
+    },
+    {
+      "id": "kebhana.102675",
+      "label": "펀드뉴스",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "펀드 투자정보"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.102675",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.102676",
+      "label": "주간펀드시황",
+      "synonyms": [],
+      "category": "펀드",
+      "path": [
+        "펀드",
+        "펀드 투자정보"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.102676",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.17000",
+      "label": "신탁/ISA",
+      "synonyms": [],
+      "category": "신탁/ISA",
+      "icon": "savings",
+      "route": "/kebhana.17000",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.58052",
+      "label": "거래내역",
+      "synonyms": [],
+      "category": "신탁/ISA",
+      "path": [
+        "신탁/ISA",
+        "특정금전신탁(MMT/CMT)"
+      ],
+      "icon": "list",
+      "route": "/kebhana.58052",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.62406",
+      "label": "운용보고서",
+      "synonyms": [],
+      "category": "신탁/ISA",
+      "path": [
+        "신탁/ISA",
+        "특정금전신탁(MMT/CMT)"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.62406",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.99114",
+      "label": "가족배려신탁 유훈서비스",
+      "synonyms": [],
+      "category": "신탁/ISA",
+      "path": [
+        "신탁/ISA",
+        "특정금전신탁(MMT/CMT)"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.99114",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.102621",
+      "label": "해지결과조회/취소",
+      "synonyms": [],
+      "category": "신탁/ISA",
+      "path": [
+        "신탁/ISA",
+        "연금저축신탁 해지/해지예상조회"
+      ],
+      "icon": "list",
+      "route": "/kebhana.102621",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.신탁-ISA-연금저축신탁-연금개시신청-조회",
+      "label": "연금저축신탁 연금개시신청/조회",
+      "synonyms": [],
+      "category": "신탁/ISA",
+      "path": [
+        "신탁/ISA"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.신탁-ISA-연금저축신탁-연금개시신청-조회",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.102623",
+      "label": "신청결과조회/취소",
+      "synonyms": [],
+      "category": "신탁/ISA",
+      "path": [
+        "신탁/ISA",
+        "연금저축신탁 연금개시신청/조회"
+      ],
+      "icon": "list",
+      "route": "/kebhana.102623",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102624",
+      "label": "(신)개인연금신탁 수령계좌등록",
+      "synonyms": [],
+      "category": "신탁/ISA",
+      "path": [
+        "신탁/ISA",
+        "연금저축신탁 연금개시신청/조회"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.102624",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102625",
+      "label": "(신)개인연금신탁 조건변경",
+      "synonyms": [],
+      "category": "신탁/ISA",
+      "path": [
+        "신탁/ISA",
+        "연금저축신탁 연금개시신청/조회"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.102625",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.신탁-ISA-ISA-소개-가입",
+      "label": "ISA 소개/가입",
+      "synonyms": [],
+      "category": "신탁/ISA",
+      "path": [
+        "신탁/ISA"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.신탁-ISA-ISA-소개-가입",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62640",
+      "label": "일임형 ISA 신규가입신청",
+      "synonyms": [],
+      "category": "신탁/ISA",
+      "path": [
+        "신탁/ISA",
+        "ISA 소개/가입"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.62640",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62641",
+      "label": "일임형 ISA 신규가입신청조회",
+      "synonyms": [],
+      "category": "신탁/ISA",
+      "path": [
+        "신탁/ISA",
+        "ISA 소개/가입"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.62641",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.62653",
+      "label": "계좌이전(타기관 ISA 가져오기)",
+      "synonyms": [],
+      "category": "신탁/ISA",
+      "path": [
+        "신탁/ISA",
+        "ISA 소개/가입"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.62653",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.신탁-ISA-ISA-입금-지급-해지",
+      "label": "ISA 입금/지급/해지",
+      "synonyms": [],
+      "category": "신탁/ISA",
+      "path": [
+        "신탁/ISA"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.신탁-ISA-ISA-입금-지급-해지",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62644",
+      "label": "신탁형ISA추가입금",
+      "synonyms": [],
+      "category": "신탁/ISA",
+      "path": [
+        "신탁/ISA",
+        "ISA 입금/지급/해지"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.62644",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.98782",
+      "label": "일임형ISA추가입금",
+      "synonyms": [],
+      "category": "신탁/ISA",
+      "path": [
+        "신탁/ISA",
+        "ISA 입금/지급/해지"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.98782",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.99074",
+      "label": "일임형ISA지급/조회",
+      "synonyms": [],
+      "category": "신탁/ISA",
+      "path": [
+        "신탁/ISA",
+        "ISA 입금/지급/해지"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.99074",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.62643",
+      "label": "일임형ISA해지(취소)/조회",
+      "synonyms": [],
+      "category": "신탁/ISA",
+      "path": [
+        "신탁/ISA",
+        "ISA 입금/지급/해지"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.62643",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.신탁-ISA-나의-ISA-조회-변경",
+      "label": "나의 ISA 조회/변경",
+      "synonyms": [],
+      "category": "신탁/ISA",
+      "path": [
+        "신탁/ISA"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.신탁-ISA-나의-ISA-조회-변경",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62690",
+      "label": "일임형ISA 투자자성향분석/ 조회",
+      "synonyms": [],
+      "category": "신탁/ISA",
+      "path": [
+        "신탁/ISA",
+        "나의 ISA 조회/변경"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.62690",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.62691",
+      "label": "일임형ISA 모델포트폴리오 변경",
+      "synonyms": [],
+      "category": "신탁/ISA",
+      "path": [
+        "신탁/ISA",
+        "나의 ISA 조회/변경"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.62691",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62692",
+      "label": "일임형ISA 투자정보통지 변경",
+      "synonyms": [],
+      "category": "신탁/ISA",
+      "path": [
+        "신탁/ISA",
+        "나의 ISA 조회/변경"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.62692",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62645",
+      "label": "신탁형ISA계속성운용지시서",
+      "synonyms": [],
+      "category": "신탁/ISA",
+      "path": [
+        "신탁/ISA",
+        "나의 ISA 조회/변경"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.62645",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62648",
+      "label": "신탁형ISA운용지시내역조회",
+      "synonyms": [],
+      "category": "신탁/ISA",
+      "path": [
+        "신탁/ISA",
+        "나의 ISA 조회/변경"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.62648",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.102601",
+      "label": "신탁형ISA연결계좌 관리",
+      "synonyms": [],
+      "category": "신탁/ISA",
+      "path": [
+        "신탁/ISA",
+        "나의 ISA 조회/변경"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.102601",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.2301",
+      "label": "ISA공시ㆍ공지",
+      "synonyms": [],
+      "category": "신탁/ISA",
+      "path": [
+        "신탁/ISA"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.2301",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.2801",
+      "label": "스튜어드십 코드",
+      "synonyms": [],
+      "category": "신탁/ISA",
+      "path": [
+        "신탁/ISA"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.2801",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57863",
+      "label": "마이하나",
+      "synonyms": [],
+      "category": "마이하나",
+      "icon": "doc",
+      "route": "/kebhana.57863",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.62468",
+      "label": "나의금융현황",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.62468",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.98988",
+      "label": "상품바구니",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.98988",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.99069",
+      "label": "쿠폰함",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.99069",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.마이하나-개인정보",
+      "label": "개인정보",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.마이하나-개인정보",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57870",
+      "label": "개인정보 변경",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "개인정보"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.57870",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.마이하나-증명서발급",
+      "label": "증명서발급",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.마이하나-증명서발급",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57882",
+      "label": "원천징수영수증조회",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "증명서발급"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.57882",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.102671",
+      "label": "주택청약종합저축(청년 주택드림 청약통장 포함) 소득공제대상 등록/해제",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "증명서발급"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.102671",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57883",
+      "label": "소득·세액공제확인서(예금/주택청약저축/신탁/퇴직연금/펀드/대출)",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "증명서발급"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.57883",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.26902",
+      "label": "소득·세액공제확인서(직불/기명식선불/현금IC카드)",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "증명서발급"
+      ],
+      "icon": "card",
+      "route": "/kebhana.26902",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62533",
+      "label": "부채증명원발급신청",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "증명서발급"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.62533",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62534",
+      "label": "부채증명원신청결과확인및출력",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "증명서발급"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.62534",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62535",
+      "label": "금융거래확인서발급신청",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "증명서발급"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.62535",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62536",
+      "label": "금융거래확인서신청결과확인및출력",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "증명서발급"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.62536",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.99003",
+      "label": "잔액증명서 발급",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "증명서발급"
+      ],
+      "icon": "wallet",
+      "route": "/kebhana.99003",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.99004",
+      "label": "잔액증명서 발급 내역조회 및 출력",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "증명서발급"
+      ],
+      "icon": "wallet",
+      "route": "/kebhana.99004",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.99112",
+      "label": "금융거래종합보고서",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "증명서발급"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.99112",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102712",
+      "label": "거래내역서발급신청",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "증명서발급"
+      ],
+      "icon": "list",
+      "route": "/kebhana.102712",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102715",
+      "label": "거래내역서신청결과확인및출력",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "증명서발급"
+      ],
+      "icon": "list",
+      "route": "/kebhana.102715",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.마이하나-분실-사고-신고",
+      "label": "분실/사고 신고",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나"
+      ],
+      "icon": "bell",
+      "route": "/kebhana.마이하나-분실-사고-신고",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0501",
+      "label": "ARS 사고신고",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "분실/사고 신고"
+      ],
+      "icon": "bell",
+      "route": "/kebhana.0501",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0502",
+      "label": "인터넷분실신고",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "분실/사고 신고"
+      ],
+      "icon": "bell",
+      "route": "/kebhana.0502",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.마이하나-분실-사고-신고-어음-수표사고신고-조회",
+      "label": "어음/수표사고신고 조회",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "분실/사고 신고"
+      ],
+      "icon": "bell",
+      "route": "/kebhana.마이하나-분실-사고-신고-어음-수표사고신고-조회",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57899",
+      "label": "분실신고내역조회",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "분실/사고 신고"
+      ],
+      "icon": "list",
+      "route": "/kebhana.57899",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57900",
+      "label": "자기앞수표",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "분실/사고 신고"
+      ],
+      "icon": "bell",
+      "route": "/kebhana.57900",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57901",
+      "label": "자물쇠/OTP카드",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "분실/사고 신고"
+      ],
+      "icon": "card",
+      "route": "/kebhana.57901",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57902",
+      "label": "전자화폐",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "분실/사고 신고"
+      ],
+      "icon": "bell",
+      "route": "/kebhana.57902",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57903",
+      "label": "통장/인감",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "분실/사고 신고"
+      ],
+      "icon": "bell",
+      "route": "/kebhana.57903",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57904",
+      "label": "현금IC카드/직불카드",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "분실/사고 신고"
+      ],
+      "icon": "card",
+      "route": "/kebhana.57904",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.마이하나-우대서비스",
+      "label": "우대서비스",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.마이하나-우대서비스",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57878",
+      "label": "손님우대서비스 및 주거래",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "우대서비스"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.57878",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57879",
+      "label": "수수료 우대이력",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "우대서비스"
+      ],
+      "icon": "list",
+      "route": "/kebhana.57879",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.마이하나-자산관리",
+      "label": "자산관리",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.마이하나-자산관리",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57880",
+      "label": "My PFM",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "자산관리"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.57880",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57881",
+      "label": "금융정보 알림",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "자산관리"
+      ],
+      "icon": "bell",
+      "route": "/kebhana.57881",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.마이하나-뱅킹관리",
+      "label": "뱅킹관리",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.마이하나-뱅킹관리",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.26401",
+      "label": "인터넷뱅킹 가입정보",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "뱅킹관리"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.26401",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.26404",
+      "label": "비밀번호 등록/변경",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "뱅킹관리"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.26404",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.26409",
+      "label": "스마트폰뱅킹가입/해지신청",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "뱅킹관리"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.26409",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.26405",
+      "label": "인터넷뱅킹해지",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "뱅킹관리"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.26405",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.마이하나-뱅킹관리-계좌정보관리",
+      "label": "계좌정보관리",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "뱅킹관리"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.마이하나-뱅킹관리-계좌정보관리",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.26402",
+      "label": "출금계좌 등록",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "뱅킹관리",
+        "계좌정보관리"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.26402",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57855",
+      "label": "출금계좌 해지",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "뱅킹관리",
+        "계좌정보관리"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.57855",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57856",
+      "label": "빠른조회 관리",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "뱅킹관리",
+        "계좌정보관리"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.57856",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57857",
+      "label": "전자금융금지계좌 등록",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "뱅킹관리",
+        "계좌정보관리"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.57857",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57909",
+      "label": "입금계좌지정서비스",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "뱅킹관리",
+        "계좌정보관리"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.57909",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57908",
+      "label": "사고예방지정금액변경",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "뱅킹관리",
+        "계좌정보관리"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.57908",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.51103",
+      "label": "지연이체서비스",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "뱅킹관리",
+        "계좌정보관리"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.51103",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57858",
+      "label": "계좌숨김 해지",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "뱅킹관리",
+        "계좌정보관리"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.57858",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57859",
+      "label": "계좌별칭 관리",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "뱅킹관리",
+        "계좌정보관리"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.57859",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57860",
+      "label": "개인전용계좌지정/해제",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "뱅킹관리",
+        "계좌정보관리"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.57860",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.99095",
+      "label": "평생계좌번호지정서비스",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "뱅킹관리",
+        "계좌정보관리"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.99095",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.마이하나-뱅킹관리-이체정보관리",
+      "label": "이체정보관리",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "뱅킹관리"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.마이하나-뱅킹관리-이체정보관리",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.26406",
+      "label": "부가서비스이용신청/해지",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "뱅킹관리",
+        "이체정보관리"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.26406",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57864",
+      "label": "이체거래 일시보류",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "뱅킹관리",
+        "이체정보관리"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.57864",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57865",
+      "label": "장기미사용이체제한거래",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "뱅킹관리",
+        "이체정보관리"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.57865",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57866",
+      "label": "이체한도변경",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "뱅킹관리",
+        "이체정보관리"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.57866",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57867",
+      "label": "BIGPOT스윙서비스 등록/변경/해지",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "뱅킹관리",
+        "이체정보관리"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.57867",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.26701",
+      "label": "문자알리미서비스",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "뱅킹관리",
+        "통지서비스"
+      ],
+      "icon": "bell",
+      "route": "/kebhana.26701",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.26702",
+      "label": "e-mail알리미서비스",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "뱅킹관리",
+        "통지서비스"
+      ],
+      "icon": "bell",
+      "route": "/kebhana.26702",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57868",
+      "label": "예금.적금 금리변경통지 서비스",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "뱅킹관리",
+        "통지서비스"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.57868",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57869",
+      "label": "대출정보 통지서비스",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "뱅킹관리",
+        "통지서비스"
+      ],
+      "icon": "bank",
+      "route": "/kebhana.57869",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.99106",
+      "label": "내 통장 혜택 알리미 서비스",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "뱅킹관리",
+        "통지서비스"
+      ],
+      "icon": "bell",
+      "route": "/kebhana.99106",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.마이하나-개인신용정보",
+      "label": "개인신용정보",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.마이하나-개인신용정보",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57885",
+      "label": "마케팅 목적 이용 제공",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "개인신용정보"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.57885",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57886",
+      "label": "신용정보 활용동의 철회",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나",
+        "개인신용정보"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.57886",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57875",
+      "label": "본인정보이용·제공조회",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.57875",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.62591",
+      "label": "그룹사간 고객정보제공내역조회",
+      "synonyms": [],
+      "category": "마이하나",
+      "path": [
+        "마이하나"
+      ],
+      "icon": "list",
+      "route": "/kebhana.62591",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.58063",
+      "label": "계약대출 및 해약환급금 조회",
+      "synonyms": [],
+      "category": "보험",
+      "path": [
+        "보험"
+      ],
+      "icon": "bank",
+      "route": "/kebhana.58063",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.58066",
+      "label": "보험변경이력조회",
+      "synonyms": [],
+      "category": "보험",
+      "path": [
+        "보험"
+      ],
+      "icon": "list",
+      "route": "/kebhana.58066",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.19000",
+      "label": "카드",
+      "synonyms": [],
+      "category": "카드",
+      "icon": "card",
+      "route": "/kebhana.19000",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.98923",
+      "label": "카드메인",
+      "synonyms": [],
+      "category": "카드",
+      "path": [
+        "카드"
+      ],
+      "icon": "card",
+      "route": "/kebhana.98923",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.62440",
+      "label": "MY카드",
+      "synonyms": [],
+      "category": "카드",
+      "path": [
+        "카드"
+      ],
+      "icon": "card",
+      "route": "/kebhana.62440",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57976",
+      "label": "이용대금명세서",
+      "synonyms": [],
+      "category": "카드",
+      "path": [
+        "카드"
+      ],
+      "icon": "list",
+      "route": "/kebhana.57976",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57977",
+      "label": "결제예정금액",
+      "synonyms": [],
+      "category": "카드",
+      "path": [
+        "카드"
+      ],
+      "icon": "card",
+      "route": "/kebhana.57977",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.카드-이용-승인-내역",
+      "label": "이용(승인)내역",
+      "synonyms": [],
+      "category": "카드",
+      "path": [
+        "카드"
+      ],
+      "icon": "list",
+      "route": "/kebhana.카드-이용-승인-내역",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57987",
+      "label": "교통카드/하이패스 이용내역",
+      "synonyms": [],
+      "category": "카드",
+      "path": [
+        "카드",
+        "이용(승인)내역"
+      ],
+      "icon": "card",
+      "route": "/kebhana.57987",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.00100000",
+      "label": "연체내역",
+      "synonyms": [],
+      "category": "카드",
+      "path": [
+        "카드"
+      ],
+      "icon": "list",
+      "route": "/kebhana.00100000",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.카드-포인트-마일리지",
+      "label": "포인트/마일리지",
+      "synonyms": [],
+      "category": "카드",
+      "path": [
+        "카드"
+      ],
+      "icon": "card",
+      "route": "/kebhana.카드-포인트-마일리지",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57988",
+      "label": "포인트/마일리지조회",
+      "synonyms": [],
+      "category": "카드",
+      "path": [
+        "카드",
+        "포인트/마일리지"
+      ],
+      "icon": "card",
+      "route": "/kebhana.57988",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57994",
+      "label": "포인트사용",
+      "synonyms": [],
+      "category": "카드",
+      "path": [
+        "카드",
+        "포인트/마일리지"
+      ],
+      "icon": "card",
+      "route": "/kebhana.57994",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57989",
+      "label": "포인트사용내역",
+      "synonyms": [],
+      "category": "카드",
+      "path": [
+        "카드",
+        "포인트/마일리지"
+      ],
+      "icon": "list",
+      "route": "/kebhana.57989",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.카드-이용한도",
+      "label": "이용한도",
+      "synonyms": [],
+      "category": "카드",
+      "path": [
+        "카드"
+      ],
+      "icon": "gauge",
+      "route": "/kebhana.카드-이용한도",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.19701",
+      "label": "이용한도 안내",
+      "synonyms": [],
+      "category": "카드",
+      "path": [
+        "카드",
+        "이용한도"
+      ],
+      "icon": "gauge",
+      "route": "/kebhana.19701",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.57990",
+      "label": "이용한도 조회",
+      "synonyms": [],
+      "category": "카드",
+      "path": [
+        "카드",
+        "이용한도"
+      ],
+      "icon": "gauge",
+      "route": "/kebhana.57990",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.57991",
+      "label": "선결제",
+      "synonyms": [],
+      "category": "카드",
+      "path": [
+        "카드"
+      ],
+      "icon": "card",
+      "route": "/kebhana.57991",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.카드-단기카드대출-현금서비스",
+      "label": "단기카드대출(현금서비스)",
+      "synonyms": [],
+      "category": "카드",
+      "path": [
+        "카드"
+      ],
+      "icon": "bank",
+      "route": "/kebhana.카드-단기카드대출-현금서비스",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.05000000",
+      "label": "신청",
+      "synonyms": [],
+      "category": "카드",
+      "path": [
+        "카드",
+        "단기카드대출(현금서비스)"
+      ],
+      "icon": "bank",
+      "route": "/kebhana.05000000",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.19402",
+      "label": "이용내역조회",
+      "synonyms": [],
+      "category": "카드",
+      "path": [
+        "카드",
+        "단기카드대출(현금서비스)"
+      ],
+      "icon": "list",
+      "route": "/kebhana.19402",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.카드-장기카드대출-카드론",
+      "label": "장기카드대출(카드론)",
+      "synonyms": [],
+      "category": "카드",
+      "path": [
+        "카드"
+      ],
+      "icon": "bank",
+      "route": "/kebhana.카드-장기카드대출-카드론",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.10000000",
+      "label": "장기카드론 안내",
+      "synonyms": [],
+      "category": "카드",
+      "path": [
+        "카드",
+        "장기카드대출(카드론)"
+      ],
+      "icon": "card",
+      "route": "/kebhana.10000000",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.05100000",
+      "label": "가능금액 조회/신청",
+      "synonyms": [],
+      "category": "카드",
+      "path": [
+        "카드",
+        "장기카드대출(카드론)"
+      ],
+      "icon": "bank",
+      "route": "/kebhana.05100000",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.19504",
+      "label": "상환신청",
+      "synonyms": [],
+      "category": "카드",
+      "path": [
+        "카드",
+        "장기카드대출(카드론)"
+      ],
+      "icon": "bank",
+      "route": "/kebhana.19504",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.카드-현금카드결제",
+      "label": "현금카드결제",
+      "synonyms": [],
+      "category": "카드",
+      "path": [
+        "카드"
+      ],
+      "icon": "card",
+      "route": "/kebhana.카드-현금카드결제",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.19801",
+      "label": "등록 및 해제",
+      "synonyms": [],
+      "category": "카드",
+      "path": [
+        "카드",
+        "현금카드결제"
+      ],
+      "icon": "card",
+      "route": "/kebhana.19801",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.19802",
+      "label": "한도 변경",
+      "synonyms": [],
+      "category": "카드",
+      "path": [
+        "카드",
+        "현금카드결제"
+      ],
+      "icon": "gauge",
+      "route": "/kebhana.19802",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62619",
+      "label": "주택도시기금",
+      "synonyms": [],
+      "category": "주택도시기금",
+      "icon": "doc",
+      "route": "/kebhana.62619",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.98793",
+      "label": "주택도시기금 메인",
+      "synonyms": [],
+      "category": "주택도시기금",
+      "path": [
+        "주택도시기금"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.98793",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0101",
+      "label": "주택청약",
+      "synonyms": [],
+      "category": "주택도시기금",
+      "path": [
+        "주택도시기금"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.0101",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.0301",
+      "label": "국민주택채권",
+      "synonyms": [],
+      "category": "주택도시기금",
+      "path": [
+        "주택도시기금"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.0301",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0401",
+      "label": "국민주택채권매입",
+      "synonyms": [],
+      "category": "주택도시기금",
+      "path": [
+        "주택도시기금"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.0401",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0402",
+      "label": "국민주택채권 매입내역정정",
+      "synonyms": [],
+      "category": "주택도시기금",
+      "path": [
+        "주택도시기금"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.0402",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.0901",
+      "label": "국민주택채권 중도상환",
+      "synonyms": [],
+      "category": "주택도시기금",
+      "path": [
+        "주택도시기금"
+      ],
+      "icon": "bank",
+      "route": "/kebhana.0901",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.98798",
+      "label": "부담금조회",
+      "synonyms": [],
+      "category": "주택도시기금",
+      "path": [
+        "주택도시기금"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.98798",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.98994",
+      "label": "수납영수증조회",
+      "synonyms": [],
+      "category": "주택도시기금",
+      "path": [
+        "주택도시기금"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.98994",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0604",
+      "label": "채권매입내역조회",
+      "synonyms": [],
+      "category": "주택도시기금",
+      "path": [
+        "주택도시기금"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.0604",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.58068",
+      "label": "전자통장",
+      "synonyms": [],
+      "category": "전자통장",
+      "icon": "doc",
+      "route": "/kebhana.58068",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.58085",
+      "label": "전자통장이란?",
+      "synonyms": [],
+      "category": "전자통장",
+      "path": [
+        "전자통장"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.58085",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.58086",
+      "label": "등록계좌조회",
+      "synonyms": [],
+      "category": "전자통장",
+      "path": [
+        "전자통장"
+      ],
+      "icon": "wallet",
+      "route": "/kebhana.58086",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.58087",
+      "label": "잔액 및 거래내역조회",
+      "synonyms": [],
+      "category": "전자통장",
+      "path": [
+        "전자통장"
+      ],
+      "icon": "wallet",
+      "route": "/kebhana.58087",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.58088",
+      "label": "PIN변경",
+      "synonyms": [],
+      "category": "전자통장",
+      "path": [
+        "전자통장"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.58088",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62682",
+      "label": "비대면계좌개설",
+      "synonyms": [],
+      "category": "비대면계좌개설",
+      "icon": "doc",
+      "route": "/kebhana.62682",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.62683",
+      "label": "신청하기",
+      "synonyms": [],
+      "category": "비대면계좌개설",
+      "path": [
+        "비대면계좌개설"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.62683",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62685",
+      "label": "꼭!알아두세요",
+      "synonyms": [],
+      "category": "비대면계좌개설",
+      "path": [
+        "비대면계좌개설"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.62685",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.62686",
+      "label": "이용안내",
+      "synonyms": [],
+      "category": "비대면계좌개설",
+      "path": [
+        "비대면계좌개설"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.62686",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.31000",
+      "label": "인증센터",
+      "synonyms": [],
+      "category": "인증센터",
+      "icon": "lock",
+      "route": "/kebhana.31000",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62563",
+      "label": "인증센터메인",
+      "synonyms": [],
+      "category": "인증센터",
+      "path": [
+        "인증센터"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.62563",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.31100",
+      "label": "인증서 신규/재발급",
+      "synonyms": [],
+      "category": "인증센터",
+      "path": [
+        "인증센터"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.31100",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57842",
+      "label": "인증서 갱신",
+      "synonyms": [],
+      "category": "인증센터",
+      "path": [
+        "인증센터"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.57842",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.인증센터-타기관-타행인증서-등록-해제",
+      "label": "타기관/타행인증서 등록/해제",
+      "synonyms": [],
+      "category": "인증센터",
+      "path": [
+        "인증센터"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.인증센터-타기관-타행인증서-등록-해제",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.32101",
+      "label": "타기관/타행인증서 등록",
+      "synonyms": [],
+      "category": "인증센터",
+      "path": [
+        "인증센터",
+        "타기관/타행인증서 등록/해제"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.32101",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.32102",
+      "label": "타기관/타행인증서 등록 해제",
+      "synonyms": [],
+      "category": "인증센터",
+      "path": [
+        "인증센터",
+        "타기관/타행인증서 등록/해제"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.32102",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.인증센터-스마트폰인증서복사",
+      "label": "스마트폰인증서복사",
+      "synonyms": [],
+      "category": "인증센터",
+      "path": [
+        "인증센터"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.인증센터-스마트폰인증서복사",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.1001",
+      "label": "인증서 내보내기 (PC→스마트폰)",
+      "synonyms": [],
+      "category": "인증센터",
+      "path": [
+        "인증센터",
+        "스마트폰인증서복사"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.1001",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.1003",
+      "label": "인증서 내보내기(QR코드)",
+      "synonyms": [],
+      "category": "인증센터",
+      "path": [
+        "인증센터",
+        "스마트폰인증서복사"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.1003",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.1002",
+      "label": "인증서 가져오기 (스마트폰→PC)",
+      "synonyms": [],
+      "category": "인증센터",
+      "path": [
+        "인증센터",
+        "스마트폰인증서복사"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.1002",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.1004",
+      "label": "PC→전용App(앱프리)인증서 복사",
+      "synonyms": [],
+      "category": "인증센터",
+      "path": [
+        "인증센터",
+        "스마트폰인증서복사"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.1004",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.1005",
+      "label": "PC→스마트폰 브라우저 인증서 복사",
+      "synonyms": [],
+      "category": "인증센터",
+      "path": [
+        "인증센터",
+        "스마트폰인증서복사"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.1005",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.인증센터-인증서-복사-및-관리",
+      "label": "인증서 복사 및 관리",
+      "synonyms": [],
+      "category": "인증센터",
+      "path": [
+        "인증센터"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.인증센터-인증서-복사-및-관리",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.98922",
+      "label": "인증서 관리",
+      "synonyms": [],
+      "category": "인증센터",
+      "path": [
+        "인증센터",
+        "인증서 복사 및 관리"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.98922",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57841",
+      "label": "인증서 복사",
+      "synonyms": [],
+      "category": "인증센터",
+      "path": [
+        "인증센터",
+        "인증서 복사 및 관리"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.57841",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57851",
+      "label": "인증서 내보내기",
+      "synonyms": [],
+      "category": "인증센터",
+      "path": [
+        "인증센터",
+        "인증서 복사 및 관리"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.57851",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57850",
+      "label": "인증서 가져오기",
+      "synonyms": [],
+      "category": "인증센터",
+      "path": [
+        "인증센터",
+        "인증서 복사 및 관리"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.57850",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57849",
+      "label": "인증서 비밀번호변경",
+      "synonyms": [],
+      "category": "인증센터",
+      "path": [
+        "인증센터",
+        "인증서 복사 및 관리"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.57849",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57848",
+      "label": "인증서 삭제",
+      "synonyms": [],
+      "category": "인증센터",
+      "path": [
+        "인증센터",
+        "인증서 복사 및 관리"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.57848",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57847",
+      "label": "인증서 보기/검증",
+      "synonyms": [],
+      "category": "인증센터",
+      "path": [
+        "인증센터",
+        "인증서 복사 및 관리"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.57847",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.101753",
+      "label": "브라우저 인증서비스",
+      "synonyms": [],
+      "category": "인증센터",
+      "path": [
+        "인증센터"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.101753",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57843",
+      "label": "인증서 폐기",
+      "synonyms": [],
+      "category": "인증센터",
+      "path": [
+        "인증센터"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.57843",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57844",
+      "label": "인증서 정보조회",
+      "synonyms": [],
+      "category": "인증센터",
+      "path": [
+        "인증센터"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.57844",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.인증센터-인증서-효력정지-회복",
+      "label": "인증서 효력정지/회복",
+      "synonyms": [],
+      "category": "인증센터",
+      "path": [
+        "인증센터"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.인증센터-인증서-효력정지-회복",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57852",
+      "label": "인증서 효력정지",
+      "synonyms": [],
+      "category": "인증센터",
+      "path": [
+        "인증센터",
+        "인증서 효력정지/회복"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.57852",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57853",
+      "label": "인증서 효력회복",
+      "synonyms": [],
+      "category": "인증센터",
+      "path": [
+        "인증센터",
+        "인증서 효력정지/회복"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.57853",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.인증센터-발급-수수료",
+      "label": "발급 수수료",
+      "synonyms": [],
+      "category": "인증센터",
+      "path": [
+        "인증센터"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.인증센터-발급-수수료",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.31801",
+      "label": "발급 수수료 납부 확인",
+      "synonyms": [],
+      "category": "인증센터",
+      "path": [
+        "인증센터",
+        "발급 수수료"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.31801",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.31802",
+      "label": "발급 수수료 환불 신청",
+      "synonyms": [],
+      "category": "인증센터",
+      "path": [
+        "인증센터",
+        "발급 수수료"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.31802",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62655",
+      "label": "인증서 온라인 발급 사전동의",
+      "synonyms": [],
+      "category": "인증센터",
+      "path": [
+        "인증센터"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.62655",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.인증센터-뱅크사인",
+      "label": "뱅크사인",
+      "synonyms": [],
+      "category": "인증센터",
+      "path": [
+        "인증센터"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.인증센터-뱅크사인",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102700",
+      "label": "하나인증서",
+      "synonyms": [],
+      "category": "인증센터",
+      "path": [
+        "인증센터"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.102700",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57887",
+      "label": "보안센터",
+      "synonyms": [],
+      "category": "보안센터",
+      "icon": "lock",
+      "route": "/kebhana.57887",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62543",
+      "label": "보안센터메인",
+      "synonyms": [],
+      "category": "보안센터",
+      "path": [
+        "보안센터"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.62543",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.보안센터-전자금융-보안안내",
+      "label": "전자금융 보안안내",
+      "synonyms": [],
+      "category": "보안센터",
+      "path": [
+        "보안센터"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.보안센터-전자금융-보안안내",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.62495",
+      "label": "안전한 전자금융을 위한 방법",
+      "synonyms": [],
+      "category": "보안센터",
+      "path": [
+        "보안센터",
+        "전자금융 보안안내"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.62495",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57911",
+      "label": "전자금융거래이용자 10계명",
+      "synonyms": [],
+      "category": "보안센터",
+      "path": [
+        "보안센터",
+        "전자금융 보안안내"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.57911",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62496",
+      "label": "비밀번호 관리안내",
+      "synonyms": [],
+      "category": "보안센터",
+      "path": [
+        "보안센터",
+        "전자금융 보안안내"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.62496",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.62497",
+      "label": "인터넷 뱅킹 해킹 예방",
+      "synonyms": [],
+      "category": "보안센터",
+      "path": [
+        "보안센터",
+        "전자금융 보안안내"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.62497",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62549",
+      "label": "해킹방지 안내",
+      "synonyms": [],
+      "category": "보안센터",
+      "path": [
+        "보안센터",
+        "전자금융 보안안내"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.62549",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.62498",
+      "label": "보이스피싱 예방안내",
+      "synonyms": [],
+      "category": "보안센터",
+      "path": [
+        "보안센터",
+        "전자금융 보안안내"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.62498",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.62499",
+      "label": "사이버 범죄 피해예방 캠페인",
+      "synonyms": [],
+      "category": "보안센터",
+      "path": [
+        "보안센터",
+        "전자금융 보안안내"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.62499",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62550",
+      "label": "금융사고사례",
+      "synonyms": [],
+      "category": "보안센터",
+      "path": [
+        "보안센터",
+        "전자금융 보안안내"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.62550",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.보안센터-보안프로그램",
+      "label": "보안프로그램",
+      "synonyms": [],
+      "category": "보안센터",
+      "path": [
+        "보안센터"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.보안센터-보안프로그램",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62546",
+      "label": "보안프로그램 설치 및 삭제 안내(방화벽&백신)",
+      "synonyms": [],
+      "category": "보안센터",
+      "path": [
+        "보안센터",
+        "보안프로그램"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.62546",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62547",
+      "label": "보안프로그램 설치 및 삭제 안내(공동인증서)",
+      "synonyms": [],
+      "category": "보안센터",
+      "path": [
+        "보안센터",
+        "보안프로그램"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.62547",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62548",
+      "label": "보안프로그램 설치 및 삭제 안내(키보드보안)",
+      "synonyms": [],
+      "category": "보안센터",
+      "path": [
+        "보안센터",
+        "보안프로그램"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.62548",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.보안센터-전기통신-금융사기-피해공시",
+      "label": "전기통신 금융사기 피해공시",
+      "synonyms": [],
+      "category": "보안센터",
+      "path": [
+        "보안센터"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.보안센터-전기통신-금융사기-피해공시",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62530",
+      "label": "지급정지/채권소멸",
+      "synonyms": [],
+      "category": "보안센터",
+      "path": [
+        "보안센터",
+        "전기통신 금융사기 피해공시"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.62530",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102872",
+      "label": "불공정거래 등 지급정지 조치 공개",
+      "synonyms": [],
+      "category": "보안센터",
+      "path": [
+        "보안센터"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.102872",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62517",
+      "label": "금융사기피해예방",
+      "synonyms": [],
+      "category": "보안센터",
+      "path": [
+        "보안센터"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.62517",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.보안센터-전기통신금융사기-대포통장-예방",
+      "label": "전기통신금융사기(대포통장)예방",
+      "synonyms": [],
+      "category": "보안센터",
+      "path": [
+        "보안센터"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.보안센터-전기통신금융사기-대포통장-예방",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.99062",
+      "label": "공지사항",
+      "synonyms": [],
+      "category": "보안센터",
+      "path": [
+        "보안센터",
+        "전기통신금융사기(대포통장)예방"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.99062",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.99063",
+      "label": "최근 피해사례",
+      "synonyms": [],
+      "category": "보안센터",
+      "path": [
+        "보안센터",
+        "전기통신금융사기(대포통장)예방"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.99063",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.99061",
+      "label": "대처방법 안내",
+      "synonyms": [],
+      "category": "보안센터",
+      "path": [
+        "보안센터",
+        "전기통신금융사기(대포통장)예방"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.99061",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.99064",
+      "label": "지급정지 안내",
+      "synonyms": [],
+      "category": "보안센터",
+      "path": [
+        "보안센터",
+        "전기통신금융사기(대포통장)예방"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.99064",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.99065",
+      "label": "피해환급절차 안내",
+      "synonyms": [],
+      "category": "보안센터",
+      "path": [
+        "보안센터",
+        "전기통신금융사기(대포통장)예방"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.99065",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.보안센터-전자금융사기예방서비스",
+      "label": "전자금융사기예방서비스",
+      "synonyms": [],
+      "category": "보안센터",
+      "path": [
+        "보안센터"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.보안센터-전자금융사기예방서비스",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57906",
+      "label": "단말기지정서비스",
+      "synonyms": [],
+      "category": "보안센터",
+      "path": [
+        "보안센터",
+        "전자금융사기예방서비스"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.57906",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57907",
+      "label": "인증서 안심거래서비스",
+      "synonyms": [],
+      "category": "보안센터",
+      "path": [
+        "보안센터",
+        "전자금융사기예방서비스"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.57907",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62515",
+      "label": "하나 N Safe",
+      "synonyms": [],
+      "category": "보안센터",
+      "path": [
+        "보안센터",
+        "전자금융사기예방서비스"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.62515",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.26507",
+      "label": "전자금융사기예방 SMS",
+      "synonyms": [],
+      "category": "보안센터",
+      "path": [
+        "보안센터",
+        "전자금융사기예방서비스"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.26507",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57910",
+      "label": "해외IP차단서비스",
+      "synonyms": [],
+      "category": "보안센터",
+      "path": [
+        "보안센터",
+        "전자금융사기예방서비스"
+      ],
+      "icon": "globe",
+      "route": "/kebhana.57910",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.57905",
+      "label": "보안서비스안내",
+      "synonyms": [],
+      "category": "보안센터",
+      "path": [
+        "보안센터",
+        "전자금융사기예방서비스"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.57905",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.102865",
+      "label": "비대면 계좌개설 안심차단 서비스",
+      "synonyms": [],
+      "category": "보안센터",
+      "path": [
+        "보안센터",
+        "전자금융사기예방서비스"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.102865",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.26407",
+      "label": "OTP이용등록/해지",
+      "synonyms": [],
+      "category": "보안센터",
+      "path": [
+        "보안센터"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.26407",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62694",
+      "label": "OTP 사고회복",
+      "synonyms": [],
+      "category": "보안센터",
+      "path": [
+        "보안센터"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.62694",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.51110",
+      "label": "피싱예방용환율이미지서비스",
+      "synonyms": [],
+      "category": "보안센터",
+      "path": [
+        "보안센터"
+      ],
+      "icon": "globe",
+      "route": "/kebhana.51110",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.58123",
+      "label": "휴대폰 인증서 서비스",
+      "synonyms": [],
+      "category": "보안센터",
+      "path": [
+        "보안센터"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.58123",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62529",
+      "label": "휴대폰전자서명서비스",
+      "synonyms": [],
+      "category": "보안센터",
+      "path": [
+        "보안센터"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.62529",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.62615",
+      "label": "고객센터",
+      "synonyms": [],
+      "category": "고객센터",
+      "icon": "person",
+      "route": "/kebhana.62615",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.98822",
+      "label": "고객센터메인",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터"
+      ],
+      "icon": "person",
+      "route": "/kebhana.98822",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.고객센터-고객상담",
+      "label": "고객상담",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터"
+      ],
+      "icon": "person",
+      "route": "/kebhana.고객센터-고객상담",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.98824",
+      "label": "자주하는 질문",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "고객상담"
+      ],
+      "icon": "person",
+      "route": "/kebhana.98824",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0201",
+      "label": "이메일상담",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "고객상담"
+      ],
+      "icon": "person",
+      "route": "/kebhana.0201",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.2017",
+      "label": "원격지원 PC상담",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "고객상담"
+      ],
+      "icon": "person",
+      "route": "/kebhana.2017",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.고객센터-고객상담-전화상담예약",
+      "label": "전화상담예약",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "고객상담"
+      ],
+      "icon": "person",
+      "route": "/kebhana.고객센터-고객상담-전화상담예약",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.고객센터-영업점",
+      "label": "영업점",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터"
+      ],
+      "icon": "person",
+      "route": "/kebhana.고객센터-영업점",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.98844",
+      "label": "원큐 금융 상담서비스",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터"
+      ],
+      "icon": "person",
+      "route": "/kebhana.98844",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0701",
+      "label": "서식/약관/설명서 자료실",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터"
+      ],
+      "icon": "person",
+      "route": "/kebhana.0701",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.고객센터-상품자료실-공시실",
+      "label": "상품자료실&공시실",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터"
+      ],
+      "icon": "person",
+      "route": "/kebhana.고객센터-상품자료실-공시실",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.98865",
+      "label": "자주하는상품 질문",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "상품자료실&공시실"
+      ],
+      "icon": "person",
+      "route": "/kebhana.98865",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.고객센터-상품자료실-공시실-상품공시실",
+      "label": "상품공시실",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "상품자료실&공시실"
+      ],
+      "icon": "person",
+      "route": "/kebhana.고객센터-상품자료실-공시실-상품공시실",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0902",
+      "label": "예금상품",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "상품자료실&공시실",
+        "상품공시실"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.0902",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0903",
+      "label": "대출상품",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "상품자료실&공시실",
+        "상품공시실"
+      ],
+      "icon": "bank",
+      "route": "/kebhana.0903",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0904",
+      "label": "신탁상품",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "상품자료실&공시실",
+        "상품공시실"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.0904",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0905",
+      "label": "복합금융상품",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "상품자료실&공시실",
+        "상품공시실"
+      ],
+      "icon": "person",
+      "route": "/kebhana.0905",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0907",
+      "label": "장외파생상품",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "상품자료실&공시실",
+        "상품공시실"
+      ],
+      "icon": "person",
+      "route": "/kebhana.0907",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0906",
+      "label": "서비스이용 수수료",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "상품자료실&공시실",
+        "상품공시실"
+      ],
+      "icon": "person",
+      "route": "/kebhana.0906",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.1101",
+      "label": "보호금융상품등록부",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "상품자료실&공시실"
+      ],
+      "icon": "person",
+      "route": "/kebhana.1101",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.고객센터-상품자료실-공시실-펀드자료실",
+      "label": "펀드자료실",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "상품자료실&공시실"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.고객센터-상품자료실-공시실-펀드자료실",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.1202",
+      "label": "수시공시(2010이후)",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "상품자료실&공시실",
+        "펀드자료실"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.1202",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.1203",
+      "label": "수시공시(2010이전)",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "상품자료실&공시실",
+        "펀드자료실"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.1203",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.1211",
+      "label": "연금저축계좌(집합투자증권)",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "상품자료실&공시실",
+        "펀드자료실"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.1211",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.1208",
+      "label": "연금저축펀드 비교공시",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "상품자료실&공시실",
+        "펀드자료실"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.1208",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.고객센터-상품자료실-공시실-펀드자료실-계열펀드수익률비교공시",
+      "label": "계열펀드수익률비교공시",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "상품자료실&공시실",
+        "펀드자료실"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.고객센터-상품자료실-공시실-펀드자료실-계열펀드수익률비교공시",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.1209",
+      "label": "재형저축 집합투자증권",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "상품자료실&공시실",
+        "펀드자료실"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.1209",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.1210",
+      "label": "소득공제 장기펀드(장기집합투자증권저축)",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "상품자료실&공시실",
+        "펀드자료실"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.1210",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.1212",
+      "label": "해외주식투자전용집합투자증권저축",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "상품자료실&공시실",
+        "펀드자료실"
+      ],
+      "icon": "globe",
+      "route": "/kebhana.1212",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.1213",
+      "label": "청년형장기펀드(장기집합투자증권저축)",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "상품자료실&공시실",
+        "펀드자료실"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.1213",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.고객센터-상품자료실-공시실-신탁자료실",
+      "label": "신탁자료실",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "상품자료실&공시실"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.고객센터-상품자료실-공시실-신탁자료실",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.1301",
+      "label": "신탁기준가조회(연금저축신탁수익률)",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "상품자료실&공시실",
+        "신탁자료실"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.1301",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.1302",
+      "label": "신탁수익률조회",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "상품자료실&공시실",
+        "신탁자료실"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.1302",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.1308",
+      "label": "신탁보수율공시",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "상품자료실&공시실",
+        "신탁자료실"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.1308",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.1303",
+      "label": "신탁자산운용현황",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "상품자료실&공시실",
+        "신탁자료실"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.1303",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.1304",
+      "label": "연금저축신탁비교공시",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "상품자료실&공시실",
+        "신탁자료실"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.1304",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.고객센터-상품자료실-공시실-신탁자료실-은행간-연금저축신탁-비교공시",
+      "label": "은행간 연금저축신탁 비교공시",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "상품자료실&공시실",
+        "신탁자료실"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.고객센터-상품자료실-공시실-신탁자료실-은행간-연금저축신탁-비교공시",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.1307",
+      "label": "수익증권발행신탁 운용보고서",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "상품자료실&공시실",
+        "신탁자료실"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.1307",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.고객센터-새소식-이벤트",
+      "label": "새소식/ 이벤트",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터"
+      ],
+      "icon": "person",
+      "route": "/kebhana.고객센터-새소식-이벤트",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.98853",
+      "label": "새소식",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "새소식/ 이벤트"
+      ],
+      "icon": "person",
+      "route": "/kebhana.98853",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.98781",
+      "label": "이벤트",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "새소식/ 이벤트"
+      ],
+      "icon": "person",
+      "route": "/kebhana.98781",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.98831",
+      "label": "손님의소리(칭찬/불만/제안/신고 등)",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터"
+      ],
+      "icon": "bell",
+      "route": "/kebhana.98831",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.고객센터-하나소비자세상",
+      "label": "하나소비자세상",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터"
+      ],
+      "icon": "person",
+      "route": "/kebhana.고객센터-하나소비자세상",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.99046",
+      "label": "하나소비자세상메인",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "하나소비자세상"
+      ],
+      "icon": "person",
+      "route": "/kebhana.99046",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.고객센터-하나소비자세상-소비자보호체계",
+      "label": "소비자보호체계",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "하나소비자세상"
+      ],
+      "icon": "person",
+      "route": "/kebhana.고객센터-하나소비자세상-소비자보호체계",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0404",
+      "label": "금융소비자보호 헌장/실천 다짐문",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "하나소비자세상",
+        "소비자보호체계"
+      ],
+      "icon": "person",
+      "route": "/kebhana.0404",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0407",
+      "label": "상품개발프로세스",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "하나소비자세상",
+        "소비자보호체계"
+      ],
+      "icon": "person",
+      "route": "/kebhana.0407",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0409",
+      "label": "상품판매준칙",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "하나소비자세상",
+        "소비자보호체계"
+      ],
+      "icon": "person",
+      "route": "/kebhana.0409",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0405",
+      "label": "소비자보호우수사례",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "하나소비자세상"
+      ],
+      "icon": "person",
+      "route": "/kebhana.0405",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0408",
+      "label": "금융생활정보가이드",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "하나소비자세상"
+      ],
+      "icon": "person",
+      "route": "/kebhana.0408",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0412",
+      "label": "금융소비자보호 내부통제규정",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "하나소비자세상"
+      ],
+      "icon": "person",
+      "route": "/kebhana.0412",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0413",
+      "label": "금융소비자보호규정",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "하나소비자세상"
+      ],
+      "icon": "person",
+      "route": "/kebhana.0413",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0406",
+      "label": "금융소비자보호공시",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "하나소비자세상"
+      ],
+      "icon": "person",
+      "route": "/kebhana.0406",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.98834",
+      "label": "손님위원회",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "하나소비자세상"
+      ],
+      "icon": "person",
+      "route": "/kebhana.98834",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0410",
+      "label": "장애손님 지원서비스",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "하나소비자세상"
+      ],
+      "icon": "person",
+      "route": "/kebhana.0410",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.98921",
+      "label": "손님우대서비스",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터"
+      ],
+      "icon": "person",
+      "route": "/kebhana.98921",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.고객센터-개인정보처리방침",
+      "label": "개인정보처리방침",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터"
+      ],
+      "icon": "person",
+      "route": "/kebhana.고객센터-개인정보처리방침",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0601",
+      "label": "고객정보취급방침",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "개인정보처리방침"
+      ],
+      "icon": "person",
+      "route": "/kebhana.0601",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0602",
+      "label": "개인(신용)정보관리보호정책",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "개인정보처리방침"
+      ],
+      "icon": "person",
+      "route": "/kebhana.0602",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0603",
+      "label": "개인(신용)정보처리 (재)위탁 및 제공 현황",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "개인정보처리방침"
+      ],
+      "icon": "person",
+      "route": "/kebhana.0603",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0614",
+      "label": "개인정보처리방침 (전자서명서비스/본인확인서비스)",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "개인정보처리방침"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.0614",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.0605",
+      "label": "신용정보활용체제",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "개인정보처리방침"
+      ],
+      "icon": "person",
+      "route": "/kebhana.0605",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0606",
+      "label": "고객권리안내문",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "개인정보처리방침"
+      ],
+      "icon": "person",
+      "route": "/kebhana.0606",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0607",
+      "label": "영상정보처리기기운영방침",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "개인정보처리방침"
+      ],
+      "icon": "person",
+      "route": "/kebhana.0607",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0611",
+      "label": "가명정보처리현황",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "개인정보처리방침"
+      ],
+      "icon": "person",
+      "route": "/kebhana.0611",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0609",
+      "label": "개정주민등록법안내",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "개인정보처리방침"
+      ],
+      "icon": "person",
+      "route": "/kebhana.0609",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0610",
+      "label": "개인정보 열람 등 안내",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "개인정보처리방침"
+      ],
+      "icon": "person",
+      "route": "/kebhana.0610",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.고객센터-개인채무자보호법",
+      "label": "개인채무자보호법",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터"
+      ],
+      "icon": "person",
+      "route": "/kebhana.고객센터-개인채무자보호법",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.1204",
+      "label": "채무조정요청권",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "개인채무자보호법"
+      ],
+      "icon": "person",
+      "route": "/kebhana.1204",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.1201",
+      "label": "채권추심업무처리절차안내문",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "개인채무자보호법"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.1201",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.1205",
+      "label": "개인금융채무자의 권리",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "개인채무자보호법"
+      ],
+      "icon": "person",
+      "route": "/kebhana.1205",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.고객센터-이용안내-인터넷-뱅킹",
+      "label": "인터넷 뱅킹",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "이용안내"
+      ],
+      "icon": "person",
+      "route": "/kebhana.고객센터-이용안내-인터넷-뱅킹",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0102",
+      "label": "이용시간안내",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "이용안내",
+        "인터넷 뱅킹"
+      ],
+      "icon": "person",
+      "route": "/kebhana.0102",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0103",
+      "label": "공인인증서안내",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "이용안내",
+        "인터넷 뱅킹"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.0103",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0104",
+      "label": "OTP이용안내",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "이용안내",
+        "인터넷 뱅킹"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.0104",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0105",
+      "label": "수수료/이체한도",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "이용안내",
+        "인터넷 뱅킹"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.0105",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.0106",
+      "label": "장기미이체 이용거래정지",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "이용안내",
+        "인터넷 뱅킹"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.0106",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.0107",
+      "label": "인터넷뱅킹 혜택",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "이용안내",
+        "인터넷 뱅킹"
+      ],
+      "icon": "person",
+      "route": "/kebhana.0107",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0108",
+      "label": "이용 시 유의사항",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "이용안내",
+        "인터넷 뱅킹"
+      ],
+      "icon": "person",
+      "route": "/kebhana.0108",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0109",
+      "label": "하나 입출금 거래내역 문자통지서비스",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "이용안내",
+        "인터넷 뱅킹"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.0109",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.고객센터-이용안내-폰뱅킹",
+      "label": "폰뱅킹",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "이용안내"
+      ],
+      "icon": "person",
+      "route": "/kebhana.고객센터-이용안내-폰뱅킹",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0202",
+      "label": "폰뱅킹 신청/해지안내",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "이용안내",
+        "폰뱅킹"
+      ],
+      "icon": "person",
+      "route": "/kebhana.0202",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0203",
+      "label": "폰뱅킹 이용시간안내",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "이용안내",
+        "폰뱅킹"
+      ],
+      "icon": "person",
+      "route": "/kebhana.0203",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0204",
+      "label": "폰뱅킹 수수료/이체한도",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "이용안내",
+        "폰뱅킹"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.0204",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.0210",
+      "label": "폰뱅킹 편의서비스",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "이용안내",
+        "폰뱅킹"
+      ],
+      "icon": "person",
+      "route": "/kebhana.0210",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0205",
+      "label": "폰뱅킹 서비스코드",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "이용안내",
+        "폰뱅킹"
+      ],
+      "icon": "person",
+      "route": "/kebhana.0205",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0206",
+      "label": "마이폰서비스",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "이용안내",
+        "폰뱅킹"
+      ],
+      "icon": "person",
+      "route": "/kebhana.0206",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0207",
+      "label": "폰뱅킹 지정전화번호 서비스",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "이용안내",
+        "폰뱅킹"
+      ],
+      "icon": "person",
+      "route": "/kebhana.0207",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0208",
+      "label": "폰뱅킹 사기예방서비스",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "이용안내",
+        "폰뱅킹"
+      ],
+      "icon": "person",
+      "route": "/kebhana.0208",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0209",
+      "label": "스마트 ARS서비스",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "이용안내",
+        "폰뱅킹"
+      ],
+      "icon": "person",
+      "route": "/kebhana.0209",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.고객센터-이용안내-전자금융",
+      "label": "전자금융",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "이용안내"
+      ],
+      "icon": "person",
+      "route": "/kebhana.고객센터-이용안내-전자금융",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0302",
+      "label": "자동화코너",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "이용안내",
+        "전자금융"
+      ],
+      "icon": "person",
+      "route": "/kebhana.0302",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.102270",
+      "label": "HAI Smart Self Zone (STM) 이용 안내",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "이용안내",
+        "전자금융"
+      ],
+      "icon": "person",
+      "route": "/kebhana.102270",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0303",
+      "label": "무통장/무카드서비스",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "이용안내",
+        "전자금융"
+      ],
+      "icon": "card",
+      "route": "/kebhana.0303",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.102272",
+      "label": "하나 바이오 인증 서비스",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "이용안내",
+        "전자금융"
+      ],
+      "icon": "lock",
+      "route": "/kebhana.102272",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.0305",
+      "label": "현금IC카드",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "이용안내",
+        "전자금융"
+      ],
+      "icon": "card",
+      "route": "/kebhana.0305",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0308",
+      "label": "펌뱅킹",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "이용안내",
+        "전자금융"
+      ],
+      "icon": "person",
+      "route": "/kebhana.0308",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.0309",
+      "label": "금융결제원CMS",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "이용안내",
+        "전자금융"
+      ],
+      "icon": "person",
+      "route": "/kebhana.0309",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.98903",
+      "label": "가상계좌",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "이용안내",
+        "전자금융"
+      ],
+      "icon": "person",
+      "route": "/kebhana.98903",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.98904",
+      "label": "하나에스크로",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "이용안내",
+        "전자금융"
+      ],
+      "icon": "person",
+      "route": "/kebhana.98904",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.고객센터-이용안내-스마트폰-앱",
+      "label": "스마트폰 앱",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "이용안내"
+      ],
+      "icon": "person",
+      "route": "/kebhana.고객센터-이용안내-스마트폰-앱",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.1401",
+      "label": "하나원큐",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "이용안내",
+        "스마트폰 앱"
+      ],
+      "icon": "person",
+      "route": "/kebhana.1401",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.98911",
+      "label": "하나원큐 기업",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "이용안내",
+        "스마트폰 앱"
+      ],
+      "icon": "person",
+      "route": "/kebhana.98911",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.98912",
+      "label": "하나원큐 CMS iNet",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "이용안내",
+        "스마트폰 앱"
+      ],
+      "icon": "person",
+      "route": "/kebhana.98912",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.98915",
+      "label": "스마트폰금융거래10계명",
+      "synonyms": [],
+      "category": "고객센터",
+      "path": [
+        "고객센터",
+        "이용안내",
+        "스마트폰 앱"
+      ],
+      "icon": "person",
+      "route": "/kebhana.98915",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.102614",
+      "label": "하나라운지",
+      "synonyms": [],
+      "category": "하나라운지",
+      "icon": "doc",
+      "route": "/kebhana.102614",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.하나라운지-하나머니-서비스",
+      "label": "하나머니 서비스",
+      "synonyms": [],
+      "category": "하나라운지",
+      "path": [
+        "하나라운지"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.하나라운지-하나머니-서비스",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.98802",
+      "label": "하나머니 메인",
+      "synonyms": [],
+      "category": "하나라운지",
+      "path": [
+        "하나라운지",
+        "하나머니 서비스"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.98802",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.99098",
+      "label": "하나머니 소개",
+      "synonyms": [],
+      "category": "하나라운지",
+      "path": [
+        "하나라운지",
+        "하나머니 서비스"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.99098",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.98806",
+      "label": "하나머니 사용안내",
+      "synonyms": [],
+      "category": "하나라운지",
+      "path": [
+        "하나라운지",
+        "하나머니 서비스"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.98806",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.98807",
+      "label": "MY 하나머니 조회",
+      "synonyms": [],
+      "category": "하나라운지",
+      "path": [
+        "하나라운지",
+        "하나머니 서비스"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.98807",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.102832",
+      "label": "학생증카드 안내",
+      "synonyms": [],
+      "category": "하나라운지",
+      "path": [
+        "하나라운지"
+      ],
+      "icon": "card",
+      "route": "/kebhana.102832",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.하나라운지-골드클럽",
+      "label": "골드클럽",
+      "synonyms": [],
+      "category": "하나라운지",
+      "path": [
+        "하나라운지"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.하나라운지-골드클럽",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.98813",
+      "label": "골드클럽메인",
+      "synonyms": [],
+      "category": "하나라운지",
+      "path": [
+        "하나라운지",
+        "골드클럽"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.98813",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.98815",
+      "label": "연혁",
+      "synonyms": [],
+      "category": "하나라운지",
+      "path": [
+        "하나라운지",
+        "골드클럽"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.98815",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.98816",
+      "label": "PB센터&골드클럽안내",
+      "synonyms": [],
+      "category": "하나라운지",
+      "path": [
+        "하나라운지",
+        "골드클럽"
+      ],
+      "icon": "person",
+      "route": "/kebhana.98816",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.98810",
+      "label": "희망금융플라자",
+      "synonyms": [],
+      "category": "하나라운지",
+      "path": [
+        "하나라운지"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.98810",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.하나라운지-1Q-Agile-Lab",
+      "label": "1Q Agile Lab",
+      "synonyms": [],
+      "category": "하나라운지",
+      "path": [
+        "하나라운지"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.하나라운지-1Q-Agile-Lab",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.하나라운지-금융감독원통합연금포털",
+      "label": "금융감독원통합연금포털",
+      "synonyms": [],
+      "category": "하나라운지",
+      "path": [
+        "하나라운지"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.하나라운지-금융감독원통합연금포털",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.하나라운지-통합연금포털-오류-신고",
+      "label": "통합연금포털 오류 신고",
+      "synonyms": [],
+      "category": "하나라운지",
+      "path": [
+        "하나라운지"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.하나라운지-통합연금포털-오류-신고",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.102846",
+      "label": "오류신고접수",
+      "synonyms": [],
+      "category": "하나라운지",
+      "path": [
+        "하나라운지",
+        "통합연금포털 오류 신고"
+      ],
+      "icon": "bell",
+      "route": "/kebhana.102846",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.102847",
+      "label": "나의 신고내역 및 결과조회",
+      "synonyms": [],
+      "category": "하나라운지",
+      "path": [
+        "하나라운지",
+        "통합연금포털 오류 신고"
+      ],
+      "icon": "list",
+      "route": "/kebhana.102847",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.99005",
+      "label": "퇴직연금",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "icon": "coin",
+      "route": "/kebhana.99005",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.102826",
+      "label": "연금현황/매도",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.102826",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102828",
+      "label": "연금상품/매수",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.102828",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.퇴직연금-IRP-DC가입",
+      "label": "IRP/DC가입",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.퇴직연금-IRP-DC가입",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102768",
+      "label": "DC 가입",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금",
+        "IRP/DC가입"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.102768",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.퇴직연금-AI-연금투자-솔루션",
+      "label": "AI 연금투자 솔루션",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.퇴직연금-AI-연금투자-솔루션",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.102822",
+      "label": "AI 연금투자 솔루션 설계하기",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금",
+        "AI 연금투자 솔루션"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.102822",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.102823",
+      "label": "AI 연금투자 솔루션 현황",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금",
+        "AI 연금투자 솔루션"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.102823",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.퇴직연금-운용상품관리",
+      "label": "운용상품관리",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.퇴직연금-운용상품관리",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.101746",
+      "label": "현재운용상품변경",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금",
+        "운용상품관리"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.101746",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.101745",
+      "label": "입금예정상품조회/등록",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금",
+        "운용상품관리"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.101745",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102793",
+      "label": "디폴트옵션 선정",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금",
+        "운용상품관리"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.102793",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.102833",
+      "label": "원리금보장상품 만기예약",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금",
+        "운용상품관리"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.102833",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102794",
+      "label": "디폴트옵션 현황",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금",
+        "운용상품관리"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.102794",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.102834",
+      "label": "펀드 분할매수",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금",
+        "운용상품관리"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.102834",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.101748",
+      "label": "상품변경조회/취소",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금",
+        "운용상품관리"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.101748",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102791",
+      "label": "숙려상품조회/취소",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금",
+        "운용상품관리"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.102791",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.101754",
+      "label": "퇴직연금 상품찾기",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금",
+        "운용상품관리"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.101754",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.퇴직연금-퇴직연금-ETF",
+      "label": "퇴직연금 ETF",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.퇴직연금-퇴직연금-ETF",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.102787",
+      "label": "ETF 당일 매매",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금",
+        "퇴직연금 ETF"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.102787",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.102695",
+      "label": "ETF 거래 현황",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금",
+        "퇴직연금 ETF"
+      ],
+      "icon": "chart",
+      "route": "/kebhana.102695",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.퇴직연금-연금계좌-조회",
+      "label": "연금계좌 조회",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.퇴직연금-연금계좌-조회",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.99024",
+      "label": "운용현황 알아보기",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금",
+        "연금계좌 조회"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.99024",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.99027",
+      "label": "입금내역",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금",
+        "연금계좌 조회"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.99027",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.99029",
+      "label": "수수료납입조회",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금",
+        "연금계좌 조회"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.99029",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.99026",
+      "label": "정기예금재예치계산서",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금",
+        "연금계좌 조회"
+      ],
+      "icon": "repeat",
+      "route": "/kebhana.99026",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.99028",
+      "label": "(세액공제용)납입증명서",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금",
+        "연금계좌 조회"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.99028",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.102843",
+      "label": "미청구적립금 조회",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금",
+        "연금계좌 조회"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.102843",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.퇴직연금-추가입금-관리",
+      "label": "추가입금/관리",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.퇴직연금-추가입금-관리",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.99020",
+      "label": "IRP 자동이체",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금",
+        "추가입금/관리"
+      ],
+      "icon": "repeat",
+      "route": "/kebhana.99020",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102324",
+      "label": "예약거래 조회/취소",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금",
+        "추가입금/관리"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.102324",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.99021",
+      "label": "연금저축한도 변경",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금",
+        "추가입금/관리"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.99021",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102763",
+      "label": "IRP 계좌유형변경",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금",
+        "추가입금/관리"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.102763",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.퇴직연금-연금계좌-이체",
+      "label": "연금계좌 이체",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.퇴직연금-연금계좌-이체",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102332",
+      "label": "연금저축/IRP가져오기",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금",
+        "연금계좌 이체"
+      ],
+      "icon": "savings",
+      "route": "/kebhana.102332",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102334",
+      "label": "타금융으로 연금내보내기",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금",
+        "연금계좌 이체"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.102334",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102335",
+      "label": "내보낸 연금 조회/취소",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금",
+        "연금계좌 이체"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.102335",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.퇴직연금-연금개시-신청-조회",
+      "label": "연금개시 신청/조회",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.퇴직연금-연금개시-신청-조회",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.102836",
+      "label": "IRP 연금신청",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금",
+        "연금개시 신청/조회"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.102836",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102835",
+      "label": "IRP연금수령 시뮬레이션",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금",
+        "연금개시 신청/조회"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.102835",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102617",
+      "label": "연금신청결과 조회/취소",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금",
+        "연금개시 신청/조회"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.102617",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.99022",
+      "label": "연금지급내역조회",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금",
+        "연금개시 신청/조회"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.99022",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.퇴직연금-해지-중도인출",
+      "label": "해지/중도인출",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.퇴직연금-해지-중도인출",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102633",
+      "label": "IRP계좌해지",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금",
+        "해지/중도인출"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.102633",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102634",
+      "label": "IRP해지 조회/취소",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금",
+        "해지/중도인출"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.102634",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.99023",
+      "label": "IRP 해지시뮬레이션",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금",
+        "해지/중도인출"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.99023",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102770",
+      "label": "중도인출 신청",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금",
+        "해지/중도인출"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.102770",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102771",
+      "label": "중도인출 조회/취소",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금",
+        "해지/중도인출"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.102771",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102776",
+      "label": "미청구적립금 신청",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금",
+        "해지/중도인출"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.102776",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102775",
+      "label": "미청구적립금 신청 조회/취소",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금",
+        "해지/중도인출"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.102775",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.퇴직연금-가입자교육-은퇴설계",
+      "label": "가입자교육/은퇴설계",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.퇴직연금-가입자교육-은퇴설계",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.99013",
+      "label": "가입자교육",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금",
+        "가입자교육/은퇴설계"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.99013",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.퇴직연금-가입자교육-은퇴설계-은퇴설계",
+      "label": "은퇴설계",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금",
+        "가입자교육/은퇴설계"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.퇴직연금-가입자교육-은퇴설계-은퇴설계",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102696",
+      "label": "퇴직연금 규약동의",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.102696",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102765",
+      "label": "퇴직금 지급동의",
+      "synonyms": [],
+      "category": "퇴직연금",
+      "path": [
+        "퇴직연금"
+      ],
+      "icon": "coin",
+      "route": "/kebhana.102765",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.99070",
+      "label": "연금상품 보유현황",
+      "synonyms": [],
+      "category": "연금상품 보유현황",
+      "icon": "coin",
+      "route": "/kebhana.99070",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.98788",
+      "label": "골드/실버",
+      "synonyms": [],
+      "category": "골드/실버",
+      "icon": "doc",
+      "route": "/kebhana.98788",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.골드-실버-골드바",
+      "label": "골드바",
+      "synonyms": [],
+      "category": "골드/실버",
+      "path": [
+        "골드/실버"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.골드-실버-골드바",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.1402",
+      "label": "일자별 기준가격",
+      "synonyms": [],
+      "category": "골드/실버",
+      "path": [
+        "골드/실버",
+        "골드바"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.1402",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.1403",
+      "label": "기간별 기준가격",
+      "synonyms": [],
+      "category": "골드/실버",
+      "path": [
+        "골드/실버",
+        "골드바"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.1403",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.골드-실버-실버바",
+      "label": "실버바",
+      "synonyms": [],
+      "category": "골드/실버",
+      "path": [
+        "골드/실버"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.골드-실버-실버바",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.1404",
+      "label": "실버바 소개",
+      "synonyms": [],
+      "category": "골드/실버",
+      "path": [
+        "골드/실버",
+        "실버바"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.1404",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.102587",
+      "label": "오픈뱅킹",
+      "synonyms": [],
+      "category": "오픈뱅킹",
+      "icon": "doc",
+      "route": "/kebhana.102587",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.102588",
+      "label": "오픈뱅킹 가입안내",
+      "synonyms": [],
+      "category": "오픈뱅킹",
+      "path": [
+        "오픈뱅킹"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.102588",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.102591",
+      "label": "오픈뱅킹 조회",
+      "synonyms": [],
+      "category": "오픈뱅킹",
+      "path": [
+        "오픈뱅킹"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.102591",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.102589",
+      "label": "오픈뱅킹 이체",
+      "synonyms": [],
+      "category": "오픈뱅킹",
+      "path": [
+        "오픈뱅킹"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.102589",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102592",
+      "label": "오픈뱅킹 이체내역조회",
+      "synonyms": [],
+      "category": "오픈뱅킹",
+      "path": [
+        "오픈뱅킹"
+      ],
+      "icon": "transfer",
+      "route": "/kebhana.102592",
+      "riskLevel": "medium"
+    },
+    {
+      "id": "kebhana.102590",
+      "label": "자금 하나로 모으기",
+      "synonyms": [],
+      "category": "오픈뱅킹",
+      "path": [
+        "오픈뱅킹"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.102590",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.102594",
+      "label": "계좌관리",
+      "synonyms": [],
+      "category": "오픈뱅킹",
+      "path": [
+        "오픈뱅킹"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.102594",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.102672",
+      "label": "오픈뱅킹 재동의",
+      "synonyms": [],
+      "category": "오픈뱅킹",
+      "path": [
+        "오픈뱅킹"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.102672",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102851",
+      "label": "제3자 정보제공 재동의",
+      "synonyms": [],
+      "category": "오픈뱅킹",
+      "path": [
+        "오픈뱅킹"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.102851",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102852",
+      "label": "동의만료기관 삭제",
+      "synonyms": [],
+      "category": "오픈뱅킹",
+      "path": [
+        "오픈뱅킹"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.102852",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102596",
+      "label": "서비스 해지",
+      "synonyms": [],
+      "category": "오픈뱅킹",
+      "path": [
+        "오픈뱅킹"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.102596",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102769",
+      "label": "오픈뱅킹 이용 제한 등록",
+      "synonyms": [],
+      "category": "오픈뱅킹",
+      "path": [
+        "오픈뱅킹"
+      ],
+      "icon": "gauge",
+      "route": "/kebhana.102769",
+      "riskLevel": "high"
+    },
+    {
+      "id": "kebhana.102679",
+      "label": "부동산",
+      "synonyms": [],
+      "category": "부동산",
+      "icon": "doc",
+      "route": "/kebhana.102679",
+      "riskLevel": "low"
+    },
+    {
+      "id": "kebhana.부동산-VIP-옥션클럽",
+      "label": "VIP 옥션클럽",
+      "synonyms": [],
+      "category": "부동산",
+      "path": [
+        "부동산"
+      ],
+      "icon": "doc",
+      "route": "/kebhana.부동산-VIP-옥션클럽",
+      "riskLevel": "low"
+    }
+  ],
+  "presets": {
+    "inquiry": [
+      "kebhana.12000",
+      "kebhana.102689",
+      "kebhana.102692",
+      "kebhana.조회-거래중지-휴면계좌조회"
+    ],
+    "transfer": [
+      "kebhana.12000",
+      "kebhana.102689",
+      "kebhana.102692",
+      "kebhana.조회-거래중지-휴면계좌조회"
+    ],
+    "invest": [
+      "kebhana.12000",
+      "kebhana.102689",
+      "kebhana.102692",
+      "kebhana.조회-거래중지-휴면계좌조회"
+    ]
+  },
+  "steps": [
+    {
+      "name": "수집",
+      "detail": "메뉴 후보 786개",
+      "ms": 8087
+    },
+    {
+      "name": "정리",
+      "detail": "메뉴 710개",
+      "ms": 29
+    },
+    {
+      "name": "첫 화면",
+      "detail": "카탈로그 앞 넉 장으로 시작합니다",
+      "ms": 0
+    }
+  ],
+  "problems": [],
+  "stats": {
+    "harvested": 786,
+    "menus": 710,
+    "branches": 146,
+    "duplicateLabels": 44,
+    "highRisk": 308,
+    "codedIds": 654
+  }
+}
