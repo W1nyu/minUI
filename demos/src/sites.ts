@@ -23,6 +23,14 @@ export interface SiteMeta {
   /** 대표색. 데모 껍데기에만 쓴다 — 엔진은 색을 모른다. */
   accent: string;
   catalog: MenuCatalog;
+  /**
+   * 카탈로그·동의어·벡터 파일이 쓰는 이름. **`slug`와 다르다.**
+   *
+   * <p>`slug`는 주소에 붙는 이름이고(`/hana`), 이것은 수집 원본이 저장된 이름이다
+   * (`kebhana.json`). 둘을 하나로 합칠 수도 있었지만, 주소를 바꾸면 수집 원본과 벤치마크
+   * 픽스처가 함께 끊어진다 — 그래서 갈라 두고 <b>여기 한 곳에만</b> 대응을 적는다.
+   */
+  catalogId: string;
   presets: ColdStartPresets;
   /** 수집 출처. 화면에 밝혀 둔다. */
   source: string;
@@ -48,6 +56,7 @@ export const SITES: SiteMeta[] = [
     kind: "은행",
     accent: "#0046a0",
     catalog: shinhan as MenuCatalog,
+    catalogId: "shinhan",
     source: "shinhan.com 전체메뉴 (개인·기업·퇴직연금·자산관리·은행소개)",
     presets: presets(
       [
@@ -76,6 +85,7 @@ export const SITES: SiteMeta[] = [
     kind: "증권",
     accent: "#6b5a2a",
     catalog: kbsec as MenuCatalog,
+    catalogId: "kbsec",
     source: "kbsec.com 전체메뉴",
     presets: presets(
       ["kbsec.m02010002", "kbsec.m02010004", "kbsec.m01060018", "kbsec.m02040023"],
@@ -91,6 +101,7 @@ export const SITES: SiteMeta[] = [
     // 브랜드 청록 #008485는 흰 글자와 4.53:1로 아슬아슬하다. 한 단계 낮춰 6.07:1로 쓴다.
     accent: "#006e6f",
     catalog: kebhana as MenuCatalog,
+    catalogId: "kebhana",
     source: "kebhana.com 전체메뉴",
     presets: presets(
       ["kebhana.102689", "kebhana.102692", "kebhana.57949", "kebhana.1501"],
@@ -113,6 +124,7 @@ export const COLD_SITES: SiteMeta[] = [
     kind: "은행",
     accent: "#5a4a1f",
     catalog: kbstar as MenuCatalog,
+    catalogId: "kbstar",
     source: "kbstar.com 개인뱅킹 전체메뉴",
     presets: presets(
       ["kbstar.C055066", "kbstar.C016536", "kbstar.C016607", "kbstar.C101333"],
@@ -127,6 +139,7 @@ export const COLD_SITES: SiteMeta[] = [
     // 브랜드색 #d8500f는 흰 글자와 4.14:1이라 작은 글자에 모자란다. 5.53:1로 낮춘다.
     accent: "#b8410a",
     catalog: miraeasset as MenuCatalog,
+    catalogId: "miraeasset",
     source: "securities.miraeasset.com 전체메뉴",
     presets: presets(
       [

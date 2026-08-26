@@ -1,9 +1,10 @@
 import type { MenuId } from "@minui/core";
 import { IndexedDbStorageAdapter, MinUIHome, MinUIProvider } from "@minui/react";
-import { makeStt, sttPreferenceFromUrl } from "./stt.js";
+import { makeStt } from "./stt.js";
 import { useCallback, useMemo, useState } from "react";
 import { makeAssist } from "./assist.js";
 import { makeExplain } from "./explain.js";
+import { makeRetrieve } from "./match.js";
 import { ClassicShell } from "./ClassicShell.js";
 import { Studio } from "./Studio.js";
 import { StubScreen } from "./StubScreen.js";
@@ -79,18 +80,17 @@ function SiteDemo({ site }: { site: SiteMeta }) {
     () => new IndexedDbStorageAdapter(`demo-${site.slug}`),
     [site.slug],
   );
-  /*
-   * 브라우저 Web Speech가 주, 온디바이스 Whisper가 예비 (`stt.ts`).
-   * `?stt=whisper`를 붙이면 뒤집힌다 — 두 엔진을 같은 발화로 비교하려면 필요하다.
-   */
-  const stt = useMemo(
-    () => makeStt({ prefer: sttPreferenceFromUrl(window.location.search) }),
-    [],
-  );
+  // 브라우저 Web Speech 하나 (`stt.ts`). 안 되는 브라우저에서는 텍스트 검색이 남는다.
+  const stt = useMemo(() => makeStt(), []);
   // 온디바이스가 못 찾았을 때만 부른다. 키는 서버에 있고 여기로 오지 않는다.
   const assist = useMemo(() => makeAssist(site.catalog), [site.catalog]);
   // 카탈로그에 뜻풀이가 없는 메뉴에만 붙는다. 같은 이유로 서버를 거친다.
   const explain = useMemo(() => makeExplain(site.catalog), [site.catalog]);
+  /*
+   * 원격 신경망 검색 (M11). 로컬이 못 찾았을 때만 불린다 — 보내는 것은 질의뿐이고,
+   * 벡터도 모델도 서버에만 있다. 꺼져 있으면 지금까지와 바이트 단위로 같게 돈다.
+   */
+  const retrieve = useMemo(() => makeRetrieve(site.slug), [site.slug]);
 
   // 이식 계약 ② — 호스트가 제공하는 것은 이 함수 하나다.
   const openScreen = useCallback((menuId: MenuId) => setOpenMenuId(menuId), []);
@@ -103,6 +103,7 @@ function SiteDemo({ site }: { site: SiteMeta }) {
       coldStartPresets={site.presets}
       assist={assist}
       explain={explain}
+      retrieve={retrieve}
       /*
        * 이 데모는 배치 안정화를 일부 포기한다.
        *
@@ -111,7 +112,7 @@ function SiteDemo({ site }: { site: SiteMeta }) {
        * 하지만 데모는 몇 분 안에 "쓸수록 내 메뉴가 된다"를 보여야 하므로 켠다.
        * 마진 20%와 "한 번에 한 장"은 그대로라 화면이 통째로 뒤집히지는 않는다.
        */
-      config={{ stability: { liveReorder: true } }}
+      config={{ stability: { liveReorder: true }, search: { neural: { enabled: true } } }}
       fallback={<p className="loading">불러오는 중…</p>}
     >
       <header className="bar">

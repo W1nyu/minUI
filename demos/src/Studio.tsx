@@ -154,6 +154,12 @@ function StudioResultView({ result }: { result: StudioResult }) {
     kind: "은행",
     accent: "#2f6f68",
     catalog: result.catalog,
+    /*
+     * Studio는 방금 수집한 사이트라 **구워 둔 벡터가 없다.** 그래서 원격 검색이 빠지고
+     * 로컬만 돈다 — 그것이 맞는 동작이다. 벡터는 빌드 타임 산출물이고, 10초 만에 얹는
+     * 경로에 모델 추론을 끼우면 그 10초가 아니게 된다.
+     */
+    catalogId: result.site,
     presets: result.presets,
     source: `${result.host} 자동 수집`,
   };

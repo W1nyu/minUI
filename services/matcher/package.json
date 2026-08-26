@@ -1,0 +1,13 @@
+{
+  "name": "@minui/matcher",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "원격 신경망 검색 (M11). 모델 파일과 벡터가 여기 밖으로 나가지 않는다.",
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@huggingface/transformers": "^4.2.0"
+  }
+}

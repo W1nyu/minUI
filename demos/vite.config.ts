@@ -1,6 +1,7 @@
 import { fileURLToPath } from "node:url";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
+import { matchRoute } from "./src/matchRoute.js";
 import { assistRoute } from "./src/assistRoute.js";
 import { explainRoute } from "./src/explainRoute.js";
 import { studioRoute } from "./src/studioRoute.js";
@@ -20,14 +21,14 @@ const src = (path: string) => fileURLToPath(new URL(path, import.meta.url));
  */
 export default defineConfig({
   // /api/assist·/api/explain — API 키를 브라우저로 내보내지 않기 위한 중계.
-  plugins: [react(), assistRoute(), explainRoute(), studioRoute()],
+  plugins: [react(), assistRoute(),
+    matchRoute(), explainRoute(), studioRoute()],
   resolve: {
     alias: [
       { find: "@minui/react/tokens.css", replacement: src("../packages/react/src/styles/tokens.css") },
       { find: "@minui/react/minui.css", replacement: src("../packages/react/src/styles/minui.css") },
       { find: "@minui/react", replacement: src("../packages/react/src/index.ts") },
       { find: "@minui/core", replacement: src("../packages/core/src/index.ts") },
-      { find: "@minui/voice/whisper", replacement: src("../packages/voice/src/whisper.ts") },
       { find: "@minui/voice", replacement: src("../packages/voice/src/index.ts") },
     ],
   },
