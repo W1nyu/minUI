@@ -9,6 +9,7 @@ import {
 } from "@minui/core";
 import { useEffect, useId, useRef, useState } from "react";
 import { useMinUI } from "./useMinUI.js";
+import type { MinUIInteraction } from "./interaction.js";
 
 export interface SttLike {
   readonly isSupported: boolean;
@@ -42,6 +43,8 @@ export interface VoiceSearchSheetProps {
   onSelect: (menuId: MenuId, prefill?: Record<string, unknown>) => void;
   /** `@minui/voice`의 SttProvider. 없으면 텍스트 검색만 노출한다. */
   stt?: SttLike;
+  /** 호스트가 요청한 경우에만 음성 대기 시간을 요약해 알린다. */
+  onInteraction?: (interaction: MinUIInteraction) => void;
 }
 
 type Phase =
@@ -76,6 +79,7 @@ export function VoiceSearchSheet({
   onClose,
   onSelect,
   stt,
+  onInteraction,
 }: VoiceSearchSheetProps) {
   const { engine, assist } = useMinUI();
   const [phase, setPhase] = useState<Phase>({ kind: "idle" });
@@ -84,6 +88,7 @@ export function VoiceSearchSheet({
   const [asking, setAsking] = useState(false);
   const inputId = useId();
   const closeRef = useRef<HTMLButtonElement>(null);
+  const listeningStartedAt = useRef<number | null>(null);
 
   const byId = new Map(catalog.map((menu) => [menu.id, menu]));
   const voiceAvailable = stt?.isSupported === true;
@@ -197,6 +202,12 @@ export function VoiceSearchSheet({
     const unsubscribers = [
       stt.onPartial((heard) => setPhase({ kind: "listening", heard })),
       stt.onFinal((result) => {
+        const started = listeningStartedAt.current;
+        listeningStartedAt.current = null;
+        if (started !== null) {
+          const current = typeof performance !== "undefined" ? performance.now() : Date.now();
+          onInteraction?.({ kind: "voice", durationMs: current - started });
+        }
         stt.stop();
         setText(result.text);
         /*
@@ -227,10 +238,11 @@ export function VoiceSearchSheet({
       stt.stop();
     };
     // engine은 세션 동안 고정이다.
-  }, [stt, engine]);
+  }, [stt, engine, onInteraction]);
 
   async function startListening() {
     if (!stt) return;
+    listeningStartedAt.current = typeof performance !== "undefined" ? performance.now() : Date.now();
     setNotice(null);
     setPhase({ kind: "listening", heard: "" });
     await stt.start();

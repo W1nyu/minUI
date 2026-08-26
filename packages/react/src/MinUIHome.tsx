@@ -1,10 +1,11 @@
 import type { MenuCatalog, MenuId } from "@minui/core";
-import { useState, type ReactNode } from "react";
+import { useRef, useState, type ReactNode } from "react";
 import { AdaptationSheet } from "./AdaptationSheet.js";
 import { AllMenuSheet } from "./AllMenuSheet.js";
 import { MenuCard } from "./MenuCard.js";
 import { VoiceSearchSheet, type SttLike } from "./VoiceSearchSheet.js";
 import { useMinUI } from "./useMinUI.js";
+import type { MinUIInteraction } from "./interaction.js";
 
 export interface MinUIHomeProps {
   catalog: MenuCatalog;
@@ -17,6 +18,15 @@ export interface MinUIHomeProps {
    * 주지 않아도 전체 메뉴로 모든 기능에 도달할 수 있다 (원칙 P2).
    */
   stt?: SttLike;
+  /**
+   * 정보 밀도. 판단은 호스트가 하고 이 컴포넌트는 표현만 바꾼다.
+   *
+   * <p>없으면 현재와 같은 하이브리드 안내형이다. 엔진의 카드 순서·검색·위험도에는
+   * 영향을 주지 않는다.
+   */
+  supportLevel?: "simple" | "guided" | "standard";
+  /** 호스트가 명시적으로 요청했을 때만 주는 기기 안 상호작용 요약. */
+  onInteraction?: (interaction: MinUIInteraction) => void;
 }
 
 /**
@@ -26,15 +36,36 @@ export interface MinUIHomeProps {
  * 무엇을 보여줄지 고르지 않는다. 전부 엔진이 이미 정한 것을 그리기만 한다.
  * 여기서 한 번이라도 정렬하면 "자리를 지킨다"는 규칙이 UI 레이어에서 깨진다.
  */
-export function MinUIHome({ catalog, renderCardDetail, header, stt }: MinUIHomeProps) {
+export function MinUIHome({
+  catalog,
+  renderCardDetail,
+  header,
+  stt,
+  supportLevel = "guided",
+  onInteraction,
+}: MinUIHomeProps) {
   const { cards, open } = useMinUI();
   const [sheet, setSheet] = useState<"none" | "menus" | "search" | "why">("none");
+  const pressStartedAt = useRef<number | null>(null);
 
   const byId = new Map(catalog.map((menu) => [menu.id, menu]));
   const visible = cards.filter((card) => byId.has(card.menuId));
 
+  const timestamp = () => (typeof performance !== "undefined" ? performance.now() : Date.now());
+  const notePress = () => {
+    const started = pressStartedAt.current;
+    pressStartedAt.current = null;
+    onInteraction?.({ kind: "press", ...(started === null ? {} : { durationMs: timestamp() - started }) });
+  };
+
   return (
-    <div className="minui-root">
+    <div
+      className="minui-root"
+      data-support-level={supportLevel}
+      onPointerDownCapture={() => {
+        pressStartedAt.current = timestamp();
+      }}
+    >
       {header}
 
       <div className="minui-home" data-count={visible.length}>
@@ -47,7 +78,10 @@ export function MinUIHome({ catalog, renderCardDetail, header, stt }: MinUIHomeP
               menu={menu}
               card={card}
               {...(detail !== undefined && detail !== null ? { detail } : {})}
-              onSelect={() => open(card.menuId)}
+              onSelect={() => {
+                notePress();
+                open(card.menuId);
+              }}
             />
           );
         })}
@@ -61,7 +95,10 @@ export function MinUIHome({ catalog, renderCardDetail, header, stt }: MinUIHomeP
         <button
           type="button"
           className="minui-dock-button"
-          onClick={() => setSheet("search")}
+          onClick={() => {
+            notePress();
+            setSheet("search");
+          }}
         >
           <span aria-hidden="true">🎤</span> 말로 찾기
         </button>
@@ -69,7 +106,10 @@ export function MinUIHome({ catalog, renderCardDetail, header, stt }: MinUIHomeP
           type="button"
           className="minui-dock-button"
           data-variant="quiet"
-          onClick={() => setSheet("menus")}
+          onClick={() => {
+            notePress();
+            setSheet("menus");
+          }}
         >
           <span aria-hidden="true">☰</span> 전체 메뉴
         </button>
@@ -83,7 +123,10 @@ export function MinUIHome({ catalog, renderCardDetail, header, stt }: MinUIHomeP
       <button
         type="button"
         className="minui-quiet-link"
-        onClick={() => setSheet("why")}
+        onClick={() => {
+          notePress();
+          setSheet("why");
+        }}
       >
         왜 이렇게 보이나요?
       </button>
@@ -98,6 +141,7 @@ export function MinUIHome({ catalog, renderCardDetail, header, stt }: MinUIHomeP
           onClose={() => setSheet("none")}
           onSelect={(menuId) => {
             setSheet("none");
+            notePress();
             open(menuId);
           }}
         />
@@ -109,9 +153,11 @@ export function MinUIHome({ catalog, renderCardDetail, header, stt }: MinUIHomeP
           onClose={() => setSheet("none")}
           onSelect={(menuId, prefill) => {
             setSheet("none");
+            notePress();
             open(menuId, prefill);
           }}
           {...(stt ? { stt } : {})}
+          {...(onInteraction ? { onInteraction } : {})}
         />
       )}
     </div>

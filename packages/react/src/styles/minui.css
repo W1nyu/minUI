@@ -32,6 +32,23 @@
   padding: var(--minui-gap);
 }
 
+/*
+ * 호스트가 정한 세 단계의 정보 밀도. 카드 순서·검색·메뉴 수는 전혀 바꾸지 않는다.
+ * 완전 단순형은 한 줄, 하이브리드는 기존 두 줄, 일반 단순형은 조금 더 조밀하게 보인다.
+ */
+.minui-root[data-support-level="simple"] .minui-home {
+  grid-template-columns: 1fr;
+}
+
+.minui-root[data-support-level="standard"] .minui-home {
+  gap: calc(var(--minui-gap) * 0.65);
+}
+
+.minui-root[data-support-level="standard"] .minui-home > :is(.minui-card) {
+  min-height: calc(var(--minui-touch-min) * 1.35);
+  padding: 0.75rem;
+}
+
 /* 카드가 5~6장이면 2열에서 세로가 길어진다. 한 화면 규칙을 지키려면
    그때는 카드 높이를 줄이는 대신 열을 늘린다. */
 .minui-home[data-count="5"],

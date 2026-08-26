@@ -3,6 +3,11 @@ import { MinUIHome, OnboardingSheet, type SttLike } from "@minui/react";
 import { makeStt } from "../stt.js";
 import { useMemo, useState } from "react";
 import { useBank } from "../BankContext.js";
+import {
+  supportLevelText,
+  useAdaptiveSupport,
+  type SupportLevel,
+} from "../adaptation/AdaptiveSupport.js";
 import { CATALOG } from "../catalog.js";
 import { formatWon } from "../screens/ScreenFrame.js";
 
@@ -16,6 +21,7 @@ const ONBOARDED_KEY = "minui.demo.onboarded";
 
 export function MinUIShell({ stt }: { stt?: SttLike } = {}) {
   const { accounts, deposits, autoTransfers, transactions } = useBank();
+  const adaptive = useAdaptiveSupport();
 
   /**
    * 브라우저 Web Speech 하나를 쓴다 (`../stt.ts`).
@@ -91,18 +97,74 @@ export function MinUIShell({ stt }: { stt?: SttLike } = {}) {
 
   if (!onboarded) return <OnboardingSheet onDone={finishOnboarding} />;
 
+  const level: SupportLevel = adaptive.consented ? adaptive.level : "guided";
+
   return (
     <MinUIHome
       catalog={CATALOG}
       renderCardDetail={renderCardDetail}
       stt={provider}
+      supportLevel={level}
+      onInteraction={(interaction) => {
+        if (interaction.kind === "press") adaptive.recordPress(interaction.durationMs);
+        else adaptive.recordVoice(interaction.durationMs);
+      }}
       header={
         <header className="minui-greeting">
           <p className="minui-greeting-text">
             <strong>김순자</strong>님, 안녕하세요
           </p>
+          <AdaptiveSupportControl />
         </header>
       }
     />
+  );
+}
+
+/**
+ * "불안도"라는 낙인 대신 사용자가 보는 것은 화면의 도움 정도뿐이다.
+ *
+ * <p>동의 전에는 어떤 원문·메뉴 ID·음성도 저장하지 않는다. 동의 뒤에도 남는 것은 합계 네
+ * 개뿐이고 탭을 닫거나 이 버튼으로 지우면 사라진다.
+ */
+function AdaptiveSupportControl() {
+  const adaptive = useAdaptiveSupport();
+
+  if (!adaptive.asked) {
+    return (
+      <section className="adaptive-support" aria-label="화면 도움 설정">
+        <p>
+          누름 시간·되돌아감·말하기 대기 시간을 <strong>이 탭 안에서 합계만</strong> 보고,
+          화면을 더 단순하게 맞출까요?
+        </p>
+        <div>
+          <button type="button" onClick={adaptive.grantConsent}>
+            네, 맞춰 주세요
+          </button>
+          <button type="button" onClick={adaptive.declineConsent}>
+            아니요, 지금 화면 유지
+          </button>
+        </div>
+      </section>
+    );
+  }
+
+  if (!adaptive.consented) {
+    return (
+      <button type="button" className="adaptive-support-link" onClick={adaptive.grantConsent}>
+        화면 도움 맞추기
+      </button>
+    );
+  }
+
+  return (
+    <section className="adaptive-support" aria-label="현재 화면 도움 정도">
+      <p>
+        화면 도움: <strong>{supportLevelText(adaptive.level)}</strong>
+      </p>
+      <button type="button" onClick={adaptive.forget}>
+        도움 기록 지우기
+      </button>
+    </section>
   );
 }

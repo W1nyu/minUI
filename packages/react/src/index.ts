@@ -6,6 +6,7 @@ export {
 } from "./MinUIProvider.js";
 export { useMinUI } from "./useMinUI.js";
 export { MinUIHome, type MinUIHomeProps } from "./MinUIHome.js";
+export type { MinUIInteraction } from "./interaction.js";
 export { MenuCard, type MenuCardProps } from "./MenuCard.js";
 export { AllMenuSheet, type AllMenuSheetProps } from "./AllMenuSheet.js";
 export {
