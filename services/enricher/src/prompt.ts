@@ -228,7 +228,8 @@ function cleanSynonyms(value: unknown, menu: MenuFacts): string[] {
  * 기획안 §9.3의 안전 경계가 모델 판단에 걸리면 안 된다 — 음성으로 이체가 실행되는 경로가
  * 열리는 것이고, 그것은 재 볼 성질의 문제가 아니다.
  */
-export function combineRisk(byRule: RiskLevel, byModel: RiskLevel): RiskLevel {
-  const rank: Record<RiskLevel, number> = { low: 0, medium: 1, high: 2 };
-  return rank[byModel] > rank[byRule] ? byModel : byRule;
-}
+/*
+ * 구현은 `@minui/core`로 옮겼다 — 규칙 8은 코어의 불변 규칙이고 `RiskLevel`도 거기 있다.
+ * 여기서 다시 내보내는 것은 부르던 이름을 그대로 두기 위해서다.
+ */
+export { combineRisk } from "@minui/core";

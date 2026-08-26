@@ -202,7 +202,7 @@
     ],
     "icon": "wallet",
     "route": "/shinhan.개인-조회-기일도래계좌조회",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "만기가 다가온 계좌 확인"
   },
   {
@@ -910,7 +910,7 @@
     ],
     "icon": "transfer",
     "route": "/shinhan.개인-이체-예약이체-처리결과-조회",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "예약한 송금이 잘 되었는지 확인합니다"
   },
   {
@@ -952,7 +952,7 @@
     ],
     "icon": "transfer",
     "route": "/shinhan.개인-이체-지연이체-처리결과-조회",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "지연 송금이 잘 되었는지 확인합니다"
   },
   {
@@ -1005,7 +1005,7 @@
     ],
     "icon": "repeat",
     "route": "/shinhan.개인-이체-자동이체결과-조회",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "cardable": false,
     "hint": "자동 이체가 잘 되었는지 확인합니다"
   },
@@ -1154,7 +1154,7 @@
     ],
     "icon": "transfer",
     "route": "/shinhan.개인-이체-급여이체결과-조회",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "cardable": false,
     "hint": "월급이 제대로 들어왔는지 확인해요"
   },
@@ -1211,7 +1211,7 @@
     ],
     "icon": "transfer",
     "route": "/shinhan.개인-이체-자동송금결과-조회",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "자동으로 돈이 잘 나갔는지 확인해요"
   },
   {
@@ -2831,7 +2831,7 @@
     ],
     "icon": "list",
     "route": "/shinhan.개인-공과금-법원-송달료-송달료-계좌환급내역-조회",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "법원에 낸 우편비를 돌려받은 내역"
   },
   {
@@ -3220,7 +3220,7 @@
     ],
     "icon": "doc",
     "route": "/shinhan.개인-공과금-법원-통합징수보험료-통합징수보험료-납부내역-조회",
-    "riskLevel": "low"
+    "riskLevel": "medium"
   },
   {
     "id": "shinhan.개인-공과금-법원-국민연금-반납금-추납보험료",
@@ -3263,7 +3263,7 @@
     ],
     "icon": "coin",
     "route": "/shinhan.개인-공과금-법원-국민연금-반납금-추납보험료-국민연금-납부내역-조회",
-    "riskLevel": "low"
+    "riskLevel": "medium"
   },
   {
     "id": "shinhan.개인-공과금-법원-고용-산재보험료-연납-분기납",
@@ -3321,7 +3321,7 @@
     ],
     "icon": "doc",
     "route": "/shinhan.개인-공과금-법원-고용-산재보험료-연납-분기납-고용-산재보험료-납부내역-조회",
-    "riskLevel": "low"
+    "riskLevel": "medium"
   },
   {
     "id": "shinhan.개인-공과금-법원-공무원연금",
@@ -3364,7 +3364,7 @@
     ],
     "icon": "coin",
     "route": "/shinhan.개인-공과금-법원-공무원연금-공무원연금-납부내역-조회",
-    "riskLevel": "low"
+    "riskLevel": "medium"
   },
   {
     "id": "shinhan.개인-공과금-법원-공무원연금-공무원연금-납부-취소",
@@ -3779,7 +3779,7 @@
     ],
     "icon": "transfer",
     "route": "/shinhan.개인-사용자관리-이체보류-신청-조회-이체보류-조회",
-    "riskLevel": "low"
+    "riskLevel": "medium"
   },
   {
     "id": "shinhan.개인-사용자관리-이체보류-신청-조회-이체보류-신청",
@@ -4139,7 +4139,7 @@
     ],
     "icon": "bank",
     "route": "/shinhan.개인-사용자관리-옵셋플랜조회-미가입-대출계좌-명세조회",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "서비스에 포함되지 않은 대출을 봐요"
   },
   {
@@ -4154,7 +4154,7 @@
     ],
     "icon": "savings",
     "route": "/shinhan.개인-사용자관리-옵셋플랜조회-미가입-예금계좌-명세조회",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "서비스에 포함되지 않은 예금을 봐요"
   },
   {
@@ -4254,7 +4254,7 @@
     ],
     "icon": "wallet",
     "route": "/shinhan.기업-예금-신탁-계좌조회",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "기업 계좌의 잔액을 확인해요"
   },
   {
@@ -4268,7 +4268,7 @@
     ],
     "icon": "wallet",
     "route": "/shinhan.기업-예금-신탁-다른기관계좌조회",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "다른 은행의 계좌를 확인해요"
   },
   {
@@ -5331,7 +5331,7 @@
     ],
     "icon": "wallet",
     "route": "/shinhan.기업-외환-신한글로벌멀티카드-잔액-거래내역-조회",
-    "riskLevel": "low"
+    "riskLevel": "medium"
   },
   {
     "id": "shinhan.기업-외환-외화수표-매입-추심-거래명세",
@@ -5344,7 +5344,7 @@
     ],
     "icon": "globe",
     "route": "/shinhan.기업-외환-외화수표-매입-추심-거래명세",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "해외 수표를 돈으로 바꾸는 내역"
   },
   {
@@ -5504,7 +5504,7 @@
     ],
     "icon": "transfer",
     "route": "/shinhan.기업-외환-해외송금-ORIS-송금-가능액-및-내역-조회",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "해외로 보낼 수 있는 금액과 보낸 기록을 봅니다."
   },
   {
@@ -5592,7 +5592,7 @@
     ],
     "icon": "globe",
     "route": "/shinhan.기업-외환-외화송금내역조회",
-    "riskLevel": "low"
+    "riskLevel": "medium"
   },
   {
     "id": "shinhan.기업-외환-송금서비스",
@@ -5723,7 +5723,7 @@
     ],
     "icon": "doc",
     "route": "/shinhan.기업-외환-지정거래-정보조회",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "해외 송금을 위해 지정한 은행 정보를 봅니다."
   },
   {
@@ -5753,7 +5753,7 @@
     ],
     "icon": "doc",
     "route": "/shinhan.기업-외환-지정거래-정보조회-지정거래-현황-조회",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "현재 지정된 외환 거래 상태를 봅니다."
   },
   {
@@ -5783,7 +5783,7 @@
     ],
     "icon": "globe",
     "route": "/shinhan.기업-외환-조회-외화예금조회",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "외화 통장에 든 돈을 확인합니다."
   },
   {
@@ -5798,7 +5798,7 @@
     ],
     "icon": "globe",
     "route": "/shinhan.기업-외환-조회-외화예금거래명세",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "외화 통장의 돈이 오간 기록을 봅니다."
   },
   {
@@ -6362,7 +6362,7 @@
     ],
     "icon": "wallet",
     "route": "/shinhan.기업-ISA-자산-잔고현황",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "ISA에 들어있는 돈을 확인합니다"
   },
   {
@@ -6376,7 +6376,7 @@
     ],
     "icon": "list",
     "route": "/shinhan.기업-ISA-거래내역조회",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "ISA에서 돈이 오간 내역을 봅니다"
   },
   {
@@ -6716,7 +6716,7 @@
     ],
     "icon": "list",
     "route": "/shinhan.기업-퇴직연금-자산관리-거래내역-조회",
-    "riskLevel": "low"
+    "riskLevel": "medium"
   },
   {
     "id": "shinhan.기업-퇴직연금-자산관리-부담금-입금현황",
@@ -6809,7 +6809,7 @@
     ],
     "icon": "coin",
     "route": "/shinhan.기업-퇴직연금-자산관리-연금수령내역",
-    "riskLevel": "low"
+    "riskLevel": "medium"
   },
   {
     "id": "shinhan.기업-퇴직연금-자산관리-연금시뮬레이션",
@@ -7533,7 +7533,7 @@
     ],
     "icon": "bank",
     "route": "/shinhan.기업-대출-대출계좌명세",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "현재 빌린 대출 계좌 목록"
   },
   {
@@ -7575,7 +7575,7 @@
     ],
     "icon": "bank",
     "route": "/shinhan.기업-대출-한도대출이자계산내역조회",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "마이너스 통장 이자 계산 내용"
   },
   {
@@ -7589,7 +7589,7 @@
     ],
     "icon": "bank",
     "route": "/shinhan.기업-대출-대출해지현황조회",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "이미 해지한 대출 내역 확인"
   },
   {
@@ -7617,7 +7617,7 @@
     ],
     "icon": "bank",
     "route": "/shinhan.기업-대출-당좌대출승인현황조회",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "당좌대출 승인 상태 확인"
   },
   {
@@ -7631,7 +7631,7 @@
     ],
     "icon": "bank",
     "route": "/shinhan.기업-대출-당좌대출적수-이율조회",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "당좌대출 이자율과 계산 내역"
   },
   {
@@ -7729,7 +7729,7 @@
     ],
     "icon": "bank",
     "route": "/shinhan.기업-대출-대출금리산정내역서-조회",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "대출 금리가 정해진 내역 확인"
   },
   {
@@ -7799,7 +7799,7 @@
     ],
     "icon": "bank",
     "route": "/shinhan.기업-대출-대출원금상환-일정조회",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "대출 원금 갚는 날짜 확인"
   },
   {
@@ -7869,7 +7869,7 @@
     ],
     "icon": "savings",
     "route": "/shinhan.기업-대출-예-적금-담보대출-한도조회",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "예적금 담보로 빌릴 수 있는 돈"
   },
   {
@@ -7942,7 +7942,7 @@
     ],
     "icon": "bank",
     "route": "/shinhan.기업-대출-펀드-담보대출-한도조회",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "펀드 담보로 빌릴 수 있는 돈"
   },
   {
@@ -8200,7 +8200,7 @@
     ],
     "icon": "bank",
     "route": "/shinhan.기업-대출-대출한도조회",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "대출 가능한 최대 금액을 조회합니다"
   },
   {
@@ -8485,7 +8485,7 @@
     ],
     "icon": "list",
     "route": "/shinhan.기업-골드-실버-거래명세조회",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "금과 은을 거래한 기록을 확인합니다"
   },
   {
@@ -9125,7 +9125,7 @@
     ],
     "icon": "chart",
     "route": "/shinhan.기업-펀드-펀드잔고조회",
-    "riskLevel": "low"
+    "riskLevel": "medium"
   },
   {
     "id": "shinhan.기업-펀드-통합검색",
@@ -9455,7 +9455,7 @@
     ],
     "icon": "doc",
     "route": "/shinhan.기업-보험-공제-보험-노란우산-조회",
-    "riskLevel": "low"
+    "riskLevel": "medium"
   },
   {
     "id": "shinhan.기업-보험-공제-모집수수료율-공시",
@@ -11299,7 +11299,7 @@
     ],
     "icon": "doc",
     "route": "/shinhan.자산관리-회원서비스-법원업무-계좌환급-조회",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "법원에서 돌려받을 돈을 확인해요"
   },
   {

@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import type { MenuItem, RiskLevel } from "@minui/core";
+import { combineRisk, type MenuItem, type RiskLevel } from "@minui/core";
 import { cleanLabel, NOT_A_MENU } from "./labels.js";
 import { guessIcon } from "./icons.js";
 import { guessRisk } from "./risk.js";
@@ -330,7 +330,19 @@ export function buildMenus(
        *
        * 나머지 셋은 검색을 방해하지 않으므로 그대로 쓴다.
        */
-      if (generated.riskLevel) menu.riskLevel = generated.riskLevel;
+      /*
+       * **더 위험한 쪽을 택한다** (불변 규칙 8 — "LLM은 위험도를 낮추지 못한다").
+       *
+       * 전에는 여기서 모델 값으로 **덮어썼다.** 그러면 두 가지가 깨진다.
+       *  ① 모델이 규칙보다 낮게 본 메뉴가 조용히 내려간다 — 규칙 8이 막으려던 바로 그것
+       *  ② `*.ai.json`은 보강 당시에 구워진 값이라, **규칙을 고쳐도 반영되지 않는다.**
+       *     M11에서 민감 조회를 `medium`으로 올렸는데 카탈로그에 하나도 안 들어와서 드러났다.
+       *
+       * `combineRisk`는 보강기가 쓰던 것과 같은 함수다. 두 곳이 같은 규칙을 써야 한다.
+       */
+      if (generated.riskLevel) {
+        menu.riskLevel = combineRisk(menu.riskLevel, generated.riskLevel);
+      }
       if (generated.cardable !== undefined) menu.cardable = generated.cardable;
       if (generated.hint) {
         menu.hint = generated.hint;

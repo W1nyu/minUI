@@ -77,7 +77,7 @@
     ],
     "icon": "transfer",
     "route": "/miraeasset.뱅킹-대출-청약-이체-이체내역조회",
-    "riskLevel": "low"
+    "riskLevel": "medium"
   },
   {
     "id": "miraeasset.뱅킹-대출-청약-이체-자동이체",
@@ -358,7 +358,7 @@
     ],
     "icon": "bank",
     "route": "/miraeasset.뱅킹-대출-청약-대출-신용-대출-현황-조회",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "현재 대출받은 금액과 이자 확인"
   },
   {
@@ -545,7 +545,7 @@
     ],
     "icon": "list",
     "route": "/miraeasset.뱅킹-대출-청약-청약-계좌별권리내역",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "내가 신청한 청약 내역 확인"
   },
   {
@@ -890,7 +890,7 @@
     ],
     "icon": "chart",
     "route": "/miraeasset.금융상품-개인투자용국채-개인투자용국채-보유-매매현황",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "내가 가진 국채와 매매 내역 확인"
   },
   {
@@ -1102,7 +1102,7 @@
     ],
     "icon": "doc",
     "route": "/miraeasset.금융상품-CMA-Wrap형CMA-이자금액조회",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "CMA 통장에 쌓인 이자 확인"
   },
   {
@@ -1161,7 +1161,7 @@
     ],
     "icon": "chart",
     "route": "/miraeasset.금융상품-ELS-DLS-ETN-ELW-기초자산별-가격-조회",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "cardable": false,
     "hint": "상품 수익의 기준이 되는 자산 가격"
   },
@@ -1377,7 +1377,7 @@
     ],
     "icon": "chart",
     "route": "/miraeasset.금융상품-발행어음-발행어음-잔고-매매내역",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "보유한 발행어음과 거래 기록"
   },
   {
@@ -1873,7 +1873,7 @@
     ],
     "icon": "wallet",
     "route": "/miraeasset.금융상품-신탁-Wrap-Wrap-잔고조회",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "맡긴 돈의 현재 금액"
   },
   {
@@ -2207,7 +2207,7 @@
     ],
     "icon": "chart",
     "route": "/miraeasset.연금자산-MY개인연금-개인연금-수익률조회",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "연금의 투자 수익률 확인"
   },
   {
@@ -2221,7 +2221,7 @@
     ],
     "icon": "coin",
     "route": "/miraeasset.연금자산-MY개인연금-개인연금-계좌정보조회",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "연금 계좌의 상세 정보"
   },
   {
@@ -2523,7 +2523,7 @@
     ],
     "icon": "chart",
     "route": "/miraeasset.연금자산-퇴직연금-IRP매매-퇴직연금-IRP-투자한도초과현황",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "퇴직연금 투자 한도 확인하기"
   },
   {
@@ -2619,7 +2619,7 @@
     ],
     "icon": "coin",
     "route": "/miraeasset.연금자산-퇴직연금-IRP관리-퇴직연금-IRP-이체신청내역",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "퇴직연금 돈 옮긴 기록 보기"
   },
   {
@@ -3036,7 +3036,7 @@
     ],
     "icon": "coin",
     "route": "/miraeasset.연금자산-퇴직연금-IRP-간편조회",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "퇴직연금과 IRP 계좌를 빠르게 조회하세요"
   },
   {
@@ -3885,7 +3885,7 @@
     ],
     "icon": "person",
     "route": "/miraeasset.서비스-신청-변경-고객정보관리-계좌정보조회",
-    "riskLevel": "low"
+    "riskLevel": "medium"
   },
   {
     "id": "miraeasset.서비스-신청-변경-고객정보관리-투자자정보확인서",

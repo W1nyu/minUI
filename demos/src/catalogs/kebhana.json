@@ -54,7 +54,7 @@
     ],
     "icon": "wallet",
     "route": "/kebhana.조회-거래중지-휴면계좌조회",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "오랫동안 거래가 없는 계좌를 찾아요"
   },
   {
@@ -68,7 +68,7 @@
     ],
     "icon": "wallet",
     "route": "/kebhana.62422",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "거래가 중지된 계좌를 찾아요"
   },
   {
@@ -141,7 +141,7 @@
     ],
     "icon": "doc",
     "route": "/kebhana.조회-해지계좌-조회",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "이미 해지한 계좌를 확인해요"
   },
   {
@@ -169,7 +169,7 @@
     ],
     "icon": "wallet",
     "route": "/kebhana.58046",
-    "riskLevel": "low"
+    "riskLevel": "medium"
   },
   {
     "id": "kebhana.58044",
@@ -292,7 +292,7 @@
     ],
     "icon": "transfer",
     "route": "/kebhana.이체-이체-결과조회",
-    "riskLevel": "low"
+    "riskLevel": "medium"
   },
   {
     "id": "kebhana.57921",
@@ -305,7 +305,7 @@
     ],
     "icon": "transfer",
     "route": "/kebhana.57921",
-    "riskLevel": "low"
+    "riskLevel": "medium"
   },
   {
     "id": "kebhana.58116",
@@ -318,7 +318,7 @@
     ],
     "icon": "transfer",
     "route": "/kebhana.58116",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "시간을 두고 보낸 이체를 확인해요"
   },
   {
@@ -332,7 +332,7 @@
     ],
     "icon": "transfer",
     "route": "/kebhana.57922",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "전화로 보낸 돈을 확인해요"
   },
   {
@@ -386,7 +386,7 @@
     ],
     "icon": "transfer",
     "route": "/kebhana.57923",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "예약한 이체 내역을 확인해요"
   },
   {
@@ -547,7 +547,7 @@
     ],
     "icon": "repeat",
     "route": "/kebhana.57927",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "자동으로 나간 돈을 확인해요"
   },
   {
@@ -657,7 +657,7 @@
     ],
     "icon": "transfer",
     "route": "/kebhana.이체-기타이체서비스-이체수수료조회",
-    "riskLevel": "low"
+    "riskLevel": "medium"
   },
   {
     "id": "kebhana.이체-기타이체서비스-현금담보-관세청",
@@ -807,7 +807,7 @@
     ],
     "icon": "list",
     "route": "/kebhana.102637",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "안전결제 이용 내역 보기"
   },
   {
@@ -1433,7 +1433,7 @@
     ],
     "icon": "transfer",
     "route": "/kebhana.24211",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "외화 보낸 기록 확인"
   },
   {
@@ -1517,7 +1517,7 @@
     ],
     "icon": "globe",
     "route": "/kebhana.33526",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "cardable": false,
     "hint": "외화 이체한 결과 확인"
   },
@@ -1561,7 +1561,7 @@
     ],
     "icon": "globe",
     "route": "/kebhana.33530",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "cardable": false,
     "hint": "다른 은행으로 보낸 기록 확인"
   },
@@ -2137,7 +2137,7 @@
     ],
     "icon": "list",
     "route": "/kebhana.58061",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "내가 가입한 보험 상품 목록"
   },
   {
@@ -2165,7 +2165,7 @@
     ],
     "icon": "doc",
     "route": "/kebhana.58065",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "보험료를 낸 기록 확인하기"
   },
   {
@@ -2357,7 +2357,7 @@
     ],
     "icon": "bank",
     "route": "/kebhana.대출-대출조회",
-    "riskLevel": "low"
+    "riskLevel": "medium"
   },
   {
     "id": "kebhana.21103",
@@ -2440,7 +2440,7 @@
     ],
     "icon": "bank",
     "route": "/kebhana.21107",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "이미 다 갚고 끝난 대출 내역"
   },
   {
@@ -2453,7 +2453,7 @@
     ],
     "icon": "bank",
     "route": "/kebhana.58054",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "현재 내 대출의 이자율 확인"
   },
   {
@@ -2728,7 +2728,7 @@
     ],
     "icon": "bank",
     "route": "/kebhana.21502",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "주택 담보 대출 계약 내용을 확인합니다"
   },
   {
@@ -2767,7 +2767,7 @@
     ],
     "icon": "bank",
     "route": "/kebhana.99001",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "상각된 대출 채무 면제 결과를 확인합니다"
   },
   {
@@ -3043,7 +3043,7 @@
     ],
     "icon": "chart",
     "route": "/kebhana.57826",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "펀드 사고판 기록 확인"
   },
   {
@@ -3304,7 +3304,7 @@
     ],
     "icon": "list",
     "route": "/kebhana.18704",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "계좌 이동 확인서 발급 기록 확인"
   },
   {
@@ -3358,7 +3358,7 @@
     ],
     "icon": "chart",
     "route": "/kebhana.62565",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "현재 가지고 있는 펀드 확인"
   },
   {
@@ -3615,7 +3615,7 @@
     ],
     "icon": "list",
     "route": "/kebhana.58052",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "신탁 상품 거래 기록 확인"
   },
   {
@@ -3861,7 +3861,7 @@
     ],
     "icon": "chart",
     "route": "/kebhana.62690",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "내가 얼마나 위험한 투자를 할 수 있는지 확인"
   },
   {
@@ -4650,7 +4650,7 @@
     ],
     "icon": "list",
     "route": "/kebhana.58066",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "보험 계약을 바꾼 기록 확인"
   },
   {
@@ -4737,7 +4737,7 @@
     ],
     "icon": "card",
     "route": "/kebhana.57987",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "교통카드나 하이패스 사용 내역 확인"
   },
   {
@@ -4843,7 +4843,7 @@
     ],
     "icon": "gauge",
     "route": "/kebhana.57990",
-    "riskLevel": "low"
+    "riskLevel": "medium"
   },
   {
     "id": "kebhana.57991",
@@ -5149,7 +5149,7 @@
     ],
     "icon": "wallet",
     "route": "/kebhana.58086",
-    "riskLevel": "low"
+    "riskLevel": "medium"
   },
   {
     "id": "kebhana.58087",
@@ -5161,7 +5161,7 @@
     ],
     "icon": "wallet",
     "route": "/kebhana.58087",
-    "riskLevel": "low"
+    "riskLevel": "medium"
   },
   {
     "id": "kebhana.58088",
@@ -7283,7 +7283,7 @@
     ],
     "icon": "chart",
     "route": "/kebhana.102823",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "인공지능이 굴리는 내 연금 상태"
   },
   {
@@ -7463,7 +7463,7 @@
     ],
     "icon": "chart",
     "route": "/kebhana.102695",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "퇴직연금으로 산 주식의 거래 기록입니다"
   },
   {
@@ -7476,7 +7476,7 @@
     ],
     "icon": "coin",
     "route": "/kebhana.퇴직연금-연금계좌-조회",
-    "riskLevel": "low"
+    "riskLevel": "medium"
   },
   {
     "id": "kebhana.99024",
@@ -7752,7 +7752,7 @@
     ],
     "icon": "coin",
     "route": "/kebhana.99022",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "연금을 매달 받은 기록입니다"
   },
   {
@@ -7939,7 +7939,7 @@
     "category": "연금상품 보유현황",
     "icon": "coin",
     "route": "/kebhana.연금상품-보유현황",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "현재 가지고 있는 연금 상품 목록입니다"
   },
   {
@@ -8096,7 +8096,7 @@
     ],
     "icon": "transfer",
     "route": "/kebhana.102592",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "다른 은행 계좌로 보낸 돈 확인"
   },
   {

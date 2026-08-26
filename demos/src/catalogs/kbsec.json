@@ -536,7 +536,7 @@
     ],
     "icon": "wallet",
     "route": "/kbsec.m01070010",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "내가 가입한 랩의 현재 금액"
   },
   {
@@ -701,7 +701,7 @@
     ],
     "icon": "chart",
     "route": "/kbsec.m01060004",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "cardable": false,
     "hint": "현재 보유한 채권의 시장 가치 조회"
   },
@@ -1106,7 +1106,7 @@
     ],
     "icon": "chart",
     "route": "/kbsec.m01020008",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "cardable": false,
     "hint": "상품의 기준이 되는 자산의 현재 가격"
   },
@@ -1609,7 +1609,7 @@
     ],
     "icon": "transfer",
     "route": "/kbsec.m05080012",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "ISA에서 뺄 수 있는 돈"
   },
   {
@@ -1793,7 +1793,7 @@
     ],
     "icon": "savings",
     "route": "/kbsec.m05080008",
-    "riskLevel": "low"
+    "riskLevel": "medium"
   },
   {
     "id": "kbsec.m05080004",
@@ -1845,7 +1845,7 @@
     ],
     "icon": "card",
     "route": "/kbsec.m01040003",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "신청한 카드가 어디쯤 왔는지 봐요"
   },
   {
@@ -2333,7 +2333,7 @@
     ],
     "icon": "wallet",
     "route": "/kbsec.m02010000",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "통장에 남은 돈과 거래 내용을 봅니다"
   },
   {
@@ -2347,7 +2347,7 @@
     ],
     "icon": "wallet",
     "route": "/kbsec.m02010001",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "가진 모든 계좌의 돈을 한 번에 봅니다"
   },
   {
@@ -2433,7 +2433,7 @@
     ],
     "icon": "bank",
     "route": "/kbsec.m02010006",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "CMA 계좌로 번 돈을 확인합니다"
   },
   {
@@ -2464,7 +2464,7 @@
     ],
     "icon": "transfer",
     "route": "/kbsec.m02010008",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "돈을 찾은 내역과 수익 상황을 봅니다"
   },
   {
@@ -2478,7 +2478,7 @@
     ],
     "icon": "list",
     "route": "/kbsec.m02010009",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "계좌에서 뗀 세금 기록을 봅니다"
   },
   {
@@ -2562,7 +2562,7 @@
     ],
     "icon": "transfer",
     "route": "/kbsec.m02020020",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "cardable": false,
     "hint": "다른 은행으로 보낸 돈의 결과를 봅니다"
   },
@@ -3363,7 +3363,7 @@
     ],
     "icon": "bank",
     "route": "/kbsec.m02060016",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "지금까지 빌린 돈이 얼마인지 확인"
   },
   {
@@ -3377,7 +3377,7 @@
     ],
     "icon": "bank",
     "route": "/kbsec.m02060017",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "더 빌릴 수 있는 돈이 얼마인지 확인"
   },
   {
@@ -3462,7 +3462,7 @@
     ],
     "icon": "bank",
     "route": "/kbsec.m02060033",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "대출 가능한 금액을 다시 확인"
   },
   {
@@ -3476,7 +3476,7 @@
     ],
     "icon": "bank",
     "route": "/kbsec.m02060034",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "제휴 매입자금 대출을 얼마나 썼는지 확인"
   },
   {
@@ -3490,7 +3490,7 @@
     ],
     "icon": "wallet",
     "route": "/kbsec.m02060035",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "대출 담보로 쓸 수 없는 주식 목록"
   },
   {
@@ -3851,7 +3851,7 @@
     ],
     "icon": "savings",
     "route": "/kbsec.m02040020",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "맡겨둔 투자 상품 가입 내역을 봐요"
   },
   {
@@ -3895,7 +3895,7 @@
     ],
     "icon": "wallet",
     "route": "/kbsec.m02040024",
-    "riskLevel": "low"
+    "riskLevel": "medium"
   },
   {
     "id": "kbsec.m02040031",
@@ -4256,7 +4256,7 @@
     ],
     "icon": "chart",
     "route": "/kbsec.m02050011",
-    "riskLevel": "low"
+    "riskLevel": "medium"
   },
   {
     "id": "kbsec.m02050047",
@@ -6223,7 +6223,7 @@
     ],
     "icon": "coin",
     "route": "/kbsec.m08010001",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "현재 내 연금에 쌓인 돈"
   },
   {
@@ -6612,7 +6612,7 @@
     ],
     "icon": "coin",
     "route": "/kbsec.m08150002",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "찾아가지 않은 퇴직금 찾기"
   },
   {
@@ -6998,7 +6998,7 @@
     ],
     "icon": "coin",
     "route": "/kbsec.m08070000",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "회사에서 가입한 연금 상태예요"
   },
   {
@@ -7398,7 +7398,7 @@
     ],
     "icon": "wallet",
     "route": "/kbsec.m06020006",
-    "riskLevel": "low",
+    "riskLevel": "medium",
     "hint": "오랫동안 거래가 없던 계좌 찾기"
   },
   {
