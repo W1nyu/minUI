@@ -18,6 +18,7 @@ export function TransferScreen({
   spoken?: string;
 }) {
   const { accounts, payees, complete, api, reload } = useBank();
+  const isOpenBankingMock = api.demoMode === "open-banking-mock";
 
   /*
    * **수취인은 미리 고른다** — §9.3이 "최근 수취인 프리필"을 음성으로 가능한 쪽에 뒀다.
@@ -41,8 +42,19 @@ export function TransferScreen({
    */
   const heardAmount = useMemo(() => (spoken ? parseAmount(spoken) : null), [spoken]);
 
+  /*
+   * **못 고르면 비워 둔다.** 맨 앞 수취인으로 채우지 않는다.
+   *
+   * `pickFromList`는 애매하면 일부러 `null`을 주고, 그 doc이 이유를 못박아 뒀다 —
+   * "비어 있는 칸은 사용자가 채우면 되지만, 잘못 채워진 칸은 사용자가 알아채야만
+   * 고쳐진다." 여기서 `payees[0]`으로 기본값을 채우면 그 거절이 화면에서 사라진다.
+   *
+   * 리허설에서 실제로 그랬다. "삼촌한테 3만원 보내줘"라고 했더니 엔진은 아무도 안
+   * 골랐는데 화면에는 `행복아파트 관리사무소`가 골라져 있었다. 고령 사용자와 큰
+   * `보내기` 버튼이 함께 있는 화면에서 그것은 이 기능이 할 수 있는 가장 나쁜 실수다.
+   */
   const [payeeId, setPayeeId] = useState(
-    () => payees.find((p) => p.name === heardPayee)?.id ?? payees[0]?.id ?? "",
+    () => payees.find((p) => p.name === heardPayee)?.id ?? "",
   );
   const [amount, setAmount] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -94,6 +106,11 @@ export function TransferScreen({
         <p className="notice" role="status">
           {done.payee}님께 {formatWon(done.amount)}을 보냈습니다.
         </p>
+        {isOpenBankingMock && (
+          <p className="mock-api-note">
+            가상 오픈뱅킹 Mock의 성공 응답을 받아 테스트 원장과 잔액을 갱신했습니다.
+          </p>
+        )}
         <button type="button" className="primary-button" onClick={onBack}>
           확인
         </button>
@@ -106,6 +123,13 @@ export function TransferScreen({
       <p className="field-note">
         보낼 통장: {account?.nickname} ({formatWon(account?.balance ?? 0)})
       </p>
+      {isOpenBankingMock && (
+          <p className="mock-api-note">
+          시연용 OAuth 2.0 동의 상태만 준비되어 있어요. 아래 내용을 사람이 확인하고
+          보내기를 누르면 가상 Open Banking JSON 요청이 실행됩니다. 실제 계좌·토큰은 쓰지
+          않습니다.
+        </p>
+      )}
 
       <label className="field-label" htmlFor={payeeFieldId}>
         받는 분
@@ -121,6 +145,11 @@ export function TransferScreen({
         value={payeeId}
         onChange={(event) => setPayeeId(event.target.value)}
       >
+        {/*
+          비어 있는 상태에 이름을 준다. 빈 칸이 고장으로 읽히지 않게, 그리고
+          무엇을 해야 하는지가 칸 안에서 보이게.
+        */}
+        <option value="">받는 분을 고르세요</option>
         {payees.map((p) => (
           <option key={p.id} value={p.id}>
             {p.name} ({p.number})

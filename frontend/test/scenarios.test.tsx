@@ -110,6 +110,17 @@ async function s1(mode: Mode) {
     const card = screen.getByRole("region", { name: "주거래 통장" });
     await userEvent.click(within(card).getByRole("button", { name: "이체" }));
   }
+  /*
+   * 받는 분을 고르는 단계. **두 모드가 같은 이체 화면에 도착하므로 이 한 단계는
+   * 양쪽에 똑같이 붙는다** — §12.2의 탭 수 비교는 그대로 유효하다. 절댓값만 하나씩 는다.
+   *
+   * 전에는 맨 앞 수취인이 미리 골라져 있어 이 줄이 없었는데, 그것은 엔진이 아무도
+   * 고르지 않은 자리를 화면이 덮은 것이었다 (`payeeRefusal.test.tsx`).
+   */
+  await userEvent.selectOptions(
+    screen.getByLabelText("받는 분"),
+    screen.getByRole("option", { name: /행복아파트 관리사무소/ }),
+  );
   await userEvent.type(screen.getByLabelText("보낼 금액"), "187000");
   await userEvent.click(screen.getByRole("button", { name: "보내기" }));
   await waitFor(() => expect(screen.getByRole("status")).toBeInTheDocument());

@@ -124,6 +124,16 @@ describe("실제로 동작하는 화면", () => {
     );
 
     await userEvent.click(screen.getByRole("button", { name: /계좌 이체/ }));
+    /*
+     * **받는 분을 고르는 것이 한 단계다.** 전에는 맨 앞 수취인이 미리 골라져 있어서
+     * 이 줄이 없었는데, 그것은 엔진이 "모르겠다"고 한 자리를 화면이 덮은 것이었다
+     * (`payeeRefusal.test.tsx`). 탭으로 들어온 경우에도 누구에게 보내는지는
+     * 사람이 정한다.
+     */
+    await userEvent.selectOptions(
+      screen.getByLabelText("받는 분"),
+      screen.getByRole("option", { name: /행복아파트 관리사무소/ }),
+    );
     await userEvent.type(screen.getByLabelText("보낼 금액"), "187000");
     await userEvent.click(screen.getByRole("button", { name: "보내기" }));
 
@@ -153,6 +163,10 @@ describe("실제로 동작하는 화면", () => {
     );
 
     await userEvent.click(screen.getByRole("button", { name: /계좌 이체/ }));
+    await userEvent.selectOptions(
+      screen.getByLabelText("받는 분"),
+      screen.getByRole("option", { name: /행복아파트 관리사무소/ }),
+    );
     await userEvent.type(screen.getByLabelText("보낼 금액"), "99999999");
     await userEvent.click(screen.getByRole("button", { name: "보내기" }));
 

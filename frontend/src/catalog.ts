@@ -10,9 +10,19 @@ import type { ColdStartPresets, MenuCatalog } from "@minui/core";
  * "자동이체 해지"를 사람들은 "떼가는 거 그만"이라고 부른다 — 이 간극이 §8.3에서
  * 동의어 사전을 임베딩보다 앞에 둔 이유다.
  *
- * `path`는 두 단이다. 한 단만 주면 되묻기의 `bestSplit`이 `index.categories()` 폴백과
- * 같은 결과를 내서 얻는 것이 없다. 검색 점수는 안 바뀐다 — `MenuIndex`는 `label`과
- * `synonyms`만 term으로 넣고 `path`는 되묻기의 축으로만 쓴다.
+ * `path`는 두 단이고, **한 갈래 안에서는 예외 없이 두 단이다.** 한 단만 주면 되묻기의
+ * `bestSplit`이 `index.categories()` 폴백과 같은 결과를 내서 얻는 것이 없고, 반대로
+ * **반쪽만 두 단으로 주면 더 나쁘다** — `bestSplit`은 그 깊이에 갈래가 없는 메뉴를
+ * 나눔에서 빼기 때문에(`reprompt.ts`), 두 단으로 가르는 순간 한 단짜리가 선택지에서
+ * 통째로 사라진다.
+ *
+ * 실제로 그렇게 만들었다가 리허설에서 걸렸다. `이체` 아래에서 `계좌 이체`와
+ * `최근 보낸 곳`만 한 단이었더니 "삼촌한테 3만원 보내줘"의 선택지가
+ * **"특수 이체 / 자동·예약"** 둘뿐이었다 — 돈을 보내려는 사람에게 그 둘만 내민 것이다.
+ * `frontend/test/repromptDoors.test.ts`가 이 불변식을 지킨다.
+ *
+ * 검색 점수는 안 바뀐다 — `MenuIndex`는 `label`과 `synonyms`만 term으로 넣고
+ * `path`는 되묻기의 축과 전체 메뉴의 소제목으로만 쓴다.
  *
  * **`hint`를 여섯 곳에 일부러 비워 두었다.** 빠뜨린 것이 아니니 채우지 말 것.
  *
@@ -31,7 +41,7 @@ export const CATALOG: MenuCatalog = [
     label: "잔액 보기",
     synonyms: ["돈 얼마 있어", "잔고", "통장 확인", "얼마 남았어", "잔액조회"],
     category: "조회",
-    path: ["조회"],
+    path: ["조회", "잔액·계좌"],
     icon: "wallet",
     route: "/inquiry/balance",
     riskLevel: "low",
@@ -42,7 +52,7 @@ export const CATALOG: MenuCatalog = [
     label: "거래 내역",
     synonyms: ["입금 확인", "들어온 돈", "내역 보기", "통장 정리", "거래명세"],
     category: "조회",
-    path: ["조회"],
+    path: ["조회", "들어오고 나간 돈"],
     icon: "list",
     route: "/inquiry/history",
     riskLevel: "low",
@@ -53,7 +63,7 @@ export const CATALOG: MenuCatalog = [
     label: "입금 예정",
     synonyms: ["연금 언제 들어와", "월급날", "들어올 돈"],
     category: "조회",
-    path: ["조회"],
+    path: ["조회", "들어오고 나간 돈"],
     icon: "calendar",
     route: "/inquiry/deposit",
     riskLevel: "low",
@@ -64,7 +74,7 @@ export const CATALOG: MenuCatalog = [
     label: "내 계좌 모두 보기",
     synonyms: ["통장 목록", "계좌 목록", "통장 몇 개", "계좌 몇 개", "전체 계좌"],
     category: "조회",
-    path: ["조회"],
+    path: ["조회", "잔액·계좌"],
     icon: "doc",
     route: "/inquiry/accounts",
     riskLevel: "low",
@@ -93,7 +103,7 @@ export const CATALOG: MenuCatalog = [
     // 목적어 없는 동사는 동의어로 두면 안 된다는 것이 벤치마크에서 드러났다.
     synonyms: ["이체", "돈 보내기", "송금", "부치기", "이체하기", "돈 부쳐"],
     category: "이체",
-    path: ["이체"],
+    path: ["이체", "보내기"],
     icon: "transfer",
     route: "/transfer/account",
     riskLevel: "high",
@@ -104,7 +114,7 @@ export const CATALOG: MenuCatalog = [
     label: "최근 보낸 곳",
     synonyms: ["전에 보낸 사람", "자주 보내는 곳", "지난번 그 계좌"],
     category: "이체",
-    path: ["이체"],
+    path: ["이체", "보내기"],
     icon: "person",
     route: "/transfer/recent",
     riskLevel: "high",
@@ -233,7 +243,7 @@ export const CATALOG: MenuCatalog = [
     label: "이체 한도 변경",
     synonyms: ["보낼 수 있는 금액", "한도 올리기", "한도 늘려"],
     category: "설정",
-    path: ["설정"],
+    path: ["설정", "알림·한도"],
     icon: "gauge",
     route: "/settings/limit",
     riskLevel: "high",
@@ -243,7 +253,7 @@ export const CATALOG: MenuCatalog = [
     label: "입출금 알림",
     synonyms: ["문자 알림", "알람 설정", "들어오면 알려줘"],
     category: "설정",
-    path: ["설정"],
+    path: ["설정", "알림·한도"],
     icon: "bell",
     route: "/settings/alarm",
     riskLevel: "low",
@@ -254,7 +264,7 @@ export const CATALOG: MenuCatalog = [
     label: "내 정보",
     synonyms: ["주소 변경", "주소 바꾸기", "전화번호 바꾸기"],
     category: "설정",
-    path: ["설정"],
+    path: ["설정", "내 정보·화면"],
     icon: "person",
     route: "/settings/profile",
     riskLevel: "low",
@@ -265,7 +275,7 @@ export const CATALOG: MenuCatalog = [
     label: "화면 설정",
     synonyms: ["글씨 크게", "보기 편하게", "큰 글씨"],
     category: "설정",
-    path: ["설정"],
+    path: ["설정", "내 정보·화면"],
     icon: "gauge",
     route: "/settings/display",
     riskLevel: "low",
