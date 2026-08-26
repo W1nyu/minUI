@@ -19,9 +19,18 @@
     "bench:expand": "tsx src/bench-expand.ts",
     "bench:learning": "tsx src/bench-learning.ts",
     "tune:search": "tsx src/tune-search.ts",
-    "fetch:model": "tsx src/fetch-whisper-model.ts"
+    "report:contamination": "tsx src/report-contamination.ts",
+    "report:evaluation": "tsx src/report-contamination.ts",
+    "build:eval-prompts": "tsx src/build-eval-prompts.ts",
+    "fetch:model": "tsx src/fetch-embed-model.ts",
+    "tune:neural": "tsx src/tune-neural.ts",
+    "build:vectors": "tsx src/build-vectors.ts",
+    "build:eval-queries": "tsx src/build-eval-queries.ts",
+    "bench:neural": "tsx src/bench-neural.ts",
+    "bench:reprompt": "tsx src/bench-reprompt.ts"
   },
   "dependencies": {
-    "@minui/core": "workspace:*"
+    "@minui/core": "workspace:*",
+    "@huggingface/transformers": "^4.2.0"
   }
 }
