@@ -1,8 +1,10 @@
 import type { MenuId, Slots } from "@minui/core";
 import { makeExplain } from "@host-ai/explain.js";
 import { IndexedDbStorageAdapter, MinUIProvider, type SttLike } from "@minui/react";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { BankProvider } from "./BankContext.js";
+import { DemoLedgerNotice } from "./DemoLedgerNotice.js";
+import { AdaptiveSupportProvider, useAdaptiveSupport } from "./adaptation/AdaptiveSupport.js";
 import { MockBankApi } from "./api/mockApi.js";
 import type { BankApi } from "./api/types.js";
 import { CATALOG, COLD_START_PRESETS } from "./catalog.js";
@@ -32,6 +34,8 @@ export interface AppProps {
    * 무엇을 보고 있는지 알 수 없다. 기본값은 거짓 — 테스트는 지금까지처럼 조용하다.
    */
   demoData?: boolean;
+  /** 가상 원장 초기화. 정적 시연에서만 넘긴다. */
+  resetDemoLedger?: () => void | Promise<void>;
 }
 
 export function App({
@@ -40,6 +44,7 @@ export function App({
   storageKey = "demo",
   stt,
   demoData = false,
+  resetDemoLedger,
 }: AppProps) {
   const [mode, setMode] = useState<Mode>(initialMode);
   const [openMenuId, setOpenMenuId] = useState<MenuId | null>(null);
@@ -105,28 +110,47 @@ export function App({
       explain={explain}
       fallback={<p className="loading">불러오는 중…</p>}
     >
-      <BankProvider api={bankApi}>
-        <div className="app" data-mode={mode}>
-          {demoData && (
-            <p className="demo-data-notice" role="status">
-              데모 데이터로 동작합니다. 이체·잔액은 이 브라우저 안에서만 바뀝니다.
-            </p>
-          )}
-          <ModeSwitch mode={mode} onChange={setMode} />
-          <main className="app-body">
-            {mode === "minui" ? <MinUIShell {...(stt ? { stt } : {})} /> : <ClassicShell />}
-          </main>
-          {openMenuId && (
-            <Screen
-              menuId={openMenuId}
-              prefill={prefill}
-              onBack={() => setOpenMenuId(null)}
-            />
-          )}
-        </div>
-      </BankProvider>
+      <AdaptiveSupportProvider storageKey={storageKey}>
+        <AdaptiveNavigationBridge menuId={openMenuId} />
+        <BankProvider api={bankApi}>
+          <div className="app" data-mode={mode}>
+            {demoData && (
+              <DemoLedgerNotice {...(resetDemoLedger ? { onReset: resetDemoLedger } : {})} />
+            )}
+            <ModeSwitch mode={mode} onChange={setMode} />
+            <main className="app-body">
+              {mode === "minui" ? <MinUIShell {...(stt ? { stt } : {})} /> : <ClassicShell />}
+            </main>
+            {openMenuId && (
+              <Screen
+                menuId={openMenuId}
+                prefill={prefill}
+                onBack={() => setOpenMenuId(null)}
+              />
+            )}
+          </div>
+        </BankProvider>
+      </AdaptiveSupportProvider>
     </MinUIProvider>
   );
+}
+
+/**
+ * 오클릭은 "메뉴 이름"을 저장하지 않고, 화면을 열었다가 바로 돌아온 횟수로만 센다.
+ *
+ * <p>App은 선택 화면을 여닫는 사실만 알고, 동의/집계/망각은 적응 Provider가 맡는다.
+ */
+function AdaptiveNavigationBridge({ menuId }: { menuId: MenuId | null }) {
+  const adaptive = useAdaptiveSupport();
+  const previous = useRef<MenuId | null>(null);
+
+  useEffect(() => {
+    if (menuId && previous.current !== menuId) adaptive.recordMenuOpened("screen");
+    if (!menuId && previous.current) adaptive.recordMenuClosed("screen");
+    previous.current = menuId;
+  }, [adaptive, menuId]);
+
+  return null;
 }
 
 /**

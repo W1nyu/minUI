@@ -149,6 +149,48 @@ body {
   color: var(--minui-ink-2);
 }
 
+.adaptive-support {
+  width: 100%;
+  margin: 0;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--minui-line);
+  border-radius: 0.75rem;
+  background: var(--minui-surface-2);
+  color: var(--minui-ink-2);
+  font-size: var(--minui-text-s);
+  line-height: 1.45;
+}
+
+.adaptive-support p {
+  margin: 0;
+}
+
+.adaptive-support div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+
+.adaptive-support button,
+.adaptive-support-link {
+  min-height: 2.5rem;
+  padding: 0 0.75rem;
+  border: 1px solid var(--minui-line-strong);
+  border-radius: 0.55rem;
+  background: var(--minui-surface);
+  color: var(--minui-ink);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.adaptive-support-link {
+  min-height: var(--minui-touch-min);
+  padding-inline: 1rem;
+  color: var(--minui-accent);
+}
+
 .minui-greeting-text strong {
   color: var(--minui-ink);
 }
@@ -574,4 +616,43 @@ body {
   border-bottom: 1px solid var(--minui-line);
   font-size: 0.85rem;
   text-align: center;
+}
+
+.demo-data-notice p {
+  margin: 0;
+  line-height: 1.45;
+}
+
+.demo-data-notice button {
+  min-height: 2.25rem;
+  margin: 0.35rem 0.2rem 0 0;
+  padding: 0 0.7rem;
+  border: 1px solid currentColor;
+  border-radius: 0.5rem;
+  background: var(--minui-surface);
+  color: inherit;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.demo-ledger-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.25rem;
+}
+
+.mock-api-note {
+  margin: 0 0 1rem;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid var(--minui-line);
+  border-radius: 0.7rem;
+  background: var(--minui-accent-soft);
+  color: var(--minui-ink-2);
+  font-size: var(--minui-text-s);
+  line-height: 1.5;
 }

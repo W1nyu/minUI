@@ -25,7 +25,11 @@ public class BankConfiguration {
                 registry.addMapping("/api/**")
                         .allowedOrigins(allowedOrigins)
                         .allowedMethods("GET", "POST")
-                        .allowedHeaders("Content-Type", "Idempotency-Key");
+                        .allowedHeaders("Content-Type", "Idempotency-Key", "Authorization");
+                registry.addMapping("/mock/openbanking/**")
+                        .allowedOrigins(allowedOrigins)
+                        .allowedMethods("GET", "POST")
+                        .allowedHeaders("Content-Type", "Authorization");
             }
         };
     }

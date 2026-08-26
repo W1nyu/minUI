@@ -1,9 +1,10 @@
-# backend — 데모 은행 계정계
+# backend — 가상 은행 계정계 + Open Banking Mock
 
 Spring Boot 4.1 · Java 26 · JPA · PostgreSQL 18
 
-기획안 §10.1의 요구를 실제로 구현한 최소 계정계다. 목표는 기능 개수가 아니라
-**금융 거래 처리의 정확성**이다.
+기획안 §10.1의 요구를 구현한 **테스트 전용** 계정계다. 목표는 기능 개수가 아니라
+가상 거래 처리의 정확성과, 실제 금융 연동 없이도 검증 가능한 API 흐름이다. 이 서버는
+실제 은행·마이데이터·고객 계좌와 연결하지 않는다.
 
 ## 띄우기
 
@@ -60,3 +61,17 @@ UPDATE 하면 원장과 어긋날 수 있고, 어긋난 뒤에는 무엇이 옳�
 | `GET /api/accounts/{id}/payees` | 최근 보낸 곳 (이체 기록에서 도출) |
 | `GET /api/accounts/{id}/upcoming-deposits` | 입금 예정 (원장에서 주기 추정) |
 | `POST /api/transfers` | 이체 — `Idempotency-Key` 필수 |
+| `GET /mock/openbanking/v2.0/account/balance/fin_num` | 오픈뱅킹 잔액조회 모양의 Mock — `Authorization: Bearer demo-session-token` |
+| `POST /mock/openbanking/v2.0/transfer/deposit/fin_num` | 핀테크이용번호 기반 입금이체 JSON 모양의 Mock — `bank_tran_id`가 데모 멱등성 키 |
+
+## Open Banking Mock의 범위
+
+금융결제원 공개 문서의 URL/JSON 필드와 `Bearer`·`fintech_use_num`·`req_list` 흐름 중,
+이 데모가 쓰는 잔액조회와 한 건 이체 부분만 재현한다. 성공하면 같은 PostgreSQL 가상 원장에
+출금·입금 분개가 함께 기록되고, 실패하면 원장이 롤백된다.
+
+`demo-session-token`, `DEMO_ONLY` 암호문구 표기, 가상 계좌는 모두 공개된 시연 데이터다.
+실제 OAuth 2.0 권한부여 서버, 접근 토큰, 인증서, 고객 동의, 정산을 구현하거나 흉내 내지
+않는다. 기준 문서는 [금융결제원 잔액조회 API](https://developers.kftc.or.kr/dev/openapi/open-banking/balance),
+[입금이체 API](https://developers.kftc.or.kr/dev/openapi/open-banking/deposit),
+[OAuth 안내](https://developers.kftc.or.kr/dev/openapi/open-banking/oauth)다.

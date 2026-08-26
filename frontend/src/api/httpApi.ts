@@ -10,13 +10,14 @@ import type {
 } from "./types.js";
 
 /**
- * 실제 Spring Boot 백엔드에 붙는 구현 (M1).
+ * Spring Boot 데모 서버에 붙는 구현 (M1 + 공모전 Mock).
  *
- * <p>`MockBankApi`와 같은 `BankApi`를 구현하므로 화면 코드는 하나도 바뀌지 않는다.
- * 목을 남겨 두는 이유는 UI 테스트를 빠르고 밀폐되게 유지하기 위해서다 — 카드 배치나
- * 접근성을 검증하는 데 DB가 필요하지는 않다.
+ * <p>조회는 데모 원장 API를, 최종 확인 뒤 이체는 오픈뱅킹 입금이체 형식의 Mock endpoint를
+ * 쓴다. 둘 다 이 저장소 안의 가상 계정계이고 실제 은행·마이데이터 연동은 아니다.
  */
 export class HttpBankApi implements BankApi {
+  /** The Spring demo server also provides only the virtual Mock contract. */
+  readonly demoMode = "open-banking-mock" as const;
   readonly #baseUrl: string;
   /** 데모는 계좌 하나를 주거래로 고정한다. 로그인이 없으므로 세션 대신 상수다. */
   readonly #primaryAccountId: string;
@@ -103,28 +104,53 @@ export class HttpBankApi implements BankApi {
     request: TransferRequest,
     idempotencyKey: string,
   ): Promise<TransferResult> {
-    const response = await this.#send("/api/transfers", {
+    const source = (await this.listAccounts()).find((account) => account.id === request.fromAccountId);
+    if (!source) throw new Error("보낼 가상 계좌를 찾을 수 없습니다.");
+
+    /*
+     * 이체만은 공모전 Mock endpoint로 보낸다. 조회 화면은 기존 계정계의 읽기 API를 쓰되,
+     * 최종 확인 뒤의 이체 요청·응답은 금융결제원 Open Banking의 입금이체 JSON 형태를
+     * 따른다. `demo-session-token`은 이 서버에서만 통하는 공개 시연 표식이며 실토큰이 아니다.
+     */
+    const response = await this.#send("/mock/openbanking/v2.0/transfer/deposit/fin_num", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        // 네트워크가 끊겨 응답을 못 받은 클라이언트가 다시 보내도 이체는 한 번이다.
-        "Idempotency-Key": idempotencyKey,
+        Authorization: "Bearer demo-session-token",
       },
       body: JSON.stringify({
-        fromAccountId: request.fromAccountId,
-        toAccountId: request.toAccountId,
-        amount: request.amount,
-        memo: request.memo ?? null,
+        cntr_account_type: "N",
+        cntr_account_num: source.number.replace(/-/g, ""),
+        wd_pass_phrase: "DEMO_ONLY",
+        wd_print_content: request.memo ?? "minUI 가상이체",
+        name_check_option: "on",
+        tran_dtime: kftcDateTime(new Date()),
+        req_cnt: "1",
+        req_list: [
+          {
+            tran_no: "1",
+            // 명세의 은행거래고유번호가 이 데모의 멱등성 키 역할을 한다.
+            bank_tran_id: idempotencyKey.slice(0, 20),
+            fintech_use_num: fintechUseNumber(request.toAccountId),
+            print_content: request.memo ?? "minUI 가상이체",
+            tran_amt: String(request.amount),
+            req_client_name: "김순자",
+            req_client_num: "MINUI-DEMO-USER",
+            transfer_purpose: "TR",
+          },
+        ],
       }),
     });
 
-    const result = (await response.json()) as RawTransferResult;
+    const result = (await response.json()) as RawOpenBankingTransferResult;
+    const received = result.res_list[0];
+    if (!received || result.rsp_code !== "A0000") throw new Error("가상 이체 결과를 확인할 수 없습니다.");
     return {
-      id: result.id,
-      at: result.at,
-      amount: Number(result.amount),
-      payee: result.counterparty,
-      balanceAfter: Number(result.balanceAfter),
+      id: result.api_tran_id,
+      at: new Date().toISOString(),
+      amount: Number(received.tran_amt),
+      payee: received.account_alias,
+      balanceAfter: source.balance - Number(received.tran_amt),
     };
   }
 
@@ -189,11 +215,23 @@ interface RawUpcomingDeposit {
   amount: number | string;
 }
 
-interface RawTransferResult {
-  id: string;
-  at: string;
-  amount: number | string;
-  counterparty: string;
-  balanceAfter: number | string;
-  replayed: boolean;
+interface RawOpenBankingTransferResult {
+  api_tran_id: string;
+  rsp_code: string;
+  res_list: Array<{
+    account_alias: string;
+    tran_amt: string;
+  }>;
+}
+
+/** `acc-6`처럼 데모에만 있는 ID를 24자리 핀테크이용번호로 바꾼다. */
+function fintechUseNumber(accountId: string): string {
+  const suffix = Number(accountId.replace(/^acc-/, ""));
+  if (!Number.isSafeInteger(suffix) || suffix <= 0) throw new Error("가상 수취 계좌를 찾을 수 없습니다.");
+  return `110000000000000000${String(suffix).padStart(6, "0")}`;
+}
+
+function kftcDateTime(date: Date): string {
+  const pad = (value: number) => String(value).padStart(2, "0");
+  return `${date.getFullYear()}${pad(date.getMonth() + 1)}${pad(date.getDate())}${pad(date.getHours())}${pad(date.getMinutes())}${pad(date.getSeconds())}`;
 }

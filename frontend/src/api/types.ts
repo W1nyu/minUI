@@ -63,6 +63,8 @@ export interface UpcomingDeposit {
 }
 
 export interface BankApi {
+  /** Contest-only virtual Open Banking implementation, never a real bank. */
+  readonly demoMode?: "open-banking-mock";
   listAccounts(): Promise<Account[]>;
   listTransactions(accountId: string): Promise<Transaction[]>;
   listAutoTransfers(): Promise<AutoTransfer[]>;

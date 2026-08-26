@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App.js";
 import { HttpBankApi } from "./api/httpApi.js";
-import { MockBankApi } from "./api/mockApi.js";
+import { SessionOpenBankingMockApi } from "./api/mockApi.js";
 import { MetricsBridge } from "./instrumentation/MetricsBridge.js";
 import { ScriptedOverrideStt } from "./instrumentation/ScriptedOverrideStt.js";
 import { SttBridge } from "./instrumentation/SttBridge.js";
@@ -30,8 +30,10 @@ if (!container) throw new Error("#root를 찾을 수 없습니다.");
  * 데는 이것으로 충분하다.
  */
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
-const api = apiBaseUrl ? new HttpBankApi(apiBaseUrl) : new MockBankApi();
-const demoData = !apiBaseUrl;
+const api = apiBaseUrl ? new HttpBankApi(apiBaseUrl) : new SessionOpenBankingMockApi();
+// Both implementations are contest-only virtual ledgers; the local backend
+// persists its test data while the static demo keeps it in this browser session.
+const demoData = true;
 
 /**
  * `?stt=script`일 때만 음성 덮어쓰기를 끼운다 (F9 프로토콜, 기획안 §12.10).
@@ -51,7 +53,14 @@ createRoot(container).render(
     <TaskRecorderProvider>
       <MetricsBridge />
       {stt && <SttBridge stt={stt} />}
-      <App api={api} demoData={demoData} {...(stt ? { stt } : {})} />
+      <App
+        api={api}
+        demoData={demoData}
+        {...(demoData
+          ? { resetDemoLedger: () => (api as SessionOpenBankingMockApi).resetDemoLedger() }
+          : {})}
+        {...(stt ? { stt } : {})}
+      />
     </TaskRecorderProvider>
   </StrictMode>,
 );

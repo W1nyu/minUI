@@ -45,4 +45,11 @@ public class ApiExceptionHandler {
                         .orElse("요청 내용을 확인해 주세요.");
         return ResponseEntity.badRequest().body(new ErrorResponse(message));
     }
+
+    @ExceptionHandler(OpenBankingMockController.OpenBankingMockFailure.class)
+    public ResponseEntity<ErrorResponse> onOpenBankingMockFailure(
+            OpenBankingMockController.OpenBankingMockFailure e) {
+        // 실제 금융결제원 응답으로 오인하지 않도록 HTTP 422와 시연 서버 메시지를 함께 준다.
+        return ResponseEntity.unprocessableEntity().body(new ErrorResponse(e.getMessage()));
+    }
 }

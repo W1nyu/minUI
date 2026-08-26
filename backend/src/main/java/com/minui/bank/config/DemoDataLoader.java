@@ -10,6 +10,7 @@ import com.minui.bank.repository.LedgerEntryRepository;
 import com.minui.bank.repository.TransferRepository;
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.time.Clock;
 import java.util.List;
 import java.util.UUID;
 import org.springframework.boot.CommandLineRunner;
@@ -34,22 +35,31 @@ public class DemoDataLoader implements CommandLineRunner {
     private final LedgerEntryRepository ledger;
     private final TransferRepository transfers;
     private final AutoTransferRepository autoTransfers;
+    private final Clock clock;
 
     public DemoDataLoader(
             AccountRepository accounts,
             LedgerEntryRepository ledger,
             TransferRepository transfers,
-            AutoTransferRepository autoTransfers) {
+            AutoTransferRepository autoTransfers,
+            Clock clock) {
         this.accounts = accounts;
         this.ledger = ledger;
         this.transfers = transfers;
         this.autoTransfers = autoTransfers;
+        this.clock = clock;
     }
 
     @Override
     @Transactional
     public void run(String... args) {
         if (accounts.count() > 0) {
+            // M15를 추가한 뒤에도 기존 개발 DB를 지우지 않아도 시연 계좌가 생겨야 한다.
+            // 원장 밖에서 잔액을 심지 않고, 처음 시드와 똑같이 개시 분개로 넣는다.
+            if (!accounts.existsById("acc-6") && accounts.existsById(OPENING)) {
+                accounts.save(new Account("acc-6", "356-910-234567", "김영수 삼촌", "KRW"));
+                open("acc-6", new BigDecimal("540000"), clock.instant());
+            }
             return;
         }
 
@@ -60,6 +70,8 @@ public class DemoDataLoader implements CommandLineRunner {
                         new Account("acc-3", "1002-345-678901", "행복아파트 관리사무소", "KRW"),
                         new Account("acc-4", "612-21-0987-654", "김미영", "KRW"),
                         new Account("acc-5", "110-456-789012", "박정호", "KRW"),
+                        // 공모전 시연의 "가상 삼촌". 실제 고객·실계좌가 아닌 테스트 계좌다.
+                        new Account("acc-6", "356-910-234567", "김영수 삼촌", "KRW"),
                         new Account(
                                 OPENING,
                                 "000-000-000000",
@@ -72,6 +84,7 @@ public class DemoDataLoader implements CommandLineRunner {
         open("acc-3", new BigDecimal("0.01"), Instant.parse("2026-07-01T00:00:00Z"));
         open("acc-4", new BigDecimal("0.01"), Instant.parse("2026-07-01T00:00:00Z"));
         open("acc-5", new BigDecimal("0.01"), Instant.parse("2026-07-01T00:00:00Z"));
+        open("acc-6", new BigDecimal("540000"), Instant.parse("2026-07-01T00:00:00Z"));
 
         // 연금 입금 — 기획안 §5.1의 "연금 입금 확인" 시나리오가 볼 거래.
         // 두 달치를 넣는 이유는 입금 예정 계산이 서로 다른 달의 관측을 요구하기 때문이다.
