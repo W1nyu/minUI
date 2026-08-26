@@ -49,6 +49,8 @@ describe("되묻기 — 막다른 길이 없다", () => {
   beforeEach(async () => {
     engine = await MinUIEngine.create({
       catalog: CATALOG,
+      // 이식 계약 ②. 여기서는 아무것도 열지 않는다 — `voiceAction`이 무엇을 돌려주는지만 본다.
+      onAction: () => {},
       storage: new MemoryStorageAdapter(),
     });
   });
