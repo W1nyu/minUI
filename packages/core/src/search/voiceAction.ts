@@ -1,5 +1,6 @@
 import type { MinUIConfig } from "../config.js";
-import type { MenuId, MenuItem, RiskLevel, SlotExtractor, Slots } from "../types.js";
+import { requiresConfirm } from "../risk.js";
+import type { MenuId, MenuItem, SlotExtractor, Slots } from "../types.js";
 import type { SearchCandidate, SearchOutcome } from "./SearchPipeline.js";
 import type { MatchStage } from "./stages.js";
 import type { RepromptChoice } from "./reprompt.js";
@@ -44,22 +45,7 @@ export interface VoiceActionInput {
   slots?: SlotExtractor;
 }
 
-/**
- * 음성으로 자동 실행할 수 없는 위험도.
- *
- * <p><b>`medium`이 M11에서 들어왔다.</b> 그전까지 `riskLevel`은 "돈이 움직이는가"만 봤고,
- * 그래서 잔액·거래내역처럼 <b>읽기만 하는 화면</b>은 `low`라 확신이 높으면 확인 없이 열렸다.
- * 잠금 해제된 기기를 잠깐 쥔 사람이 "잔액 얼마야"로 볼 수 있다는 뜻이다 —
- * <b>돈은 안 나가지만 정보는 나간다.</b>
- *
- * <p>`high`로 올리지 않은 이유: `high`는 "음성으로 <b>완료</b>할 수 없다"는 뜻인데
- * 조회는 애초에 완료할 것이 없다. 둘을 같은 칸에 넣으면 무엇이 왜 막혔는지가 흐려지고,
- * §12.6이 기록한 실패(위험도별 임계값 — 정답인 high 메뉴가 함께 잘려 후보 3개 포함이
- * 85%→80%)처럼 <b>맞는 것까지 밀어낼</b> 수 있다.
- *
- * <p>`medium`은 자동 실행만 막는다. 후보로는 그대로 올라오고 사용자가 누르면 열린다.
- */
-const CONFIRM_REQUIRED: ReadonlySet<RiskLevel> = new Set<RiskLevel>(["high", "medium"]);
+// 자동 실행을 막는 위험도 판정은 `risk.ts`에 있다 — 코파일럿 제안 검증과 같은 규칙을 써야 한다.
 
 /**
  * 이 단계가 1위를 올렸으면 확신과 무관하게 사용자가 누른다 (M11).
@@ -100,7 +86,7 @@ export function resolveVoiceAction({
   const menu = menus.get(first.menuId);
   const needsConfirmation =
     menu === undefined ||
-    CONFIRM_REQUIRED.has(menu.riskLevel) ||
+    requiresConfirm(menu.riskLevel) ||
     NEVER_AUTO_OPEN.has(first.matchedBy);
 
   /*

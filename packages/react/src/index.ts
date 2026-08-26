@@ -22,5 +22,6 @@ export {
   OnboardingSheet,
   type OnboardingSheetProps,
 } from "./OnboardingSheet.js";
+export { NextSteps, type NextStepsProps } from "./NextSteps.js";
 export { TextScaleControl } from "./TextScaleControl.js";
 export { IndexedDbStorageAdapter } from "./storage/IndexedDbStorageAdapter.js";

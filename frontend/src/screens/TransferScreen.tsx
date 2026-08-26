@@ -119,7 +119,7 @@ export function TransferScreen({
   }
 
   return (
-    <ScreenFrame title="계좌 이체" onBack={onBack}>
+    <ScreenFrame title="계좌 이체" onBack={onBack} menuId="transfer.account">
       <p className="field-note">
         보낼 통장: {account?.nickname} ({formatWon(account?.balance ?? 0)})
       </p>

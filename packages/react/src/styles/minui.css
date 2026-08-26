@@ -827,3 +827,64 @@
   color: var(--minui-ink-3);
   font-size: var(--minui-text-s);
 }
+
+/* ── 이어서 할 수 있는 것 (M12) ────────────────────────────────────────
+ *
+ * 화면 본문 아래에 붙는다. 본문보다 조용해야 하지만 터치 규칙은 같이 지킨다 —
+ * 작게 만들면 손떨림이 있는 사람에게는 없는 것과 같다.
+ */
+.minui-next-steps {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--minui-line);
+}
+
+.minui-next-steps-title {
+  margin: 0 0 0.5rem;
+  color: var(--minui-ink-2);
+  font-size: var(--minui-text-s);
+}
+
+.minui-next-steps-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.minui-next-step {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--minui-touch-min);
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  text-align: left;
+  border: 1px solid var(--minui-line-strong);
+  border-radius: var(--minui-radius);
+  background: var(--minui-surface);
+  color: var(--minui-ink);
+  font: inherit;
+  cursor: pointer;
+}
+
+.minui-next-step:hover,
+.minui-next-step:focus-visible {
+  border-color: var(--minui-accent);
+}
+
+.minui-next-step-label {
+  font-size: var(--minui-text-m);
+  font-weight: 600;
+}
+
+/* 색이 아니라 글자로 알린다. */
+.minui-next-step-note {
+  flex-shrink: 0;
+  color: var(--minui-ink-3);
+  font-size: var(--minui-text-s);
+}

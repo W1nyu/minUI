@@ -10,7 +10,7 @@ export function HistoryScreen({ onBack }: { onBack: () => void }) {
   }, [transactions.length, complete]);
 
   return (
-    <ScreenFrame title="거래 내역" onBack={onBack}>
+    <ScreenFrame title="거래 내역" onBack={onBack} menuId="inquiry.history">
       <ul className="tx-list">
         {transactions.map((tx) => (
           <li className="tx" key={tx.id} data-direction={tx.direction}>

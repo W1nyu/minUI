@@ -22,3 +22,22 @@ const RANK: Record<RiskLevel, number> = { low: 0, medium: 1, high: 2 };
 export function combineRisk(byRule: RiskLevel, byModel: RiskLevel): RiskLevel {
   return RANK[byModel] > RANK[byRule] ? byModel : byRule;
 }
+
+/**
+ * 음성·검색·AI가 **자동으로 실행할 수 없는** 위험도.
+ *
+ * <p><b>`medium`이 M11에서 들어왔다.</b> 그전까지 `riskLevel`은 "돈이 움직이는가"만 봤고,
+ * 그래서 잔액·거래내역처럼 읽기만 하는 화면은 `low`라 확신이 높으면 확인 없이 열렸다.
+ * 잠금 해제된 기기를 잠깐 쥔 사람이 "잔액 얼마야"로 볼 수 있다는 뜻이다 —
+ * <b>돈은 안 나가지만 정보는 나간다.</b>
+ *
+ * <p>이 판정이 `risk.ts`에 있는 이유는 `combineRisk`와 같다. 화면마다 따로 정하면
+ * §9.3이 한쪽에서만 지켜지고, 그것을 확인할 방법이 없어진다. 지금 이것을 쓰는 곳은
+ * 둘이다 — 음성 행동 결정(`voiceAction.ts`)과 코파일럿 제안 검증(`copilot.ts`).
+ */
+const CONFIRM_REQUIRED: ReadonlySet<RiskLevel> = new Set<RiskLevel>(["high", "medium"]);
+
+/** 이 메뉴는 사용자가 눌러야 열리는가. **모델이 이 값을 정하지 못한다.** */
+export function requiresConfirm(riskLevel: RiskLevel): boolean {
+  return CONFIRM_REQUIRED.has(riskLevel);
+}

@@ -11,7 +11,7 @@ export function BalanceScreen({ onBack }: { onBack: () => void }) {
   }, [accounts.length, complete]);
 
   return (
-    <ScreenFrame title="잔액 보기" onBack={onBack}>
+    <ScreenFrame title="잔액 보기" onBack={onBack} menuId="inquiry.balance">
       <ul className="account-list">
         {accounts.map((account) => (
           <li className="account" key={account.id}>

@@ -11,7 +11,7 @@ export function AutoTransferScreen({ onBack }: { onBack: () => void }) {
   const { autoTransfers, setAutoTransferActive, complete } = useBank();
 
   return (
-    <ScreenFrame title="자동이체 관리" onBack={onBack}>
+    <ScreenFrame title="자동이체 관리" onBack={onBack} menuId="transfer.auto">
       <ul className="auto-list">
         {autoTransfers.map((item) => (
           <li className="auto" key={item.id}>

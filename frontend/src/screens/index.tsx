@@ -50,7 +50,7 @@ function StubScreen({ menuId, onBack }: { menuId: MenuId; onBack: () => void }) 
   const menu = MENU_BY_ID.get(menuId);
 
   return (
-    <ScreenFrame title={menu?.label ?? "화면"} onBack={onBack}>
+    <ScreenFrame title={menu?.label ?? "화면"} onBack={onBack} menuId={menuId}>
       <p className="notice">
         이 데모에서는 <strong>{menu?.label}</strong> 화면을 만들지 않았습니다. 메뉴 탐색과
         카드 배치를 검증하는 것이 목적이라, 실제로 동작하는 화면은 잔액·이체·내역·자동이체

@@ -24,7 +24,19 @@ export {
   type SearchOptions,
   type SearchOutcome,
 } from "./search/SearchPipeline.js";
-export { combineRisk } from "./risk.js";
+export { combineRisk, requiresConfirm } from "./risk.js";
+export {
+  COPILOT_INTENTS,
+  MAX_WHY_CHARS,
+  nextSteps,
+  validateProposal,
+  validateProposals,
+  type CopilotIntent,
+  type CopilotProposal,
+  type NextStepOptions,
+  type RejectReason,
+  type Validated,
+} from "./copilot.js";
 export { calibrate, mergeNeural } from "./search/neural.js";
 export { buildReprompt } from "./search/reprompt.js";
 export type {
