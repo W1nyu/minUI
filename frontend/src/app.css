@@ -569,9 +569,9 @@ body {
 .demo-data-notice {
   margin: 0;
   padding: 0.55rem 1rem;
-  background: var(--minui-warn-surface, #fff4e5);
-  color: var(--minui-warn-ink, #6b4300);
-  border-bottom: 1px solid var(--minui-line, #e3d9c8);
+  background: var(--minui-warn-soft);
+  color: var(--minui-warn);
+  border-bottom: 1px solid var(--minui-line);
   font-size: 0.85rem;
   text-align: center;
 }
