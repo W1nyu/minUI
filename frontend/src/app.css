@@ -559,3 +559,19 @@ body {
   font-size: var(--minui-text-m);
   font-weight: 600;
 }
+
+/*
+ * 계정계 없이 도는 중임을 알리는 띠.
+ *
+ * 접었다 펼 수 있게 만들지 않았다 — 한 번 닫으면 그 뒤로는 무엇을 보고 있는지
+ * 모르는 채로 남는다. 계속 보이는 것이 이 띠의 일이다.
+ */
+.demo-data-notice {
+  margin: 0;
+  padding: 0.55rem 1rem;
+  background: var(--minui-warn-surface, #fff4e5);
+  color: var(--minui-warn-ink, #6b4300);
+  border-bottom: 1px solid var(--minui-line, #e3d9c8);
+  font-size: 0.85rem;
+  text-align: center;
+}

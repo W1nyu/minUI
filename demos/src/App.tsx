@@ -9,6 +9,7 @@ import { ClassicShell } from "./ClassicShell.js";
 import { Studio } from "./Studio.js";
 import { StubScreen } from "./StubScreen.js";
 import { SITES, findSite, type SiteMeta } from "./sites.js";
+import { currentRoute, routeHref } from "./routePath.js";
 
 type Mode = "minui" | "classic";
 
@@ -23,13 +24,13 @@ export function App() {
   // 주소로만 들어간다. 탭 바에 두면 데모의 다섯 사이트와 성격이 섞인다 —
   // Studio는 "아직 없는 사이트를 얹어 보는 곳"이다.
   const [studio, setStudio] = useState(
-    () => window.location.pathname.replace(/^\//, "") === "studio",
+    () => currentRoute() === "studio",
   );
 
   const [slug, setSlug] = useState(() => {
     // findSite는 띄우지 않는 곳(COLD_SITES)도 찾는다. 주소를 직접 친 경우를 위해 남겨 둔
     // 통로이고, 탭 바에는 SITES만 나온다.
-    const fromPath = window.location.pathname.replace(/^\//, "");
+    const fromPath = currentRoute();
     return findSite(fromPath)?.slug ?? SITES[0]!.slug;
   });
   const site = findSite(slug)!;
@@ -40,7 +41,7 @@ export function App() {
         <Studio
           onExit={() => {
             setStudio(false);
-            window.history.replaceState(null, "", `/${slug}`);
+            window.history.replaceState(null, "", routeHref(slug));
           }}
         />
       </div>
@@ -53,7 +54,7 @@ export function App() {
         current={site}
         onChange={(next) => {
           setSlug(next);
-          window.history.replaceState(null, "", `/${next}`);
+          window.history.replaceState(null, "", routeHref(next));
         }}
       />
       {/* key를 바꿔 사이트마다 엔진을 새로 만든다. 사이트별로 사용 이력이 섞이면 안 된다. */}
@@ -63,11 +64,19 @@ export function App() {
         className="studio-link"
         onClick={() => {
           setStudio(true);
-          window.history.replaceState(null, "", "/studio");
+          window.history.replaceState(null, "", routeHref("studio"));
         }}
       >
         + 다른 금융사 얹어 보기
       </button>
+      {/*
+       * 미니은행으로 가는 통로. 여기 다섯 곳은 실제 금융사 메뉴를 얹은 것이라
+       * 도착 화면이 스텁이고, 이체가 끝까지 도는 곳은 미니은행 하나뿐이다.
+       * 둘을 오갈 수 있어야 "찾는 것"과 "해내는 것"이 한 흐름으로 보인다.
+       */}
+      <a className="studio-link bank-link" href={routeHref("bank/")}>
+        미니은행에서 실제로 이체해 보기 →
+      </a>
     </div>
   );
 }

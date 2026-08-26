@@ -5,6 +5,15 @@ import { defineConfig } from "vite";
 const src = (path: string) => fileURLToPath(new URL(path, import.meta.url));
 
 /**
+ * 배포 기준 경로. 미니은행은 데모 **아래**에 얹힌다 — 로컬은 `/`, Pages는 `/minUI/bank/`.
+ *
+ * <p>두 앱이 한 오리진에 있어야 데모에서 미니은행으로 그냥 링크로 건너갈 수 있고,
+ * 나중에 백엔드를 붙일 때도 CORS가 필요 없다.
+ */
+const BASE = process.env["MINUI_BASE"] ? `${process.env["MINUI_BASE"]}bank/` : "/";
+
+
+/**
  * 워크스페이스 패키지를 소스로 해석한다.
  *
  * 기본 해석은 package.json의 exports를 따라 `dist`로 가는데, 그러면 개발 중에
@@ -16,6 +25,7 @@ const src = (path: string) => fileURLToPath(new URL(path, import.meta.url));
  * 더 구체적인 경로를 먼저 둔다.
  */
 export default defineConfig({
+  base: BASE,
   plugins: [react()],
   resolve: {
     alias: [

@@ -2,6 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App.js";
 import { HttpBankApi } from "./api/httpApi.js";
+import { MockBankApi } from "./api/mockApi.js";
 import { MetricsBridge } from "./instrumentation/MetricsBridge.js";
 import { ScriptedOverrideStt } from "./instrumentation/ScriptedOverrideStt.js";
 import { SttBridge } from "./instrumentation/SttBridge.js";
@@ -16,13 +17,21 @@ const container = document.getElementById("root");
 if (!container) throw new Error("#root를 찾을 수 없습니다.");
 
 /**
- * 실행 중인 데모는 실제 Spring Boot 백엔드에 붙는다 (M1).
- * `backend/`를 띄우지 않으면 화면이 빈 상태로 뜬다 — 목으로 조용히 내려가지 않는 것이
- * 의도다. 무엇을 보고 있는지 모르는 데모가 제일 나쁘다.
+ * 계정계가 있으면 그쪽에, 없으면 브라우저 안의 목에 붙는다.
+ *
+ * <p>전에는 무조건 `HttpBankApi`였고 주석에 "목으로 <b>조용히</b> 내려가지 않는 것이
+ * 의도다 — 무엇을 보고 있는지 모르는 데모가 제일 나쁘다"고 적혀 있었다. 그 취지는
+ * 그대로 지킨다. 다만 **조용하지 않게** 내려간다 — 목으로 붙으면 화면 맨 위에 상시
+ * 띠가 뜬다(`App`의 `demoData`). 크게 말하고 내려가는 것은 원 주석과 어긋나지 않는다.
+ *
+ * <p>이 분기가 필요한 이유: 배포한 데모에는 Spring Boot도 Postgres도 없다. 그런데
+ * `MockBankApi`는 흉내가 아니라 <b>같은 `BankApi`의 완전한 구현</b>이다 — 잔액을 실제로
+ * 깎고, 거래내역 맨 앞에 넣고, 멱등성 키까지 지킨다. 이체가 끝까지 도는 것을 보여 주는
+ * 데는 이것으로 충분하다.
  */
-const api = new HttpBankApi(
-  import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8080",
-);
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+const api = apiBaseUrl ? new HttpBankApi(apiBaseUrl) : new MockBankApi();
+const demoData = !apiBaseUrl;
 
 /**
  * `?stt=script`일 때만 음성 덮어쓰기를 끼운다 (F9 프로토콜, 기획안 §12.10).
@@ -42,7 +51,7 @@ createRoot(container).render(
     <TaskRecorderProvider>
       <MetricsBridge />
       {stt && <SttBridge stt={stt} />}
-      <App api={api} {...(stt ? { stt } : {})} />
+      <App api={api} demoData={demoData} {...(stt ? { stt } : {})} />
     </TaskRecorderProvider>
   </StrictMode>,
 );

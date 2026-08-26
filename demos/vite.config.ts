@@ -9,6 +9,16 @@ import { studioRoute } from "./src/studioRoute.js";
 const src = (path: string) => fileURLToPath(new URL(path, import.meta.url));
 
 /**
+ * 배포 기준 경로. 로컬은 `/`, GitHub Pages는 `/minUI/`다.
+ *
+ * <p>워크플로가 `MINUI_BASE`를 넣어 준다. 기본값을 `/`로 둔 이유는 **개발 경험을
+ * 건드리지 않기 위해서**다 — `pnpm --filter demos dev`는 지금까지와 똑같이 돈다.
+ * 이 값은 `import.meta.env.BASE_URL`로 흘러가고 `src/routePath.ts`가 그것을 읽는다.
+ */
+const BASE = process.env["MINUI_BASE"] ?? "/";
+
+
+/**
  * 워크스페이스 패키지를 소스로 해석한다.
  *
  * 기본 해석은 package.json의 exports를 따라 `dist`로 가는데, 그러면 개발 중에
@@ -20,6 +30,7 @@ const src = (path: string) => fileURLToPath(new URL(path, import.meta.url));
  * 더 구체적인 경로를 먼저 둔다.
  */
 export default defineConfig({
+  base: BASE,
   // /api/assist·/api/explain — API 키를 브라우저로 내보내지 않기 위한 중계.
   plugins: [react(), assistRoute(),
     matchRoute(), explainRoute(), studioRoute()],

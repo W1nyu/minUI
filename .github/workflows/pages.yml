@@ -1,0 +1,93 @@
+# 데모 두 벌을 한 주소에 올린다.
+#
+#   https://w1nyu.github.io/minUI/        실제 금융사 5곳 + Studio  (demos)
+#   https://w1nyu.github.io/minUI/bank/   미니은행, 이체까지 도는 곳 (frontend)
+#
+# GitHub Pages는 정적 호스팅이라 Node 서버를 못 올린다. 그래서 /api/* 중계가 없고,
+# 그 자리는 이렇게 메운다:
+#
+#   explain  사전 생성 JSON (label+path 순수 조회라 미리 구울 수 있다)
+#   studio   사전 생성 JSON 재생
+#   assist   되묻기로 강등 — 임의 질의라 못 굽는다. 설계된 폴백이 그대로 받는다
+#   원격 신경망  끔 (semantic-focus 12.4%로 게이트를 못 넘었다)
+#
+# 프로덕션에 API 키가 아예 존재하지 않는다는 뜻이기도 하다 (절대 보호선 규칙 7).
+
+name: Pages
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 배포는 한 번에 하나만. 밀린 것은 최신 하나만 남기되 진행 중인 것은 끝내게 둔다.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      # 프로젝트 페이지라 저장소 이름이 기준 경로가 된다. 로컬은 기본값 "/"라
+      # `pnpm --filter demos dev`는 지금까지와 똑같이 돈다.
+      MINUI_BASE: /minUI/
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      # tsconfig에 paths가 없어 tsc는 워크스페이스 심링크의 exports를 따라
+      # dist/*.d.ts로 간다. 그래서 앱보다 패키지를 먼저 빌드해야 한다.
+      - name: 패키지 먼저 빌드
+        run: pnpm --filter "./packages/*" build
+
+      - name: 테스트
+        run: pnpm test
+
+      - name: 데모 빌드
+        run: pnpm --filter demos build
+
+      - name: 미니은행 빌드
+        run: pnpm --filter frontend build
+
+      - name: 한 폴더로 합친다
+        run: |
+          mkdir -p site
+          cp -r demos/dist/. site/
+          mkdir -p site/bank
+          cp -r frontend/dist/. site/bank/
+          # Pages는 SPA 재작성을 안 해 준다. /minUI/shinhan 같은 깊은 주소는
+          # 404로 떨어지는데, 그때 404.html이 대신 뜨면 앱이 스스로 경로를 읽는다.
+          cp demos/dist/index.html site/404.html
+          # 밑줄로 시작하는 파일을 Jekyll이 숨기지 않게 한다.
+          touch site/.nojekyll
+          ls -R site | head -30
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

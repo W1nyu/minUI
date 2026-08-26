@@ -492,6 +492,14 @@ body {
   display: block;
 }
 
+/* 미니은행 링크는 버튼이 아니라 앵커다 — 다른 앱으로 나간다. */
+.bank-link {
+  width: fit-content;
+  text-align: center;
+  text-decoration: none;
+  line-height: 38px;
+}
+
 .studio-form {
   display: flex;
   gap: 0.5rem;

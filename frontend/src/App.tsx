@@ -22,9 +22,24 @@ export interface AppProps {
    * 측정에서는 스크립트된 발화를 넣어 마이크 없이 음성 경로를 잰다.
    */
   stt?: SttLike;
+
+  /**
+   * 계정계 없이 브라우저 안의 목으로 돌고 있는가.
+   *
+   * <p>참이면 화면 맨 위에 상시 띠를 띄운다. 배포한 데모에는 Spring Boot가 없어서
+   * 이체가 이 브라우저 안에서만 일어나는데, 그것을 말하지 않으면 심사위원이
+   * 무엇을 보고 있는지 알 수 없다. 기본값은 거짓 — 테스트는 지금까지처럼 조용하다.
+   */
+  demoData?: boolean;
 }
 
-export function App({ api, initialMode = "minui", storageKey = "demo", stt }: AppProps) {
+export function App({
+  api,
+  initialMode = "minui",
+  storageKey = "demo",
+  stt,
+  demoData = false,
+}: AppProps) {
   const [mode, setMode] = useState<Mode>(initialMode);
   const [openMenuId, setOpenMenuId] = useState<MenuId | null>(null);
   const [prefill, setPrefill] = useState<Slots>({});
@@ -77,6 +92,11 @@ export function App({ api, initialMode = "minui", storageKey = "demo", stt }: Ap
     >
       <BankProvider api={bankApi}>
         <div className="app" data-mode={mode}>
+          {demoData && (
+            <p className="demo-data-notice" role="status">
+              데모 데이터로 동작합니다. 이체·잔액은 이 브라우저 안에서만 바뀝니다.
+            </p>
+          )}
           <ModeSwitch mode={mode} onChange={setMode} />
           <main className="app-body">
             {mode === "minui" ? <MinUIShell {...(stt ? { stt } : {})} /> : <ClassicShell />}
