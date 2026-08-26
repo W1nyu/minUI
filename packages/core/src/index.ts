@@ -24,6 +24,19 @@ export {
   type SearchOptions,
   type SearchOutcome,
 } from "./search/SearchPipeline.js";
+export { combineRisk } from "./risk.js";
+export { calibrate, mergeNeural } from "./search/neural.js";
+export { buildReprompt } from "./search/reprompt.js";
+export type {
+  Reprompt,
+  RepromptChoice,
+  RepromptSettings,
+} from "./search/reprompt.js";
+export type {
+  NeuralMatch,
+  NeuralRetriever,
+  NeuralSettings,
+} from "./search/neural.js";
 export {
   NgramTfIdfProvider,
   type SerializedNgramIndex,

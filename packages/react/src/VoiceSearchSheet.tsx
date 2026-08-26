@@ -1,6 +1,7 @@
 import {
   groupByPath,
   headingText,
+  type RepromptChoice,
   type MenuCatalog,
   type MenuId,
   type SearchCandidate,
@@ -14,11 +15,14 @@ export interface SttLike {
   start(): Promise<void>;
   stop(): void;
   /**
-   * 말이 끝났음을 알린다. **스트리밍이 아닌 엔진에만 있다.**
+   * 말이 끝났음을 사용자가 직접 알린다. **선택 계약이다.**
    *
-   * <p>Web Speech는 말이 끊기면 스스로 확정하지만, 온디바이스 Whisper는 말이 끝나야
-   * 옮기기 시작하므로 끝을 누가 알려 줘야 한다. 있으면 화면이 끝내는 버튼을 만들고,
-   * 없으면 지금까지처럼 저절로 끝나기를 기다린다.
+   * <p>있으면 화면이 끝내는 버튼을 만들고, 없으면 저절로 끝나기를 기다린다.
+   *
+   * <p>처음에는 스스로 끝나지 못하는 엔진(온디바이스 Whisper)을 위한 손잡이였는데,
+   * 남긴 이유는 <b>사람 쪽</b>에 있다. 스스로 끝나는 엔진에서도 조용히 말하거나 말끝을
+   * 흐리면 인식기가 끊을 때까지 기다려야 하고, <b>고령 사용자가 정확히 그렇게 말한다</b>
+   * (기획안 §9.2). 끝을 본인이 정할 수 있으면 그 기다림이 사라진다.
    */
   finish?(): void | Promise<void>;
   onPartial(callback: (text: string) => void): () => void;
@@ -44,9 +48,16 @@ type Phase =
   | { kind: "idle" }
   | { kind: "listening"; heard: string }
   | { kind: "candidates"; candidates: SearchCandidate[] }
-  | { kind: "reprompt"; prompt: string; choices: string[] }
+  | { kind: "reprompt"; prompt: string; choices: RepromptChoice[] }
   /** 되묻기에서 카테고리를 고른 뒤. 그 카테고리의 메뉴를 그대로 보여 준다. */
-  | { kind: "category"; name: string };
+  /**
+   * 되묻기에서 선택지를 고른 뒤.
+   *
+   * <p>**`menuIds`를 함께 들고 온다** (M11). 전에는 이름만 들고 와서 화면이 그 이름으로
+   * 카탈로그를 다시 걸렀는데, 이제 선택지가 갈래 조각일 수 있어 그렇게 하면 아무것도
+   * 안 나온다. 무엇을 보여 줄지는 고른 쪽이 안다.
+   */
+  | { kind: "category"; name: string; menuIds: MenuId[] };
 
 /**
  * 말로 찾기 (기획안 F4 / §9.2).
@@ -127,17 +138,28 @@ export function VoiceSearchSheet({
   }
 
   /**
-   * 온디바이스로 먼저 찾고, 못 찾으면 도우미에게 묻는다.
+   * 온디바이스 → 원격 신경망 → 도우미. **세 겹이고 위의 둘은 없어도 된다.**
    *
-   * <p>순서가 중요하다. `"계좌이체"`처럼 이름을 아는 질의는 여기서 끝나므로 도우미를
-   * 부르지 않는다 — 실측에서 정답 있는 질의의 15%만 도우미까지 갔다.
-   * 도우미가 없거나 `null`을 돌려주면 원래대로 되묻는다.
+   * <p>순서가 중요하다. `"계좌이체"`처럼 이름을 아는 질의는 첫 겹에서 끝나므로 아래를
+   * 부르지 않는다 — 실측에서 정답 있는 질의의 15%만 도우미까지 갔다. 위 두 겹이 없거나
+   * 죽거나 늦으면 원래대로 되묻는다.
+   *
+   * <p>두 번째 겹(M11)이 세 번째와 다른 일을 한다. 도우미는 <b>이미 가진 후보 중</b>
+   * 하나를 고르고, 원격 검색은 <b>로컬이 0점을 준 메뉴를 데려온다.</b> 그래서 원격이
+   * 앞이다 — 후보를 늘려 놓아야 도우미가 고를 것도 는다.
    */
-  function runTextSearch(query: string) {
+  async function runTextSearch(query: string) {
     if (query.trim().length === 0) return;
     setNotice(null);
 
-    const action = engine.voiceAction(query);
+    /*
+     * 로컬 결과를 먼저 그린다. 원격을 기다리는 동안 화면이 비어 있으면 사용자는
+     * 고장으로 읽는다 — 아래 도우미 단계가 되묻기를 먼저 띄우는 것과 같은 이유다.
+     */
+    const localAction = engine.voiceAction(query);
+    if (localAction.kind === "reprompt") apply(localAction, query);
+
+    const action = await engine.voiceActionWithRetrieval(query);
     if (action.kind !== "reprompt" || !assist) {
       apply(action, query);
       return;
@@ -177,7 +199,17 @@ export function VoiceSearchSheet({
       stt.onFinal((result) => {
         stt.stop();
         setText(result.text);
-        apply(engine.voiceAction(result.text, result.confidence), result.text);
+        /*
+         * 음성도 원격까지 묻는다 (M11). 글로 친 것과 말한 것이 같은 답을 받아야 한다 —
+         * 다르면 사용자가 "말로는 안 되는데 쳐야 된다"를 배운다.
+         *
+         * **도우미(`assist`)는 여기서 부르지 않는다.** 지금까지 그랬고, 그 판단을 M11이
+         * 바꾸지 않는다. 음성은 신뢰도가 함께 오고 §9.2가 그 값으로 되묻기를 정하는데,
+         * 도우미를 끼우면 그 경로가 달라진다 — 재 보지 않고 바꿀 일이 아니다.
+         */
+        void engine
+          .voiceActionWithRetrieval(result.text, result.confidence)
+          .then((action) => apply(action, result.text));
       }),
       stt.onError((error) => {
         stt.stop();
@@ -207,8 +239,8 @@ export function VoiceSearchSheet({
   /**
    * 말이 끝났다고 알린다.
    *
-   * <p>온디바이스 모델은 여기서부터 옮기기 시작한다 — 짧지 않은 시간이 걸리므로
-   * 무엇이 일어나는지 글자로 알린다. 침묵은 고장으로 읽힌다.
+   * <p>엔진이 여기서부터 확정한다 — 즉시 끝나지 않을 수 있으므로 무엇이 일어나는지
+   * 글자로 알린다. <b>침묵은 고장으로 읽힌다.</b>
    */
   async function finishListening() {
     if (!stt?.finish) return;
@@ -260,9 +292,9 @@ export function VoiceSearchSheet({
             {phase.kind !== "listening"
               ? "눌러서 말하기"
               : /*
-                 * 스스로 끝나는 엔진에서는 누를 것이 없으므로 상태만 알린다.
-                 * 끝을 알려야 하는 엔진에서는 무엇을 해야 하는지 글자로 말한다 —
+                 * 끝내는 손잡이가 있으면 무엇을 해야 하는지 글자로 말한다 —
                  * "듣고 있어요"만 떠 있으면 사용자는 계속 기다린다.
+                 * 손잡이가 없는 엔진에서는 누를 것이 없으므로 상태만 알린다.
                  */
                 stt?.finish
                 ? "다 말했어요"
@@ -285,7 +317,7 @@ export function VoiceSearchSheet({
           className="minui-search-form"
           onSubmit={(event) => {
             event.preventDefault();
-            runTextSearch(text);
+            void runTextSearch(text);
           }}
         >
           <label className="minui-group-name" htmlFor={inputId}>
@@ -358,7 +390,7 @@ export function VoiceSearchSheet({
             <h3 className="minui-group-name">{phase.prompt}</h3>
             <ul className="minui-group-list">
               {phase.choices.map((choice) => (
-                <li key={choice}>
+                <li key={choice.label}>
                   <button
                     type="button"
                     className="minui-candidate"
@@ -368,9 +400,11 @@ export function VoiceSearchSheet({
                      * 다시 돌리면 같은 되묻기로 돌아온다 — 막다른 길을 없애려던 화면이
                      * 스스로 막다른 길이 되는 셈이다. 대신 그 갈래의 메뉴를 바로 보여 준다.
                      */
-                    onClick={() => setPhase({ kind: "category", name: choice })}
+                    onClick={() =>
+                      setPhase({ kind: "category", name: choice.label, menuIds: choice.menuIds })
+                    }
                   >
-                    <span className="minui-candidate-label">{choice}</span>
+                    <span className="minui-candidate-label">{choice.label}</span>
                   </button>
                 </li>
               ))}
@@ -386,7 +420,11 @@ export function VoiceSearchSheet({
               되묻기를 없애려던 화면이 다시 탐색 문제가 된다 — 상위메뉴로 묶어 보여 준다.
             */}
             {groupByPath(
-              catalog.filter((menu) => menu.category === phase.name),
+              /*
+               * **고른 쪽이 준 목록을 그대로 쓴다** (M11). 이름으로 다시 거르지 않는다 —
+               * 선택지가 갈래 조각(`이체`)일 수 있고 그것은 카테고리 이름이 아니다.
+               */
+              catalog.filter((menu) => phase.menuIds.includes(menu.id)),
               catalog,
             ).map((group) => (
               <div key={group.heading}>

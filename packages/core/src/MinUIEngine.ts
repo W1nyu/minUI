@@ -9,6 +9,7 @@ import { NgramTfIdfProvider } from "./search/NgramTfIdfProvider.js";
 import { SearchPipeline, type SearchOutcome } from "./search/SearchPipeline.js";
 import { resolveVoiceAction, type VoiceAction } from "./search/voiceAction.js";
 import type { EmbeddingProvider } from "./search/EmbeddingProvider.js";
+import type { NeuralMatch, NeuralRetriever } from "./search/neural.js";
 import { MemoryStorageAdapter } from "./storage/MemoryStorageAdapter.js";
 import type {
   ActionHandler,
@@ -59,6 +60,21 @@ export interface MinUIEngineOptions {
    * <p>주지 않으면 프리필이 붙지 않을 뿐 나머지는 그대로 돈다. 던져도 마찬가지다.
    */
   slots?: SlotExtractor;
+  /**
+   * 이식 계약 ⑤ (선택) — 원격 신경망 검색 (M11, 기획안 §8.3 ③').
+   *
+   * <p>`assist`와 같은 모양의 계약이다 — <b>엔진은 이것이 신경망인지 사전인지 사람인지
+   * 모른다.</b> URL도 키도 모델 이름도 여기로 오지 않는다 (불변 규칙 9).
+   *
+   * <p><b>`assist`와 겹치지 않는다.</b> `assist`는 이미 가진 후보 중 하나를 고르고,
+   * 이것은 <b>로컬이 0점을 준 메뉴를 데려온다.</b> "돈 보내다"와 "이체"는 글자가 하나도
+   * 안 겹쳐 n-gram이 0을 주고, 그래서 후보 목록에 애초에 없다 — 고르게 해서는 되찾을 수
+   * 없는 것을 되찾는 자리다.
+   *
+   * <p>주지 않으면 검색이 지금까지와 <b>바이트 단위로 같게</b> 돈다. 던져도, 늦어도
+   * 마찬가지다.
+   */
+  retrieve?: NeuralRetriever;
 }
 
 /**
@@ -86,6 +102,7 @@ export class MinUIEngine {
   readonly #ranking: RankingEngine;
   readonly #stabilizer: LayoutStabilizer;
   readonly #search: SearchPipeline;
+  readonly #retrieve: NeuralRetriever | undefined;
   readonly #learned: LearnedTerms;
 
   #layout: LayoutState;
@@ -116,6 +133,7 @@ export class MinUIEngine {
     this.#learned = new LearnedTerms(this.#config, restored?.learned);
 
     const index = new MenuIndex(options.catalog);
+    this.#retrieve = options.retrieve;
     this.#search = new SearchPipeline(
       index,
       this.#config,
@@ -238,13 +256,81 @@ export class MinUIEngine {
    * @param sttConfidence 음성 인식 신뢰도. 텍스트 검색이면 생략한다.
    */
   voiceAction(query: string, sttConfidence?: number): VoiceAction {
+    return this.#act(this.search(query), sttConfidence);
+  }
+
+  /**
+   * 원격까지 물어보고 검색한다 (M11).
+   *
+   * <p><b>이 함수가 지는 책임은 둘뿐이다 — 시간 초과와 예외.</b> 무엇을 어떻게 합칠지는
+   * `mergeNeural`(순수·동기)이 정하고 픽스처가 잰다. 비동기 코드는 픽스처로 재기 어렵고
+   * 다른 언어로 옮길 때 통째로 다시 써야 하므로, 판단을 여기 두지 않는다.
+   *
+   * <p>어떤 경로로도 <b>로컬 결과보다 나빠지지 않는다.</b> 원격이 없거나, 꺼져 있거나,
+   * 던지거나, 늦으면 `search()`와 같은 것이 나온다 — 불변 규칙 9는 "돈다"가 아니라
+   * "<b>같게</b> 돈다"여야 한다.
+   */
+  async searchWithRetrieval(query: string): Promise<SearchOutcome> {
+    const local = this.search(query);
+    const settings = this.#config.search.neural;
+    if (!this.#retrieve || !settings.enabled) return local;
+
+    /*
+     * 로컬이 확신했으면 묻지 않는다. 85%의 질의가 여기서 끝나고(§12.6), 그때마다 서버를
+     * 부르면 값도 지연도 낭비다. 되묻기(`unclear`)는 확신이 없다는 뜻이므로 언제나 묻는다.
+     */
+    if (local.status === "ok" && (local.candidates[0]?.score ?? 0) >= settings.consultBelow) {
+      return local;
+    }
+
+    const remote = await this.#askRemote(query);
+    if (!remote) return local;
+
+    return this.#search.searchMerged(query, remote);
+  }
+
+  /** 원격까지 물어보고 화면 동작까지 정한다 (M11). */
+  async voiceActionWithRetrieval(query: string, sttConfidence?: number): Promise<VoiceAction> {
+    return this.#act(await this.searchWithRetrieval(query), sttConfidence);
+  }
+
+  /**
+   * 안전 경계는 <b>한 함수만</b> 지난다.
+   *
+   * <p>`voiceAction`과 `voiceActionWithRetrieval`이 각자 `resolveVoiceAction`을 부르면
+   * 언젠가 한쪽만 고쳐지고, §9.3이 한쪽에서만 지켜진다.
+   */
+  #act(outcome: SearchOutcome, sttConfidence?: number): VoiceAction {
     return resolveVoiceAction({
-      outcome: this.search(query),
+      outcome,
       menus: this.#byId,
       config: this.#config,
       ...(sttConfidence !== undefined ? { sttConfidence } : {}),
       ...(this.#slots ? { slots: this.#slots } : {}),
     });
+  }
+
+  /**
+   * 원격에 묻는다. 실패는 전부 `null`이고, 부른 쪽이 로컬 결과를 이미 들고 있다.
+   *
+   * <p><b>여기서 시간을 재지 않는다.</b> 처음에는 `setTimeout`으로 상한을 뒀는데
+   * `portability.test.ts`가 잡았다 — 불변 규칙 1은 core가 Node·브라우저 전역에 손대는
+   * 것을 금한다. 엔진이 `Date.now()` 대신 주입된 `now`를 쓰는 것과 같은 이유이고,
+   * 그 테스트가 옳다. <b>시계를 가진 층이 시간을 재야 한다.</b>
+   *
+   * <p>그래서 상한은 `packages/react`의 `MinUIProvider`가 `neural.timeoutMs`를 읽어
+   * 씌운다. 값 자체는 `MinUIConfig`에 남아 있어야 한다(규칙 3) — 다른 언어로 포팅할 때
+   * 그 층이 같은 값을 같은 자리에서 읽는다.
+   *
+   * <p>고령 사용자에게 <b>침묵은 고장으로 읽힌다.</b> 상한이 없으면 안 되는 이유가
+   * 그것이고, 그 책임이 어느 층에 있는지가 여기서 갈린다.
+   */
+  async #askRemote(query: string): Promise<readonly NeuralMatch[] | null> {
+    try {
+      return await this.#retrieve!(query);
+    } catch {
+      return null;
+    }
   }
 
   /**

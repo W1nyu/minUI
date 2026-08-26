@@ -782,3 +782,122 @@ describe("카드가 왜 여기 있는가 (M8)", () => {
     expect(entry.reason.kind).toBe("used");
   });
 });
+
+/**
+ * 원격 신경망 검색의 얇은 껍데기 (M11).
+ *
+ * <p>판단은 전부 `mergeNeural`(순수·동기)에 있고, 여기가 지는 책임은 <b>둘뿐</b>이다 —
+ * 시간 초과와 예외. 그래서 이 describe가 재는 것도 그 둘과, 언제 부르지 않는가이다.
+ *
+ * <p>가장 중요한 것은 첫 테스트다. 불변 규칙 9는 "원격이 없어도 <b>돈다</b>"가 아니라
+ * "<b>같게</b> 돈다"여야 한다 — 모델이 있고 없고에 따라 사용자가 보는 후보가 달라지면
+ * 오프라인 바닥이 바닥이 아니게 된다.
+ */
+describe("원격 검색 (M11)", () => {
+  async function engineWith(
+    retrieve?: (query: string) => Promise<readonly { menuId: string; score: number }[]>,
+    neural: Record<string, unknown> = {},
+  ) {
+    return MinUIEngine.create({
+      catalog: CATALOG,
+      onAction: () => {},
+      storage: new MemoryStorageAdapter(),
+      now: () => T0,
+      ...(retrieve ? { retrieve } : {}),
+      config: { search: { neural: { enabled: true, ...neural } } },
+    });
+  }
+
+  it("retrieve가 없으면 search()와 완전히 같다", async () => {
+    const engine = await engineWith();
+
+    expect(await engine.searchWithRetrieval("이체")).toEqual(engine.search("이체"));
+    expect(await engine.searchWithRetrieval("알아들을수없는말")).toEqual(
+      engine.search("알아들을수없는말"),
+    );
+  });
+
+  it("retrieve가 던져도 로컬 결과가 나온다 — 원격이 죽어도 100% 돈다", async () => {
+    const engine = await engineWith(() => Promise.reject(new Error("서버 없음")));
+
+    expect(await engine.searchWithRetrieval("이체")).toEqual(engine.search("이체"));
+  });
+
+  it("시간을 재는 일은 core가 하지 않는다 — 상한은 호스트가 씌운다", async () => {
+    /*
+     * 처음에는 여기서 `setTimeout`으로 상한을 뒀는데 `portability.test.ts`가 잡았다.
+     * 불변 규칙 1은 core가 Node·브라우저 전역에 손대는 것을 금하고, 그 테스트가 옳다 —
+     * 엔진이 `Date.now()` 대신 주입된 `now`를 쓰는 것과 같은 이유다.
+     *
+     * 그래서 계약이 이렇게 갈린다: **늦게 오는 것을 재는 것은 시계를 가진 층의 일이고,
+     * core는 온 것을 합치기만 한다.** 상한은 `MinUIProvider`가 `neural.timeoutMs`로 씌우고
+     * (`packages/react`가 재는 자리), 값은 규칙 3대로 `MinUIConfig`에 남는다.
+     *
+     * 여기서 재는 것은 그 계약의 나머지 절반 — **거부는 언제나 로컬로 떨어진다.**
+     * 상한을 씌운 층이 시간이 넘었을 때 하는 일이 바로 거부이므로, 이 경로가 곧 그 경로다.
+     */
+    const engine = await engineWith(() => Promise.reject(new Error("시간 초과")));
+
+    expect(await engine.searchWithRetrieval("알아들을수없는말")).toEqual(
+      engine.search("알아들을수없는말"),
+    );
+  });
+
+  it("enabled가 false면 부르지 않는다", async () => {
+    let calls = 0;
+    const engine = await MinUIEngine.create({
+      catalog: CATALOG,
+      onAction: () => {},
+      storage: new MemoryStorageAdapter(),
+      now: () => T0,
+      retrieve: async () => {
+        calls += 1;
+        return [];
+      },
+    });
+
+    await engine.searchWithRetrieval("알아들을수없는말");
+
+    expect(calls).toBe(0);
+  });
+
+  it("로컬이 확신하면 원격을 부르지 않는다", async () => {
+    // 85%의 질의가 로컬에서 끝난다. 그때마다 서버를 부르면 값도 지연도 낭비다.
+    let calls = 0;
+    const engine = await engineWith(async () => {
+      calls += 1;
+      return [];
+    });
+
+    await engine.searchWithRetrieval("잔액 보기");
+
+    expect(calls).toBe(0);
+  });
+
+  it("로컬이 못 찾으면 원격이 데려온 것을 후보로 낸다", async () => {
+    const engine = await engineWith(async () => [
+      { menuId: "transfer.account", score: 0.95 },
+    ]);
+
+    const outcome = await engine.searchWithRetrieval("돈보내다");
+
+    expect(outcome.status).toBe("ok");
+    if (outcome.status !== "ok") return;
+    expect(outcome.candidates[0]).toMatchObject({
+      menuId: "transfer.account",
+      matchedBy: "neural",
+    });
+  });
+
+  it("음성 경로도 같은 안전 함수를 지난다", async () => {
+    /*
+     * `resolveVoiceAction`을 두 번 구현하면 §9.3이 한쪽에서만 지켜진다. 원격이 1.0으로
+     * 확신해도 열리지 않아야 한다 — 규칙 8의 일반형(`NEVER_AUTO_OPEN`).
+     */
+    const engine = await engineWith(async () => [{ menuId: "inquiry.balance", score: 1 }]);
+
+    const action = await engine.voiceActionWithRetrieval("돈보내다");
+
+    expect(action.kind).not.toBe("open");
+  });
+});

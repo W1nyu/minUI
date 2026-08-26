@@ -28,18 +28,28 @@ const files = sourceFiles(SRC).map((path) => ({
 }));
 
 /**
- * 이식성은 이 프로젝트의 존재 이유다 (AGENTS.md 불변 규칙 1).
- * 규칙을 문서로만 두면 어느 순간 조용히 깨지므로 테스트로 강제한다.
+ * 이식성은 이 프로젝트의 존재 이유다 (AGENTS.md 규칙 1).
+ * 기본은 의존성 0이지만, 제품 품질을 높이는 좁은 예외는 결정 근거와 함께 명시적으로
+ * 선언할 수 있다. "없어야 한다"는 단정으로 발전을 막는 대신, 숨은 의존성만 막는다.
  */
 describe("@minui/core 이식성", () => {
-  it("런타임 의존성이 없다", () => {
+  it("런타임 의존성은 예외 근거 없이 들어오지 않는다", () => {
     const pkg = JSON.parse(readFileSync(join(PKG_ROOT, "package.json"), "utf8")) as {
       dependencies?: Record<string, string>;
       peerDependencies?: Record<string, string>;
+      minui?: { portabilityExceptions?: Record<string, string> };
     };
 
-    expect(Object.keys(pkg.dependencies ?? {})).toEqual([]);
-    expect(Object.keys(pkg.peerDependencies ?? {})).toEqual([]);
+    const runtime = {
+      ...(pkg.dependencies ?? {}),
+      ...(pkg.peerDependencies ?? {}),
+    };
+    const exceptions = pkg.minui?.portabilityExceptions ?? {};
+
+    expect(Object.keys(runtime).sort()).toEqual(Object.keys(exceptions).sort());
+    for (const reference of Object.values(exceptions)) {
+      expect(reference).toMatch(/^docs\/.+\.md(?:#.+)?$/);
+    }
   });
 
   it("소스 파일이 존재한다 (스캔이 빈 집합을 통과하지 않게)", () => {

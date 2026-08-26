@@ -6,6 +6,9 @@
  * 따라서 이 인터페이스에는 함수·클래스·Date가 들어올 수 없다. 순수 데이터만.
  */
 
+import type { NeuralSettings } from "./search/neural.js";
+import type { RepromptSettings } from "./search/reprompt.js";
+
 export interface RankingWeights {
   /** w_f — 빈도 */
   frequency: number;
@@ -150,6 +153,23 @@ export interface MinUIConfig {
      * 조회성 화면이 잘못 열리는 비용은 낮지만, 그래도 애매하면 물어보는 편이 낫다.
      */
     autoOpenConfidence: number;
+    /**
+     * 원격 신경망 검색 (M11, 기획안 §8.3 ③').
+     *
+     * <p>엔진은 이것이 무엇인지 모른다 — URL도 키도 모델 이름도 여기 없다. 있는 것은
+     * <b>원격이 준 원점수를 로컬 점수와 같은 자로 옮기는 법</b>과 언제 부를지뿐이다.
+     * 값이 여기 있어야 하는 이유는 불변 규칙 3이다: 다른 언어로 포팅할 때 설정과
+     * 픽스처가 그대로 재사용되어야 한다.
+     */
+    neural: NeuralSettings;
+    /**
+     * 되묻기 선택지를 어떻게 고를 것인가 (M11, 기획안 §9.2).
+     *
+     * <p>§9.2가 "아직 못 정했다"고 열어 둔 값들이다. `choiceCount`는 사용자 테스트
+     * 없이는 확정할 수 없다고 적혀 있고 그것은 지금도 맞다 — 다만 <b>기계적인 무릎이
+     * 어디인지</b>는 `bench:reprompt`가 답한다.
+     */
+    reprompt: RepromptSettings;
   };
   coldStart: {
     /** 프리셋에서 실제 사용 기록 기반 랭킹으로 넘어가는 방문 수 */
@@ -238,6 +258,36 @@ export const DEFAULT_CONFIG: MinUIConfig = {
     semanticWeight: 0.85,
     termSpecificityFloor: 0.8,
     autoOpenConfidence: 0.9,
+    /*
+     * **유도된 값이다. 고른 것이 아니다** (M11, `bench:neural`).
+     *
+     * 바닥은 튜닝 세트(신한·KB증권·하나)의 **부정 질의가 받은 최고 원점수 0.735** 바로
+     * 위에 놓았다. 천장은 같은 세트 정답들의 90분위(0.825)다. 검증 세트(KB국민·미래에셋)는
+     * 유도에 쓰지 않고 판정에만 썼다 — §12.6이 정한 규칙이다.
+     *
+     * `weight`가 1.0인 이유: bge-m3의 점수대가 좁아(0.74~0.83) 0.85를 곱하면 옮긴 값이
+     * `minConfidence`(0.40)를 못 넘는다. 단계 사이의 우열은 점수가 아니라
+     * `STAGE_STRENGTH`가 지키므로 여기서 눌러 둘 이유가 없다.
+     *
+     * **모델을 바꾸면 이 넷을 다시 유도해야 한다.** e5-small 시절의 값(0.72/0.92/0.85)을
+     * 그대로 두고 bge-m3를 재 봤더니 회수가 1.4%로 나왔다 — 모델이 아니라 설정이
+     * 정답을 죽이고 있었다.
+     */
+    neural: {
+      enabled: false,
+      scoreFloor: 0.74,
+      scoreCeiling: 0.825,
+      weight: 1,
+      maxMatches: 20,
+      consultBelow: 0.4,
+      timeoutMs: 1200,
+    },
+    reprompt: {
+      choiceCount: 3,
+      minGroupMass: 0.15,
+      poolSize: 20,
+      maxDepth: 3,
+    },
   },
   coldStart: {
     visitsUntilPersonalized: 8,

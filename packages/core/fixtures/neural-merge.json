@@ -1,0 +1,152 @@
+{
+  "name": "원격 신경망 후보 병합 (M11)",
+  "description": "입력→기대출력. 다른 언어로 포팅할 때 이 파일이 그대로 넘어가 동등성을 검증한다. 판단이 전부 순수 동기 함수(mergeNeural)에 있는 이유가 이것이다 — 비동기 껍데기는 픽스처로 잴 수 없다.",
+  "settings": {
+    "enabled": true,
+    "scoreFloor": 0.72,
+    "scoreCeiling": 0.92,
+    "weight": 0.85,
+    "maxMatches": 20,
+    "consultBelow": 0.4,
+    "timeoutMs": 1200
+  },
+  "known": ["transfer.now", "inquiry.balance", "transfer.auto"],
+  "cases": [
+    {
+      "name": "정확 매칭이 있으면 원격을 통째로 버린다",
+      "why": "사전이 확실하다고 말한 것을 원격 유사도로 다시 흔들 이유가 없다. DECISIVE가 로컬에서 하던 판단과 같다.",
+      "query": "이체",
+      "local": [
+        { "menuId": "transfer.now", "score": 1, "matchedBy": "exact", "matchedTerm": "이체" }
+      ],
+      "remote": [{ "menuId": "inquiry.balance", "score": 0.99 }],
+      "expect": [
+        { "menuId": "transfer.now", "score": 1, "matchedBy": "exact", "matchedTerm": "이체" }
+      ]
+    },
+    {
+      "name": "로컬이 0점을 준 메뉴를 데려온다",
+      "why": "이 마일스톤의 존재 이유. '돈보내다'와 '이체'는 글자가 하나도 안 겹쳐 n-gram이 0을 준다.",
+      "query": "돈보내다",
+      "local": [],
+      "remote": [{ "menuId": "transfer.now", "score": 0.92 }],
+      "expect": [
+        {
+          "menuId": "transfer.now",
+          "score": 0.85,
+          "matchedBy": "neural",
+          "matchedTerm": "돈보내다"
+        }
+      ]
+    },
+    {
+      "name": "바닥 아래 원점수는 후보가 되지 않는다",
+      "why": "코사인은 무관한 메뉴에도 0.6~0.7을 준다. 그것을 그대로 들이면 '답 없는 질의 97/100 거절'이 무너진다.",
+      "query": "날씨어때",
+      "local": [],
+      "remote": [
+        { "menuId": "transfer.now", "score": 0.7 },
+        { "menuId": "inquiry.balance", "score": 0.68 }
+      ],
+      "expect": []
+    },
+    {
+      "name": "동점이면 사람이 붙인 동의어가 이긴다",
+      "why": "불변 규칙 10의 근거를 점수 체계로 지킨다 — 사람 80% vs 모델 27%.",
+      "query": "돈보내다",
+      "local": [
+        { "menuId": "transfer.now", "score": 0.85, "matchedBy": "synonym", "matchedTerm": "송금" }
+      ],
+      "remote": [{ "menuId": "transfer.now", "score": 1 }],
+      "expect": [
+        { "menuId": "transfer.now", "score": 0.85, "matchedBy": "synonym", "matchedTerm": "송금" }
+      ]
+    },
+    {
+      "name": "같은 메뉴면 높은 쪽이 남는다",
+      "query": "돈보내다",
+      "local": [
+        {
+          "menuId": "transfer.now",
+          "score": 0.5,
+          "matchedBy": "phonetic",
+          "matchedTerm": "돈보기"
+        }
+      ],
+      "remote": [{ "menuId": "transfer.now", "score": 0.92 }],
+      "expect": [
+        {
+          "menuId": "transfer.now",
+          "score": 0.85,
+          "matchedBy": "neural",
+          "matchedTerm": "돈보내다"
+        }
+      ]
+    },
+    {
+      "name": "카탈로그에 없는 id는 버린다",
+      "why": "벡터는 빌드 타임 산출물이라 카탈로그보다 오래됐을 수 있다. 열 수 없는 것을 제시하는 것이 가장 나쁜 막다른 길이다.",
+      "query": "돈보내다",
+      "local": [],
+      "remote": [{ "menuId": "사라진메뉴", "score": 0.99 }],
+      "expect": []
+    },
+    {
+      "name": "원격이 빈손이면 로컬 그대로다",
+      "query": "돈보내다",
+      "local": [
+        {
+          "menuId": "inquiry.balance",
+          "score": 0.5,
+          "matchedBy": "phonetic",
+          "matchedTerm": "잔액"
+        }
+      ],
+      "remote": [],
+      "expect": [
+        {
+          "menuId": "inquiry.balance",
+          "score": 0.5,
+          "matchedBy": "phonetic",
+          "matchedTerm": "잔액"
+        }
+      ]
+    },
+    {
+      "name": "점수가 높은 순으로 낸다",
+      "query": "돈보내다",
+      "local": [
+        {
+          "menuId": "inquiry.balance",
+          "score": 0.5,
+          "matchedBy": "phonetic",
+          "matchedTerm": "잔액"
+        }
+      ],
+      "remote": [
+        { "menuId": "transfer.auto", "score": 0.8 },
+        { "menuId": "transfer.now", "score": 0.92 }
+      ],
+      "expect": [
+        {
+          "menuId": "transfer.now",
+          "score": 0.85,
+          "matchedBy": "neural",
+          "matchedTerm": "돈보내다"
+        },
+        {
+          "menuId": "inquiry.balance",
+          "score": 0.5,
+          "matchedBy": "phonetic",
+          "matchedTerm": "잔액"
+        },
+        {
+          "menuId": "transfer.auto",
+          "score": 0.34,
+          "matchedBy": "neural",
+          "matchedTerm": "돈보내다"
+        }
+      ]
+    }
+  ]
+}

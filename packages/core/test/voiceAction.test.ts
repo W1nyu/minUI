@@ -360,3 +360,95 @@ describe("음성 프리필 (M9) ★", () => {
     });
   });
 });
+
+/**
+ * 모델이 올린 후보는 자동으로 열리지 않는다 (M11).
+ *
+ * <p>불변 규칙 8("LLM은 위험도를 낮추지 못한다")의 일반형이다 — <b>모델은 확신도 올리지
+ * 못한다.</b> 화면은 이미 그렇게 하고 있었다: 도우미가 고른 것도 후보로만 제시한다
+ * (`VoiceSearchSheet.tsx`). 그 판단을 화면이 아니라 규칙이 있는 자리로 옮긴다.
+ *
+ * <p>이 한 줄이 위험 하나를 통째로 없앤다. 원격 모델의 점수 분포는 로컬과 다른데,
+ * 자동 실행이 원천 차단되므로 <b>`autoOpenConfidence`(0.9)를 다시 튜닝할 필요가 없다.</b>
+ */
+describe("원격이 올린 후보 (M11)", () => {
+  it("확신이 1.0이어도 자동으로 열리지 않는다", () => {
+    const action = resolveVoiceAction({
+      outcome: {
+        status: "ok",
+        query: "돈보내다",
+        candidates: [
+          { menuId: "inquiry.balance", score: 1, matchedBy: "neural", matchedTerm: "돈보내다" },
+        ],
+      },
+      menus: new Map(CATALOG.map((menu) => [menu.id, menu])),
+      config: DEFAULT_CONFIG,
+    });
+
+    expect(action.kind).toBe("choose");
+  });
+
+  it("사람이 붙인 동의어는 지금까지처럼 자동으로 열린다 — 회귀 없음", () => {
+    // 이 테스트가 없으면 위 규칙이 조용히 모든 자동 실행을 막아도 눈치채지 못한다.
+    const action = resolveVoiceAction({
+      outcome: {
+        status: "ok",
+        query: "잔고",
+        candidates: [
+          { menuId: "inquiry.balance", score: 0.95, matchedBy: "synonym", matchedTerm: "잔고" },
+        ],
+      },
+      menus: new Map(CATALOG.map((menu) => [menu.id, menu])),
+      config: DEFAULT_CONFIG,
+    });
+
+    expect(action.kind).toBe("open");
+  });
+});
+
+/**
+ * 민감한 조회는 자동으로 열리지 않는다 (M11 Task 20′).
+ *
+ * <p>지금 `riskLevel`은 <b>돈이 움직이는가</b>만 본다. 그래서 잔액·거래내역처럼 읽기만
+ * 하는 화면은 `low`이고, 확신 0.9 이상이면 <b>확인 없이 열린다.</b>
+ *
+ * <p>잠금 해제된 기기를 잠깐 쥔 사람이 "잔액 얼마야"로 볼 수 있다는 뜻이다.
+ * <b>돈은 안 나가지만 정보는 나간다.</b> §9.3의 위협 모형에서 "안 막힌다"로 남아 있던 칸이다.
+ *
+ * <p>`high`로 올리지 않고 `medium`을 쓰는 이유: `high`는 "음성으로 완료 불가"라는 뜻이고
+ * 조회는 애초에 완료할 것이 없다. 둘을 같은 칸에 넣으면 <b>왜 막혔는지</b>가 흐려진다.
+ */
+describe("민감한 조회 (M11)", () => {
+  function actionFor(riskLevel: "low" | "medium" | "high") {
+    const menus = new Map(
+      CATALOG.map((menu) => [
+        menu.id,
+        menu.id === "inquiry.balance" ? { ...menu, riskLevel } : menu,
+      ]),
+    );
+    return resolveVoiceAction({
+      outcome: {
+        status: "ok",
+        query: "잔고",
+        candidates: [
+          { menuId: "inquiry.balance", score: 0.95, matchedBy: "synonym", matchedTerm: "잔고" },
+        ],
+      },
+      menus,
+      config: DEFAULT_CONFIG,
+    });
+  }
+
+  it("medium은 확신이 높아도 사용자가 눌러야 열린다", () => {
+    expect(actionFor("medium").kind).toBe("choose");
+  });
+
+  it("low는 지금까지처럼 바로 열린다 — 회귀 없음", () => {
+    // 환율·영업점 안내처럼 남에게 보여도 그만인 화면까지 막으면 그것은 접근성 손해다.
+    expect(actionFor("low").kind).toBe("open");
+  });
+
+  it("high는 그대로 막힌다", () => {
+    expect(actionFor("high").kind).toBe("choose");
+  });
+});

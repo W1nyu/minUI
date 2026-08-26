@@ -1,9 +1,10 @@
-import { MinUIEngine, type MinUIEngineOptions } from "@minui/core";
+import { DEFAULT_CONFIG, MinUIEngine, type MinUIEngineOptions } from "@minui/core";
 import type {
   CardExplanation,
   ColdStartProfile,
   LearnedTerm,
   MenuId,
+  NeuralRetriever,
   RankedCard,
   TextScale,
 } from "@minui/core";
@@ -78,6 +79,51 @@ export interface MinUIProviderProps extends MinUIEngineOptions {
    * (신한 930개 중 185개). 검색 폴백과 같은 구조다.
    */
   explain?: (menuId: MenuId) => Promise<string | null>;
+  /**
+   * 원격 신경망 검색 (M11). **선택이다.**
+   *
+   * <p>`assist`와 같은 모양의 계약이다 — 엔진은 이것이 신경망인지 사전인지 사람인지
+   * 모른다. 없으면 검색이 지금까지와 <b>바이트 단위로 같게</b> 돈다.
+   *
+   * <p>`assist`와 겹치지 않는다. `assist`는 이미 가진 후보 중 하나를 고르고, 이것은
+   * <b>로컬이 0점을 준 메뉴를 데려온다.</b> 둘 다 있으면 원격 → 도우미 순으로 쌓인다.
+   *
+   * <p>기다림의 상한은 <b>여기서 씌운다</b>(`neural.timeoutMs`). core는 시간을 재지
+   * 못하기 때문이다 — 불변 규칙 1.
+   */
+  retrieve?: NeuralRetriever;
+}
+
+/**
+ * 원격 검색에 기다림의 상한을 씌운다 (M11).
+ *
+ * <p><b>이 일이 왜 여기 있는가.</b> core는 Node·브라우저 전역에 손대지 않으므로
+ * (불변 규칙 1, `portability.test.ts`가 강제한다) 시간을 잴 수 없다 — 엔진이
+ * `Date.now()` 대신 주입된 `now`를 쓰는 것과 같은 이유다. <b>시계를 가진 층이 시간을
+ * 재야 하고, 그 층이 여기다.</b>
+ *
+ * <p>상한을 넘으면 거부한다. 엔진은 거부를 로컬 결과로 받으므로 화면은 되묻기로
+ * 돌아간다 — 고령 사용자에게 <b>침묵은 고장으로 읽힌다.</b> 멈춘 화면은 막다른 길이지만
+ * 되묻기는 아니다.
+ *
+ * <p>값은 `MinUIConfig`에 남는다(규칙 3). 여기 상수로 박으면 다른 언어로 포팅할 때
+ * 그 층이 같은 값을 찾을 곳이 없어진다.
+ */
+function withTimeout(retrieve: NeuralRetriever, timeoutMs: number): NeuralRetriever {
+  return (query) =>
+    new Promise((resolve, reject) => {
+      const timer = setTimeout(() => reject(new Error("원격 검색 시간 초과")), timeoutMs);
+      retrieve(query).then(
+        (matches) => {
+          clearTimeout(timer);
+          resolve(matches);
+        },
+        (error: unknown) => {
+          clearTimeout(timer);
+          reject(error instanceof Error ? error : new Error(String(error)));
+        },
+      );
+    });
 }
 
 /**
@@ -92,6 +138,7 @@ export function MinUIProvider({
   fallback = null,
   assist,
   explain,
+  retrieve,
   ...options
 }: MinUIProviderProps) {
   const [engine, setEngine] = useState<MinUIEngine | null>(null);
@@ -102,10 +149,32 @@ export function MinUIProvider({
   });
   const [learnedTerms, setLearnedTerms] = useState<readonly LearnedTerm[]>([]);
 
+  /*
+   * 원격 검색은 상한을 씌워 넘긴다 (M11). 상한 값은 호스트 설정 → 기본값 순으로 읽는다 —
+   * 엔진이 `resolveConfig`로 병합하기 전이라 여기서 한 번 더 본다.
+   */
+  const wrappedRetrieve = useMemo(
+    () =>
+      retrieve
+        ? withTimeout(
+            retrieve,
+            options.config?.search?.neural?.timeoutMs ??
+              DEFAULT_CONFIG.search.neural.timeoutMs,
+          )
+        : undefined,
+    [retrieve, options.config?.search?.neural?.timeoutMs],
+  );
+
   // 옵션 객체가 매 렌더 새로 만들어지더라도 엔진을 다시 만들면 안 된다.
   // 엔진 재생성은 곧 새 세션이고, 새 세션은 카드가 바뀔 수 있는 시점이다.
-  const optionsRef = useRef(options);
-  optionsRef.current = options;
+  const optionsRef = useRef({
+    ...options,
+    ...(wrappedRetrieve ? { retrieve: wrappedRetrieve } : {}),
+  });
+  optionsRef.current = {
+    ...options,
+    ...(wrappedRetrieve ? { retrieve: wrappedRetrieve } : {}),
+  };
 
   useEffect(() => {
     let cancelled = false;

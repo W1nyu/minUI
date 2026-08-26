@@ -63,8 +63,15 @@ const PRESETS: ColdStartPresets = {
   invest: ["inquiry.balance", "inquiry.history", "transfer.account", "support.call"],
 };
 
-function renderHome(stt?: MockSttProvider) {
+interface HomeExtras {
+  retrieve?: (query: string) => Promise<readonly { menuId: string; score: number }[]>;
+  assist?: (query: string, candidates: string[]) => Promise<string | null>;
+  neural?: Record<string, unknown>;
+}
+
+function renderHome(stt?: MockSttProvider, extras: HomeExtras = {}) {
   const onAction = vi.fn();
+  const { retrieve, assist, neural } = extras;
   render(
     <MinUIProvider
       catalog={CATALOG}
@@ -72,6 +79,9 @@ function renderHome(stt?: MockSttProvider) {
       storage={new MemoryStorageAdapter()}
       coldStartPresets={PRESETS}
       fallback={<p>불러오는 중</p>}
+      {...(retrieve ? { retrieve } : {})}
+      {...(assist ? { assist } : {})}
+      {...(neural ? { config: { search: { neural: { enabled: true, ...neural } } } } : {})}
     >
       <MinUIHome catalog={CATALOG} {...(stt ? { stt } : {})} />
     </MinUIProvider>,
@@ -79,8 +89,8 @@ function renderHome(stt?: MockSttProvider) {
   return { onAction };
 }
 
-async function openSearch(stt?: MockSttProvider) {
-  const handle = renderHome(stt);
+async function openSearch(stt?: MockSttProvider, extras: HomeExtras = {}) {
+  const handle = renderHome(stt, extras);
   await waitFor(() =>
     expect(screen.getByRole("button", { name: /말로 찾기/ })).toBeInTheDocument(),
   );
@@ -236,10 +246,16 @@ describe("음성 검색", () => {
 });
 
 /**
- * 온디바이스 Whisper는 스트리밍이 아니다 — 말이 끝나야 옮기기 시작한다.
+ * 말이 끝나는 시점을 사용자가 정한다.
  *
- * Web Speech는 말이 끊기면 스스로 확정하지만 Whisper는 그럴 수 없어, 사용자가
- * "다 말했어요"를 눌러 끝을 알려야 한다. 두 방식이 같은 화면에서 돌아야 한다.
+ * 처음에는 온디바이스 Whisper 때문에 생긴 화면이었다 — 스스로 끝나지 못하는 엔진이라
+ * 누군가 끝을 알려 줘야 했다. M11에서 그 엔진을 뺐지만 **화면은 그대로 둔다.**
+ * 남긴 이유가 엔진이 아니라 사람 쪽에 있어서다: 조용히 말하거나 말끝을 흐리면 인식기가
+ * 끊을 때까지 기다려야 하고, 고령 사용자가 정확히 그렇게 말한다 (기획안 §9.2).
+ *
+ * 여기서 재는 것은 **화면이 `finish`의 유무에 따라 갈리는가**이고, 실제 엔진이 그것을
+ * 주는지는 `packages/voice`(native stop 호출)와 `frontend`(F9 프로토콜 배선)가 각각 잰다.
+ * 두 방식이 같은 화면에서 돌아야 한다는 요구는 그대로다.
  */
 describe("말이 끝나는 시점을 사용자가 정하는 엔진", () => {
   it("듣는 중에는 끝내는 버튼이 된다", async () => {
@@ -368,5 +384,98 @@ describe("메뉴가 내 말을 배운다 (M7)", () => {
       await userEvent.click(within(found).getByRole("button", { name: /자동이체 관리/ }));
       onAction.mockClear();
     }
+  });
+});
+
+/**
+ * 원격 → 로컬 → 도우미. 세 겹이고 위의 둘은 없어도 된다 (M11).
+ *
+ * <p>여기가 재는 것은 <b>층이 무너지는 방식</b>이다. 원격이 늦거나 죽어도 화면은
+ * 되묻기로 돌아가야 하고, 원격이 찾아 준 것도 사용자가 눌러야 열려야 한다.
+ */
+describe("원격 신경망 검색 (M11)", () => {
+  /**
+   * **다이얼로그 안만 본다.**
+   *
+   * <p>처음에는 `screen`으로 찾다가 테스트가 구현 없이 통과했다 — 콜드 스타트 카드가
+   * 다이얼로그 뒤 홈에 같은 이름으로 떠 있었고 그것을 잡고 있었다. 후보인지 카드인지
+   * 구분하지 못하는 검사는 아무것도 재지 않는다.
+   */
+  function sheet() {
+    return within(screen.getByRole("dialog", { name: "말로 찾기" }));
+  }
+
+  async function search(text: string) {
+    await userEvent.type(screen.getByLabelText("글로 찾기"), text);
+    await userEvent.click(screen.getByRole("button", { name: "찾기" }));
+  }
+
+  it("원격이 데려온 것을 후보로 보여 준다", async () => {
+    // "돈 부쳐"는 로컬에서 되묻기로 끝난다 — 아래 마지막 테스트가 그것을 고정한다.
+    await openSearch(undefined, {
+      retrieve: async () => [{ menuId: "transfer.account", score: 0.95 }],
+      neural: {},
+    });
+
+    await search("돈 부쳐");
+
+    await waitFor(() =>
+      expect(sheet().getByRole("button", { name: /계좌 이체/ })).toBeInTheDocument(),
+    );
+  });
+
+  it("원격이 찾아 줘도 사용자가 눌러야 열린다", async () => {
+    // 규칙 8의 일반형 — 모델은 위험도도 확신도 올리지 못한다.
+    const { onAction } = await openSearch(undefined, {
+      retrieve: async () => [{ menuId: "inquiry.balance", score: 1 }],
+      neural: {},
+    });
+
+    await search("돈 부쳐");
+
+    await waitFor(() =>
+      expect(sheet().getByRole("button", { name: /잔액 보기/ })).toBeInTheDocument(),
+    );
+    expect(onAction).not.toHaveBeenCalled();
+  });
+
+  it("원격이 죽어도 되묻기 화면이 그대로 뜬다", async () => {
+    await openSearch(undefined, {
+      retrieve: () => Promise.reject(new Error("서버 없음")),
+      neural: {},
+    });
+
+    await search("돈 부쳐");
+
+    await waitFor(() =>
+      expect(sheet().getByText(/중에 찾으시는 게 있나요/)).toBeInTheDocument(),
+    );
+  });
+
+  it("원격이 늦으면 기다리지 않는다 — 상한은 화면이 씌운다", async () => {
+    /*
+     * core는 시간을 재지 않는다(불변 규칙 1 — `portability.test.ts`가 강제한다).
+     * 시계를 가진 층이 재야 하고, 그 층이 여기다. 고령 사용자에게 침묵은 고장이다.
+     */
+    await openSearch(undefined, {
+      retrieve: () => new Promise(() => {}), // 영영 안 온다
+      neural: { timeoutMs: 20 },
+    });
+
+    await search("돈 부쳐");
+
+    await waitFor(() =>
+      expect(sheet().getByText(/중에 찾으시는 게 있나요/)).toBeInTheDocument(),
+    );
+  });
+
+  it("retrieve가 없는 호스트에서 지금까지와 똑같이 돈다", async () => {
+    await openSearch();
+
+    await search("돈 부쳐");
+
+    await waitFor(() =>
+      expect(sheet().getByText(/중에 찾으시는 게 있나요/)).toBeInTheDocument(),
+    );
   });
 });

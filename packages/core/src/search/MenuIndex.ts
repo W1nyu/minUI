@@ -11,6 +11,13 @@ export interface IndexedMenu {
   /** 원본 카테고리 — 사용자에게 보여줄 때 쓴다. */
   categoryLabel: string;
   /**
+   * 갈래. **되묻기 선택지를 가를 때 쓴다** (M11).
+   *
+   * <p>점수에는 관여하지 않는다 — `category`와 마찬가지로 검색 term이 아니다.
+   * 카탈로그가 안 주면 빈 배열이고, 그때는 되묻기가 지금까지처럼 카테고리로 떨어진다.
+   */
+  path: readonly string[];
+  /**
    * 이 메뉴 아래에 다른 메뉴가 있는가.
    *
    * <p>점수에는 관여하지 않는다. <b>동점을 깰 때만</b> 쓴다 — 자식이 있는 항목은
@@ -44,6 +51,7 @@ export class MenuIndex {
       ]).filter((term) => term.length > 0),
       category: normalize(menu.category),
       categoryLabel: menu.category,
+      path: menu.path ?? [],
       hasChildren: parents.has([...(menu.path ?? []), menu.label].join(">")),
     }));
   }

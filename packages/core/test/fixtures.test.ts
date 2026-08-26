@@ -42,9 +42,21 @@ const CATALOG = JSON.parse(
   readFileSync(join(FIXTURES, "menus.json"), "utf8"),
 ) as MenuCatalog;
 
-const scenarioFiles = readdirSync(FIXTURES).filter(
-  (f) => f.endsWith(".json") && f !== "menus.json",
-);
+/**
+ * 세션 시나리오만 집는다.
+ *
+ * <p>전에는 `menus.json`만 빼고 전부 집었는데, M11이 `neural-merge.json`(검색 병합 규칙)을
+ * 더하면서 <b>모양이 다른 픽스처</b>가 생겼다. 파일 이름으로 거르면 다음에 또 걸리므로
+ * <b>모양으로</b> 거른다 — `sessions`를 가진 것이 이 러너의 것이다. 다른 모양은 자기
+ * 러너가 돈다 (`neural.test.ts`).
+ */
+const scenarioFiles = readdirSync(FIXTURES)
+  .filter((f) => f.endsWith(".json"))
+  .filter((f) =>
+    Array.isArray(
+      (JSON.parse(readFileSync(join(FIXTURES, f), "utf8")) as { sessions?: unknown }).sessions,
+    ),
+  );
 
 /**
  * 픽스처는 엔진 동작의 언어 중립 명세다 (fixtures/README.md).

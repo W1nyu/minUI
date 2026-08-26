@@ -4,52 +4,18 @@ import type { EmbeddingProvider } from "./EmbeddingProvider.js";
 import type { LearnedMatch, LearnedTerms } from "./LearnedTerms.js";
 import type { IndexedMenu, MenuIndex } from "./MenuIndex.js";
 import { jamoSimilarity } from "./hangul.js";
+import { DECISIVE, STAGE_STRENGTH, type MatchStage, type SearchCandidate } from "./stages.js";
+import { mergeNeural, type NeuralMatch } from "./neural.js";
+import { buildReprompt, type RepromptChoice } from "./reprompt.js";
 import { normalize } from "./normalize.js";
 
-/** 어느 단계가 이 후보를 올렸는가. 왜 이게 나왔는지 설명하고 벤치마크를 분석할 때 쓴다. */
-export type MatchStage = "exact" | "learned" | "synonym" | "semantic" | "phonetic";
-
-/**
- * 같은 점수라면 어느 단계를 근거로 볼 것인가. 클수록 강하다.
- *
- * <p>"사용자가 말한 그대로"가 가장 강한 근거이고, 통계적 유사도가 가장 약하다.
- * 이 순서는 기획안 §8.3의 단계 순서와 같다.
- *
- * <p>`learned`(M7)가 `exact` 바로 아래에 있는 이유: 이 기기의 사용자가 그 말을 하고 그
- * 메뉴로 갔다는 <b>관찰</b>은 카탈로그를 쓴 사람의 짐작보다 그 사람에게 잘 맞는다.
- * 그렇다고 이름을 정확히 부른 것을 이길 수는 없다 — 한때 잘못 배운 표현 하나가
- * 이름으로 부르는 사람을 계속 엉뚱한 곳으로 보내게 된다.
+/*
+ * 단계 어휘는 `stages.ts`가 들고 있다 — M11의 `neural.ts`가 같은 것을 써야 하고,
+ * 두 벌로 두면 한쪽만 고쳐진다. 여기서 다시 내보내는 것은 부르던 이름을 그대로
+ * 두기 위해서다.
  */
-const STAGE_STRENGTH: Record<MatchStage, number> = {
-  exact: 4,
-  learned: 3,
-  synonym: 2,
-  phonetic: 1,
-  semantic: 0,
-};
-
-/**
- * 정확 매칭이 있으면 뒤 단계의 후보를 볼 필요가 없다.
- *
- * <p><b>학습(M7)은 여기 넣지 않는다 — 한 번 넣었다가 되돌렸다.</b> 넣으면 학습이 걸린
- * 순간 나머지 후보가 전부 사라지는데, 사용자가 후보를 훑다 엉뚱한 것을 한 번 누른 경우
- * <b>정답이 후보 목록에서 통째로 없어진다.</b> 실측에서 정답이 후보 안에 있던 4건이
- * 0건이 됐고, 되묻던 질의는 "오답 하나를 확신 있게 내미는" 상태가 됐다.
- *
- * <p>그것은 임계값을 0.30 대신 0.40으로 고른 이유(잘못된 확신)와 같은 실패다. 게다가
- * 후보가 하나뿐이면 사용자는 누르지 않고 창을 닫으므로 <b>올바른 학습이 일어날 기회조차
- * 없다</b> — 잘못 배운 말이 망각 기한까지 그대로 남는다. 후보를 남겨 두면 사용자가 옳은
- * 것을 눌러 스스로 바로잡는다(F4). 학습은 순위를 올릴 뿐 다른 후보를 지우지 않는다.
- */
-const DECISIVE: ReadonlySet<MatchStage> = new Set<MatchStage>(["exact"]);
-
-export interface SearchCandidate {
-  menuId: MenuId;
-  score: number;
-  matchedBy: MatchStage;
-  /** 후보를 올린 표현. 사용자에게 "이거 말씀하신 건가요"를 보여줄 근거. */
-  matchedTerm: string;
-}
+export type { MatchStage, SearchCandidate } from "./stages.js";
+export type { Reprompt, RepromptChoice } from "./reprompt.js";
 
 export type SearchOutcome =
   | { status: "ok"; query: string; candidates: SearchCandidate[] }
@@ -58,7 +24,14 @@ export type SearchOutcome =
       query: string;
       /** 되묻기 문구. 열린 질문 대신 선택지를 준다 (기획안 §9.2). */
       prompt: string;
-      choices: string[];
+      /**
+       * 선택지. **M11에서 문자열에서 묶음으로 바뀌었다.**
+       *
+       * <p>전에는 카테고리 이름만 넘겨서 화면이 그 이름으로 카탈로그를 다시 걸렀다.
+       * 이제 선택지가 갈래 조각(`이체`)일 수 있는데 그것은 카테고리 이름이 아니라,
+       * 다시 거르면 아무것도 안 나온다. <b>무엇을 보여 줄지는 고른 쪽이 안다.</b>
+       */
+      choices: RepromptChoice[];
     };
 
 export interface SearchOptions {
@@ -89,6 +62,7 @@ export class SearchPipeline {
   readonly #config: MinUIConfig;
   readonly #embedding: EmbeddingProvider | undefined;
   readonly #learned: LearnedTerms | undefined;
+  #known: ReadonlySet<MenuId> | undefined;
 
   constructor(
     index: MenuIndex,
@@ -129,12 +103,64 @@ export class SearchPipeline {
 
     const top = pool.slice(0, settings.maxCandidates);
 
-    // ⑤ 임계치
+    // ⑤ 임계치 — 못 넘으면 **그 후보들로** 선택지를 만든다 (M11).
     if (top.length === 0 || top[0]!.score < settings.minConfidence) {
-      return this.#unclear(query, options);
+      return this.#unclear(query, options, pool);
     }
 
     return { status: "ok", query, candidates: top };
+  }
+
+  /**
+   * 원격이 데려온 후보까지 함께 놓고 다시 판단한다 (M11).
+   *
+   * <p><b>`search()`를 복제하지 않는다.</b> 두 벌로 두면 문턱과 정렬이 갈라지고,
+   * 원격이 있고 없고에 따라 사용자가 보는 순서가 달라진다. 병합만 끼우고 나머지
+   * 판단은 같은 코드를 지난다.
+   *
+   * <p>이 함수는 <b>동기다.</b> 기다리는 일은 `MinUIEngine`이 하고 여기는 이미 온 것을
+   * 합치기만 한다 — 그래야 병합 규칙을 픽스처로 잴 수 있다.
+   */
+  searchMerged(
+    query: string,
+    remote: readonly NeuralMatch[],
+    options: SearchOptions = {},
+  ): SearchOutcome {
+    const normalized = normalize(query);
+    const settings = this.#config.search;
+
+    if (normalized.length === 0) return this.#unclear(query, options);
+
+    const merged = mergeNeural(
+      this.#scoreAll(normalized),
+      remote,
+      settings.neural,
+      this.#knownMenuIds(),
+      normalized,
+    );
+
+    // 자식이 갈래를 이기는 동점 처리는 카탈로그를 알아야 하는 판단이라 여기서 한다.
+    merged.sort(
+      (a, b) =>
+        b.score - a.score ||
+        STAGE_STRENGTH[b.matchedBy] - STAGE_STRENGTH[a.matchedBy] ||
+        Number(this.#hasChildren(a.menuId)) - Number(this.#hasChildren(b.menuId)) ||
+        this.#order(a.menuId) - this.#order(b.menuId),
+    );
+
+    const top = merged.slice(0, settings.maxCandidates);
+    if (top.length === 0 || top[0]!.score < settings.minConfidence) {
+      // 원격이 데려온 것까지 넣어 가른다 — 이 마일스톤에서만 가능한 일이다.
+      return this.#unclear(query, options, merged);
+    }
+
+    return { status: "ok", query, candidates: top };
+  }
+
+  /** 원격이 옛 벡터를 들고 있을 수 있다. 지금 카탈로그에 있는 것만 후보가 된다. */
+  #knownMenuIds(): ReadonlySet<MenuId> {
+    this.#known ??= new Set(this.#index.menus.map((menu) => menu.menuId));
+    return this.#known;
   }
 
 
@@ -283,16 +309,23 @@ export class SearchPipeline {
    * 되묻기. "무엇을 도와드릴까요" 같은 열린 질문 대신 선택지를 준다 (기획안 §9.2).
    * 막다른 길을 만들지 않는 것이 이 화면의 목적이다 (F4).
    */
-  #unclear(query: string, options: SearchOptions): SearchOutcome {
-    const choices = this.#index.categories().slice(0, options.maxChoices ?? 3);
-    const list = choices.join(", ");
+  /**
+   * 되묻기. **후보를 보고 선택지를 만든다** (M11).
+   *
+   * <p>전에는 여기가 질의를 아예 보지 않았다 — `categories().slice(0, 3)`을 그대로 냈다.
+   * 신한은행에서 "돈 나가는 거 막아줘"라고 말한 사람이 "개인, 기업, 카드 중 어느
+   * 것인가요?"를 들었다. 기획안 §9.2가 열어 둔 구멍이 그것이다.
+   *
+   * @param pool 점수가 매겨진 후보. 없으면 `buildReprompt`가 카테고리로 떨어진다.
+   */
+  #unclear(query: string, options: SearchOptions, pool: readonly SearchCandidate[] = []): SearchOutcome {
+    const settings = this.#config.search.reprompt;
+    const { prompt, choices } = buildReprompt(pool, this.#index, {
+      ...settings,
+      ...(options.maxChoices !== undefined ? { choiceCount: options.maxChoices } : {}),
+    });
 
-    return {
-      status: "unclear",
-      query,
-      prompt: choices.length > 0 ? `${list} 중에 찾으시는 게 있나요?` : "다시 말씀해 주세요.",
-      choices,
-    };
+    return { status: "unclear", query, prompt, choices };
   }
 
   #order(menuId: MenuId): number {
