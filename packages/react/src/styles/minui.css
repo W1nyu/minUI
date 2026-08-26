@@ -725,6 +725,9 @@
  * 사용법이라, 온보딩만 작게 만들면 첫인상이 나머지와 어긋난다.
  */
 .minui-onboarding .minui-sheet-body {
+  box-sizing: border-box;
+  max-width: 100%;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
   gap: var(--minui-gap);
@@ -747,6 +750,12 @@
 }
 
 .minui-onboarding-choice {
+  /*
+   * 이 저장소에는 전역 box-sizing 리셋이 없다. `width: 100%`에 padding을 더하면
+   * 그만큼 넘쳐서 시트가 가로로 밀린다 — 배포한 화면에서 폰 틀이 잘려 나갔다.
+   * 전역 리셋을 넣으면 기존 배치가 통째로 흔들리므로 여기서만 건다.
+   */
+  box-sizing: border-box;
   width: 100%;
   min-height: var(--minui-touch-min);
   padding: 1rem;
