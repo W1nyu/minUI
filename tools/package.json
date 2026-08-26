@@ -11,7 +11,7 @@
     "simulate": "tsx src/simulate-personalization.ts",
     "report": "tsx src/report-metrics.ts",
     "report:usertest": "tsx src/report-usertest.ts",
-    "build:catalog": "tsx src/build-catalog.ts",
+    "build:catalog": "tsx src/build-catalog-cli.ts",
     "measure:portability": "tsx src/measure-portability.ts",
     "bench:sites": "tsx src/bench-sites.ts",
     "diagnose": "tsx src/diagnose-misses.ts",
