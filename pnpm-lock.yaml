@@ -110,6 +110,8 @@ importers:
 
   packages/voice: {}
 
+  services/assist-worker: {}
+
   services/enricher: {}
 
   services/harvester:

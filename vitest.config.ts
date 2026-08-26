@@ -92,6 +92,16 @@ export default defineConfig({
         },
       },
       {
+        test: {
+          // 중계기의 문들(입력 상한·캐시·호출 제한)은 전부 순수 함수라 Worker를
+          // 띄우지 않고 잰다. 시연 중에는 이것이 막히는지 확인할 방법이 없다.
+          name: "assist-worker",
+          root: "./services/assist-worker",
+          environment: "node",
+          include: ["test/**/*.test.ts"],
+        },
+      },
+      {
         resolve: { alias: workspaceAliases },
         test: {
           // LLM 호출은 네트워크라 여기서 안 돈다. 대신 **응답을 검증하는 부분**을 잰다 —

@@ -2,7 +2,7 @@ import type { ColdStartPresets, MenuCatalog, MenuId } from "@minui/core";
 import { IndexedDbStorageAdapter, MinUIHome, MinUIProvider } from "@minui/react";
 import { WebSpeechSttProvider } from "@minui/voice";
 import { useCallback, useMemo, useState } from "react";
-import { makeAssist } from "@host-ai/assist.js";
+import { assistEndpoint, makeAssist } from "@host-ai/assist.js";
 import { runStudio, type StudioResult } from "@host-ai/studio.js";
 import { StubScreen } from "./StubScreen.js";
 import type { SiteMeta } from "./sites.js";
@@ -23,6 +23,9 @@ const EXAMPLES = [
   { label: "신한은행", url: "https://www.shinhan.com/index.jsp" },
   { label: "KB증권", url: "https://www.kbsec.com/go.able" },
 ];
+
+/** 한 번만 읽는다. 빌드 타임에 정해지는 값이다. */
+const ASSIST_URL = assistEndpoint();
 
 export function Studio({ onExit }: { onExit: () => void }) {
   const [url, setUrl] = useState("");
@@ -132,7 +135,15 @@ function StudioResultView({ result }: { result: StudioResult }) {
     [result.site],
   );
   const stt = useMemo(() => new WebSpeechSttProvider(), []);
-  const assist = useMemo(() => makeAssist(result.catalog), [result.catalog]);
+  /*
+   * 도우미는 **없어도 되는 부품**이다. 중계기 주소가 없으면 만들지 않고, 안 넘긴다 —
+   * `VoiceSearchSheet`가 `!assist`에서 바로 갈라지므로 "묻는 중" 상태 자체가 안 생긴다.
+   * 살아 있으면 되묻기 화면이 후보로 덮이고, 없으면 되묻기가 그대로 답이다.
+   */
+  const assist = useMemo(
+    () => (ASSIST_URL ? makeAssist(result.catalog, ASSIST_URL) : undefined),
+    [result.catalog],
+  );
   const openScreen = useCallback((menuId: MenuId) => setOpenMenuId(menuId), []);
 
   const site: SiteMeta = {
@@ -219,7 +230,7 @@ function StudioResultView({ result }: { result: StudioResult }) {
             onAction={openScreen}
             storage={storage}
             coldStartPresets={result.presets}
-            assist={assist}
+            {...(assist ? { assist } : {})}
             config={{ stability: { liveReorder: true } }}
             fallback={<p className="loading">불러오는 중…</p>}
           >

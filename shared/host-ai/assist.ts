@@ -14,7 +14,26 @@ import type { MenuCatalog, MenuId } from "@minui/core";
 /** 도우미에게 보여 줄 후보 수. 많으면 정확하지만 토큰이 는다. */
 const CANDIDATE_COUNT = 20;
 
-export function makeAssist(catalog: MenuCatalog) {
+/**
+ * 도우미가 있는 곳. 없으면 도우미 자체를 만들지 않는다.
+ *
+ * <p>배포는 GitHub Pages(정적)라 같은 오리진에 `/api/assist`가 없다. 별도로 띄운
+ * 중계기(`services/assist-worker`) 주소를 `VITE_ASSIST_URL`로 준다.
+ *
+ * <p>로컬 dev에는 vite 플러그인이 `/api/assist`를 열어 두므로 그 상대 경로가 기본값이다.
+ */
+export function assistEndpoint(): string | undefined {
+  const configured = import.meta.env.VITE_ASSIST_URL;
+  if (configured && configured.length > 0) return configured;
+  // 정적 배포에는 이 주소가 없다. 있는 척하지 않는다.
+  return import.meta.env.PROD ? undefined : "/api/assist";
+}
+
+/**
+ * @param endpoint 도우미 주소. **없으면 이 함수를 부르지 말 것** —
+ *   호출자가 `assist` prop 자체를 넘기지 않아야 화면에 "묻는 중" 상태가 안 생긴다.
+ */
+export function makeAssist(catalog: MenuCatalog, endpoint: string) {
   const byId = new Map(catalog.map((menu) => [menu.id, menu]));
 
   return async (query: string, pool: MenuId[]): Promise<MenuId | null> => {
@@ -31,14 +50,22 @@ export function makeAssist(catalog: MenuCatalog) {
       ];
     });
 
-    const response = await fetch("/api/assist", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ query, candidates }),
-    });
-    if (!response.ok) return null;
+    try {
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ query, candidates }),
+      });
+      if (!response.ok) return null;
 
-    const picked = (await response.json()) as { menuId: MenuId | null };
-    return picked.menuId ?? null;
+      const picked = (await response.json()) as { menuId: MenuId | null };
+      return picked.menuId ?? null;
+    } catch {
+      /*
+       * 중계기가 죽었거나 못 닿았다. 되묻기 화면이 이미 떠 있으므로 아무것도 하지 않는다 —
+       * 여기서 오류를 보여 주면 사용자는 자기가 뭘 잘못한 줄 안다.
+       */
+      return null;
+    }
   };
 }

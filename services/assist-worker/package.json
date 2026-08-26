@@ -1,0 +1,12 @@
+{
+  "name": "@minui/assist-worker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "//": "검색이 못 찾았을 때만 부르는 LLM 중계기. 없어도 되는 부품이라 따로 띄운다 — 시연 대본은 이것에 기대지 않는다. wrangler는 의존성으로 두지 않는다(네이티브 workerd를 끌고 온다). 필요할 때 pnpm dlx로 부른다.",
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "dev": "pnpm dlx wrangler@3 dev",
+    "deploy": "pnpm dlx wrangler@3 deploy"
+  }
+}

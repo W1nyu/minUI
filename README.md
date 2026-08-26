@@ -128,6 +128,13 @@ pnpm --filter tools fetch:model        # 임베딩 모델 (bge-m3 560MB, 저장�
 pnpm --filter tools build:explain-cache   # 뜻풀이 451개 (Gemini 키 필요)
 pnpm --filter tools build:studio-samples  # Studio 재생용 3곳 (Chrome 필요)
 
+# 도우미(검색이 못 찾았을 때 부르는 LLM)는 임의 발화라 못 굽는다. 따로 띄운다.
+# **없어도 데모는 온전히 돈다** — 되묻기로 내려갈 뿐이고, 시연 대본은 이것에 기대지 않는다.
+cd services/assist-worker
+pnpm dlx wrangler@3 secret put GOOGLE_API_KEY   # 키는 여기에만 둔다
+pnpm dlx wrangler@3 deploy                      # 주소가 나온다
+# 그 주소를 저장소 Variables의 ASSIST_URL에 넣으면 다음 배포부터 붙는다.
+
 pnpm --filter @minui/harvester recall  # 자동 수집 회수율 (손 수집본 대비)
 pnpm --filter @minui/enricher bench:assist   # 런타임 LLM 폴백의 이득과 손해
 ```

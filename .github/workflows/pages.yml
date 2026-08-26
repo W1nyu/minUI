@@ -8,7 +8,8 @@
 #
 #   explain  사전 생성 JSON (label+path 순수 조회라 미리 구울 수 있다)
 #   studio   사전 생성 JSON 재생
-#   assist   되묻기로 강등 — 임의 질의라 못 굽는다. 설계된 폴백이 그대로 받는다
+#   assist   따로 띄운 중계기가 있으면 쓰고, 없으면 되묻기로 강등된다.
+#            **시연 대본은 이것에 기대지 않는다** (services/assist-worker)
 #   원격 신경망  끔 (semantic-focus 12.4%로 게이트를 못 넘었다)
 #
 # 프로덕션에 API 키가 아예 존재하지 않는다는 뜻이기도 하다 (절대 보호선 규칙 7).
@@ -37,6 +38,10 @@ jobs:
       # 프로젝트 페이지라 저장소 이름이 기준 경로가 된다. 로컬은 기본값 "/"라
       # `pnpm --filter demos dev`는 지금까지와 똑같이 돈다.
       MINUI_BASE: /minUI/
+      # 도우미 중계기(services/assist-worker) 주소. **비어 있으면 도우미가 아예 안 붙는다** —
+      # 화면은 로컬 검색 → 되묻기로 끝나고, 프로덕션 번들에서 호출 경로 자체가 사라진다.
+      # 켜려면 저장소 Variables에 ASSIST_URL을 넣는다. 코드는 안 고쳐도 된다.
+      VITE_ASSIST_URL: ${{ vars.ASSIST_URL }}
     steps:
       - uses: actions/checkout@v4
 

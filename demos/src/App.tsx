@@ -2,7 +2,7 @@ import type { MenuId } from "@minui/core";
 import { IndexedDbStorageAdapter, MinUIHome, MinUIProvider } from "@minui/react";
 import { makeStt } from "./stt.js";
 import { useCallback, useMemo, useState } from "react";
-import { makeAssist } from "@host-ai/assist.js";
+import { assistEndpoint, makeAssist } from "@host-ai/assist.js";
 import { makeExplain } from "@host-ai/explain.js";
 import { makeRetrieve } from "./match.js";
 import { ClassicShell } from "./ClassicShell.js";
@@ -20,6 +20,9 @@ type Mode = "minui" | "classic";
  * 메뉴 이름도 계층도 카테고리도 사이트가 정한 그대로이고, 나는 손대지 않았다.
  * 그래서 이 앱이 이식성 주장의 실제 시험이 된다.
  */
+/** 한 번만 읽는다. 빌드 타임에 정해지는 값이다. */
+const ASSIST_URL = assistEndpoint();
+
 export function App() {
   // 주소로만 들어간다. 탭 바에 두면 데모의 다섯 사이트와 성격이 섞인다 —
   // Studio는 "아직 없는 사이트를 얹어 보는 곳"이다.
@@ -92,7 +95,15 @@ function SiteDemo({ site }: { site: SiteMeta }) {
   // 브라우저 Web Speech 하나 (`stt.ts`). 안 되는 브라우저에서는 텍스트 검색이 남는다.
   const stt = useMemo(() => makeStt(), []);
   // 온디바이스가 못 찾았을 때만 부른다. 키는 서버에 있고 여기로 오지 않는다.
-  const assist = useMemo(() => makeAssist(site.catalog), [site.catalog]);
+  /*
+   * 도우미는 **없어도 되는 부품**이다. 중계기 주소가 없으면 만들지 않고, 안 넘긴다 —
+   * `VoiceSearchSheet`가 `!assist`에서 바로 갈라지므로 "묻는 중" 상태 자체가 안 생긴다.
+   * 살아 있으면 되묻기 화면이 후보로 덮이고, 없으면 되묻기가 그대로 답이다.
+   */
+  const assist = useMemo(
+    () => (ASSIST_URL ? makeAssist(site.catalog, ASSIST_URL) : undefined),
+    [site.catalog],
+  );
   // 카탈로그에 뜻풀이가 없는 메뉴에만 붙는다. 같은 이유로 서버를 거친다.
   const explain = useMemo(() => makeExplain(site.catalog), [site.catalog]);
   /*
@@ -110,7 +121,7 @@ function SiteDemo({ site }: { site: SiteMeta }) {
       onAction={openScreen}
       storage={storage}
       coldStartPresets={site.presets}
-      assist={assist}
+      {...(assist ? { assist } : {})}
       explain={explain}
       retrieve={retrieve}
       /*
