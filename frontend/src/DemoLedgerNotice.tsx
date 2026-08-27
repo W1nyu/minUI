@@ -20,7 +20,11 @@ export function DemoLedgerNotice({ onReset }: { onReset?: () => void | Promise<v
   }
 
   return (
-    <aside className="demo-data-notice" aria-label="가상 오픈뱅킹 시연 안내">
+    <aside
+      className="demo-data-notice"
+      aria-label="가상 오픈뱅킹 시연 안내"
+      data-demo-chrome="true"
+    >
       <p>
         <strong>가상 오픈뱅킹 시연</strong> — 테스트 계좌·OAuth 표기만 사용하며,
         실제 계좌·토큰·마이데이터는 연결하지 않습니다.

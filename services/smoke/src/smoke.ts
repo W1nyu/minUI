@@ -1,10 +1,16 @@
+import type { Browser, BrowserContext, Page } from "playwright-core";
 import {
-  chromium,
-  type Browser,
-  type BrowserContext,
-  type Locator,
-  type Page,
-} from "playwright-core";
+  BANK,
+  BASE,
+  expect,
+  launch,
+  passOnboarding,
+  report,
+  seen,
+  STEP_TIMEOUT,
+  waitForDeploy,
+  type Problem,
+} from "./browser.js";
 
 /**
  * 공개 배포를 **실제 브라우저로 밟아 본다.**
@@ -28,24 +34,6 @@ import {
  * </pre>
  */
 
-const BASE = (process.env["SMOKE_BASE_URL"] ?? "https://w1nyu.github.io/minUI/").replace(
-  /\/?$/,
-  "/",
-);
-
-/** 배포 반영을 기다리는 횟수. 무한히 기다리지 않는다. */
-const MAX_ATTEMPTS = Number(process.env["SMOKE_RETRIES"] ?? 5);
-const RETRY_WAIT_MS = 6_000;
-
-/** 한 시나리오가 걸릴 수 있는 최대 시간. 넘으면 그대로 실패다. */
-const STEP_TIMEOUT = 15_000;
-
-// ── 관찰 ──────────────────────────────────────────────────────────────────
-
-interface Problem {
-  kind: "console" | "request" | "assert";
-  detail: string;
-}
 
 /**
  * 그 문맥에서 일어난 나쁜 일을 모은다.
@@ -91,40 +79,10 @@ function watch(page: Page, problems: Problem[]): void {
   });
 }
 
-function expect(condition: unknown, message: string, problems: Problem[]): void {
-  if (!condition) problems.push({ kind: "assert", detail: message });
-}
-
-/**
- * 이 요소가 실제로 뜨는가. **기다린다.**
- *
- * <p>`locator.isVisible()`은 기다리지 않고 그 순간을 답한다. React가 그리기 전에 물으면
- * 언제나 거짓이고, 그러면 스모크가 "화면이 없다"고 말한다 — 실제로는 늦었을 뿐이다.
- * 처음에 그렇게 짰다가 여섯 중 다섯이 거짓으로 실패했다.
- */
-async function seen(locator: Locator, timeout = STEP_TIMEOUT): Promise<boolean> {
-  return locator
-    .first()
-    .waitFor({ state: "visible", timeout })
-    .then(() => true)
-    .catch(() => false);
-}
-
-// ── 시나리오 ──────────────────────────────────────────────────────────────
 
 interface Scenario {
   name: string;
   run: (page: Page, problems: Problem[]) => Promise<void>;
-}
-
-/** 온보딩 2문항을 넘긴다. 새 문맥마다 뜬다 — 그것이 정상이다. */
-async function passOnboarding(page: Page): Promise<void> {
-  const first = page.getByRole("button", { name: /돈을 보내요/ });
-  if (!(await seen(first))) return; // 이미 지난 문맥이면 그냥 넘어간다
-  await first.click();
-  await page.getByRole("button", { name: /^보통$/ }).click();
-  // 홈이 실제로 떴는지까지 확인하고 돌려준다 — 여기서 안 기다리면 다음 단계가 헛친다.
-  await page.getByRole("button", { name: /말로 찾기/ }).waitFor({ state: "visible", timeout: STEP_TIMEOUT });
 }
 
 const SCENARIOS: Scenario[] = [
@@ -185,7 +143,7 @@ const SCENARIOS: Scenario[] = [
   {
     name: "③ 은행 시연에 Mock 고지와 적응 UI 동의가 보인다",
     run: async (page, problems) => {
-      await page.goto(new URL("bank/", BASE).href, {
+      await page.goto(BANK, {
         waitUntil: "domcontentloaded",
         timeout: STEP_TIMEOUT,
       });
@@ -222,7 +180,7 @@ const SCENARIOS: Scenario[] = [
   {
     name: "④ 수취인·금액 없이 보내면 전송되지 않고 이유를 말한다",
     run: async (page, problems) => {
-      await page.goto(new URL("bank/", BASE).href, {
+      await page.goto(BANK, {
         waitUntil: "domcontentloaded",
         timeout: STEP_TIMEOUT,
       });
@@ -257,7 +215,7 @@ const SCENARIOS: Scenario[] = [
   {
     name: "⑤ 가상 이체가 원장을 바꾸고, 새 문맥에서는 처음으로 돌아온다",
     run: async (page, problems) => {
-      await page.goto(new URL("bank/", BASE).href, {
+      await page.goto(BANK, {
         waitUntil: "domcontentloaded",
         timeout: STEP_TIMEOUT,
       });
@@ -332,7 +290,7 @@ async function freshContextStartsClean(browser: Browser, problems: Problem[]): P
   const page = await context.newPage();
   watch(page, problems);
   try {
-    await page.goto(new URL("bank/", BASE).href, {
+    await page.goto(BANK, {
       waitUntil: "domcontentloaded",
       timeout: STEP_TIMEOUT,
     });
@@ -351,37 +309,6 @@ async function freshContextStartsClean(browser: Browser, problems: Problem[]): P
 // ── 실행 ──────────────────────────────────────────────────────────────────
 
 /** 배포가 아직 안 올라왔을 수 있다. 횟수를 정해 두고만 기다린다. */
-async function waitForDeploy(): Promise<void> {
-  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt += 1) {
-    try {
-      const response = await fetch(BASE, { method: "GET" });
-      if (response.ok) return;
-      console.log(`  ${BASE} → ${response.status} (${attempt}/${MAX_ATTEMPTS})`);
-    } catch (error) {
-      console.log(`  ${BASE} → 닿지 않음 (${attempt}/${MAX_ATTEMPTS})`);
-    }
-    if (attempt < MAX_ATTEMPTS) await new Promise((r) => setTimeout(r, RETRY_WAIT_MS));
-  }
-  throw new Error(
-    `${BASE}에 ${MAX_ATTEMPTS}번 시도했지만 닿지 못했습니다. ` +
-      `주소가 맞는지, 배포가 끝났는지 확인하세요 — 다른 주소를 찾아보지는 않습니다.`,
-  );
-}
-
-async function launch(): Promise<Browser> {
-  // 저장소의 수집기와 같은 순서다 — 설치된 크롬을 먼저, 없으면 번들 크로미움.
-  const chrome = await chromium.launch({ channel: "chrome", headless: true }).catch(() => null);
-  if (chrome) return chrome;
-
-  const bundled = await chromium.launch({ headless: true }).catch(() => null);
-  if (bundled) return bundled;
-
-  throw new Error(
-    "브라우저를 열지 못했습니다. 크롬이 설치돼 있어야 합니다 " +
-      "(playwright-core는 브라우저를 내려받지 않습니다).",
-  );
-}
-
 console.log(`\n  대상 ${BASE}\n`);
 await waitForDeploy();
 
@@ -406,13 +333,7 @@ for (const scenario of SCENARIOS) {
     await context.close();
   }
 
-  if (problems.length === 0) {
-    console.log(`  ✓ ${scenario.name}`);
-  } else {
-    console.log(`  ✗ ${scenario.name}`);
-    for (const problem of problems) console.log(`      [${problem.kind}] ${problem.detail}`);
-    failures.push({ scenario: scenario.name, problems });
-  }
+  if (report(scenario.name, problems)) failures.push({ scenario: scenario.name, problems });
 }
 
 {
@@ -421,13 +342,7 @@ for (const scenario of SCENARIOS) {
   await freshContextStartsClean(browser, problems).catch((error: unknown) => {
     problems.push({ kind: "assert", detail: String(error).split("\n")[0]! });
   });
-  if (problems.length === 0) {
-    console.log(`  ✓ ${name}`);
-  } else {
-    console.log(`  ✗ ${name}`);
-    for (const problem of problems) console.log(`      [${problem.kind}] ${problem.detail}`);
-    failures.push({ scenario: name, problems });
-  }
+  if (report(name, problems)) failures.push({ scenario: name, problems });
 }
 
 await browser.close();

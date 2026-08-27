@@ -165,7 +165,17 @@ function ModeSwitch({ mode, onChange }: { mode: Mode; onChange: (mode: Mode) => 
       <p className="app-bar-title">
         미니 은행 <span>데모</span>
       </p>
-      <div className="mode-switch" role="group" aria-label="화면 방식">
+      {/*
+        진행자용 대조 스위치다 — MinUI가 얹히는 화면이 아니라 두 UI를 비교하려고
+        이 데모에만 둔 것이다. 접근성 측정에서 88px 기준을 적용하지 않는 이유를
+        DOM에도 남긴다 (`services/smoke/src/a11y.ts`).
+      */}
+      <div
+        className="mode-switch"
+        role="group"
+        aria-label="화면 방식"
+        data-demo-chrome="true"
+      >
         <button
           type="button"
           aria-pressed={mode === "classic"}

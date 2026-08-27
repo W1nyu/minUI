@@ -172,9 +172,14 @@ body {
   margin-top: 0.5rem;
 }
 
+/*
+ * **참가자가 누르는 것이다.** 40px이었는데 실제 브라우저 측정(`@minui/smoke a11y`)에서
+ * 이 저장소가 정한 88px 기준에 걸렸다. 동의를 묻는 버튼이 작으면, 손떨림이 있는 사람은
+ * 거절하려다 허락하게 된다 — 동의에서 그것은 가장 나쁜 실수다.
+ */
 .adaptive-support button,
 .adaptive-support-link {
-  min-height: 2.5rem;
+  min-height: var(--minui-touch-min);
   padding: 0 0.75rem;
   border: 1px solid var(--minui-line-strong);
   border-radius: 0.55rem;
