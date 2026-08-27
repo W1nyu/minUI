@@ -1,0 +1,14 @@
+{
+  "name": "@minui/smoke",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "//": "공개 배포(GitHub Pages)를 실제 브라우저로 밟아 보는 스모크 테스트. 로컬 소스가 아니라 배포된 URL을 겨냥한다 — base path·정적 자산·API 부재·브라우저 저장소는 여기서만 드러난다. 실제 금융망과 통신하지 않고 가상 원장만 다룬다.",
+  "scripts": {
+    "smoke": "tsx src/smoke.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "playwright-core": "^1.49.0"
+  }
+}

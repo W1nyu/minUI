@@ -96,3 +96,38 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+
+  # 배포된 주소를 실제 브라우저로 밟아 본다. Vitest는 로컬 소스를 재고,
+  # base path·정적 자산·API 부재·브라우저 저장소는 여기서만 드러난다.
+  #
+  # 실패해도 배포를 되돌리지 않는다 — 이미 올라간 것을 내리는 것이 더 위험하고,
+  # 무엇이 깨졌는지는 이 로그가 말해 준다.
+  smoke:
+    needs: deploy
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      # playwright-core는 브라우저를 내려받지 않는다. 러너에 이미 있는 크롬을 쓴다 —
+      # 제3자 액션을 하나 더 들이는 것보다 낫다. 없으면 스크립트가 그렇게 말하고 멈춘다.
+      - name: 크롬 확인
+        run: google-chrome --version || chromium --version
+
+      - name: 공개 배포 스모크
+        env:
+          SMOKE_BASE_URL: https://w1nyu.github.io/minUI/
+          # Pages 반영이 늦을 수 있다. 횟수를 정해 두고만 기다린다 (8회 × 6초).
+          SMOKE_RETRIES: "8"
+        run: pnpm --filter @minui/smoke smoke

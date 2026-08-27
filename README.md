@@ -148,6 +148,11 @@ pnpm dlx wrangler@3 deploy                      # 주소가 나온다
 # 그 주소를 저장소 Variables의 ASSIST_URL에 넣으면 다음 배포부터 붙는다.
 
 pnpm --filter @minui/harvester recall  # 자동 수집 회수율 (손 수집본 대비)
+
+# 공개 배포를 실제 브라우저로 밟아 본다. 로컬 소스가 아니라 배포된 주소를 겨냥한다 —
+# base path·정적 자산·API 부재·브라우저 저장소는 여기서만 드러난다. 크롬이 있어야 한다.
+pnpm --filter @minui/smoke smoke
+SMOKE_BASE_URL=http://localhost:5174/ pnpm --filter @minui/smoke smoke
 pnpm --filter @minui/enricher bench:assist   # 런타임 LLM 폴백의 이득과 손해
 ```
 
