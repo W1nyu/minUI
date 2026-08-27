@@ -33,10 +33,23 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+
+	// 오류 계약 표를 **입력으로 선언한다.**
+	//
+	// 안 하면 Gradle이 자바 소스만 보고 up-to-date라 판단해, 표를 고쳐도 이 테스트가
+	// 안 돈다. 실제로 표를 일부러 틀리게 해 봤더니 정적 Mock 쪽은 걸렸는데 여기는
+	// `BUILD SUCCESSFUL in 1s`로 지나갔다 — 그러면 대조가 가짜가 된다.
+	inputs.file(rootProject.file('../shared/contracts/openbanking-cases.json'))
+			.withPropertyName('openBankingContract')
+			.withPathSensitivity(PathSensitivity.RELATIVE)
 }
 
 // AssertJ는 spring-boot-starter-test에 딸려 오지만, 4.x의 모듈형 스타터에서는
 // 명시적으로 넣어야 한다.
 dependencies {
 	testImplementation 'org.assertj:assertj-core'
+
+	// 같은 사정. 오류 계약 표(shared/contracts/openbanking-cases.json)를 읽는 데 쓴다 —
+	// 정적 Mock 쪽 테스트와 **같은 파일**을 봐야 둘이 갈라지는 것을 잡을 수 있다.
+	testImplementation 'com.fasterxml.jackson.core:jackson-databind'
 }

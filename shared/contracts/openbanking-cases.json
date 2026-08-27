@@ -1,0 +1,62 @@
+{
+  "_": [
+    "가상 오픈뱅킹 Mock 둘이 **같은 경우에 같은 답을 하는가**.",
+    "",
+    "이 데모에는 Mock이 둘이다 — 정적 배포의 `sessionStorage` 원장(frontend/src/api/openBankingMock.ts)과",
+    "로컬 Spring의 PostgreSQL 원장(backend/.../OpenBankingMockController.java).",
+    "둘이 갈라지면 어디서 봤느냐에 따라 다른 결과가 나오고, 시연에서 그것은 최악이다.",
+    "",
+    "**맞추는 것은 응답 모양이 아니라 결과다.** 실패 응답은 KFTC 모양이 아니기 때문이다 —",
+    "Spring은 HTTP 422/409 + `{message}`를 주고, 정적 Mock은 예외를 던진다. 그렇게 둔 것은",
+    "의도다(`ApiExceptionHandler`: '실제 금융결제원 응답으로 오인하지 않도록'). 그래서 여기서",
+    "재는 것은 **거절하는가**와 **같은 이유를 말하는가**다.",
+    "",
+    "`says`는 정규식이다. 문구를 글자까지 맞추라는 뜻이 아니라, 사용자가 같은 이유를",
+    "듣는지를 재려는 것이다. 한쪽이 '잔액이 부족합니다'이고 다른 쪽이 '한도 초과'면 걸린다."
+  ],
+  "verifiedAgainstOfficialSpec": false,
+  "notReproduced": [
+    "실패를 KFTC의 `rsp_code` 체계로 돌려주는 것 — 두 Mock 다 자기 방식으로 거절한다",
+    "실제 접근토큰 발급·갱신. 정적 Mock의 토큰은 고정 문자열이다",
+    "이용기관 코드·전문 서명·수수료 정산"
+  ],
+  "cases": [
+    {
+      "id": "success",
+      "what": "정상 이체",
+      "outcome": "ok",
+      "rspCode": "A0000",
+      "note": "성공 응답만 KFTC 모양을 따른다"
+    },
+    {
+      "id": "insufficient-balance",
+      "what": "잔액보다 큰 금액",
+      "outcome": "refused",
+      "says": "잔액"
+    },
+    {
+      "id": "unknown-fintech-number",
+      "what": "없는 핀테크이용번호",
+      "outcome": "refused",
+      "says": "핀테크이용번호|계좌"
+    },
+    {
+      "id": "bad-token",
+      "what": "잘못된 가상 접근토큰",
+      "outcome": "refused",
+      "says": "OAuth|동의|토큰"
+    },
+    {
+      "id": "zero-amount",
+      "what": "0원",
+      "outcome": "refused",
+      "says": "금액"
+    },
+    {
+      "id": "retry-same-bank-tran-id",
+      "what": "같은 은행거래 키로 다시",
+      "outcome": "idempotent",
+      "note": "한 번만 차감하고, 두 번째는 처음 결과를 그대로 돌려준다"
+    }
+  ]
+}

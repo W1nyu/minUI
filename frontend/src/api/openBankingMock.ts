@@ -391,7 +391,7 @@ export class OpenBankingMockApi implements BankApi {
     if (source.id === destination.id) throw new Error("같은 계좌로는 보낼 수 없습니다.");
 
     const body = this.#makeDepositRequest(source, destination, request.amount, request.memo, idempotencyKey);
-    const response = this.#depositByFintechNumber(body, `Bearer ${DEMO_ACCESS_TOKEN}`);
+    const response = this.deposit(body, `Bearer ${DEMO_ACCESS_TOKEN}`);
     // 오픈뱅킹 응답의 `api_tran_dtm`은 KFTC 숫자 형식이고, 화면 계약은 ISO 시각을 쓴다.
     // API 원본은 `lastResponseFor`에 그대로 남기고, 화면에는 원장에 기록한 ISO 시각을 준다.
     const result = { ...readResult(response, this.#snapshot.entries[0]!.at), balanceAfter: source.balance };
@@ -444,7 +444,15 @@ export class OpenBankingMockApi implements BankApi {
     };
   }
 
-  #depositByFintechNumber(
+  /**
+   * 흉내 내는 그 엔드포인트 — `transfer/deposit/fin_num`.
+   *
+   * <p><b>공개해 둔다.</b> `transfer()`만 열어 두면 잘못된 토큰과 없는 핀테크이용번호
+   * 경로에 닿을 방법이 없어, 거절이 실제로 도는지 확인할 수 없다. 이 Mock이 흉내 내는
+   * 대상이 바로 이 엔드포인트이므로 표면으로 두는 것이 맞다
+   * (`shared/contracts/openbanking-cases.json`이 두 Mock의 결과를 대조한다).
+   */
+  deposit(
     request: OpenBankingDepositRequest,
     authorization: string,
   ): OpenBankingDepositResponse {
