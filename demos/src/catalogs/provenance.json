@@ -1,0 +1,50 @@
+{
+  "builtAt": "2026-08-27T13:42:53.023Z",
+  "sites": {
+    "kbstar": {
+      "host": "obank.kbstar.com",
+      "capturedAt": "2026-08-10T06:02:45.025Z",
+      "note": "개인뱅킹 전체메뉴(ul#uiNavSnb). ?page= 코드를 key로 사용. 내비게이션만 수집",
+      "menus": 419,
+      "rawItems": 437,
+      "orphans": 0,
+      "remaps": 0
+    },
+    "kbsec": {
+      "host": "www.kbsec.com",
+      "capturedAt": "2026-08-10T05:58:03.025Z",
+      "note": "?linkcd= 코드를 key로 사용",
+      "menus": 642,
+      "rawItems": 754,
+      "orphans": 0,
+      "remaps": 0
+    },
+    "miraeasset": {
+      "host": "securities.miraeasset.com",
+      "capturedAt": "2026-08-10T05:59:29.705Z",
+      "note": "프레임셋 frames[1](/main.do)의 ul#gnb. 전체메뉴가 DOM에 이미 존재",
+      "menus": 359,
+      "rawItems": 384,
+      "orphans": 0,
+      "remaps": 0
+    },
+    "shinhan": {
+      "host": "www.shinhan.com",
+      "capturedAt": "2026-08-10T05:56:52.902Z",
+      "note": "WebSquare. 링크에 URL·메뉴코드가 없어 라벨 경로를 key로 사용",
+      "menus": 930,
+      "rawItems": 1004,
+      "orphans": 0,
+      "remaps": 0
+    },
+    "kebhana": {
+      "host": "www.kebhana.com",
+      "capturedAt": "2026-08-10T10:04:57.842Z",
+      "note": "전체메뉴 패널(.allmenu__body) depth1~3. 로그인하지 않은 상태에서 내비게이션만 읽음.",
+      "menus": 598,
+      "rawItems": 660,
+      "orphans": 0,
+      "remaps": 0
+    }
+  }
+}

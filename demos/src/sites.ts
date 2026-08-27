@@ -3,6 +3,7 @@ import kebhana from "./catalogs/kebhana.json" with { type: "json" };
 import kbsec from "./catalogs/kbsec.json" with { type: "json" };
 import kbstar from "./catalogs/kbstar.json" with { type: "json" };
 import miraeasset from "./catalogs/miraeasset.json" with { type: "json" };
+import provenance from "./catalogs/provenance.json" with { type: "json" };
 import shinhan from "./catalogs/shinhan.json" with { type: "json" };
 
 /**
@@ -34,6 +35,25 @@ export interface SiteMeta {
   presets: ColdStartPresets;
   /** 수집 출처. 화면에 밝혀 둔다. */
   source: string;
+}
+
+/**
+ * **언제 긁어 온 것인가.**
+ *
+ * <p>화면에 날짜를 붙이는 이유는, 붙이지 않으면 이 목록이 <b>그 금융사의 현재 메뉴</b>로
+ * 읽히기 때문이다. 남의 사이트는 예고 없이 바뀌고 이 저장소는 그때마다 따라가지 않는다.
+ * 여기 있는 것은 이식이 되는지 확인하려고 어느 날 떠 놓은 사본이다.
+ *
+ * <p>수집 원본이 적어 둔 값을 빌더가 `provenance.json`으로 흘려보낸 것을 그대로 읽는다 —
+ * 사람이 따로 적으면 카탈로그만 다시 굽고 날짜는 옛날 것이 남는다.
+ */
+export function capturedOn(catalogId: string): string | null {
+  const at = provenance.sites[catalogId as keyof typeof provenance.sites]?.capturedAt;
+  if (!at) return null;
+  const date = new Date(at);
+  return Number.isNaN(date.getTime())
+    ? null
+    : `${date.getFullYear()}. ${date.getMonth() + 1}. ${date.getDate()}.`;
 }
 
 /** 온보딩 프리셋. 실제 카탈로그의 id를 골라 넣는다. */

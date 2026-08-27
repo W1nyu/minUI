@@ -1,6 +1,7 @@
-import { mkdirSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { build, OUT_DIR, SITES } from "./build-catalog.js";
+import { checkDrift, provenanceOf, type Provenance } from "./provenance.js";
 
 /**
  * `pnpm --filter tools build:catalog`
@@ -14,8 +15,6 @@ import { build, OUT_DIR, SITES } from "./build-catalog.js";
  * <p>그래서 `build-catalog.ts`에는 순수한 것만 남기고 <b>쓰는 일은 전부 여기</b>로 모았다.
  * 라이브러리는 import해도 아무 일이 안 일어나야 한다.
  */
-
-mkdirSync(OUT_DIR, { recursive: true });
 
 const results = SITES.map(build);
 const allProblems = results.flatMap((r) => r.problems.map((p) => `${r.site}: ${p}`));
@@ -32,14 +31,7 @@ for (const r of results) {
       `${String(r.stats.handSynonyms).padStart(9)}${String(r.stats.aiSynonyms).padStart(9)}${String(r.stats.highRisk).padStart(7)}` +
       `${String(r.stats.notCardable).padStart(9)}${String(r.stats.unstableIds).padStart(9)}${String(r.stats.rematched).padStart(8)}`,
   );
-  writeFileSync(
-    join(OUT_DIR, `${r.site}.json`),
-    `${JSON.stringify(r.menus, null, 2)}\n`,
-    "utf8",
-  );
 }
-
-console.log(`\n  총 ${results.reduce((n, r) => n + r.menus.length, 0)}개 메뉴 → ${OUT_DIR}`);
 
 // ── 표류 리포트 ──────────────────────────────────────────────────────────
 // id가 끊어진 override를 어떻게 처리했는지 전부 드러낸다. 자동으로 붙였더라도
@@ -66,6 +58,48 @@ if (orphans.length > 0) {
   console.log(
     `\n  이 항목들은 사이트가 메뉴를 없앴거나 문구를 크게 바꾼 것이다.` +
       `\n  overrides에 match: { label: "..." }를 넣으면 id와 무관하게 붙는다.`,
+  );
+}
+
+// ── 출처와 표류 ──────────────────────────────────────────────────────────
+// 카탈로그가 언제·어디서 왔는지 남기고, **지난번과 견줘 급변을 막는다.**
+// 기록만 있고 비교가 없으면 아무도 안 읽는 파일이 하나 늘 뿐이다.
+
+const PROVENANCE = join(OUT_DIR, "provenance.json");
+
+const previous = existsSync(PROVENANCE)
+  ? (JSON.parse(readFileSync(PROVENANCE, "utf8")) as Provenance)
+  : undefined;
+
+const provenance = provenanceOf(results);
+const drift = checkDrift(previous, provenance);
+
+for (const warning of drift.warnings) console.log(`\n  ! ${warning}`);
+
+/*
+ * **검사를 통과해야 쓴다.** 순서가 중요하다.
+ *
+ * 처음엔 카탈로그를 먼저 쓰고 뒤에서 검사했다. 그러면 수집이 깨졌을 때 망가진 카탈로그는
+ * 이미 디스크에 앉은 뒤이고, 기록만 지켜 놓고 "덮어쓰지 않았다"고 말하는 셈이라 절반만
+ * 참인 메시지였다. 기준을 흔들어 확인하고 이 순서로 고쳤다.
+ */
+if (drift.failures.length > 0) {
+  console.error(`\n수집이 지난번과 크게 다르다 — ${drift.failures.length}건\n`);
+  for (const failure of drift.failures) console.error(`  ${failure}`);
+  console.error(
+    `\n  아무것도 쓰지 않았다. 카탈로그도 기록도 지난 값 그대로다 —` +
+      `\n  확인하고 정말 맞으면 그때 다시 돌린다.`,
+  );
+  process.exitCode = 1;
+} else {
+  mkdirSync(OUT_DIR, { recursive: true });
+  for (const r of results) {
+    writeFileSync(join(OUT_DIR, `${r.site}.json`), `${JSON.stringify(r.menus, null, 2)}\n`, "utf8");
+  }
+  writeFileSync(PROVENANCE, `${JSON.stringify(provenance, null, 2)}\n`, "utf8");
+  console.log(
+    `\n  총 ${results.reduce((n, r) => n + r.menus.length, 0)}개 메뉴 → ${OUT_DIR}` +
+      `\n  출처 기록 → ${PROVENANCE}`,
   );
 }
 

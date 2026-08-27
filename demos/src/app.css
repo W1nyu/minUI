@@ -113,6 +113,12 @@ body {
   color: var(--minui-ink-3);
 }
 
+/* 수집본 표시는 출처보다 한 단 낮춘다 — 읽히되 앞서지 않게. */
+.bar-captured {
+  opacity: 0.75;
+  white-space: nowrap;
+}
+
 .switch {
   display: flex;
   gap: 2px;

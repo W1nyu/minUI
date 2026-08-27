@@ -155,6 +155,14 @@ function toId(site: string, item: RawItem, cleanPath: string[], label: string): 
 export interface BuildResult {
   site: Site;
   menus: MenuItem[];
+  /**
+   * 이 카탈로그가 **언제 어디서 왔는가.** 수집 원본의 것을 그대로 들고 온다.
+   *
+   * <p>여기 실어 두는 이유는 카탈로그 파일이 순수한 배열이기 때문이다. 배열에
+   * 메타데이터를 섞으면 `MenuCatalog`를 받는 모든 곳이 그것을 알아야 하고,
+   * 그러면 이식 비용 0줄이라는 주장이 깨진다. 그래서 <b>따로 흘려보낸다.</b>
+   */
+  source: RawFile["source"];
   stats: {
     raw: number;
     excluded: number;
@@ -373,6 +381,7 @@ export function buildMenus(
   return {
     site: site as Site,
     menus: kept,
+    source: raw.source,
     stats: {
       raw: raw.items.length,
       excluded,
