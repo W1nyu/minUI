@@ -688,3 +688,63 @@ body {
   font-weight: 700;
   cursor: pointer;
 }
+
+/* ── 첫 화면 진입 (P0) ────────────────────────────────────────────────────
+ *
+ * 이식 데모보다 **위에** 둔다. 심사자가 스크롤하지 않아도 이 프로젝트의 핵심으로
+ * 가는 길이 보여야 한다. 문구는 반드시 "가상"이라고 말한다 — 여기서 범위를 잘못
+ * 전달하면 뒤에 붙인 모든 고지가 무색해진다.
+ */
+.entry {
+  box-sizing: border-box;
+  max-width: 30rem;
+  margin: 0 auto 1rem;
+  padding: 1.1rem 1.25rem 1.25rem;
+  border: 1px solid var(--minui-line-strong);
+  border-radius: 16px;
+  background: var(--minui-surface);
+}
+
+.entry-eyebrow {
+  margin: 0 0 0.35rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  color: var(--site-accent, var(--minui-accent));
+}
+
+.entry-line {
+  margin: 0 0 0.9rem;
+  font-size: 1.05rem;
+  line-height: 1.45;
+  color: var(--minui-ink);
+}
+
+.entry-cta {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--minui-touch-min);
+  padding: 0.9rem 1rem;
+  border-radius: 12px;
+  background: var(--site-accent, var(--minui-accent));
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  line-height: 1.4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.12s;
+}
+.entry-cta:active { transform: scale(0.97); }
+.entry-cta:focus-visible { outline: 3px solid var(--minui-ink); outline-offset: 2px; }
+
+.entry-note {
+  margin: 0.8rem 0 0;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--minui-ink-2);
+}

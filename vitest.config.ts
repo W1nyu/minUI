@@ -123,6 +123,23 @@ export default defineConfig({
           setupFiles: ["./test/setup.ts"],
         },
       },
+      {
+        plugins: [react()],
+        resolve: { alias: workspaceAliases },
+        test: {
+          /*
+           * 오래 비어 있던 자리다. `demos`는 공개 배포에서 **심사자가 처음 보는 화면**인데
+           * 테스트가 하나도 없어서, 진입 동선이나 base path가 깨져도 CI가 잡지 못했다.
+           * dev 서버 라우트(matchRoute·assistRoute…)는 네트워크와 모델을 끌고 오므로
+           * 여기서 안 돈다 — 화면이 무엇을 보여 주는가만 잰다.
+           */
+          name: "demos",
+          root: "./demos",
+          environment: "jsdom",
+          include: ["test/**/*.test.{ts,tsx}"],
+          setupFiles: ["./test/setup.ts"],
+        },
+      },
     ],
   },
 });
