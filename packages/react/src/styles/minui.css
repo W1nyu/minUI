@@ -395,6 +395,12 @@
 
 .minui-menu-row-pin {
   margin-left: auto;
+  /*
+   * **높이만 잡으면 폭이 글자에 끌려간다.** "홈에 고정"이 87×88로 그려져 실제 브라우저
+   * 측정(`@minui/smoke a11y`)에 1px 차이로 걸렸다. 눈으로는 못 잡는 종류다 —
+   * 그리고 손떨림이 있는 사람에게 1px은 눈에 보이는 만큼만 작은 것이 아니다.
+   */
+  min-width: var(--minui-touch-min);
   min-height: var(--minui-touch-min);
   padding: 0 0.9rem;
   border: 1px solid var(--minui-line-strong);
