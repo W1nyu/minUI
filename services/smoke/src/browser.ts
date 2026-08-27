@@ -65,8 +65,11 @@ export async function passOnboarding(page: Page): Promise<void> {
 export const EVAL_SHIM = "globalThis.__name = globalThis.__name || function (f) { return f; };";
 
 /** 페이지마다 shim이 미리 들어간 문맥. `evaluate`를 쓰는 쪽은 이것을 쓴다. */
-export async function newContextWithShim(browser: Browser): Promise<BrowserContext> {
-  const context = await browser.newContext();
+export async function newContextWithShim(
+  browser: Browser,
+  options: Parameters<Browser["newContext"]>[0] = {},
+): Promise<BrowserContext> {
+  const context = await browser.newContext(options);
   await context.addInitScript(EVAL_SHIM);
   return context;
 }

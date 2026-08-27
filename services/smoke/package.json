@@ -7,6 +7,7 @@
   "scripts": {
     "smoke": "tsx src/smoke.ts",
     "a11y": "tsx src/a11y.ts",
+    "perf": "tsx src/perf.ts",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
