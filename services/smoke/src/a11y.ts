@@ -42,6 +42,18 @@ const AXE_SOURCE = readFileSync(require.resolve("axe-core/axe.min.js"), "utf8");
 /** 이 저장소가 스스로 정한 값. WCAG 권고치보다 크다 (기획안 §11.3). */
 const TOUCH_MIN = 88;
 
+/**
+ * 서브픽셀은 봐준다. **레이아웃 반올림이지 부족이 아니다.**
+ *
+ * <p>`min-height: 88px`인 버튼을 실제로 재면 `87.99996948242188`이 나온다. 그런데 표시는
+ * 반올림해서 "88×88"이라, 검사가 <b>"88×88은 88보다 작다"</b>는 스스로 모순된 말을 했다.
+ * 어디를 고쳐야 하는지 알 수 없는 실패는 없느니만 못하다.
+ *
+ * <p>0.5px로 잡은 것은 그보다 크게 잡으면 진짜 부족을 놓치기 때문이다. 전에 이 검사가
+ * 실제로 잡아낸 고정 버튼은 87×88이었고, 그것은 지금도 걸린다.
+ */
+const SUBPIXEL = 0.5;
+
 interface AxeViolation {
   id: string;
   impact?: string;
@@ -126,7 +138,9 @@ async function measureLayout(page: Page): Promise<{
 
       const inlineLink = el.tagName === "A" && style.display === "inline";
       if (!inlineLink && Math.min(rect.width, rect.height) < touchMin) {
-        small.push(`${label(el)} ${Math.round(rect.width)}×${Math.round(rect.height)}`);
+        // 반올림하지 않는다. 87.99를 "88"로 찍으면 실패 메시지가 스스로를 부정한다.
+        const size = (n: number) => (Number.isInteger(n) ? `${n}` : n.toFixed(1));
+        small.push(`${label(el)} ${size(rect.width)}×${size(rect.height)}`);
       }
     }
 
@@ -138,7 +152,7 @@ async function measureLayout(page: Page): Promise<{
       small,
       excluded,
     };
-  }, TOUCH_MIN);
+  }, TOUCH_MIN - SUBPIXEL);
 }
 
 // ── 검사 ──────────────────────────────────────────────────────────────────
