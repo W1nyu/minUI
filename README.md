@@ -176,7 +176,9 @@ pnpm --filter @minui/harvester recall  # 자동 수집 회수율 (손 수집본 
 
 # 공개 배포를 실제 브라우저로 밟아 본다. 로컬 소스가 아니라 배포된 주소를 겨냥한다 —
 # base path·정적 자산·API 부재·브라우저 저장소는 여기서만 드러난다. 크롬이 있어야 한다.
-pnpm --filter @minui/smoke smoke
+pnpm --filter @minui/smoke smoke   # 동선 6가지
+pnpm --filter @minui/smoke a11y    # 접근성 6가지. 색 대비·터치 크기를 **켜고** 잰다
+pnpm --filter @minui/smoke perf    # 성능 예산. 넘으면 종료 코드 1
 SMOKE_BASE_URL=http://localhost:5174/ pnpm --filter @minui/smoke smoke
 pnpm --filter @minui/enricher bench:assist   # 런타임 LLM 폴백의 이득과 손해
 ```
@@ -195,6 +197,19 @@ pnpm --filter @minui/enricher bench:assist   # 런타임 LLM 폴백의 이득과
 
 **이 수치들에는 흠이 있다.** 질의도 내가 쓰고 동의어도 내가 썼다 —
 자세한 것은 `docs/기획안.md` §0에 적어 뒀다.
+
+공개 배포 실측 (2026-08-27, 모바일 흉내: CPU 4배 감속 · 1.6Mbps · 지연 150ms)
+
+| | |
+|---|---|
+| 동선 스모크 · 접근성 | 6/6 · 6/6 |
+| 루트 — JS 전송 · LCP | 200KB · 1,800ms |
+| 미니은행 — JS 전송 · LCP | 99KB · 1,388ms |
+| 손이 닿은 뒤 답할 때까지 | 온보딩 906ms · 전체 메뉴 163ms · 말로 찾기 67ms |
+
+빌드가 "청크가 크다"고 경고하는 원본 1.17MB는 gzip으로 **200KB**가 도착한다.
+여덟 칸 전부 예산 안이라 **번들을 쪼개지 않는다** — 쪼개면 왕복이 늘어 첫 화면이
+오히려 늦어진다. 접근성 실측은 `docs/기획안.md` §11.3에 있다.
 
 과제 수행 계측은 앱에 켜져 있다. 사용자 테스트 진행자는 콘솔에서 이렇게 쓴다.
 
