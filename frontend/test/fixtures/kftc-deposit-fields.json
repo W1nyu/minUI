@@ -1,0 +1,56 @@
+{
+  "_": [
+    "금융결제원 오픈뱅킹 '입금이체(핀테크이용번호)' 응답의 필드표.",
+    "",
+    "출처: 이 저장소의 `frontend/src/api/openBankingMock.ts`가 선언한 인터페이스.",
+    "**공식 규격서와 아직 대조하지 않았다.** 그래서 `official`이 전부 비어 있다.",
+    "",
+    "이 파일이 따로 있는 이유: 테스트베드나 규격서에서 실제 필드 목록을 얻는 날,",
+    "고칠 곳이 여기 한 곳이면 된다. 그때 `official`을 채우면 테스트가 우리 Mock과의",
+    "차이를 필드 단위로 찍어 준다 — '일부 재현했다'가 'N개 중 M개 일치'가 된다.",
+    "",
+    "`ours`는 지금 우리가 실제로 내보내는 값의 형태다. 이것은 런타임 값으로 검사하므로",
+    "인터페이스만 보고 쓴 것이 아니고, 어긋나면 테스트가 걸린다.",
+    "",
+    "`note`는 공식 규격과 다를 수 있다고 우리가 아는 자리다. 숨기지 않고 적어 둔다."
+  ],
+  "verifiedAgainstOfficialSpec": false,
+  "api": "POST /v2.0/transfer/deposit/fin_num",
+  "top": [
+    { "field": "api_tran_id", "ours": "nonEmpty", "official": null },
+    { "field": "api_tran_dtm", "ours": "digits17", "official": null, "note": "YYYYMMDDHHMMSSmmm" },
+    { "field": "rsp_code", "ours": "rspCode", "official": null, "note": "우리가 내는 정상 코드는 A0000(영문1+숫자4). 오류 코드 체계 전체는 재현하지 않았다 — 대조 필요" },
+    { "field": "rsp_message", "ours": "string", "official": null },
+    { "field": "wd_bank_code_std", "ours": "digits3", "official": null },
+    { "field": "wd_bank_name", "ours": "nonEmpty", "official": null },
+    { "field": "wd_account_num_masked", "ours": "masked", "official": null },
+    { "field": "wd_print_content", "ours": "nonEmpty", "official": null },
+    { "field": "wd_account_holder_name", "ours": "nonEmpty", "official": null },
+    { "field": "res_cnt", "ours": "countMatchesList", "official": null },
+    { "field": "res_list", "ours": "list", "official": null }
+  ],
+  "line": [
+    { "field": "tran_no", "ours": "digits", "official": null },
+    { "field": "bank_tran_id", "ours": "atMost20", "official": null, "note": "공식 규격은 이용기관코드+구분자+일련번호 조합으로 안다. 우리는 멱등성 키를 잘라 쓴다 — 대조 필요" },
+    { "field": "bank_tran_date", "ours": "digits8", "official": null },
+    { "field": "bank_code_tran", "ours": "digits3", "official": null },
+    { "field": "bank_rsp_code", "ours": "digits3", "official": null },
+    { "field": "bank_rsp_message", "ours": "string", "official": null },
+    { "field": "fintech_use_num", "ours": "nonEmpty", "official": null, "note": "공식은 24자리로 안다 — 대조 필요" },
+    { "field": "account_alias", "ours": "nonEmpty", "official": null },
+    { "field": "bank_code_std", "ours": "digits3", "official": null },
+    { "field": "bank_name", "ours": "nonEmpty", "official": null },
+    { "field": "account_num_masked", "ours": "masked", "official": null },
+    { "field": "print_content", "ours": "nonEmpty", "official": null },
+    { "field": "account_holder_name", "ours": "nonEmpty", "official": null },
+    { "field": "tran_amt", "ours": "amount", "official": null }
+  ],
+  "notReproduced": [
+    "실제 접근토큰 발급·갱신 (OAuth 2.0 authorization code)",
+    "이용기관 코드·인증서·전문 서명",
+    "계좌실명조회 / 수취조회",
+    "출금이체(withdraw) — 우리는 입금이체 모양만 재현했다",
+    "거래내역조회의 페이지네이션(next_page_yn, befor_inquiry_trace_info)",
+    "오류 응답의 전체 rsp_code 체계 — 우리는 정상(A0000) 경로만 낸다"
+  ]
+}
