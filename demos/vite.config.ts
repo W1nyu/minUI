@@ -32,8 +32,18 @@ const BASE = process.env["MINUI_BASE"] ?? "/";
 export default defineConfig({
   base: BASE,
   // /api/assist·/api/explain — API 키를 브라우저로 내보내지 않기 위한 중계.
-  plugins: [react(), assistRoute(),
-    matchRoute(), explainRoute(), studioRoute()],
+  /*
+   * `matchRoute`만 조건부다. 서버가 뜰 때 인코더와 벡터를 여는데(600MB 모델),
+   * 원격 검색은 기본으로 꺼져 있어 대부분의 실행에서 그 비용이 헛되다.
+   * `MINUI_NEURAL=1`일 때만 등록한다 — 화면 쪽 플래그는 `VITE_MINUI_NEURAL`이다.
+   */
+  plugins: [
+    react(),
+    assistRoute(),
+    explainRoute(),
+    studioRoute(),
+    ...(process.env["MINUI_NEURAL"] === "1" ? [matchRoute()] : []),
+  ],
   resolve: {
     alias: [
       // 두 호스트 앱이 나눠 쓰는 AI 클라이언트. packages/*에는 넣지 않는다 —

@@ -23,6 +23,24 @@ type Mode = "minui" | "classic";
 /** 한 번만 읽는다. 빌드 타임에 정해지는 값이다. */
 const ASSIST_URL = assistEndpoint();
 
+/**
+ * 원격 신경망 검색을 켤 것인가 (M11).
+ *
+ * <p><b>기본은 꺼짐이다.</b> 사전 등록 게이트를 못 넘었다 — `semantic-focus` 12.4%.
+ * 값을 올리려고 네 지렛대를 당겼고 넷 다 측정으로 실패했으며, 원인이 검색기 밖에
+ * 있다는 결론이 났다(`진행할것.md` §4). 코드는 한 줄도 안 지웠다.
+ *
+ * <p>여기서 <b>플래그를 두는 것</b>과 그냥 `enabled: false`로 두는 것은 다르다.
+ * 후자면 `retrieve`는 그대로 넘어가고, 정적 배포에는 `/api/match`가 없으므로
+ * 저신뢰 검색마다 404를 한 번 받고 버린다. 동작은 옳지만 쓸데없는 요청이다.
+ * 플래그가 없으면 <b>아예 안 넘긴다</b> — 그러면 프로덕션 번들에서 호출 경로 자체가
+ * 사라진다(`shared/host-ai/assist.ts`가 같은 이유로 같은 모양을 쓴다).
+ *
+ * <p>로컬에서 켜 보려면:
+ * `MINUI_NEURAL=1 VITE_MINUI_NEURAL=1 pnpm --filter demos dev`
+ */
+const NEURAL = import.meta.env.VITE_MINUI_NEURAL === "1";
+
 export function App() {
   // 주소로만 들어간다. 탭 바에 두면 데모의 다섯 사이트와 성격이 섞인다 —
   // Studio는 "아직 없는 사이트를 얹어 보는 곳"이다.
@@ -110,7 +128,10 @@ function SiteDemo({ site }: { site: SiteMeta }) {
    * 원격 신경망 검색 (M11). 로컬이 못 찾았을 때만 불린다 — 보내는 것은 질의뿐이고,
    * 벡터도 모델도 서버에만 있다. 꺼져 있으면 지금까지와 바이트 단위로 같게 돈다.
    */
-  const retrieve = useMemo(() => makeRetrieve(site.slug), [site.slug]);
+  const retrieve = useMemo(
+    () => (NEURAL ? makeRetrieve(site.slug) : undefined),
+    [site.slug],
+  );
 
   // 이식 계약 ② — 호스트가 제공하는 것은 이 함수 하나다.
   const openScreen = useCallback((menuId: MenuId) => setOpenMenuId(menuId), []);
@@ -123,7 +144,7 @@ function SiteDemo({ site }: { site: SiteMeta }) {
       coldStartPresets={site.presets}
       {...(assist ? { assist } : {})}
       explain={explain}
-      retrieve={retrieve}
+      {...(retrieve ? { retrieve } : {})}
       /*
        * 이 데모는 배치 안정화를 일부 포기한다.
        *
@@ -132,7 +153,7 @@ function SiteDemo({ site }: { site: SiteMeta }) {
        * 하지만 데모는 몇 분 안에 "쓸수록 내 메뉴가 된다"를 보여야 하므로 켠다.
        * 마진 20%와 "한 번에 한 장"은 그대로라 화면이 통째로 뒤집히지는 않는다.
        */
-      config={{ stability: { liveReorder: true }, search: { neural: { enabled: true } } }}
+      config={{ stability: { liveReorder: true }, search: { neural: { enabled: NEURAL } } }}
       fallback={<p className="loading">불러오는 중…</p>}
     >
       <header className="bar">
