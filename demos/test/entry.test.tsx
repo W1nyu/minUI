@@ -74,6 +74,25 @@ describe("문구 — 가상이라고 말한다", () => {
   });
 });
 
+describe("무엇이 도는지 미리 말한다", () => {
+  it("기기 안에서 돈다는 것을 첫 화면에서 알린다 ★", () => {
+    render(<App />);
+    const banner = screen.getByRole("region", { name: /공모전 시연/ });
+
+    /*
+     * 공개 배포에는 원격 도우미도 원격 의미 검색도 없다. 없는 것이 고장으로 보이지 않게
+     * 만들어 두긴 했지만, 무엇이 도는지 모르는 채로 쓰는 것과 알고 쓰는 것은 다르다.
+     */
+    expect(within(banner).getByText(/기기 안에서/)).toBeInTheDocument();
+  });
+
+  it("못 찾으면 되묻기로 이어진다고 말한다 — 빈 기능이 아니다", () => {
+    render(<App />);
+    const banner = screen.getByRole("region", { name: /공모전 시연/ });
+    expect(banner.textContent ?? "").toMatch(/되묻기/);
+  });
+});
+
 describe("두 데모의 목적이 갈라져 있다", () => {
   it("아래쪽이 이식 데모라는 것을 말한다", () => {
     render(<App />);
