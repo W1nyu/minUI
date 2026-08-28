@@ -29,7 +29,8 @@
     "build:vectors": "tsx src/build-vectors.ts",
     "build:eval-queries": "tsx src/build-eval-queries.ts",
     "bench:neural": "tsx src/bench-neural.ts",
-    "bench:reprompt": "tsx src/bench-reprompt.ts"
+    "bench:reprompt": "tsx src/bench-reprompt.ts",
+    "link:docs": "tsx src/link-docs.ts"
   },
   "dependencies": {
     "@minui/core": "workspace:*",
