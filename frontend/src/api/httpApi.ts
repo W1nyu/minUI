@@ -129,8 +129,15 @@ export class HttpBankApi implements BankApi {
         req_list: [
           {
             tran_no: "1",
-            // 명세의 은행거래고유번호가 이 데모의 멱등성 키 역할을 한다.
-            bank_tran_id: idempotencyKey.slice(0, 20),
+            /*
+             * 명세의 은행거래고유번호가 이 데모의 멱등성 키 역할을 한다.
+             *
+             * 규격은 `AN(20)` — **영문·숫자만이다.** 앱이 넘기는 것은
+             * `crypto.randomUUID()`라 그대로 자르면 하이픈이 남는다.
+             * `openBankingMock.ts`가 같은 자리에서 같은 이유로 같은 것을 한다 —
+             * 두 원장이 같은 전문을 보내야 대조가 성립한다.
+             */
+            bank_tran_id: idempotencyKey.replace(/[^0-9A-Za-z]/g, "").slice(0, 20),
             fintech_use_num: fintechUseNumber(request.toAccountId),
             print_content: request.memo ?? "minUI 가상이체",
             tran_amt: String(request.amount),

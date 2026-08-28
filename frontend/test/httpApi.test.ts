@@ -49,7 +49,9 @@ describe("Spring Boot 가상 오픈뱅킹 어댑터", () => {
       req_cnt: "1",
       req_list: [
         {
-          bank_tran_id: "uuid-idempotency-key".slice(0, 20),
+          // 하이픈이 빠지고 20자로 잘린다 — 규격 AN(20)은 영문·숫자만이다.
+          // "uuid-idempotency-key-for-demo" → "uuididempotencykeyfordemo" → 앞 20자
+          bank_tran_id: "uuididempotencykeyfo",
           fintech_use_num: "110000000000000000000006",
           tran_amt: "30000",
           transfer_purpose: "TR",

@@ -2,55 +2,98 @@
   "_": [
     "금융결제원 오픈뱅킹 '입금이체(핀테크이용번호)' 응답의 필드표.",
     "",
-    "출처: 이 저장소의 `frontend/src/api/openBankingMock.ts`가 선언한 인터페이스.",
-    "**공식 규격서와 아직 대조하지 않았다.** 그래서 `official`이 전부 비어 있다.",
+    "**이 표는 공식 규격서를 옮긴 것이다.** 기억으로 적지 않았다 —",
+    "출처와 확인 날짜를 아래 `source`·`checkedOn`에 적어 뒀다.",
     "",
-    "이 파일이 따로 있는 이유: 테스트베드나 규격서에서 실제 필드 목록을 얻는 날,",
-    "고칠 곳이 여기 한 곳이면 된다. 그때 `official`을 채우면 테스트가 우리 Mock과의",
-    "차이를 필드 단위로 찍어 준다 — '일부 재현했다'가 'N개 중 M개 일치'가 된다.",
+    "한 줄이 규격의 한 필드다. `official`은 규격이 적은 타입(길이)이고,",
+    "`ours`는 우리 Mock이 실제로 내보내는 값의 형태다.",
     "",
-    "`ours`는 지금 우리가 실제로 내보내는 값의 형태다. 이것은 런타임 값으로 검사하므로",
-    "인터페이스만 보고 쓴 것이 아니고, 어긋나면 테스트가 걸린다.",
+    "`ours`가 null이면 **우리가 그 필드를 안 낸다**는 뜻이다. 빼지 않고 줄로 남기는 것이",
+    "요점이다 — 표에서 지우면 '규격 29개 중 25개'가 '25개 중 25개'로 보인다.",
     "",
-    "`note`는 공식 규격과 다를 수 있다고 우리가 아는 자리다. 숨기지 않고 적어 둔다."
+    "`ours`는 런타임 값으로 검사한다. 인터페이스만 보고 쓴 것이 아니라 실제 응답을",
+    "재므로, 코드가 조용히 표류하면 걸린다.",
+    "",
+    "길이 검사에 대해: AH는 한글이 들어가는 자리라 규격이 글자 수가 아니라 바이트를",
+    "셀 수 있다. 우리는 글자 수로 재고, 우리 값은 어느 쪽으로 세도 한참 아래다."
   ],
-  "verifiedAgainstOfficialSpec": false,
+  "verifiedAgainstOfficialSpec": true,
+  "checkedOn": "2026-08-28",
+  "source": "https://developers.kftc.or.kr/dev/openapi/open-banking/deposit",
   "api": "POST /v2.0/transfer/deposit/fin_num",
   "top": [
-    { "field": "api_tran_id", "ours": "nonEmpty", "official": null },
-    { "field": "api_tran_dtm", "ours": "digits17", "official": null, "note": "YYYYMMDDHHMMSSmmm" },
-    { "field": "rsp_code", "ours": "rspCode", "official": null, "note": "우리가 내는 정상 코드는 A0000(영문1+숫자4). 오류 코드 체계 전체는 재현하지 않았다 — 대조 필요" },
-    { "field": "rsp_message", "ours": "string", "official": null },
-    { "field": "wd_bank_code_std", "ours": "digits3", "official": null },
-    { "field": "wd_bank_name", "ours": "nonEmpty", "official": null },
-    { "field": "wd_account_num_masked", "ours": "masked", "official": null },
-    { "field": "wd_print_content", "ours": "nonEmpty", "official": null },
-    { "field": "wd_account_holder_name", "ours": "nonEmpty", "official": null },
-    { "field": "res_cnt", "ours": "countMatchesList", "official": null },
-    { "field": "res_list", "ours": "list", "official": null }
+    { "field": "api_tran_id", "ours": "nonEmpty", "official": "aNS(40)" },
+    { "field": "api_tran_dtm", "ours": "digits17", "official": "N(17)", "note": "YYYYMMDDHHMMSSmmm" },
+    {
+      "field": "rsp_code",
+      "ours": "rspCode",
+      "official": "AN(5)",
+      "note": "규격이 5자리로 확인해 준다. 우리가 내는 정상 코드는 A0000. 오류 코드 체계 전체는 재현하지 않았다"
+    },
+    { "field": "rsp_message", "ours": "string", "official": "AH(300)" },
+    { "field": "wd_bank_code_std", "ours": "digits3", "official": "AN(3)" },
+    {
+      "field": "wd_bank_code_sub",
+      "ours": null,
+      "official": "AN(7)",
+      "note": "재현하지 않는다 — 기관 서브코드는 실제 참가기관 체계의 값이고 가상 원장에는 대응하는 것이 없다. 지어내면 규격을 흉내 낸 것이 아니라 없는 기관을 만드는 것이 된다"
+    },
+    { "field": "wd_bank_name", "ours": "nonEmpty", "official": "AH(20)" },
+    { "field": "wd_account_num_masked", "ours": "masked", "official": "NS*(20)" },
+    { "field": "wd_print_content", "ours": "nonEmpty", "official": "AH(20)" },
+    { "field": "wd_account_holder_name", "ours": "nonEmpty", "official": "AH(20)" },
+    { "field": "res_cnt", "ours": "countMatchesList", "official": "N(5)" },
+    { "field": "res_list", "ours": "list", "official": "<object>" }
   ],
   "line": [
-    { "field": "tran_no", "ours": "digits", "official": null },
-    { "field": "bank_tran_id", "ours": "atMost20", "official": null, "note": "공식 규격은 이용기관코드+구분자+일련번호 조합으로 안다. 우리는 멱등성 키를 잘라 쓴다 — 대조 필요" },
-    { "field": "bank_tran_date", "ours": "digits8", "official": null },
-    { "field": "bank_code_tran", "ours": "digits3", "official": null },
-    { "field": "bank_rsp_code", "ours": "digits3", "official": null },
-    { "field": "bank_rsp_message", "ours": "string", "official": null },
-    { "field": "fintech_use_num", "ours": "nonEmpty", "official": null, "note": "공식은 24자리로 안다 — 대조 필요" },
-    { "field": "account_alias", "ours": "nonEmpty", "official": null },
-    { "field": "bank_code_std", "ours": "digits3", "official": null },
-    { "field": "bank_name", "ours": "nonEmpty", "official": null },
-    { "field": "account_num_masked", "ours": "masked", "official": null },
-    { "field": "print_content", "ours": "nonEmpty", "official": null },
-    { "field": "account_holder_name", "ours": "nonEmpty", "official": null },
-    { "field": "tran_amt", "ours": "amount", "official": null }
+    { "field": "tran_no", "ours": "digits", "official": "N(5)" },
+    {
+      "field": "bank_tran_id",
+      "ours": "atMost20",
+      "official": "AN(20)",
+      "note": "대조하면서 걸린 자리. AN(20)은 영문·숫자만인데 앱이 넘기는 crypto.randomUUID()의 하이픈이 그대로 남아 있었다 — 지금은 영숫자만 남겨 자른다. 이용기관코드+구분자+일련번호라는 조합 규칙은 이 필드표에 없어 대조하지 못했다"
+    },
+    { "field": "bank_tran_date", "ours": "digits8", "official": "N(8)" },
+    { "field": "bank_code_tran", "ours": "digits3", "official": "AN(3)" },
+    { "field": "bank_rsp_code", "ours": "digits3", "official": "AN(3)" },
+    { "field": "bank_rsp_message", "ours": "string", "official": "AH(100)" },
+    { "field": "fintech_use_num", "ours": "nonEmpty", "official": "AN(24)", "note": "24자리가 규격으로 확인됐다" },
+    { "field": "account_alias", "ours": "nonEmpty", "official": "AH(50)" },
+    { "field": "bank_code_std", "ours": "digits3", "official": "AN(3)" },
+    {
+      "field": "bank_code_sub",
+      "ours": null,
+      "official": "AN(7)",
+      "note": "재현하지 않는다 — wd_bank_code_sub와 같은 이유"
+    },
+    { "field": "bank_name", "ours": "nonEmpty", "official": "AH(20)" },
+    {
+      "field": "savings_bank_name",
+      "ours": null,
+      "official": "AH(20)",
+      "note": "재현하지 않는다 — 저축은행 명칭 자리다. 테스트 계좌 6개에 저축은행이 없다"
+    },
+    { "field": "account_num_masked", "ours": "masked", "official": "NS*(20)" },
+    { "field": "print_content", "ours": "nonEmpty", "official": "AH(20)" },
+    { "field": "account_holder_name", "ours": "nonEmpty", "official": "AH(20)" },
+    { "field": "tran_amt", "ours": "amount", "official": "N(12)" },
+    {
+      "field": "cms_num",
+      "ours": null,
+      "official": "AN(32)",
+      "note": "재현하지 않는다 — CMS 공동망 번호는 실제 정산 체계의 값이다"
+    }
   ],
   "notReproduced": [
+    "기관 서브코드 (wd_bank_code_sub · bank_code_sub) — 실제 참가기관 체계의 값이라 지어낼 수 없다",
+    "저축은행 명칭 (savings_bank_name) — 테스트 계좌에 저축은행이 없다",
+    "CMS 공동망 번호 (cms_num) — 실제 정산 체계의 값이다",
     "실제 접근토큰 발급·갱신 (OAuth 2.0 authorization code)",
     "이용기관 코드·인증서·전문 서명",
     "계좌실명조회 / 수취조회",
     "출금이체(withdraw) — 우리는 입금이체 모양만 재현했다",
     "거래내역조회의 페이지네이션(next_page_yn, befor_inquiry_trace_info)",
-    "오류 응답의 전체 rsp_code 체계 — 우리는 정상(A0000) 경로만 낸다"
+    "오류 응답의 전체 rsp_code 체계 — 우리는 정상(A0000) 경로만 낸다",
+    "bank_tran_id의 조합 규칙(이용기관코드+구분자+일련번호) — 필드표에 없어 대조하지 못했다"
   ]
 }

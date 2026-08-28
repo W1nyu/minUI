@@ -37,7 +37,12 @@ describe("시연용 오픈뱅킹 Mock", () => {
       wd_bank_code_std: "088",
       res_list: [
         {
-          bank_tran_id: "demo-bank-transaction-0001".slice(0, 20),
+          /*
+           * 하이픈이 빠진다. 규격이 `AN(20)` — 영문·숫자만이라, 멱등성 키에서
+           * 영숫자만 남겨 자른다 (`openBankingFields.test.ts`의 대조에서 걸린 자리).
+           * 멱등 판정은 원본 키로 하므로 재시도 동작은 그대로다.
+           */
+          bank_tran_id: "demobanktransaction0",
           fintech_use_num: "110000000000000000000006",
           account_alias: "김영수 삼촌",
           tran_amt: "30000",

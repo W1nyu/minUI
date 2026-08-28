@@ -432,7 +432,15 @@ export class OpenBankingMockApi implements BankApi {
       req_list: [
         {
           tran_no: "1",
-          bank_tran_id: idempotencyKey.slice(0, 20),
+          /*
+           * 규격이 `AN(20)` — **영문·숫자만이다.** 전에는 멱등성 키를 그대로 잘라 넣었는데,
+           * 앱이 넘기는 것은 `crypto.randomUUID()`라 하이픈이 그대로 남았다. 공식 필드표와
+           * 대조하면서 걸린 것이고, 그전까지는 우리 규칙(`atMost20`)만 봐서 통과했다.
+           *
+           * 멱등 판정은 원본 키로 하므로(`#snapshot.transfers`) 여기서 다듬어도
+           * 같은 요청을 두 번 보냈을 때의 동작은 바뀌지 않는다.
+           */
+          bank_tran_id: idempotencyKey.replace(/[^0-9A-Za-z]/g, "").slice(0, 20),
           fintech_use_num: destination.fintechUseNum,
           print_content: memo || "minUI 가상이체",
           tran_amt: String(amount),
