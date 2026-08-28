@@ -48,3 +48,9 @@ tools/models/
 
 # 메뉴 벡터 (M11). tools의 build:vectors로 다시 굽는다.
 demos/src/vectors/
+
+# 수집한 남의 사이트 본문 (Task 4). 저장소에 넣지 않는 이유는 둘이다 —
+# 830KB짜리 남의 글이고, 우리가 배포에 담아 가는 것은 그 전문이 아니라
+# 근거로 인용한 문장 몇 줄(shared/host-ai/explain-sources.json)이다.
+# 다시 받으려면: pnpm --filter @minui/harvester docs -- https://www.kebhana.com/ kebhana
+tools/docs/
