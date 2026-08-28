@@ -19,7 +19,7 @@ export interface AllMenuSheetProps {
  * 자동화가 어긋났을 때 쓰는 탈출구다. 홈에 두면 홈이 다시 복잡해진다.
  */
 export function AllMenuSheet({ catalog, onClose, onSelect }: AllMenuSheetProps) {
-  const { isPinned, togglePin, explain } = useMinUI();
+  const { isPinned, togglePin, explain, groundedHint } = useMinUI();
   const closeRef = useRef<HTMLButtonElement>(null);
   /**
    * 도우미가 풀어 준 것. 세션 동안만 들고 있는다 — 카탈로그를 고치지 않는다.
@@ -110,8 +110,13 @@ export function AllMenuSheet({ catalog, onClose, onSelect }: AllMenuSheetProps) 
             <ul className="minui-group-list">
               {group.menus.map((menu, index) => {
                 const pinned = isPinned(menu.id);
-                // 카탈로그에 있는 것이 먼저다. 도우미는 그것이 없을 때만 온다.
-                const hint = menu.hint ?? asked[menu.id] ?? undefined;
+                /*
+                  근거가 있는 답이 가장 먼저다. 카탈로그의 뜻풀이는 이름만 보고 쓴
+                  것이고, 이쪽은 그 금융사의 공개 안내문을 읽고 쓴 뒤 인용까지 대조를
+                  통과한 것이라 더 셀 이유가 있다. 없으면 지금까지의 차례 그대로다.
+                */
+                const grounded = groundedHint?.(menu.id) ?? null;
+                const hint = grounded?.hint ?? menu.hint ?? asked[menu.id] ?? undefined;
                 const answered = menu.id in asked;
                 const hintId = hint
                   ? `${hintIdPrefix}-${groupIndex}-${index}`
@@ -150,11 +155,34 @@ export function AllMenuSheet({ catalog, onClose, onSelect }: AllMenuSheetProps) 
                     )}
 
                     {/*
+                      근거가 있는 답에만 출처가 붙는다. **없는 것이 보통이다** —
+                      공개 안내문이 있는 메뉴에만 붙고, 나머지는 이름만 보고 푼 답이다.
+                      둘을 같은 모양으로 그리면 출처 없는 답까지 출처가 있는 것처럼
+                      읽힌다.
+
+                      원문은 <q>로 감싼다. 화면에서 <b>우리가 쓴 말과 안내문이 쓴 말</b>이
+                      갈려 보여야 한다 — 그 구분이 사라지면 출처를 붙인 뜻이 없다.
+                    */}
+                    {grounded && (
+                      <p className="minui-menu-row-source">
+                        <q className="minui-menu-row-quote">{grounded.quote}</q>{" "}
+                        <a
+                          className="minui-menu-row-source-link"
+                          href={grounded.url}
+                          target="_blank"
+                          rel="noreferrer noopener"
+                        >
+                          출처: {grounded.title}
+                        </a>
+                      </p>
+                    )}
+
+                    {/*
                       뜻풀이가 없는 자리에만 묻는 버튼을 둔다. 행에 세 번째 버튼을
                       끼워 넣지 않고 **뜻풀이가 놓일 자리**를 쓴다 — 행이 붐비면
                       전체 메뉴가 다시 탐색 문제가 된다.
                     */}
-                    {!menu.hint && explain && !answered && (
+                    {!menu.hint && !grounded && explain && !answered && (
                       <button
                         type="button"
                         className="minui-menu-row-ask"

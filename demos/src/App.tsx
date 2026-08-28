@@ -3,7 +3,7 @@ import { IndexedDbStorageAdapter, MinUIHome, MinUIProvider } from "@minui/react"
 import { makeStt } from "./stt.js";
 import { useCallback, useMemo, useState } from "react";
 import { assistEndpoint, makeAssist } from "@host-ai/assist.js";
-import { makeExplain } from "@host-ai/explain.js";
+import { makeExplain, makeGroundedHint } from "@host-ai/explain.js";
 import { makeRetrieve } from "./match.js";
 import { ClassicShell } from "./ClassicShell.js";
 import { Studio } from "./Studio.js";
@@ -160,6 +160,8 @@ function SiteDemo({ site }: { site: SiteMeta }) {
   );
   // 카탈로그에 뜻풀이가 없는 메뉴에만 붙는다. 같은 이유로 서버를 거친다.
   const explain = useMemo(() => makeExplain(site.catalog), [site.catalog]);
+  // 그 답이 공개 안내문에서 온 것이면 원문 한 줄과 주소를 함께 준다. 대부분은 없다.
+  const grounded = useMemo(() => makeGroundedHint(site.catalog), [site.catalog]);
   /*
    * 원격 신경망 검색 (M11). 로컬이 못 찾았을 때만 불린다 — 보내는 것은 질의뿐이고,
    * 벡터도 모델도 서버에만 있다. 꺼져 있으면 지금까지와 바이트 단위로 같게 돈다.
@@ -180,6 +182,7 @@ function SiteDemo({ site }: { site: SiteMeta }) {
       coldStartPresets={site.presets}
       {...(assist ? { assist } : {})}
       explain={explain}
+      groundedHint={grounded}
       {...(retrieve ? { retrieve } : {})}
       /*
        * 이 데모는 배치 안정화를 일부 포기한다.

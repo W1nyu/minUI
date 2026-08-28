@@ -18,12 +18,31 @@ import {
   type ReactNode,
 } from "react";
 
+/**
+ * 근거가 있는 뜻풀이. 설명과 그 설명이 나온 문장이 한 덩어리다.
+ *
+ * <p>`shared/host-ai`의 것과 같은 모양이되 여기서 다시 선언한다 — `packages/react`는
+ * 이식형 패키지라 호스트 쪽 파일을 참조하지 않는다. 호스트가 무엇으로 근거를 만들든
+ * 화면이 요구하는 것은 이 넷뿐이다.
+ */
+export interface MenuGroundedHint {
+  /** 안내문을 읽고 쓴 한 줄 설명. */
+  hint: string;
+  /** 안내문에 그대로 있는 문장. */
+  quote: string;
+  url: string;
+  /** 어느 문서인지. "출처: …"에 들어간다. */
+  title: string;
+}
+
 export interface MinUIContextValue {
   engine: MinUIEngine;
   /** 호스트가 넘긴 도우미. 없으면 undefined. */
   assist?: ((query: string, candidates: MenuId[]) => Promise<MenuId | null>) | undefined;
   /** 호스트가 넘긴 뜻풀이 도우미. 없으면 undefined. */
   explain?: ((menuId: MenuId) => Promise<string | null>) | undefined;
+  /** 근거 있는 뜻풀이. 호스트가 안 넘기면 화면은 지금까지처럼 답만 보여 준다. */
+  groundedHint?: ((menuId: MenuId) => MenuGroundedHint | null) | undefined;
   /**
    * 홈에 그릴 카드.
    *
@@ -79,6 +98,17 @@ export interface MinUIProviderProps extends MinUIEngineOptions {
    * (신한 930개 중 185개). 검색 폴백과 같은 구조다.
    */
   explain?: (menuId: MenuId) => Promise<string | null>;
+  /**
+   * 그 뜻풀이가 **어디서 왔는지** (Task 4). 선택이다.
+   *
+   * <p>`explain`과 나뉜 이유는 근거가 <b>있는 답이 예외</b>이기 때문이다 — 공개 안내문이
+   * 붙은 메뉴에만 있고, 나머지는 지금처럼 이름만 보고 푼 답이다. 그리고 이쪽은 설명과
+   * 인용이 <b>함께</b> 만들어진 한 덩어리라, 뒤늦게 합칠 수 있는 것이 아니다.
+   *
+   * <p>동기 함수인 것도 의도다. 근거는 빌드 타임에 구워져 있고, 지어낸 인용은 굽는
+   * 자리에서 이미 걸러졌다. 런타임에 물을 것이 없다.
+   */
+  groundedHint?: (menuId: MenuId) => MenuGroundedHint | null;
   /**
    * 원격 신경망 검색 (M11). **선택이다.**
    *
@@ -138,6 +168,7 @@ export function MinUIProvider({
   fallback = null,
   assist,
   explain,
+  groundedHint,
   retrieve,
   ...options
 }: MinUIProviderProps) {
@@ -235,6 +266,7 @@ export function MinUIProvider({
       engine,
       assist,
       explain,
+      groundedHint,
       cards,
       profile,
       learnedTerms,
@@ -271,7 +303,7 @@ export function MinUIProvider({
         void engine.setProfile(next).then(() => refresh(engine));
       },
     };
-  }, [engine, assist, explain, cards, profile, learnedTerms, refresh]);
+  }, [engine, assist, explain, groundedHint, cards, profile, learnedTerms, refresh]);
 
   // 글씨 크기는 문서 루트에 얹는다. 시트·모달처럼 포털로 나가는 요소까지
   // 같은 배율을 받아야 하기 때문이다.

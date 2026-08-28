@@ -355,6 +355,39 @@
   overflow-wrap: anywhere;
 }
 
+/*
+ * 근거. **답보다 한 단계 물러나 보여야 한다.**
+ *
+ * 이 줄은 읽으라고 있는 것이 아니라 <b>확인할 수 있다는 것을 알리려고</b> 있다.
+ * 뜻풀이와 같은 무게로 그리면 어르신 화면에서 읽을 것이 두 배가 되고, 그러면
+ * 어려운 말을 줄이려던 기능이 읽을 것을 늘리는 기능이 된다. 그래서 왼쪽 선 하나로
+ * 묶고 글자를 낮춘다.
+ */
+.minui-menu-row-source {
+  margin: 0.1rem 0 0.2rem;
+  padding: 0 1rem 0 1.75rem;
+  font-size: var(--minui-text-xs, var(--minui-text-s));
+  line-height: 1.45;
+  color: var(--minui-ink-3);
+  overflow-wrap: anywhere;
+}
+
+/* 따옴표는 글자를 그대로 쓴다. CSS 이스케이프로 뒀더니 화면에 깨져 나왔다. */
+.minui-menu-row-quote {
+  quotes: "“" "”";
+  color: var(--minui-ink-2);
+}
+
+/*
+ * 원문으로 가는 길. 밑줄을 지우지 않는다 — 색만으로 링크를 알리면
+ * 색 구분이 약한 눈에는 링크가 아니다.
+ */
+.minui-menu-row-source-link {
+  color: var(--minui-ink-3);
+  text-decoration: underline;
+  white-space: nowrap;
+}
+
 /* 물어봤는데 모른다고 한 자리. 있던 자리를 비우지 않는 편이 덜 불안하다. */
 .minui-menu-row-hint[data-empty="true"] {
   color: var(--minui-ink-3);

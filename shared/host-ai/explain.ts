@@ -1,5 +1,6 @@
 import type { MenuCatalog, MenuId } from "@minui/core";
 import cache from "./explain-cache.json";
+import sources from "./explain-sources.json";
 
 /**
  * "이게 무슨 뜻이에요?" — **미리 구워 둔 답을 먼저 보고, 없으면 서버에 묻는다.**
@@ -57,5 +58,45 @@ export function makeExplain(catalog: MenuCatalog) {
       // 화면에서 굳이 가르지 않는다 — 둘 다 "뜻을 알 수 없었어요"다.
       return null;
     }
+  };
+}
+
+/**
+ * **근거가 있는 뜻풀이.** 설명과 그 설명이 나온 문장이 한 덩어리다.
+ *
+ * <p>둘을 따로 두지 않은 것이 요점이다. 이름만 보고 쓴 설명에 문서 인용을 나중에 붙이면
+ * <b>그 인용이 그 설명을 뒷받침하지 않는다</b> — 같이 나온 것이 아니기 때문이다.
+ * 출처가 붙은 문장은 더 믿기게 되므로, 그 믿음이 정당하려면 둘이 함께 만들어져야 한다.
+ */
+export interface GroundedHint {
+  /** 안내문을 읽고 쓴 한 줄 설명. */
+  hint: string;
+  /** 그 설명의 근거로 안내문에 <b>그대로</b> 있는 문장. 모델이 다시 쓴 것이 아니다. */
+  quote: string;
+  /** 사람이 눌러 확인할 수 있는 원문 주소. */
+  url: string;
+  /** 어느 문서인지. "출처: …"에 그대로 들어간다. */
+  title: string;
+}
+
+const GROUNDED = sources as Record<string, GroundedHint>;
+
+/**
+ * 그 메뉴에 **근거 있는 뜻풀이**가 있으면 준다. 없으면 `null`.
+ *
+ * <p>동기 조회다 — 근거 있는 답은 뜻풀이와 함께 빌드 타임에 구워지고
+ * (`tools/src/build-explain-cache.ts`), 지어낸 인용은 굽는 자리에서 이미 걸러졌다
+ * (`services/enricher/src/cite.ts`). 런타임에 물을 것이 없다.
+ *
+ * <p><b>없는 것이 정상이다.</b> 공개 안내문이 붙은 메뉴에만 있고, 나머지는 지금까지처럼
+ * 이름만 보고 푼 답이다. 그 둘을 화면에서 같아 보이게 하면 안 된다.
+ */
+export function makeGroundedHint(catalog: MenuCatalog) {
+  const byId = new Map(catalog.map((menu) => [menu.id, menu]));
+
+  return (menuId: MenuId): GroundedHint | null => {
+    const menu = byId.get(menuId);
+    if (!menu) return null;
+    return GROUNDED[explainKey(menu.label, menu.path)] ?? null;
   };
 }

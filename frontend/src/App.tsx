@@ -1,5 +1,5 @@
 import type { MenuId, Slots } from "@minui/core";
-import { makeExplain } from "@host-ai/explain.js";
+import { makeExplain, makeGroundedHint } from "@host-ai/explain.js";
 import { IndexedDbStorageAdapter, MinUIProvider, type SttLike } from "@minui/react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { BankProvider } from "./BankContext.js";
@@ -99,6 +99,7 @@ export function App({
    * 되묻기가 곧 답인 편이 낫다 — 그것이 §9.2가 설계한 실패 회복이다.
    */
   const explain = useMemo(() => makeExplain(CATALOG), []);
+  const grounded = useMemo(() => makeGroundedHint(CATALOG), []);
 
   return (
     <MinUIProvider
@@ -108,6 +109,7 @@ export function App({
       storage={storage}
       coldStartPresets={COLD_START_PRESETS}
       explain={explain}
+      groundedHint={grounded}
       fallback={<p className="loading">불러오는 중…</p>}
     >
       <AdaptiveSupportProvider storageKey={storageKey}>
