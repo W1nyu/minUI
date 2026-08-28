@@ -161,8 +161,13 @@ pnpm --filter tools diagnose           # 놓친 질의가 왜 놓쳤는가
 pnpm --filter tools tune:threshold     # 임계값 — 정답 세트와 답 없는 세트를 함께
 pnpm --filter tools fetch:model        # 임베딩 모델 (bge-m3 560MB, 저장소에 없음)
 
+# 공개 안내문을 받아 뜻풀이의 근거로 쓴다. robots.txt를 지키고, 받은 본문은
+# 저장소에 넣지 않는다(.gitignore) — 배포에 담기는 것은 인용한 문장 몇 줄뿐이다.
+pnpm --filter @minui/harvester docs -- https://www.kebhana.com/ kebhana  # 문서 156개
+pnpm --filter tools link:docs             # 메뉴에 문서 붙이기 — 붙는 것은 9개(1.5%)
+
 # 배포에 담아 갈 것을 미리 굽는다. GitHub Pages는 정적이라 런타임 API가 없다.
-pnpm --filter tools build:explain-cache   # 뜻풀이 451개 (Gemini 키 필요)
+pnpm --filter tools build:explain-cache   # 뜻풀이 451개 + 근거 있는 뜻풀이 7개 (Gemini 키 필요)
 pnpm --filter tools build:studio-samples  # Studio 재생용 3곳 (Chrome 필요)
 
 # 도우미(검색이 못 찾았을 때 부르는 LLM)는 임의 발화라 못 굽는다. 따로 띄운다.
@@ -192,6 +197,7 @@ pnpm --filter @minui/enricher bench:assist   # 런타임 LLM 폴백의 이득과
 | 검색 — LLM 폴백까지 (로컬 전체 구성) | **95%** |
 | 답 없는 질의 100건 | 97건 옳게 거절 |
 | 어려운 말 풀이 커버리지 | 86% (2,522/2,948) |
+| 근거(원문 인용)를 댄 뜻풀이 | 7개 — 문서가 붙은 메뉴 9개 중 (2026-08-28) |
 | 개인 동의어 학습이 다른 질의를 망친 건수 | 0건 (64문항) |
 | 이식 시간 | 10초 (반나절 → ) |
 
