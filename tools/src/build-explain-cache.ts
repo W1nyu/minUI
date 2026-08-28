@@ -4,7 +4,10 @@ import { fileURLToPath } from "node:url";
 import type { MenuCatalog } from "@minui/core";
 import { explain } from "../../services/enricher/src/explain.js";
 import { Gemini, readApiKey } from "../../services/enricher/src/gemini.js";
+import { explainWithSource } from "../../services/enricher/src/grounded.js";
+import type { DocsFile } from "../../services/harvester/src/docs.js";
 import { SITES } from "./build-catalog.js";
+import type { LinksFile } from "./link-docs.js";
 
 /**
  * "이게 무슨 뜻이에요?"의 답을 **미리 구워 둔다.**
@@ -31,6 +34,8 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const CATALOGS = join(HERE, "../../demos/src/catalogs");
 const FRONTEND_CATALOG = join(HERE, "../../frontend/src/catalog.ts");
 const OUT = join(HERE, "../../shared/host-ai/explain-cache.json");
+const SOURCES_OUT = join(HERE, "../../shared/host-ai/explain-sources.json");
+const DOCS = join(HERE, "../docs");
 const KEY_FILE = join(HERE, "../../api.txt");
 
 const MODEL = process.env["GEMINI_MODEL"] ?? "gemini-3.1-flash-lite";
@@ -89,6 +94,48 @@ function collect(): Target[] {
   return targets;
 }
 
+/** 근거 있는 뜻풀이 하나. `shared/host-ai/explain.ts`의 `GroundedHint`와 같은 모양이다. */
+interface GroundedRecord {
+  hint: string;
+  quote: string;
+  url: string;
+  title: string;
+}
+
+/**
+ * 문서가 붙은 메뉴를 모은다 (`tools/src/link-docs.ts`가 붙여 둔 것).
+ *
+ * <p><b>뜻풀이가 이미 있어도 모은다.</b> 카탈로그의 뜻풀이는 이름만 보고 쓴 것이고,
+ * 여기서 만드는 것은 그 금융사의 공개 안내문을 읽고 쓴 뒤 인용까지 대조를 통과한 것이다.
+ * 같은 자리에 놓고 고르면 뒤쪽이 이긴다.
+ */
+function collectGrounded(): { key: string; label: string; path?: readonly string[]; document: { url: string; title: string; text: string } }[] {
+  const found: { key: string; label: string; path?: readonly string[]; document: { url: string; title: string; text: string } }[] = [];
+
+  for (const site of SITES) {
+    const linksPath = join(DOCS, `${site}.links.json`);
+    const docsPath = join(DOCS, `${site}.docs.json`);
+    if (!existsSync(linksPath) || !existsSync(docsPath)) continue;
+
+    const links = JSON.parse(readFileSync(linksPath, "utf8")) as LinksFile;
+    const docs = JSON.parse(readFileSync(docsPath, "utf8")) as DocsFile;
+    const byUrl = new Map(docs.docs.map((doc) => [doc.url, doc]));
+
+    for (const link of links.links) {
+      const doc = byUrl.get(link.url);
+      // 문서 파일만 다시 굽고 연결은 안 굽는 경우가 있다. 없는 문서를 근거로 삼지 않는다.
+      if (doc === undefined) continue;
+      found.push({
+        key: key(link.label, link.path),
+        label: link.label,
+        ...(link.path ? { path: link.path } : {}),
+        document: { url: doc.url, title: doc.title, text: doc.text },
+      });
+    }
+  }
+  return found;
+}
+
 const args = process.argv.slice(2);
 const limitAt = args.indexOf("--limit");
 const limit = limitAt >= 0 ? Number(args[limitAt + 1]) : undefined;
@@ -102,16 +149,22 @@ const existing: Record<string, string> = existsSync(OUT)
   ? (JSON.parse(readFileSync(OUT, "utf8")) as Record<string, string>)
   : {};
 
+const existingSources: Record<string, GroundedRecord> = existsSync(SOURCES_OUT)
+  ? (JSON.parse(readFileSync(SOURCES_OUT, "utf8")) as Record<string, GroundedRecord>)
+  : {};
+
 const todo = targets.filter((t) => existing[key(t.label, t.path)] === undefined);
+const groundedTodo = collectGrounded().filter((t) => existingSources[t.key] === undefined);
 
 console.log(
   `\n  뜻풀이 없는 메뉴 ${all.length}개` +
     (targets.length !== all.length ? ` (이번엔 ${targets.length}개)` : "") +
     ` · 이미 된 것 ${targets.length - todo.length}개 · 물어볼 것 ${todo.length}개`,
 );
+console.log(`  문서가 붙은 메뉴 중 근거를 아직 안 받은 것 ${groundedTodo.length}개`);
 console.log(`  모델 ${MODEL}\n`);
 
-if (todo.length === 0) {
+if (todo.length === 0 && groundedTodo.length === 0) {
   console.log("  할 일이 없습니다.\n");
   process.exit(0);
 }
@@ -131,6 +184,57 @@ const save = () => {
   const sorted = Object.fromEntries(Object.entries(result).sort(([a], [b]) => a.localeCompare(b)));
   writeFileSync(OUT, `${JSON.stringify(sorted, null, 2)}\n`, "utf8");
 };
+
+const groundedResult: Record<string, GroundedRecord> = { ...existingSources };
+let grounded = 0;
+let unsupported = 0;
+
+const saveGrounded = () => {
+  mkdirSync(dirname(SOURCES_OUT), { recursive: true });
+  const sorted = Object.fromEntries(
+    Object.entries(groundedResult).sort(([a], [b]) => a.localeCompare(b)),
+  );
+  writeFileSync(SOURCES_OUT, `${JSON.stringify(sorted, null, 2)}\n`, "utf8");
+};
+
+/*
+ * 근거 있는 뜻풀이. **인용이 문서에 없으면 그 답은 통째로 버린다** —
+ * `services/enricher/src/cite.ts`가 문자열로 대조하고, 못 지나면 여기 `null`이 온다.
+ * 버린 것은 기록하지 않는다. 다음에 다시 물으면 통과할 수 있고, 통과 못 한 답을
+ * "모른다"로 굳혀 두면 문서가 좋아져도 영영 안 묻는다.
+ */
+for (const [index, target] of groundedTodo.entries()) {
+  try {
+    const answer = await explainWithSource(
+      gemini,
+      { label: target.label, ...(target.path ? { path: target.path } : {}) },
+      target.document,
+    );
+    if (answer === null) {
+      unsupported += 1;
+      console.log(`    ${target.label} — 근거를 못 댔다 (버림)`);
+    } else {
+      groundedResult[target.key] = {
+        hint: answer.hint,
+        quote: answer.source.quote,
+        url: answer.source.url,
+        title: answer.source.title,
+      };
+      grounded += 1;
+      console.log(`    ${target.label} — ${answer.hint}`);
+      console.log(`      “${answer.source.quote}”`);
+    }
+  } catch (error) {
+    console.log(`    ${target.label} — 실패: ${String(error).slice(0, 80)}`);
+  }
+
+  if ((index + 1) % 5 === 0 || index === groundedTodo.length - 1) saveGrounded();
+}
+
+if (groundedTodo.length > 0) {
+  saveGrounded();
+  console.log(`\n  근거 있는 뜻풀이 ${grounded}개 · 근거 못 댄 것 ${unsupported}개 → ${SOURCES_OUT}\n`);
+}
 
 for (const [index, target] of todo.entries()) {
   const k = key(target.label, target.path);

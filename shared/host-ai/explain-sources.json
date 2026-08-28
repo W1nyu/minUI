@@ -1,0 +1,44 @@
+{
+  "소비자보호체계|고객센터>하나소비자세상": {
+    "hint": "은행이 손님을 보호하기 위해 어떤 일을 하고 어떻게 조직되어 있는지 알려줍니다.",
+    "quote": "금융소비자보호 내부통제위원회는 금융소비자보호에 관한 경영방향, 금융소비자보호 관련 주요 제도 변경, 금융상품의 개발, 영업방식 및 관련 정보공시에 관한 사항, 중요 민원·분쟁에 대한 대응 결과 등의 업무를 한다.",
+    "url": "https://www.kebhana.com/cont/customer/customer04/customer0401/index.jsp",
+    "title": "금융소비자보호체계"
+  },
+  "외화예금|외환": {
+    "hint": "우리나라 돈이 아닌 외국 돈을 은행에 맡겨두고 관리할 수 있는 통장입니다.",
+    "quote": "외화 하나머니 충전·환급 및 하나증권을 통한 해외주식 매매거래 가능한 외화입출금예금",
+    "url": "https://www.kebhana.com/cont/mall/mall11/mall1102/index.jsp",
+    "title": "외화예금"
+  },
+  "인증서 가져오기|인증센터>인증서 복사 및 관리": {
+    "hint": "스마트폰에 들어있는 인증서를 컴퓨터로 옮겨서 인터넷 뱅킹을 할 때 사용하세요.",
+    "quote": "PC의 인증센터 > 스마트폰 인증서 복사 > 인증서 가져오기 메뉴를 선택합니다.",
+    "url": "https://www.kebhana.com/cont/smartapp/smartapp10/smartapp1002/index.jsp",
+    "title": "인증서 가져오기"
+  },
+  "인증서 내보내기|인증센터>인증서 복사 및 관리": {
+    "hint": "컴퓨터에 있는 인증서를 스마트폰으로 옮겨서 쓸 수 있게 해주는 기능입니다.",
+    "quote": "PC의 인증센터 > 스마트폰 인증서 복사 > 인증서 내보내기 메뉴를 선택합니다.",
+    "url": "https://www.kebhana.com/cont/smartapp/smartapp10/smartapp1001/index.jsp",
+    "title": "인증서 내보내기"
+  },
+  "인터넷 뱅킹|고객센터>이용안내": {
+    "hint": "컴퓨터로 은행 창구에 가지 않고 돈을 보내거나 계좌를 확인하는 곳입니다.",
+    "quote": "해외 IP 차단서비스는 해외에서 접속하여 인터넷 뱅킹,스마트폰 뱅킹을 통한 이체서비스 등의 거래를 할 수 없도록 차단하는 서비스입니다.",
+    "url": "https://www.kebhana.com/cont/customer/customer01/customer0103/customer010301/index.jsp",
+    "title": "인터넷뱅킹(리스트)"
+  },
+  "인터넷분실신고|마이하나>분실/사고 신고": {
+    "hint": "통장이나 카드 같은 중요한 물건을 잃어버렸을 때 인터넷으로 바로 알리는 곳입니다.",
+    "quote": "인터넷뱅킹 가입고객일 경우 통장/인감/현금카드,자물쇠카드,신용카드,자기앞수표 등을 분실하셨을 경우에는, [분실신고] 메뉴에 분실신고를 등록하실 수 있습니다.",
+    "url": "https://www.kebhana.com/cont/customer/customer05/customer0502/index.jsp",
+    "title": "인터넷분실신고"
+  },
+  "ARS 사고신고|마이하나>분실/사고 신고": {
+    "hint": "카드나 통장을 잃어버렸을 때 전화로 바로 신고하는 방법입니다.",
+    "quote": "대표번호 1599-1111 / 1588-1111를 누르시면 365일 24시간 분실신고가 가능합니다.",
+    "url": "https://www.kebhana.com/cont/customer/customer05/customer0501/index.jsp",
+    "title": "ARS 사고신고"
+  }
+}
