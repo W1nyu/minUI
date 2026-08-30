@@ -4,7 +4,10 @@ import { clarify } from "../../services/enricher/src/clarify.js";
 import { confirmSentence } from "../../services/enricher/src/confirm.js";
 import { correctQuery } from "../../services/enricher/src/correct.js";
 import { safetyTips } from "../../services/enricher/src/safetyTips.js";
-import { DeepSeek, readDeepSeekKey } from "../../services/enricher/src/deepseek.js";
+import {
+  OpenAiCompatible,
+  readOpenAiCompatibleConfig,
+} from "../../services/enricher/src/openaiCompatible.js";
 import { Gemini, readApiKey } from "../../services/enricher/src/gemini.js";
 import { FallbackLlm, type LlmClient } from "../../services/enricher/src/llm.js";
 
@@ -16,9 +19,10 @@ import { FallbackLlm, type LlmClient } from "../../services/enricher/src/llm.js"
  * 가면 안 된다.** 배포에서는 이 둘이 `services/assist-worker`의 같은 경로가 된다.
  * 하는 일이 같아서 옮기는 비용이 거의 없다.
  *
- * <p><b>무료 한도 두 개를 잇는다</b> (AI-1). Gemini가 먼저이고, 한도나 장애로 막히면
- * DeepSeek이 받는다. `DEEPSEEK_API_KEY`가 없으면 Gemini 하나로만 돌고, 체인은 그대로
- * 작동한다 — 없는 것을 예외로 다루지 않는다.
+ * <p><b>한도 두 개를 잇는다</b> (AI-1). Gemini가 먼저이고, 한도나 장애로 막히면
+ * OpenAI 호환 공급자가 받는다. **벤더를 고르지 않는다** — 주소·키·모델 셋을 주면
+ * 그곳이 두 번째가 되고, 셋 중 하나라도 없으면 Gemini 하나로만 돌면서 체인은 그대로
+ * 작동한다. 없는 것을 예외로 다루지 않는다.
  *
  * <p>둘 다 없으면 이 경로가 503을 준다. 브라우저는 그것을 `null`로 접고, 화면은
  * 지금까지의 되묻기와 고정 문구를 쓴다.
@@ -45,8 +49,16 @@ export function makeLlmChain(onNote: (message: string) => void): LlmClient | nul
     // 키가 없어도 데모는 돈다. 이유는 assistRoute가 이미 콘솔에 적는다.
   }
 
-  const deepSeekKey = readDeepSeekKey();
-  if (deepSeekKey) clients.push(new DeepSeek(deepSeekKey, { onNote }));
+  const compat = readOpenAiCompatibleConfig();
+  if (compat) {
+    clients.push(
+      new OpenAiCompatible(compat.apiKey, {
+        baseUrl: compat.baseUrl,
+        model: compat.model,
+        onNote,
+      }),
+    );
+  }
 
   if (clients.length === 0) return null;
   return clients.length === 1 ? clients[0]! : new FallbackLlm(clients, onNote);

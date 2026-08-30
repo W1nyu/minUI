@@ -10,7 +10,10 @@ import {
   type MenuCatalog,
 } from "@minui/core";
 import { assist, type AssistCandidate } from "./assist.js";
-import { DeepSeek, readDeepSeekKey } from "./deepseek.js";
+import {
+  OpenAiCompatible,
+  readOpenAiCompatibleConfig,
+} from "./openaiCompatible.js";
 import { Gemini, readApiKey } from "./gemini.js";
 import type { LlmClient } from "./llm.js";
 
@@ -46,7 +49,7 @@ const querySet = JSON.parse(
 ) as { sites: Record<string, Case[]>; negative: string[] };
 
 /**
- * 어느 공급자로 잴 것인가 (AI-10). `MINUI_LLM=deepseek`로 바꾼다.
+ * 어느 공급자로 잴 것인가 (AI-10). `MINUI_LLM=compat`로 두 번째 공급자를 잰다.
  *
  * <p>**같은 프롬프트에 모델만 바꾼다.** 후보 목록도 질의 세트도 판정 규칙도 그대로다.
  * 기획안 §16의 "LLM 비교 실험이 성립하지 않는다"는 <b>사람 동의어 대 LLM 동의어</b>
@@ -59,11 +62,16 @@ const querySet = JSON.parse(
 const PROVIDER = process.env["MINUI_LLM"] ?? "gemini";
 
 const llm: LlmClient = (() => {
-  if (PROVIDER === "deepseek") {
-    const key = readDeepSeekKey();
-    if (!key) throw new Error("DEEPSEEK_API_KEY가 없습니다.");
-    return new DeepSeek(key, {
-      ...(process.env["DEEPSEEK_MODEL"] ? { model: process.env["DEEPSEEK_MODEL"] } : {}),
+  if (PROVIDER === "compat") {
+    const compat = readOpenAiCompatibleConfig();
+    if (!compat) {
+      throw new Error(
+        "OPENAI_COMPAT_BASE_URL · OPENAI_COMPAT_API_KEY · OPENAI_COMPAT_MODEL 셋이 다 있어야 합니다.",
+      );
+    }
+    return new OpenAiCompatible(compat.apiKey, {
+      baseUrl: compat.baseUrl,
+      model: compat.model,
       onNote: (message) => console.log(`    ${message}`),
     });
   }

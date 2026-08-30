@@ -208,7 +208,10 @@ pnpm --filter tools build:studio-samples  # Studio 재생용 3곳 (Chrome 필요
 # **없어도 데모는 온전히 돈다** — 되묻기와 고정 문구로 내려갈 뿐이고, 대본은 이것에 기대지 않는다.
 cd services/assist-worker
 pnpm dlx wrangler@3 secret put GOOGLE_API_KEY     # 키는 여기에만 둔다
-pnpm dlx wrangler@3 secret put DEEPSEEK_API_KEY   # 두 번째 무료 한도 (선택)
+pnpm dlx wrangler@3 secret put OPENAI_COMPAT_API_KEY   # 두 번째 공급자 (선택)
+# 두 번째 자리는 **벤더를 고르지 않는다.** /chat/completions를 받는 곳이면 무엇이든
+# 되고, wrangler.toml의 OPENAI_COMPAT_BASE_URL·MODEL까지 셋이 다 있어야 쓴다.
+# 안 넣으면 Gemini 하나로 돌고, 그것으로 충분하다.
 pnpm dlx wrangler@3 deploy                        # 주소가 나온다
 # 그 주소를 저장소 Variables의 ASSIST_URL에 넣으면 다음 배포부터 붙는다.
 # 여섯 경로는 이 주소 하나에서 유도된다 — 환경변수를 여섯으로 늘리지 않는다.
@@ -225,7 +228,7 @@ pnpm --filter @minui/smoke a11y    # 접근성 6가지. 색 대비·터치 크�
 pnpm --filter @minui/smoke perf    # 성능 예산. 넘으면 종료 코드 1
 SMOKE_BASE_URL=http://localhost:5174/ pnpm --filter @minui/smoke smoke
 pnpm --filter @minui/enricher bench:assist   # 런타임 LLM 폴백의 이득과 손해
-MINUI_LLM=deepseek pnpm --filter @minui/enricher bench:assist   # 같은 세트를 다른 모델로
+MINUI_LLM=compat pnpm --filter @minui/enricher bench:assist    # 같은 세트를 다른 공급자로
 ```
 
 주요 수치 (2026-08-14)

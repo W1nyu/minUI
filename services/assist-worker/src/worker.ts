@@ -82,12 +82,18 @@ import { askModel, DEFAULT_GEMINI_MODEL, type ProviderEnv } from "./providers.js
 
 export interface Env extends ProviderEnv {
   GOOGLE_API_KEY: string;
-  /** 두 번째 무료 한도. **없어도 된다** — 있으면 Gemini가 막혔을 때 받는다. */
-  DEEPSEEK_API_KEY?: string;
+  /**
+   * 두 번째 공급자. **없어도 된다** — 있으면 Gemini가 막혔을 때 받는다.
+   *
+   * <p>벤더를 고르지 않는다. `/chat/completions`를 받는 곳이면 무엇이든 되고,
+   * <b>셋이 다 있어야</b> 쓴다 (`providers.ts`).
+   */
+  OPENAI_COMPAT_API_KEY?: string;
+  OPENAI_COMPAT_BASE_URL?: string;
+  OPENAI_COMPAT_MODEL?: string;
   /** 요청을 받아 줄 곳. 쉼표로 여럿. 없으면 아무 데서나 받지 않는다. */
   ALLOWED_ORIGINS?: string;
   GEMINI_MODEL?: string;
-  DEEPSEEK_MODEL?: string;
   DAILY_BUDGET?: string;
 }
 
@@ -153,7 +159,12 @@ export default {
       budget ??= new DailyBudget(Number(env.DAILY_BUDGET ?? 800));
       return json(200, {
         gemini: env.GOOGLE_API_KEY ? "ready" : "off",
-        deepseek: env.DEEPSEEK_API_KEY ? "ready" : "off",
+        // 두 번째 공급자는 **셋이 다 있어야** 산다. 반쯤 설정된 것을 ready라고 하면
+        // 심사 직전 점검이 거짓말을 한다.
+        second:
+          env.OPENAI_COMPAT_API_KEY && env.OPENAI_COMPAT_BASE_URL && env.OPENAI_COMPAT_MODEL
+            ? env.OPENAI_COMPAT_MODEL
+            : "off",
         model: env.GEMINI_MODEL ?? DEFAULT_GEMINI_MODEL,
         routes: ROUTES,
         cached: cache.size,
@@ -204,7 +215,7 @@ export default {
     budget ??= new DailyBudget(Number(env.DAILY_BUDGET ?? 800));
     if (!budget.take()) return json(200, prepared.empty("오늘 예산을 다 썼습니다."));
 
-    if (!env.GOOGLE_API_KEY && !env.DEEPSEEK_API_KEY) {
+    if (!env.GOOGLE_API_KEY && !env.OPENAI_COMPAT_API_KEY) {
       return json(200, prepared.empty("키 없음"));
     }
 
