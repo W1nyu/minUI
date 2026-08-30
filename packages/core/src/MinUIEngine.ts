@@ -439,6 +439,61 @@ export class MinUIEngine {
     await this.flush();
   }
 
+  /**
+   * 홈에 둘 카드를 사용자가 한 번에 고른 순서로 바꾼다.
+   *
+   * <p>자동 재배치와 달리 사용자의 직접 요청은 즉시 보인다. 다만 카드 수보다 많이
+   * 고르거나 카드로 만들 수 없는 메뉴를 고르는 입력은 엔진 경계에서 버린다. UI가 아닌
+   * 이곳에서 막아야 다른 React·비React 호스트도 같은 안전선을 공유한다.
+   */
+  async setPinned(menuIds: readonly MenuId[]): Promise<void> {
+    const seen = new Set<MenuId>();
+    const next: MenuId[] = [];
+    const capacity = Math.min(
+      this.#config.cards.count,
+      this.#config.cards.max,
+      this.#catalog.filter((menu) => menu.cardable !== false).length,
+    );
+
+    for (const menuId of menuIds) {
+      const menu = this.#byId.get(menuId);
+      if (!menu || menu.cardable === false || seen.has(menuId)) continue;
+      seen.add(menuId);
+      next.push(menuId);
+      if (next.length >= capacity) break;
+    }
+
+    this.#pinned = next;
+    const now = this.#clock();
+
+    if (next.length === capacity) {
+      // 카드 편집은 '한 장씩 천천히 바꾸기'의 예외다. 사용자가 네 장을 함께 고르고
+      // 순서까지 정했는데 중간 상태를 보여 주면 직접 편집이라는 약속이 깨진다.
+      this.#layout = {
+        ...this.#layout,
+        current: [...next],
+        pending: null,
+        introducedAt: Object.fromEntries(
+          Object.entries(this.#layout.introducedAt).filter(([menuId]) => next.includes(menuId)),
+        ),
+        lastRecomputedAt: now,
+      };
+      this.#persist();
+    } else if (next.length === 0) {
+      // 추천 카드로 돌아갈 때는 이전의 직접 카드 구성을 비우고 새 추천을 한 번 만든다.
+      // 빈 상태는 LayoutStabilizer의 최초 배치 경로라 1장 교체 제한을 적용하지 않는다.
+      this.#layout = this.#stabilizer.recompute(
+        { ...this.#layout, current: [], pending: null, introducedAt: {} },
+        this.#rankingNow(now),
+        now,
+      ).state;
+      this.#persist();
+    } else {
+      this.#applyForced();
+    }
+    await this.flush();
+  }
+
   // ── 온보딩 ──────────────────────────────────────────────────────────────
 
   getProfile(): ColdStartProfile {

@@ -2,6 +2,7 @@ import type { MenuCatalog, MenuId } from "@minui/core";
 import { useRef, useState, type ReactNode } from "react";
 import { AdaptationSheet } from "./AdaptationSheet.js";
 import { AllMenuSheet } from "./AllMenuSheet.js";
+import { HomeCardEditor } from "./HomeCardEditor.js";
 import { MenuCard } from "./MenuCard.js";
 import { VoiceSearchSheet, type SttLike } from "./VoiceSearchSheet.js";
 import { useMinUI } from "./useMinUI.js";
@@ -45,7 +46,7 @@ export function MinUIHome({
   onInteraction,
 }: MinUIHomeProps) {
   const { cards, open } = useMinUI();
-  const [sheet, setSheet] = useState<"none" | "menus" | "search" | "why">("none");
+  const [sheet, setSheet] = useState<"none" | "menus" | "search" | "why" | "cards">("none");
   const pressStartedAt = useRef<number | null>(null);
 
   const byId = new Map(catalog.map((menu) => [menu.id, menu]));
@@ -120,19 +121,35 @@ export function MinUIHome({
         도달하는 통로이고 이것은 물어보는 자리다. 같은 크기로 놓으면 홈에 큰 버튼이
         셋이 되어 원칙 P1이 흔들린다.
       */}
-      <button
-        type="button"
-        className="minui-quiet-link"
-        onClick={() => {
-          notePress();
-          setSheet("why");
-        }}
-      >
-        왜 이렇게 보이나요?
-      </button>
+      <div className="minui-quiet-actions">
+        <button
+          type="button"
+          className="minui-quiet-link"
+          onClick={() => {
+            notePress();
+            setSheet("cards");
+          }}
+        >
+          홈 카드 고르기
+        </button>
+        <button
+          type="button"
+          className="minui-quiet-link"
+          onClick={() => {
+            notePress();
+            setSheet("why");
+          }}
+        >
+          왜 이렇게 보이나요?
+        </button>
+      </div>
 
       {sheet === "why" && (
         <AdaptationSheet catalog={catalog} onClose={() => setSheet("none")} />
+      )}
+
+      {sheet === "cards" && (
+        <HomeCardEditor catalog={catalog} onClose={() => setSheet("none")} />
       )}
 
       {sheet === "menus" && (
@@ -158,6 +175,7 @@ export function MinUIHome({
           }}
           {...(stt ? { stt } : {})}
           {...(onInteraction ? { onInteraction } : {})}
+          onBrowseAll={() => setSheet("menus")}
         />
       )}
     </div>

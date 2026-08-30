@@ -523,7 +523,7 @@ describe("카드 순서 — 중요한 것이 앞에", () => {
     ]);
   });
 
-  it("나중에 고정했어도 더 많이 보면 앞으로 온다", async () => {
+  it("더 많이 봐도 직접 정한 순서를 뒤집지 않는다", async () => {
     const h = harness();
     const engine = await h.open({ config: LIVE });
 
@@ -532,9 +532,16 @@ describe("카드 순서 — 중요한 것이 앞에", () => {
     await engine.pin("product.loan");
     await view(engine, h, "product.loan", 4);
 
+    /*
+     * 사용 횟수는 `product.loan`이 많지만 순서는 고정한 차례 그대로다.
+     *
+     * 홈 카드 직접 편집(`setPinned`)이 생기면서 이 규칙이 뒤집혔다. 사용자가 순서까지
+     * 정해 두고 나갔는데 며칠 뒤 열었을 때 자리가 바뀌어 있으면, 그것은 개인화가 아니라
+     * **직접 정한 것이 지켜지지 않는다**는 신호다. 자동 판단이 이길 자리가 아니다.
+     */
     expect(engine.getCards().map((c) => c.menuId).slice(0, 2)).toEqual([
-      "product.loan",
       "settings.limit",
+      "product.loan",
     ]);
   });
 

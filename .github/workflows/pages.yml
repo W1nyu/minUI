@@ -42,6 +42,8 @@ jobs:
       # 화면은 로컬 검색 → 되묻기로 끝나고, 프로덕션 번들에서 호출 경로 자체가 사라진다.
       # 켜려면 저장소 Variables에 ASSIST_URL을 넣는다. 코드는 안 고쳐도 된다.
       VITE_ASSIST_URL: ${{ vars.ASSIST_URL }}
+      # 사용자가 복사하는 의견이 어느 공개본에서 나왔는지 구분한다. 비밀값은 아니다.
+      VITE_RELEASE_ID: ${{ github.sha }}
     steps:
       - uses: actions/checkout@v4
 

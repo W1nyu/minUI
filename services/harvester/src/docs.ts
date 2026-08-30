@@ -7,7 +7,11 @@ import { checkUrl, parseRobots, robotsAllows, type RobotsRules } from "./guard.j
  * 쓰임이 다르다. 이름은 검색이 쓰고, 본문은 `/api/explain`이 "왜 그런지"를 댈 때 쓴다.
  * 근거 없이 모델이 쓴 설명은 그럴듯한 문장일 뿐이고, 금융 화면에서 그것은 위험하다.
  *
- * <p><b>왜 `.jsp`만 받는가.</b> 하나은행을 재 보고 정해졌다(계획서 §Task 1 결과).
+ * <p><b>문서가 사는 자리는 사이트마다 다르다.</b> 기본값(`.jsp`, 쿼리 뗌)은 하나은행을 재 보고
+ * 정해졌고(계획서 §Task 1 결과), KB증권처럼 `/go.able?linkcd=`가 유일한 열쇠인 곳은
+ * `extensions`·`keepQuery`로 바꿔 준다.
+ *
+ * <p>하나은행의 사정은 이랬다.
  * 전체메뉴 링크 652개 중 502개가 거래 화면(`.do`)인데 <b>전부 `?_menuNo=`를 달고 있고</b>,
  * 이 사이트의 robots는 `Disallow: /*?`로 쿼리가 붙은 주소를 통째로 막는다. 남는 것이
  * `/cont/**` 아래의 `.jsp` — 상품 설명과 안내문이다. 우리가 필요한 것도 그것이다.
@@ -49,6 +53,22 @@ export interface HarvestDocsOptions {
   minChars?: number;
   /** 요청 사이 간격(ms). 기본 500 — 초당 두 번을 넘지 않는다. */
   delayMs?: number;
+  /**
+   * 문서로 칠 확장자. 기본은 `.jsp`(하나은행).
+   *
+   * <p>사이트마다 문서가 사는 자리가 다르다. KB증권은 `/go.able`이 전부다.
+   * 확장자를 붙박이로 두면 그 사이트는 수집 자체가 안 된다.
+   */
+  extensions?: readonly string[];
+  /**
+   * 쿼리를 남길 것인가. **기본은 떼는 것이다.**
+   *
+   * <p>떼는 편이 안전하다 — 하나은행 robots가 `Disallow: /*?`로 쿼리 붙은 주소를 통째로
+   * 막으므로 뗀 주소만 부르는 것이 그쪽 뜻을 지키는 길이다. 하지만 KB증권은 쿼리가
+   * <b>문서를 가리키는 유일한 열쇠</b>라(`?linkcd=`) 떼면 전부 같은 첫 화면이 된다.
+   * 켜더라도 robots 판정은 그대로 돈다 — 막힌 주소는 여전히 안 부른다.
+   */
+  keepQuery?: boolean;
   onProgress?: (stage: string, detail?: string) => void;
 }
 
@@ -87,6 +107,7 @@ export function normalizeDocUrl(
   base: string,
   host: string,
   robots: RobotsRules,
+  options: { extensions: readonly string[]; keepQuery: boolean },
 ): { url: string } | { skip: "offSite" | "notJsp" | "robots" | "bad" } {
   let url: URL;
   try {
@@ -98,11 +119,13 @@ export function normalizeDocUrl(
   if (url.protocol !== "https:" && url.protocol !== "http:") return { skip: "bad" };
   if (url.host !== host) return { skip: "offSite" };
 
-  url.search = "";
+  if (!options.keepQuery) url.search = "";
   url.hash = "";
 
-  if (!url.pathname.toLowerCase().endsWith(".jsp")) return { skip: "notJsp" };
-  if (!robotsAllows(robots, url.pathname)) return { skip: "robots" };
+  const path = url.pathname.toLowerCase();
+  if (!options.extensions.some((ext) => path.endsWith(ext))) return { skip: "notJsp" };
+  // 판정은 쿼리까지 포함해서 한다 — `Disallow: /*?`는 경로만 봐서는 안 걸린다.
+  if (!robotsAllows(robots, `${url.pathname}${url.search}`)) return { skip: "robots" };
 
   return { url: url.toString() };
 }
@@ -258,6 +281,8 @@ export async function harvestDocs(options: HarvestDocsOptions): Promise<HarvestD
   const maxPages = options.maxPages ?? 300;
   const minChars = options.minChars ?? 600;
   const delayMs = options.delayMs ?? 500;
+  const extensions = options.extensions ?? [".jsp"];
+  const keepQuery = options.keepQuery ?? false;
 
   const checked = checkUrl(options.url);
   if (!checked.ok || !checked.url) throw new Error(checked.reason ?? "열 수 없는 주소입니다.");
@@ -301,7 +326,7 @@ export async function harvestDocs(options: HarvestDocsOptions): Promise<HarvestD
 
     if (next.depth < maxDepth) {
       for (const href of findHrefs(html)) {
-        const verdict = normalizeDocUrl(href, next.url, host, robots);
+        const verdict = normalizeDocUrl(href, next.url, host, robots, { extensions, keepQuery });
         if ("skip" in verdict) {
           if (verdict.skip === "robots") skipped.robots += 1;
           else if (verdict.skip === "offSite") skipped.offSite += 1;
@@ -314,8 +339,9 @@ export async function harvestDocs(options: HarvestDocsOptions): Promise<HarvestD
       }
     }
 
-    // 시작 주소가 `.jsp`가 아니면 그것 자체는 문서로 담지 않는다 — 링크를 얻으려 연 것이다.
-    if (!next.url.toLowerCase().endsWith(".jsp")) continue;
+    // 시작 주소가 문서 모양이 아니면 그것 자체는 담지 않는다 — 링크를 얻으려 연 것이다.
+    const startPath = new URL(next.url).pathname.toLowerCase();
+    if (!extensions.some((ext) => startPath.endsWith(ext))) continue;
 
     const doc = toDoc(next.url, html);
     if (doc.chars < minChars) {
@@ -339,7 +365,8 @@ export async function harvestDocs(options: HarvestDocsOptions): Promise<HarvestD
       host,
       capturedAt: new Date().toISOString(),
       note:
-        "공개 안내문 수집. robots.txt 준수(쿼리가 붙은 주소와 막힌 경로는 요청하지 않음). " +
+        `공개 안내문 수집. ${extensions.join("·")}${keepQuery ? " (쿼리 포함)" : " (쿼리 뗌)"}. ` +
+        "robots.txt 준수 — 막힌 주소는 요청하지 않음. " +
         `로그인하지 않은 상태에서 ${maxDepth}다리까지.`,
     },
     docs,
@@ -361,7 +388,15 @@ async function loadRobots(origin: string): Promise<RobotsRules> {
   // robots가 없으면 제한이 없다는 뜻이다. 못 읽은 것과는 다르다 — 못 읽으면 던진다.
   if (response.status === 404) return { disallow: [], allow: [] };
   if (!response.ok) throw new Error(`robots.txt를 읽지 못했습니다 (${response.status}).`);
-  return parseRobots(await response.text());
+
+  const body = await response.text();
+  /*
+   * robots.txt 자리에 **오류 페이지**를 주는 곳이 있다. KB증권이 그렇다 — 302로 보내고
+   * 200 HTML을 준다. 그것을 robots로 파싱하면 규칙 0개가 나와 결과적으로는 맞지만,
+   * 맞는 이유가 우연이다. HTML이면 규칙이 없는 것으로 <b>명시해서</b> 본다.
+   */
+  if (/<html|<!doctype/i.test(body.slice(0, 200))) return { disallow: [], allow: [] };
+  return parseRobots(body);
 }
 
 async function fetchHtml(url: string): Promise<string | null> {
@@ -375,9 +410,30 @@ async function fetchHtml(url: string): Promise<string | null> {
     if (!response.ok) return null;
     const type = response.headers.get("content-type") ?? "";
     if (!type.includes("html")) return null;
-    return await response.text();
+    return decodeBody(Buffer.from(await response.arrayBuffer()), type);
   } catch {
     return null;
+  }
+}
+
+/**
+ * 바이트를 글자로 푼다. **UTF-8이라고 단정하지 않는다.**
+ *
+ * <p>KB증권이 EUC-KR이다. `response.text()`는 UTF-8로 읽어서 본문이 통째로 깨지는데,
+ * 깨진 본문은 뜻풀이도 인용도 못 만든다. 그런데 <b>조용히 실패한다</b> — 수집은 성공하고
+ * 글자만 쓰레기가 된다. 헤더의 charset을 먼저 보고, 없으면 `<meta charset>`을 본다.
+ */
+export function decodeBody(bytes: Buffer, contentType: string): string {
+  const fromHeader = /charset=["']?([\w-]+)/i.exec(contentType)?.[1];
+  // meta는 문서 앞머리에 있고, 그 앞머리는 어떤 인코딩이든 ASCII로 읽힌다.
+  const fromMeta = /charset=["']?([\w-]+)/i.exec(bytes.subarray(0, 2_000).toString("latin1"))?.[1];
+  const charset = (fromHeader ?? fromMeta ?? "utf-8").toLowerCase();
+
+  try {
+    return new TextDecoder(charset).decode(bytes);
+  } catch {
+    // 모르는 이름이면 UTF-8로 읽는다. 여기서 던지면 한 쪽 때문에 수집 전체가 멈춘다.
+    return bytes.toString("utf8");
   }
 }
 

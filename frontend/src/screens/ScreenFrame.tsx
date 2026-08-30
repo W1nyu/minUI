@@ -14,6 +14,8 @@ export interface ScreenFrameProps {
    * 억지로 id를 붙이면 관계 없는 형제가 다음 단계인 척한다.
    */
   menuId?: MenuId;
+  /** 이 화면에서 바로 해야 할 한 단계. 형제 메뉴 제안과 역할을 섞지 않는다. */
+  guide?: string;
 }
 
 /**
@@ -23,7 +25,7 @@ export interface ScreenFrameProps {
  * "UI 외의 변수를 통제한다"고 한 것의 실제 구현이다 — 화면이 갈라지는 순간
  * 두 모드의 완료 시간 차이가 무엇 때문인지 말할 수 없게 된다.
  */
-export function ScreenFrame({ title, onBack, children, menuId }: ScreenFrameProps) {
+export function ScreenFrame({ title, onBack, children, menuId, guide }: ScreenFrameProps) {
   return (
     <div className="screen" role="dialog" aria-modal="true" aria-label={title}>
       {/*
@@ -38,6 +40,12 @@ export function ScreenFrame({ title, onBack, children, menuId }: ScreenFrameProp
         <h2 className="screen-title">{title}</h2>
       </div>
       <div className="screen-body">
+        {guide && (
+          <aside className="screen-guide" aria-label="지금 하실 일">
+            <p className="screen-guide-title">지금 하실 일</p>
+            <p>{guide}</p>
+          </aside>
+        )}
         {children}
         {/*
           **두 모드가 같은 화면 컴포넌트를 연다.** 다음 단계 안내를 여기 두면 쉬운 모드와

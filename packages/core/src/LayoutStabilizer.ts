@@ -184,10 +184,8 @@ export class LayoutStabilizer {
    *
    * <ol>
    *   <li><b>고정한 것이 먼저</b> — 사용자가 직접 정한 것이 자동 판단보다 위다
-   *   <li><b>조회 횟수가 많은 것부터</b> — 고정한 것끼리도 이 규칙을 먼저 적용한다.
-   *       그래서 나중에 고정한 메뉴라도 더 많이 보면 앞으로 올라온다
-   *   <li>횟수가 같으면 — 고정한 것은 <b>먼저 고정한 순서</b>,
-   *       고정하지 않은 것은 <b>최근에 본 순서</b>
+   *   <li><b>고정한 순서</b> — 직접 정한 홈 순서를 사용 이력이 다시 뒤집지 않는다
+   *   <li>고정하지 않은 것은 조회 횟수가 많은 것부터, 동률이면 최근에 본 순서</li>
    * </ol>
    *
    * <p>이것은 §8.2의 "자리를 지킨다"를 <b>버린 것이다.</b> 원래는 랭킹이 바뀌어도 남아 있는
@@ -219,12 +217,12 @@ export class LayoutStabilizer {
     cards.sort((a, b) => {
       if (a.pinned !== b.pinned) return a.pinned ? -1 : 1;
 
-      const views = (byMenu.get(b.menuId)?.views ?? 0) - (byMenu.get(a.menuId)?.views ?? 0);
-      if (views !== 0) return views;
-
-      if (a.pinned) {
+      if (a.pinned && b.pinned) {
         return (pinOrder.get(a.menuId) ?? 0) - (pinOrder.get(b.menuId) ?? 0);
       }
+
+      const views = (byMenu.get(b.menuId)?.views ?? 0) - (byMenu.get(a.menuId)?.views ?? 0);
+      if (views !== 0) return views;
 
       const lastA = byMenu.get(a.menuId)?.lastUsedAt ?? null;
       const lastB = byMenu.get(b.menuId)?.lastUsedAt ?? null;

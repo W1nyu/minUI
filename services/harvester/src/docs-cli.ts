@@ -5,6 +5,7 @@ import { harvestDocs } from "./docs.js";
 
 /**
  * `pnpm --filter @minui/harvester docs -- <URL> [이름] [--pages 300] [--depth 2]`
+ *                                        `[--ext .jsp,.able] [--query]`
  *
  * <p>산출물은 `tools/docs/<이름>.docs.json`이다. 카탈로그(`tools/catalogs`)와 나란히 두되
  * 폴더를 가른 것은 성격이 달라서다 — 카탈로그는 <b>이름</b>이고 배포에 들어가지만,
@@ -21,6 +22,15 @@ const flag = (name: string): number | undefined => {
   const value = Number(argv[at + 1]);
   return Number.isFinite(value) ? value : undefined;
 };
+
+/** 값을 받는 문자열 플래그. */
+const text = (name: string): string | undefined => {
+  const at = argv.indexOf(`--${name}`);
+  return at < 0 ? undefined : argv[at + 1];
+};
+
+/** 값 없는 스위치. */
+const on = (name: string): boolean => argv.includes(`--${name}`);
 
 const positional = argv.filter((arg, index) => {
   if (arg.startsWith("--")) return false;
@@ -43,6 +53,10 @@ const result = await harvestDocs({
   ...(flag("pages") !== undefined ? { maxPages: flag("pages") as number } : {}),
   ...(flag("depth") !== undefined ? { maxDepth: flag("depth") as number } : {}),
   ...(flag("min") !== undefined ? { minChars: flag("min") as number } : {}),
+  ...(text("ext") !== undefined
+    ? { extensions: (text("ext") as string).split(",").map((part) => part.trim().toLowerCase()) }
+    : {}),
+  ...(on("query") ? { keepQuery: true } : {}),
   onProgress: (stage, detail) => console.log(`  ${stage.padEnd(7)} ${detail ?? ""}`),
 });
 
