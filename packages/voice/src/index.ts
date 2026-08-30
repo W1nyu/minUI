@@ -7,6 +7,11 @@ export {
 } from "./SttProvider.js";
 export { WebSpeechSttProvider, type WebSpeechOptions } from "./WebSpeechSttProvider.js";
 export { MockSttProvider, type ScriptedUtterance } from "./MockSttProvider.js";
+export { maskDigits, type TtsProvider } from "./TtsProvider.js";
+export {
+  WebSpeechTtsProvider,
+  type WebSpeechTtsOptions,
+} from "./WebSpeechTtsProvider.js";
 /*
  * 엔진은 하나다 — 브라우저 Web Speech (기획안 §9.1).
  *

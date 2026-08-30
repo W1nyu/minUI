@@ -191,9 +191,27 @@ export type UsageIntent = "inquiry" | "transfer" | "invest";
 /** 온보딩 질문 2 — 글씨 크기. */
 export type TextScale = "normal" | "large" | "xlarge";
 
+/**
+ * 화면 대비 (F17). 색만 바꾸고 배치는 건드리지 않는다.
+ *
+ * <p>글씨 크기와 <b>다른 축</b>이다. 크게 해도 안 보이는 사람과 크기는 괜찮은데 흐린
+ * 색을 못 읽는 사람은 서로 다른 사람이고, 한 손잡이로 묶으면 둘 중 하나는 필요 없는
+ * 것까지 받는다.
+ */
+export type Contrast = "normal" | "high";
+
 export interface ColdStartProfile {
   intent: UsageIntent;
   textScale: TextScale;
+  /**
+   * **선택 필드다.** 없으면 `"normal"`로 읽는다.
+   *
+   * <p>필수로 만들면 `STATE_VERSION`을 올려야 하고, 그러면 이미 쓰던 사람의 카드 배치와
+   * 배운 말이 마이그레이션 대상이 된다. 대비 하나를 더하자고 치를 값이 아니다 —
+   * 온보딩을 봤는지를 엔진 상태가 아니라 localStorage에 둔 것과 같은 판단
+   * (`MinUIShell`).
+   */
+  contrast?: Contrast;
 }
 
 /** 의도별 초기 카드 세트. 호스트 앱이 자기 메뉴 ID로 채운다. */

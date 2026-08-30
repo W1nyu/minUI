@@ -1,5 +1,7 @@
 import { groupByPath, headingText, type MenuCatalog, type MenuId } from "@minui/core";
 import { useEffect, useId, useMemo, useRef, useState } from "react";
+import { ContrastControl } from "./ContrastControl.js";
+import { ProvenanceBadge, type HintProvenance } from "./ProvenanceBadge.js";
 import { TextScaleControl } from "./TextScaleControl.js";
 import { useMinUI } from "./useMinUI.js";
 
@@ -27,16 +29,23 @@ export function AllMenuSheet({ catalog, onClose, onSelect }: AllMenuSheetProps) 
    * <p>`null`은 "물어봤는데 모른다더라"이고 빈 값은 "아직 안 물어봤다"다. 둘을 구분해야
    * 모른다고 답한 자리에 버튼을 다시 띄우지 않는다.
    */
-  const [asked, setAsked] = useState<Record<MenuId, string | null>>({});
+  const [asked, setAsked] = useState<Record<MenuId, AskedHint>>({});
   const [asking, setAsking] = useState<MenuId | null>(null);
 
   function ask(menuId: MenuId) {
     if (!explain) return;
     setAsking(menuId);
     void explain(menuId)
-      .then((hint) => setAsked((previous) => ({ ...previous, [menuId]: hint })))
+      .then((answer) =>
+        setAsked((previous) => ({ ...previous, [menuId]: normalizeAnswer(answer) })),
+      )
       // 도우미가 죽어도 화면은 그대로다. 모른다고 말하고 끝낸다.
-      .catch(() => setAsked((previous) => ({ ...previous, [menuId]: null })))
+      .catch(() =>
+        setAsked((previous) => ({
+          ...previous,
+          [menuId]: { hint: null, provenance: "cache" },
+        })),
+      )
       .finally(() => setAsking(null));
   }
   /**
@@ -102,6 +111,15 @@ export function AllMenuSheet({ catalog, onClose, onSelect }: AllMenuSheetProps) 
           <TextScaleControl />
         </section>
 
+        {/*
+          대비를 글씨 크기 **바로 아래**에 둔다. 둘 다 "화면이 안 보인다"에 대한 답이라,
+          하나를 찾은 사람이 다른 하나를 못 찾으면 절반만 해결하고 나간다.
+        */}
+        <section className="minui-group">
+          <h3 className="minui-group-name">화면 대비</h3>
+          <ContrastControl />
+        </section>
+
         {groups.map((group, groupIndex) => (
           <section className="minui-group" key={group.heading}>
             <h3 className="minui-group-name">
@@ -116,8 +134,18 @@ export function AllMenuSheet({ catalog, onClose, onSelect }: AllMenuSheetProps) 
                   통과한 것이라 더 셀 이유가 있다. 없으면 지금까지의 차례 그대로다.
                 */
                 const grounded = groundedHint?.(menu.id) ?? null;
-                const hint = grounded?.hint ?? menu.hint ?? asked[menu.id] ?? undefined;
+                const answer = asked[menu.id];
+                const hint = grounded?.hint ?? menu.hint ?? answer?.hint ?? undefined;
                 const answered = menu.id in asked;
+                /*
+                 * 출처는 **답을 고른 순서와 같은 순서**로 정한다. 화면에 뜬 문장이
+                 * 어디서 왔는지와 배지가 어긋나면, 배지가 없느니만 못하다.
+                 */
+                const provenance: HintProvenance = grounded
+                  ? "grounded"
+                  : menu.hint
+                    ? "catalog"
+                    : (answer?.provenance ?? "cache");
                 const hintId = hint
                   ? `${hintIdPrefix}-${groupIndex}-${index}`
                   : undefined;
@@ -150,6 +178,7 @@ export function AllMenuSheet({ catalog, onClose, onSelect }: AllMenuSheetProps) 
                     */}
                     {hint && (
                       <p className="minui-menu-row-hint" id={hintId}>
+                        <ProvenanceBadge provenance={provenance} model={answer?.model} />
                         {hint}
                       </p>
                     )}
@@ -194,7 +223,7 @@ export function AllMenuSheet({ catalog, onClose, onSelect }: AllMenuSheetProps) 
                     )}
 
                     {/* 모른다고 답한 자리. 버튼을 되돌리지 않는다 — 같은 답이 또 온다. */}
-                    {answered && asked[menu.id] === null && (
+                    {answered && answer?.hint == null && (
                       <p className="minui-menu-row-hint" data-empty="true">
                         뜻을 알 수 없었어요
                       </p>
@@ -225,3 +254,25 @@ const OPEN_BUTTON_STYLE = {
   cursor: "pointer",
   padding: 0,
 } as const;
+
+/** 도우미가 답한 것 하나. 문장과 출처가 함께 다닌다 (AI-8). */
+interface AskedHint {
+  hint: string | null;
+  provenance: HintProvenance;
+  model?: string | undefined;
+}
+
+/**
+ * 호스트가 문자열만 돌려줘도 받는다.
+ *
+ * <p>계약을 넓히면서 <b>기존 호스트를 깨지 않는</b> 자리다. 문자열로 온 것은 출처를
+ * 모르므로 `cache`로 본다 — 지금까지 화면이 "기본 설명"이라고 부르던 것과 같은 뜻이고,
+ * <b>모르면 AI라고 말하지 않는다</b>는 쪽이 안전하다.
+ */
+function normalizeAnswer(
+  answer: string | { hint: string | null; provenance: HintProvenance; model?: string | undefined } | null,
+): AskedHint {
+  if (answer === null) return { hint: null, provenance: "cache" };
+  if (typeof answer === "string") return { hint: answer, provenance: "cache" };
+  return answer;
+}

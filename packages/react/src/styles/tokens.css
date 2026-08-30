@@ -100,3 +100,90 @@
   --minui-crit: #e2796b;
   --minui-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 10px 30px rgba(0, 0, 0, 0.28);
 }
+
+/* ── 고대비 (F17) ──────────────────────────────────────────────────────── */
+
+/*
+ * **색만 바꾼다.** 여백·크기·둥근 정도·터치 영역은 그대로다 — 대비를 켰다고 배치가
+ * 달라지면 사용자는 익힌 자리를 다시 배워야 하고, 그것은 §8.2가 막으려던 바로 그 일이다.
+ *
+ * 세 가지를 한다.
+ *   ① 흐린 글자를 없앤다. `ink-2`·`ink-3`가 본문색과 같아진다 — 대비가 필요한 사람에게
+ *      "덜 중요한 글자"라는 표현은 쓸 수 있는 신호가 아니다. 중요도는 크기와 자리로 낸다
+ *   ② 선을 진하게. 카드의 경계가 그림자가 아니라 선으로 보이게 한다
+ *   ③ 그림자를 끈다. 흐릿한 경계는 저시력에서 경계가 아니라 얼룩이다
+ *
+ * 이 블록은 어두운 테마 뒤에 온다. 특성도가 같아 **순서로 이긴다** — 어두운 테마에서도
+ * 고대비를 켜면 이 값이 적용돼야 한다.
+ */
+:root[data-minui-contrast="high"] {
+  --minui-paper: #ffffff;
+  --minui-surface: #ffffff;
+  --minui-surface-2: #f2f2f2;
+  --minui-ink: #000000;
+  --minui-ink-2: #000000;
+  --minui-ink-3: #1a1a1a;
+  --minui-line: #000000;
+  --minui-line-strong: #000000;
+  --minui-accent: #00413a;
+  --minui-accent-ink: #ffffff;
+  --minui-accent-soft: #d8ece8;
+  --minui-warn: #6b3800;
+  --minui-warn-soft: #ffeed8;
+  --minui-crit: #8a0000;
+  --minui-shadow: none;
+}
+
+/* 어두운 화면에서 고대비를 켜면 흰 바탕이 아니라 **완전한 검정 바탕**이어야 한다. */
+@media (prefers-color-scheme: dark) {
+  :root[data-minui-contrast="high"]:not([data-theme="light"]) {
+    --minui-paper: #000000;
+    --minui-surface: #000000;
+    --minui-surface-2: #141414;
+    --minui-ink: #ffffff;
+    --minui-ink-2: #ffffff;
+    --minui-ink-3: #f0f0f0;
+    --minui-line: #ffffff;
+    --minui-line-strong: #ffffff;
+    --minui-accent: #7fe6cd;
+    --minui-accent-ink: #000000;
+    --minui-accent-soft: #052722;
+    --minui-warn: #ffc880;
+    --minui-warn-soft: #241a08;
+    --minui-crit: #ff9a8c;
+  }
+}
+
+:root[data-theme="dark"][data-minui-contrast="high"] {
+  --minui-paper: #000000;
+  --minui-surface: #000000;
+  --minui-surface-2: #141414;
+  --minui-ink: #ffffff;
+  --minui-ink-2: #ffffff;
+  --minui-ink-3: #f0f0f0;
+  --minui-line: #ffffff;
+  --minui-line-strong: #ffffff;
+  --minui-accent: #7fe6cd;
+  --minui-accent-ink: #000000;
+  --minui-accent-soft: #052722;
+  --minui-warn: #ffc880;
+  --minui-warn-soft: #241a08;
+  --minui-crit: #ff9a8c;
+}
+
+/*
+ * 움직임을 줄여 달라는 요청을 존중한다.
+ *
+ * 어지럼증·전정기관 질환이 있는 사용자에게 전환 애니메이션은 불편이 아니라 증상이다.
+ * 이 저장소는 원래 애니메이션이 거의 없지만, 앞으로 누가 더할 때를 위해 여기 둔다.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

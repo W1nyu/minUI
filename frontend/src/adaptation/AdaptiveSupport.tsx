@@ -58,6 +58,8 @@ interface PersistedAdaptiveSupport {
   asked: boolean;
   consented: boolean;
   level: SupportLevel;
+  /** 사용자가 직접 고른 경우 행동 합계가 화면을 다시 바꾸지 않는다. */
+  manualLevel: SupportLevel | null;
   signals: AggregateSignals;
 }
 
@@ -65,9 +67,12 @@ export interface AdaptiveSupportValue {
   asked: boolean;
   consented: boolean;
   level: SupportLevel;
+  manualLevel: SupportLevel | null;
   signals: Readonly<AggregateSignals>;
   grantConsent: () => void;
   declineConsent: () => void;
+  setLevel: (level: SupportLevel) => void;
+  useAutomaticLevel: () => void;
   forget: () => void;
   recordPress: (durationMs: number | undefined) => void;
   recordVoice: (durationMs: number) => void;
@@ -90,6 +95,7 @@ function initialState(): PersistedAdaptiveSupport {
     asked: false,
     consented: false,
     level: "guided",
+    manualLevel: null,
     signals: { ...EMPTY_SIGNALS },
   };
 }
@@ -110,7 +116,14 @@ function load(key: string): PersistedAdaptiveSupport {
     ) {
       return initialState();
     }
-    return parsed;
+    // v1 초반 탭에는 manualLevel이 없었다. 같은 버전의 추가 필드라 기본값만 보충한다.
+    const manualLevel =
+      parsed.manualLevel === "simple" ||
+      parsed.manualLevel === "guided" ||
+      parsed.manualLevel === "standard"
+        ? parsed.manualLevel
+        : null;
+    return { ...parsed, manualLevel };
   } catch {
     return initialState();
   }
@@ -170,7 +183,11 @@ export function AdaptiveSupportProvider({
       setState((previous) => {
         if (!previous.consented) return previous;
         const signals = change(previous.signals);
-        const next = { ...previous, signals, level: nextLevel(previous.level, signals, config) };
+        const next = {
+          ...previous,
+          signals,
+          level: previous.manualLevel ?? nextLevel(previous.level, signals, config),
+        };
         save(key, next);
         return next;
       });
@@ -191,6 +208,30 @@ export function AdaptiveSupportProvider({
     setState(next);
     save(key, next);
   }, [key]);
+
+  /** 직접 고르기는 행동 데이터를 모으지 않아도 쓸 수 있다. */
+  const setLevel = useCallback(
+    (level: SupportLevel) => {
+      setState((previous) => {
+        const next = { ...previous, asked: true, level, manualLevel: level };
+        save(key, next);
+        return next;
+      });
+    },
+    [key],
+  );
+
+  const useAutomaticLevel = useCallback(() => {
+    setState((previous) => {
+      const next = {
+        ...previous,
+        manualLevel: null,
+        level: previous.consented ? nextLevel(previous.level, previous.signals, config) : "guided",
+      };
+      save(key, next);
+      return next;
+    });
+  }, [config, key]);
 
   const forget = useCallback(() => {
     setOpenedAt(null);
@@ -253,9 +294,12 @@ export function AdaptiveSupportProvider({
       consented: state.consented,
       asked: state.asked,
       level: state.level,
+      manualLevel: state.manualLevel,
       signals: state.signals,
       grantConsent,
       declineConsent,
+      setLevel,
+      useAutomaticLevel,
       forget,
       recordPress,
       recordVoice,
@@ -266,6 +310,8 @@ export function AdaptiveSupportProvider({
       state,
       grantConsent,
       declineConsent,
+      setLevel,
+      useAutomaticLevel,
       forget,
       recordPress,
       recordVoice,
