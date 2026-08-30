@@ -1,4 +1,5 @@
 import { readFileSync } from "node:fs";
+import type { LlmClient } from "./llm.js";
 
 /**
  * Gemini 호출. **무료 한도 안에서 도는 것이 전제다.**
@@ -46,7 +47,12 @@ export function readApiKey(filePath: string): string {
   );
 }
 
-export class Gemini {
+/**
+ * <p>`LlmClient`를 구현한다 (AI-1). **동작은 한 줄도 바꾸지 않았다** — 프롬프트가
+ * 갈라지면 여기서 나오는 답이 `bench:assist`로 잰 것과 달라진다. 더한 것은 `name`
+ * 하나뿐이고, 그것은 화면의 출처 배지가 어느 모델이 답했는지 말하기 위해서다.
+ */
+export class Gemini implements LlmClient {
   readonly usage: Usage = { inputTokens: 0, outputTokens: 0, requests: 0, retries: 0 };
 
   readonly #key: string;
@@ -64,6 +70,11 @@ export class Gemini {
 
   get spacingMs(): number {
     return this.#spacing;
+  }
+
+  /** 어느 모델이 답했는가. 키가 아니라 모델 이름이므로 화면에 보여도 된다. */
+  get name(): string {
+    return this.#model;
   }
 
   /**

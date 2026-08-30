@@ -1,4 +1,4 @@
-import type { Gemini } from "./gemini.js";
+import type { LlmClient } from "./llm.js";
 
 /**
  * 온디바이스가 못 찾았을 때 LLM이 **사용자가 한 말을 보고** 고른다.
@@ -81,12 +81,12 @@ export function parseAssistResponse(
 
 /** 한 번의 폴백. 호출자는 온디바이스가 실패했을 때만 부른다. */
 export async function assist(
-  gemini: Gemini,
+  llm: LlmClient,
   query: string,
   candidates: readonly AssistCandidate[],
 ): Promise<{ menuId: string | null; why: string }> {
   if (candidates.length === 0) return { menuId: null, why: "후보 없음" };
-  const raw = await gemini.json(
+  const raw = await llm.json(
     ASSIST_SYSTEM,
     buildAssistPrompt(query, candidates),
     ASSIST_SCHEMA,

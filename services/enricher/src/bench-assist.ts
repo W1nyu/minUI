@@ -10,7 +10,9 @@ import {
   type MenuCatalog,
 } from "@minui/core";
 import { assist, type AssistCandidate } from "./assist.js";
+import { DeepSeek, readDeepSeekKey } from "./deepseek.js";
 import { Gemini, readApiKey } from "./gemini.js";
+import type { LlmClient } from "./llm.js";
 
 /**
  * 런타임 LLM 폴백이 실제로 이득인가.
@@ -43,10 +45,36 @@ const querySet = JSON.parse(
   readFileSync(join(HERE, "../../../tools/fixtures/site-queries.json"), "utf8"),
 ) as { sites: Record<string, Case[]>; negative: string[] };
 
-const gemini = new Gemini(readApiKey(KEY_FILE), {
-  model: MODEL,
-  onNote: (message) => console.log(`    ${message}`),
-});
+/**
+ * 어느 공급자로 잴 것인가 (AI-10). `MINUI_LLM=deepseek`로 바꾼다.
+ *
+ * <p>**같은 프롬프트에 모델만 바꾼다.** 후보 목록도 질의 세트도 판정 규칙도 그대로다.
+ * 기획안 §16의 "LLM 비교 실험이 성립하지 않는다"는 <b>사람 동의어 대 LLM 동의어</b>
+ * 비교였고 — 질의를 쓴 사람이 답도 썼기 때문에 성립하지 않았다 — 이것은 그 함정에
+ * 걸리지 않는다. 양쪽이 같은 세트를 같은 조건에서 본다.
+ *
+ * <p>여기서 `FallbackLlm`을 쓰지 않는 것이 요점이다. 재는 동안 공급자가 조용히 바뀌면
+ * 무엇을 쟀는지 알 수 없다. <b>측정은 한 번에 하나만 본다.</b>
+ */
+const PROVIDER = process.env["MINUI_LLM"] ?? "gemini";
+
+const llm: LlmClient = (() => {
+  if (PROVIDER === "deepseek") {
+    const key = readDeepSeekKey();
+    if (!key) throw new Error("DEEPSEEK_API_KEY가 없습니다.");
+    return new DeepSeek(key, {
+      ...(process.env["DEEPSEEK_MODEL"] ? { model: process.env["DEEPSEEK_MODEL"] } : {}),
+      onNote: (message) => console.log(`    ${message}`),
+    });
+  }
+  return new Gemini(readApiKey(KEY_FILE), {
+    model: MODEL,
+    onNote: (message) => console.log(`    ${message}`),
+  });
+})();
+
+/** 토큰 집계는 Gemini만 준다. 없는 곳에서는 0으로 읽는다. */
+const usage = llm instanceof Gemini ? llm.usage : null;
 
 interface Tally {
   /** 온디바이스가 이미 맞힌 것. 폴백은 여기 오지 않는다. */
@@ -125,7 +153,7 @@ for (const site of SITES) {
 
     // 온디바이스가 놓쳤다. 여기서만 LLM을 부른다.
     tally.llmCalls += 1;
-    const picked = await assist(gemini, testCase.query, candidatesFor(testCase.query));
+    const picked = await assist(llm, testCase.query, candidatesFor(testCase.query));
     const label = picked.menuId ? byId.get(picked.menuId)?.label : null;
 
     if (label === testCase.expect) {
@@ -145,7 +173,7 @@ for (const site of SITES) {
     if (result.status === "ok") continue; // 온디바이스가 이미 잘못 확신한 경우
 
     tally.llmCalls += 1;
-    const picked = await assist(gemini, query, candidatesFor(query));
+    const picked = await assist(llm, query, candidatesFor(query));
     if (picked.menuId === null) {
       tally.correctlyRefused += 1;
     } else {
@@ -181,9 +209,10 @@ console.log(
       tally.llmCalls,
       tally.positives + tally.negatives,
     )})`,
-    `  입력 ${gemini.usage.inputTokens.toLocaleString()} · 출력 ${gemini.usage.outputTokens.toLocaleString()} 토큰`,
+    `  입력 ${(usage?.inputTokens ?? 0).toLocaleString()} · 출력 ${(usage?.outputTokens ?? 0).toLocaleString()} 토큰`,
     `  호출당 ${Math.round(
-      (gemini.usage.inputTokens + gemini.usage.outputTokens) / Math.max(1, gemini.usage.requests),
+      ((usage?.inputTokens ?? 0) + (usage?.outputTokens ?? 0)) /
+        Math.max(1, usage?.requests ?? 1),
     )} 토큰`,
     "",
   ].join("\n"),

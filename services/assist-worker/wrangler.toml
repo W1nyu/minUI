@@ -1,9 +1,17 @@
 # 배포: services/assist-worker에서
 #
 #   pnpm dlx wrangler secret put GOOGLE_API_KEY     # 키는 여기에만 둔다
+#   pnpm dlx wrangler secret put DEEPSEEK_API_KEY   # 두 번째 무료 한도 (선택)
 #   pnpm dlx wrangler deploy
 #
 # 키는 시크릿이라 이 파일에도 저장소에도 번들에도 없다 (절대 보호선 규칙 7).
+#
+# **네 경로를 중계한다** (AI-2). /assist /explain /clarify /confirm.
+# 루트(/)는 /assist로 읽는다 — 이미 넣어 둔 ASSIST_URL을 고치지 않아도 켜지게 하려고.
+#
+# DEEPSEEK_API_KEY는 **없어도 된다.** 있으면 Gemini가 한도(429)나 장애로 막혔을 때
+# 받는다. 시연 중에 한도가 끊겨 기능이 죽는 것이 기획안 §14의 리스크이고,
+# 무료 한도를 둘 이어 붙이는 것이 그것에 대한 답이다.
 name = "minui-assist"
 main = "src/worker.ts"
 compatibility_date = "2026-01-01"
@@ -12,5 +20,6 @@ compatibility_date = "2026-01-01"
 # 여기 적힌 곳에서 온 요청만 받는다. 남의 사이트가 우리 한도를 태우지 못하게.
 ALLOWED_ORIGINS = "https://w1nyu.github.io,http://localhost:5174,http://localhost:5173"
 GEMINI_MODEL = "gemini-3.1-flash-lite"
+DEEPSEEK_MODEL = "deepseek-chat"
 # 캐시 미스만 센다. 다 쓰면 되묻기로 내려간다 — 기능이 죽는 것이 아니다.
 DAILY_BUDGET = "800"

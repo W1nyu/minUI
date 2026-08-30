@@ -256,3 +256,209 @@ export function clientKey(headers: Headers): string {
     "unknown"
   );
 }
+
+// ── 새 경로 셋의 입력 상한 (AI-2) ────────────────────────────────────────
+//
+// `/assist`와 같은 규율이다 — **자르지 않고 거른다.** 넘치는 것을 잘라서 받으면
+// 사용자가 보낸 것과 모델이 본 것이 달라진다. 우리 클라이언트는 이미 상한 안에서
+// 보내므로, 넘친다는 것은 우리 클라이언트가 아니라는 뜻이다.
+
+/** 되묻기 갈래 수. 모델은 이 중 둘을 고른다. */
+export const MAX_BRANCHES = 12;
+export const MAX_BRANCH_CHARS = 40;
+/** 안심 점검 종류 이름. `SafetyKind`가 여섯이라 넉넉히 잡는다. */
+export const MAX_CONCERNS = 8;
+export const MAX_CONCERN_CHARS = 40;
+
+export interface ExplainRequestBody {
+  label: string;
+  path?: string[];
+}
+
+export interface ClarifyRequestBody {
+  query: string;
+  branches: { label: string }[];
+}
+
+export interface ConfirmRequestBody {
+  riskLevel: "low" | "medium" | "high";
+  concerns: string[];
+}
+
+export type CheckedOf<T> = { ok: true; value: T } | { ok: false; reason: string };
+
+/** 뜻풀이 — **메뉴 이름과 경로뿐이다.** 사용자에 대한 것은 오지 않는다. */
+export function checkExplainRequest(body: unknown): CheckedOf<ExplainRequestBody> {
+  if (typeof body !== "object" || body === null) return { ok: false, reason: "본문이 없습니다." };
+  const raw = body as Record<string, unknown>;
+
+  const label = raw["label"];
+  if (typeof label !== "string" || label.trim().length === 0) {
+    return { ok: false, reason: "메뉴 이름이 없습니다." };
+  }
+  if (label.length > MAX_LABEL_CHARS) {
+    return { ok: false, reason: `메뉴 이름은 ${MAX_LABEL_CHARS}자까지입니다.` };
+  }
+
+  const path = raw["path"];
+  if (path !== undefined) {
+    if (!Array.isArray(path) || path.length > MAX_PATH_DEPTH) {
+      return { ok: false, reason: "경로가 너무 깊습니다." };
+    }
+    if (path.some((part) => typeof part !== "string" || part.length > MAX_LABEL_CHARS)) {
+      return { ok: false, reason: "경로 형식이 틀렸습니다." };
+    }
+  }
+
+  return {
+    ok: true,
+    value: { label, ...(path ? { path: path as string[] } : {}) },
+  };
+}
+
+/** 되묻기 — 발화와 **카탈로그에서 온 갈래 이름들.** 모델은 갈래를 만들지 못한다. */
+export function checkClarifyRequest(body: unknown): CheckedOf<ClarifyRequestBody> {
+  if (typeof body !== "object" || body === null) return { ok: false, reason: "본문이 없습니다." };
+  const raw = body as Record<string, unknown>;
+
+  const query = raw["query"];
+  if (typeof query !== "string" || query.trim().length === 0) {
+    return { ok: false, reason: "질의가 없습니다." };
+  }
+  if (query.length > MAX_QUERY_CHARS) {
+    return { ok: false, reason: `질의는 ${MAX_QUERY_CHARS}자까지입니다.` };
+  }
+
+  const branches = raw["branches"];
+  if (!Array.isArray(branches) || branches.length < 2) {
+    return { ok: false, reason: "갈래가 둘 이상 있어야 합니다." };
+  }
+  if (branches.length > MAX_BRANCHES) {
+    return { ok: false, reason: `갈래는 ${MAX_BRANCHES}개까지입니다.` };
+  }
+
+  const checked: { label: string }[] = [];
+  for (const item of branches) {
+    if (typeof item !== "object" || item === null) {
+      return { ok: false, reason: "갈래 형식이 틀렸습니다." };
+    }
+    const label = (item as Record<string, unknown>)["label"];
+    if (typeof label !== "string" || label.length === 0 || label.length > MAX_BRANCH_CHARS) {
+      return { ok: false, reason: "갈래 이름이 비었거나 너무 깁니다." };
+    }
+    checked.push({ label });
+  }
+
+  return { ok: true, value: { query, branches: checked } };
+}
+
+/**
+ * 확인 문구 — **값이 하나도 오지 않는다.**
+ *
+ * <p>위험도와 걸린 점검의 <b>종류 이름</b>뿐이다. 수취인도 금액도 계좌번호도 이 본문에
+ * 들어올 자리가 없다. 거르는 것이 아니라 담을 곳이 없는 것이 요점이다 (`confirm.ts`).
+ */
+export function checkConfirmRequest(body: unknown): CheckedOf<ConfirmRequestBody> {
+  if (typeof body !== "object" || body === null) return { ok: false, reason: "본문이 없습니다." };
+  const raw = body as Record<string, unknown>;
+
+  const riskLevel = raw["riskLevel"];
+  if (riskLevel !== "low" && riskLevel !== "medium" && riskLevel !== "high") {
+    return { ok: false, reason: "위험도가 틀렸습니다." };
+  }
+
+  const concerns = raw["concerns"];
+  if (concerns !== undefined && !Array.isArray(concerns)) {
+    return { ok: false, reason: "점검 형식이 틀렸습니다." };
+  }
+  const list = Array.isArray(concerns) ? concerns : [];
+  if (list.length > MAX_CONCERNS) return { ok: false, reason: "점검이 너무 많습니다." };
+
+  for (const item of list) {
+    if (typeof item !== "string" || item.length === 0 || item.length > MAX_CONCERN_CHARS) {
+      return { ok: false, reason: "점검 이름이 비었거나 너무 깁니다." };
+    }
+    /*
+     * **숫자가 들어오면 거절한다.** 점검 이름은 `first-time-payee` 같은 종류 이름이라
+     * 숫자가 들 이유가 없다. 여기에 숫자가 온다는 것은 누군가 값을 실어 보내려 한다는
+     * 뜻이고, 그것이 이 경로가 막아야 하는 유일한 것이다.
+     */
+    if (/[0-9０-９]/u.test(item)) return { ok: false, reason: "점검에 숫자가 있습니다." };
+  }
+
+  return { ok: true, value: { riskLevel, concerns: list as string[] } };
+}
+
+// ── 안심 점검 풀이와 음성 교정 (AI-5, AI-6) ──────────────────────────────
+
+/** 한 번에 물을 수 있는 점검 수. `SafetyKind`가 여섯이라 그대로 상한이다. */
+export const MAX_KINDS = 6;
+export const MAX_KIND_CHARS = 40;
+/** 교정 참고용 메뉴 이름 수. `MAX_CANDIDATES`와 같은 이유로 묶는다. */
+export const MAX_CORRECT_MENUS = 20;
+
+export interface SafetyRequestBody {
+  kinds: string[];
+}
+
+export interface CorrectRequestBody {
+  heard: string;
+  candidates: { label: string }[];
+}
+
+/**
+ * 점검 풀이 — **종류 이름만 온다.**
+ *
+ * <p>`checkConfirmRequest`와 같은 규율이다. 숫자가 들어오면 거절한다 — 점검 이름은
+ * `first-time-payee` 같은 종류 이름이라 숫자가 들 이유가 없고, 여기에 숫자가 온다는 것은
+ * 누군가 값을 실어 보내려 한다는 뜻이다.
+ */
+export function checkSafetyRequest(body: unknown): CheckedOf<SafetyRequestBody> {
+  if (typeof body !== "object" || body === null) return { ok: false, reason: "본문이 없습니다." };
+  const kinds = (body as Record<string, unknown>)["kinds"];
+
+  if (!Array.isArray(kinds) || kinds.length === 0) {
+    return { ok: false, reason: "점검이 없습니다." };
+  }
+  if (kinds.length > MAX_KINDS) return { ok: false, reason: "점검이 너무 많습니다." };
+
+  for (const kind of kinds) {
+    if (typeof kind !== "string" || kind.length === 0 || kind.length > MAX_KIND_CHARS) {
+      return { ok: false, reason: "점검 이름이 비었거나 너무 깁니다." };
+    }
+    if (/[0-9０-９]/u.test(kind)) return { ok: false, reason: "점검에 숫자가 있습니다." };
+  }
+
+  return { ok: true, value: { kinds: kinds as string[] } };
+}
+
+/** 음성 교정 — 들린 말과 참고용 메뉴 이름들. 목적지는 여기서 정해지지 않는다. */
+export function checkCorrectRequest(body: unknown): CheckedOf<CorrectRequestBody> {
+  if (typeof body !== "object" || body === null) return { ok: false, reason: "본문이 없습니다." };
+  const raw = body as Record<string, unknown>;
+
+  const heard = raw["heard"];
+  if (typeof heard !== "string" || heard.trim().length === 0) {
+    return { ok: false, reason: "들린 말이 없습니다." };
+  }
+  if (heard.length > MAX_QUERY_CHARS) {
+    return { ok: false, reason: `들린 말은 ${MAX_QUERY_CHARS}자까지입니다.` };
+  }
+
+  const candidates = raw["candidates"];
+  if (!Array.isArray(candidates)) return { ok: false, reason: "참고 메뉴가 없습니다." };
+  if (candidates.length > MAX_CORRECT_MENUS) {
+    return { ok: false, reason: `참고 메뉴는 ${MAX_CORRECT_MENUS}개까지입니다.` };
+  }
+
+  const checked: { label: string }[] = [];
+  for (const item of candidates) {
+    const label = (item as Record<string, unknown> | null)?.["label"];
+    if (typeof label !== "string" || label.length === 0 || label.length > MAX_LABEL_CHARS) {
+      return { ok: false, reason: "참고 메뉴 이름이 비었거나 너무 깁니다." };
+    }
+    checked.push({ label });
+  }
+
+  return { ok: true, value: { heard, candidates: checked } };
+}

@@ -1,4 +1,4 @@
-import type { Gemini } from "./gemini.js";
+import type { LlmClient } from "./llm.js";
 import { ASKED_HINT_MAX, cleanHint } from "./hint.js";
 
 /**
@@ -71,10 +71,10 @@ export function parseExplainResponse(raw: unknown, target: ExplainTarget): strin
 
 /** 한 번의 풀이. 호출자는 카탈로그에 `hint`가 없을 때만 부른다. */
 export async function explain(
-  gemini: Gemini,
+  llm: LlmClient,
   target: ExplainTarget,
 ): Promise<string | null> {
-  const raw = await gemini.json(
+  const raw = await llm.json(
     EXPLAIN_SYSTEM,
     buildExplainPrompt(target),
     EXPLAIN_SCHEMA,
