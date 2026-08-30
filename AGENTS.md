@@ -12,12 +12,14 @@
 |---|---|---|
 | `packages/core` | 배포 대상 라이브러리 | **의존성 0.** 순수 TypeScript |
 | `packages/react` | 배포 대상 라이브러리 | React 바인딩. peer로만 react 의존 |
-| `packages/voice` | 배포 대상 라이브러리 | STT Provider. 브라우저 API는 구현체 안에서만. **의존성 0** — M11에서 온디바이스 모델을 빼면서 서브패스도 optional peer도 사라졌다 |
+| `packages/voice` | 배포 대상 라이브러리 | STT Provider **와 TTS Provider**. 브라우저 API는 구현체 안에서만. **의존성 0** — M11에서 온디바이스 모델을 빼면서 서브패스도 optional peer도 사라졌다. 읽어 주기(M18)도 브라우저 API 하나라 이 성질을 지킨다 |
 | `frontend` | 데모 호스트 앱 | 엔진의 **소비자**일 뿐. 여기 코드는 배포물이 아님 |
 | `backend` | 데모 계정계 + 가상 오픈뱅킹 Mock (Spring Boot) | 엔진과 무관. 테스트 계좌·로컬 원장만 다루며 실제 은행·마이데이터에 연결하지 않음 |
 | `tools` | 빌드/벤치/리포트 스크립트 | 런타임에 포함되지 않음 |
 | `services/harvester` | URL → 수집 원본 (Playwright) | 배포물이 아님. 브라우저 스니펫도 여기서 빌드 |
-| `services/enricher` | LLM 연결 — 빌드 타임 보강 + 런타임 폴백 | **API 키가 여기 밖으로 나가지 않는다** |
+| `services/enricher` | LLM 연결 — 빌드 타임 보강 + 런타임 폴백 | **API 키가 여기 밖으로 나가지 않는다.** 공급자는 `LlmClient` 하나로 추상화돼 있고(Gemini·DeepSeek), 프롬프트는 중계기와 **공유**한다 — 갈라지면 벤치한 것과 다른 답이 나온다 |
+| `services/assist-worker` | AI 중계기 (Cloudflare Worker) | 네 경로(`/assist` `/explain` `/clarify` `/confirm`)가 **같은 문**을 지난다 — 크기·개인정보·형식·캐시·호출 제한·하루 예산. 키는 시크릿에만 |
+| `shared/host-ai` | 두 호스트 앱이 나눠 쓰는 AI 클라이언트 | 개인정보 문은 `privacy.ts` 한 곳에 있고 **브라우저와 서버가 같은 것을 본다** |
 | `services/matcher` | 원격 신경망 검색 (M11) | **모델 파일과 벡터가 여기 밖으로 나가지 않는다.** onnx는 `encoder`·`rerank`에만 있고, 벡터를 다루는 부분은 모델 없이 돌아 CI에서 재진다 |
 | `docs` | 기획안 — 설계·측정·실패 기록이 한 파일에 있다 | |
 
@@ -77,6 +79,16 @@
    모드나 사용자가 직접 요청한 재정렬은 변경 이유·되돌리기·접근성 검증을 갖추면 허용한다.
 
 6. **수집 금지 데이터**: 계좌번호, 금액, 수취인, 음성 원본 (기획안 §11.1).
+
+   **M17의 안심 점검은 이 값들을 본다. 남기지는 않는다.** `checkTransfer`는 화면 안의
+   값을 인자로 받아 판정하고, 함수가 끝나면 사라진다 — 저장도 전송도 없고 코어에 상태가
+   없다. 판정 결과도 `{kind, level}`뿐이라 금액이 결과에 실리지 않는다.
+
+   **M19의 원격 경로 넷도 같은 선 안에 있다.** `/confirm`이 보내는 것은 위험도와 걸린
+   점검의 **종류 이름**뿐이고, 수취인·금액은 답이 온 뒤 화면이 채운다. 모델이 쓴 글에
+   숫자가 있으면 통째로 버린다. 문은 `shared/host-ai/privacy.ts` 한 곳에 있고 브라우저와
+   서버가 **같은 코드**를 본다 — 브라우저에서만 거르면 브라우저를 안 거치는 요청 앞에서
+   그 검사는 없는 것과 같다.
    저장하는 것은 `{메뉴ID, 시각, 완료여부}`와, **M7부터** 사용자가 직접 입력한 검색어 중
    `LearnedTerm`이 받아들인 것뿐이다.
 
@@ -145,6 +157,7 @@ pnpm --filter @minui/harvester probe -- <URL>    # 왜 못 읽었는지 볼 때
 # LLM (api.txt 또는 GOOGLE_API_KEY 필요)
 pnpm --filter @minui/enricher enrich -- <사이트> [--limit N]
 pnpm --filter @minui/enricher bench:assist       # 런타임 폴백 이득/손해
+MINUI_LLM=deepseek pnpm --filter @minui/enricher bench:assist   # 같은 세트, 모델만 교체
 
 # 임베딩 모델 (bge-m3 560MB, 저장소에 없음). 원격 검색은 기본으로 꺼져 있다 —
 # semantic-focus 12.4%로 사전 등록 게이트를 못 넘겨 코드만 남기고 껐다.
