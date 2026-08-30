@@ -1,4 +1,7 @@
 import type { MenuId, Slots } from "@minui/core";
+import { assistEndpoint, makeAssist } from "@host-ai/assist.js";
+import { makeClarify } from "@host-ai/clarify.js";
+import { makeCorrect } from "@host-ai/correct.js";
 import { makeExplain, makeGroundedHint } from "@host-ai/explain.js";
 import { IndexedDbStorageAdapter, MinUIProvider, type SttLike } from "@minui/react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -6,14 +9,20 @@ import { BankProvider } from "./BankContext.js";
 import { DemoLedgerNotice } from "./DemoLedgerNotice.js";
 import { AdaptiveSupportProvider, useAdaptiveSupport } from "./adaptation/AdaptiveSupport.js";
 import { MockBankApi } from "./api/mockApi.js";
+import { PracticeBankApi } from "./api/practiceApi.js";
 import type { BankApi } from "./api/types.js";
 import { CATALOG, COLD_START_PRESETS } from "./catalog.js";
+import { FeedbackSheet } from "./FeedbackSheet.js";
 import { useTaskRecorder } from "./instrumentation/TaskRecorder.js";
 import { ClassicShell } from "./modes/ClassicShell.js";
 import { MinUIShell } from "./modes/MinUIShell.js";
 import { Screen } from "./screens/index.js";
+import { makeTts } from "./tts.js";
 
 export type Mode = "minui" | "classic";
+
+/** 피드백이 어느 배포본에서 나왔는지 사용자도 함께 볼 수 있는 식별자. */
+const RELEASE_ID = import.meta.env.VITE_RELEASE_ID ?? "public-demo";
 
 export interface AppProps {
   /** 테스트와 M1 백엔드 교체를 위한 주입 지점. */
@@ -49,9 +58,22 @@ export function App({
   const [mode, setMode] = useState<Mode>(initialMode);
   const [openMenuId, setOpenMenuId] = useState<MenuId | null>(null);
   const [prefill, setPrefill] = useState<Slots>({});
+  const [feedbackOpen, setFeedbackOpen] = useState(false);
+  /**
+   * 연습 모드 (F14). **기본은 꺼짐** — 시연은 진짜(가상 원장) 이체로 시작한다.
+   *
+   * <p>상태가 여기 있는 이유는 이것이 <b>어떤 API를 쓰는가</b>의 문제라서다. 화면
+   * 어딘가의 표시가 아니라 데이터가 흐르는 경로 자체를 바꾸므로, 경로를 정하는 곳에서
+   * 정해야 한 화면만 연습을 잊는 일이 안 생긴다.
+   */
+  const [practice, setPractice] = useState(false);
   const recorder = useTaskRecorder();
 
-  const bankApi = useMemo(() => api ?? new MockBankApi(), [api]);
+  const realApi = useMemo(() => api ?? new MockBankApi(), [api]);
+  const bankApi = useMemo(
+    () => (practice ? new PracticeBankApi(realApi) : realApi),
+    [practice, realApi],
+  );
   const storage = useMemo(() => new IndexedDbStorageAdapter(storageKey), [storageKey]);
 
   /**
@@ -88,18 +110,46 @@ export function App({
   );
 
   /*
+   * 도우미 (AI-2). **중계기 주소가 있을 때만 만든다.**
+   *
+   * 전에는 여기서 `assist`를 아예 안 넘겼다. 정적 배포에 중계가 없어 항상 null이 되는데,
+   * 그러면 되묻기 화면이 잠깐 떴다가 아무 일도 안 일어나는 것을 기다리게 되기 때문이었다.
+   * 이제 중계기를 띄웠으므로 **주소가 있으면** 넘긴다 — 없으면 그때와 똑같이 안 넘긴다.
+   * 판단이 바뀐 것이 아니라 조건이 생긴 것이다.
+   */
+  const assist = useMemo(() => {
+    const endpoint = assistEndpoint();
+    return endpoint ? makeAssist(CATALOG, endpoint) : undefined;
+  }, []);
+
+  /*
    * 「이해 지원」 — 뜻풀이를 비워 둔 여섯 메뉴에서 "이게 무슨 뜻이에요?"가 뜬다.
    *
    * 이 앱은 전에 `explain`을 아예 안 넘겼고, 그래서 그 버튼이 한 번도 안 떴다.
    * `makeExplain`은 배포에서는 미리 구워 둔 답을 조회하고, 로컬 개발에서는
    * `/api/explain`까지 간다 (`shared/host-ai/explain.ts`).
    *
-   * `assist`는 넘기지 않는다. 정적 배포에 중계가 없어 항상 null이 되는데, 그러면
-   * 되묻기 화면이 잠깐 떴다가 아무 일도 안 일어나는 것을 기다리게 된다.
-   * 되묻기가 곧 답인 편이 낫다 — 그것이 §9.2가 설계한 실패 회복이다.
    */
   const explain = useMemo(() => makeExplain(CATALOG), []);
   const grounded = useMemo(() => makeGroundedHint(CATALOG), []);
+
+  /*
+   * 읽어 주기 (F16). 브라우저가 지원하지 않으면 Provider가 스스로 `undefined`로 접고,
+   * 그러면 읽기 버튼이 화면에 아예 생기지 않는다.
+   */
+  const tts = useMemo(() => makeTts(), []);
+
+  /*
+   * 한 문장 되묻기 (AI-3). 중계기가 없으면 `undefined`라 넘기지 않고, 그러면
+   * 지금까지의 갈래 되묻기가 그대로 답이 된다.
+   */
+  const clarify = useMemo(() => makeClarify(), []);
+
+  /*
+   * 잘못 들린 말 고쳐 쓰기 (AI-6). 목적지를 고르지 않고 질의만 고치므로, 고쳐진 말은
+   * 배운 말·자모 보정·위험도 경계를 그대로 지난다.
+   */
+  const correct = useMemo(() => makeCorrect(CATALOG), []);
 
   return (
     <MinUIProvider
@@ -110,6 +160,10 @@ export function App({
       coldStartPresets={COLD_START_PRESETS}
       explain={explain}
       groundedHint={grounded}
+      tts={tts}
+      {...(assist ? { assist } : {})}
+      {...(clarify ? { clarify } : {})}
+      {...(correct ? { correct } : {})}
       fallback={<p className="loading">불러오는 중…</p>}
     >
       <AdaptiveSupportProvider storageKey={storageKey}>
@@ -120,9 +174,20 @@ export function App({
               <DemoLedgerNotice {...(resetDemoLedger ? { onReset: resetDemoLedger } : {})} />
             )}
             <ModeSwitch mode={mode} onChange={setMode} />
+            <PracticeSwitch practice={practice} onChange={setPractice} />
             <main className="app-body">
               {mode === "minui" ? <MinUIShell {...(stt ? { stt } : {})} /> : <ClassicShell />}
             </main>
+            {/*
+              의견 링크는 **스크롤 영역 밖**에 둔다 (F11).
+              
+              처음에는 `app-body` 안에 뒀는데, 홈이 자기 스크롤을 갖고 있어서 이 링크가
+              카드 목록 한가운데를 가로막고 앉았다. 위의 `app-bar`·`practice-bar`와 같은
+              자리다 — 화면의 <b>테두리</b>에 속하는 것은 내용과 함께 스크롤되면 안 된다.
+            */}
+            <button type="button" className="feedback-trigger" onClick={() => setFeedbackOpen(true)}>
+              이 화면에 의견 남기기
+            </button>
             {openMenuId && (
               <Screen
                 menuId={openMenuId}
@@ -133,6 +198,7 @@ export function App({
           </div>
         </BankProvider>
       </AdaptiveSupportProvider>
+      {feedbackOpen && <FeedbackSheet releaseId={RELEASE_ID} onClose={() => setFeedbackOpen(false)} />}
     </MinUIProvider>
   );
 }
@@ -153,6 +219,43 @@ function AdaptiveNavigationBridge({ menuId }: { menuId: MenuId | null }) {
   }, [adaptive, menuId]);
 
   return null;
+}
+
+/**
+ * 연습 모드 스위치와 상시 배지 (F14).
+ *
+ * <p>켜져 있을 때 <b>화면에서 사라지지 않는</b> 것이 요점이다. 스위치만 두고 배지를
+ * 안 두면, 연습으로 켜 놓은 것을 잊은 사람이 진짜로 보냈다고 믿는다 — 그것은 연습이
+ * 만들 수 있는 가장 나쁜 결과다. 가상 원장 고지 띠와 <b>다른 자리</b>에 두는 이유도
+ * 같다. 두 고지가 겹쳐 보이면 둘 다 배경이 된다.
+ */
+function PracticeSwitch({
+  practice,
+  onChange,
+}: {
+  practice: boolean;
+  onChange: (practice: boolean) => void;
+}) {
+  if (!practice) {
+    return (
+      <div className="practice-bar">
+        <button type="button" className="practice-start" onClick={() => onChange(true)}>
+          연습해 보기 — 돈이 나가지 않아요
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="practice-bar practice-bar-on" role="status">
+      <p className="practice-badge">
+        <strong>연습 중</strong> — 실제로 보내지지 않아요
+      </p>
+      <button type="button" className="practice-stop" onClick={() => onChange(false)}>
+        연습 끝내기
+      </button>
+    </div>
+  );
 }
 
 /**

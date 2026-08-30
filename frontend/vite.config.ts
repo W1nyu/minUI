@@ -1,6 +1,9 @@
 import { fileURLToPath } from "node:url";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
+import { aiRoutes } from "../demos/src/aiRoutes.js";
+import { assistRoute } from "../demos/src/assistRoute.js";
+import { explainRoute } from "../demos/src/explainRoute.js";
 
 const src = (path: string) => fileURLToPath(new URL(path, import.meta.url));
 
@@ -26,7 +29,15 @@ const BASE = process.env["MINUI_BASE"] ? `${process.env["MINUI_BASE"]}bank/` : "
  */
 export default defineConfig({
   base: BASE,
-  plugins: [react()],
+  /*
+   * 미니은행도 개발 서버에서 `/api/*` 넷을 연다 (AI-2).
+   *
+   * 전에는 demos(5174)에만 있었다. 그런데 확인 문장(AI-4)과 안심 점검이 사는 곳은
+   * **이체 화면**이고 그것은 여기(5173)에 있다 — 로컬 풀구성으로 시연할 때 정작
+   * 보여 줄 화면에 도우미가 없었다. 플러그인은 demos의 것을 그대로 쓴다.
+   * 키는 서버에만 있고 브라우저로 가지 않는다 (절대 보호선 규칙 7).
+   */
+  plugins: [react(), assistRoute(), explainRoute(), aiRoutes()],
   resolve: {
     alias: [
       // 두 호스트 앱이 나눠 쓰는 AI 클라이언트. packages/*에는 넣지 않는다 —

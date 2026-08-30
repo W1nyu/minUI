@@ -8,6 +8,7 @@ import {
   type VoiceAction,
 } from "@minui/core";
 import { useEffect, useId, useRef, useState } from "react";
+import { ProvenanceBadge } from "./ProvenanceBadge.js";
 import { useMinUI } from "./useMinUI.js";
 import type { MinUIInteraction } from "./interaction.js";
 
@@ -45,6 +46,8 @@ export interface VoiceSearchSheetProps {
   stt?: SttLike;
   /** 호스트가 요청한 경우에만 음성 대기 시간을 요약해 알린다. */
   onInteraction?: (interaction: MinUIInteraction) => void;
+  /** 되묻기로도 못 좁혔을 때, 전체 메뉴라는 탈출구를 호스트가 열어 준다. */
+  onBrowseAll?: () => void;
 }
 
 type Phase =
@@ -80,8 +83,31 @@ export function VoiceSearchSheet({
   onSelect,
   stt,
   onInteraction,
+  onBrowseAll,
 }: VoiceSearchSheetProps) {
-  const { engine, assist } = useMinUI();
+  const { engine, assist, clarify, correct } = useMinUI();
+  /**
+   * 도우미가 낸 제안. **검증을 지난 것만 여기 온다** (AI-9).
+   *
+   * <p>후보 목록과 따로 들고 있는 이유: 후보는 로컬 검색도 만들고 도우미도 만드는데,
+   * <b>어느 쪽이 만든 것인지</b>를 화면이 말해야 하기 때문이다. 돈이 오가는 앱에서
+   * 모델이 내민 것을 검색 결과와 똑같이 그리면 사용자는 그것이 추측인 줄 모른다.
+   */
+  const [aiProposal, setAiProposal] = useState<{
+    menuId: MenuId;
+    why?: string | undefined;
+    model?: string | undefined;
+    dropped?: string | undefined;
+  } | null>(null);
+  /**
+   * 잘못 들은 말을 고쳐 다시 찾았을 때, **무엇으로 고쳐 들었는지** (AI-6).
+   *
+   * <p>화면에 보여 주는 것이 이 기능의 절반이다. 고친 말을 숨기고 결과만 바꾸면
+   * 사용자는 자기가 한 말과 다른 답을 보고 앱이 제멋대로 골랐다고 읽는다.
+   */
+  const [heardAs, setHeardAs] = useState<{ query: string; model?: string | undefined } | null>(
+    null,
+  );
   const [phase, setPhase] = useState<Phase>({ kind: "idle" });
   const [text, setText] = useState("");
   const [notice, setNotice] = useState<string | null>(null);
@@ -156,6 +182,9 @@ export function VoiceSearchSheet({
   async function runTextSearch(query: string) {
     if (query.trim().length === 0) return;
     setNotice(null);
+    // 지난 검색에서 고쳐 들은 말이 새 검색 결과 위에 남아 있으면 안 된다.
+    setHeardAs(null);
+    setAiProposal(null);
 
     /*
      * 로컬 결과를 먼저 그린다. 원격을 기다리는 동안 화면이 비어 있으면 사용자는
@@ -174,12 +203,77 @@ export function VoiceSearchSheet({
     apply(action, query);
     setAsking(true);
 
+    /*
+     * **한 문장 되묻기** (AI-3). 화면에 이미 뜬 갈래를 그대로 넘기고, 모델은 그중 둘을
+     * 고르고 질문 한 줄을 쓴다. 갈래를 만들지 못하므로 없는 것이 뜰 수가 없다.
+     *
+     * 도우미(`assist`)와 나란히 달린다. 도우미가 답을 찾으면 후보 화면이 이것을 덮고,
+     * 못 찾으면 이쪽이 되묻기를 조금 더 친절하게 만든다. 둘 다 실패해도 갈래 되묻기가
+     * 이미 화면에 있다 — **어느 경우에도 빈 화면이 없다.**
+     */
+    /*
+     * **말을 고쳐 다시 찾아 본다** (AI-6).
+     *
+     * 도우미(`assist`)·되묻기(`clarify`)와 나란히 달리되 하는 일이 다르다 — 이것은
+     * 목적지를 고르지 않고 <b>질의만</b> 고친다. 고쳐진 말은 `engine.voiceAction`을
+     * 그대로 지나므로 배운 말·자모 보정·§9.3의 위험도 경계가 전부 살아 있다.
+     *
+     * 셋 중 무엇이 먼저 답하든 화면에는 이미 갈래 되묻기가 떠 있다 — **어느 경우에도
+     * 빈 화면이 없다.**
+     */
+    if (correct) {
+      void correct(query, engine.candidates(query))
+        .then((fixed) => {
+          if (!fixed) return;
+          const retried = engine.voiceAction(fixed.query);
+          // 고쳐도 여전히 못 찾으면 조용히 접는다. 되묻기가 이미 답이다.
+          if (retried.kind === "reprompt") return;
+          setHeardAs(fixed);
+          apply(retried, fixed.query);
+        })
+        .catch(() => {
+          // 되묻기 화면이 이미 떠 있다. 아무것도 하지 않는다.
+        });
+    }
+
+    if (clarify) {
+      void clarify(query, action.choices.map((choice) => ({ label: choice.label })))
+        .then((clarification) => {
+          if (!clarification) return;
+          const byLabel = new Map(action.choices.map((choice) => [choice.label, choice]));
+          const picked = clarification.branches.flatMap((branch) => {
+            const choice = byLabel.get(branch.label);
+            return choice ? [choice] : [];
+          });
+          if (picked.length !== clarification.branches.length) return;
+          /*
+           * **되묻기는 더 나은 답을 덮지 않는다.**
+           *
+           * 셋이 나란히 달리므로(도우미·되묻기·교정) 늦게 오는 것이 먼저 온 것을
+           * 덮을 수 있다. 실제로 그랬다 — 교정이 메뉴를 찾아 후보를 띄운 화면을
+           * 되묻기가 다시 "어느 쪽인가요?"로 되돌렸다. 되묻기는 <b>아직 못 찾은
+           * 상태일 때만</b> 말을 보탠다.
+           */
+          setPhase((previous) =>
+            previous.kind === "reprompt"
+              ? { kind: "reprompt", prompt: clarification.question, choices: picked }
+              : previous,
+          );
+        })
+        .catch(() => {
+          // 되묻기 화면이 이미 떠 있다. 아무것도 하지 않는다.
+        });
+    }
+
     // 관련도 순 후보. 카탈로그 순서로 자르면 아무 관계 없는 메뉴가 후보가 된다.
     void assist(query, engine.candidates(query))
-      .then((menuId) => {
-        if (!menuId) return;
-        const menu = engine.getMenu(menuId);
+      .then((answer) => {
+        if (!answer) return;
+        // 호스트가 id만 돌려줘도 받는다. 계약을 넓히되 기존 호스트를 깨지 않는다.
+        const proposal = typeof answer === "string" ? { menuId: answer } : answer;
+        const menu = engine.getMenu(proposal.menuId);
         if (!menu) return;
+        setAiProposal(proposal);
         /*
          * 도우미가 골라도 **바로 열지 않는다.** 후보로 보여 주고 사용자가 누른다.
          * `riskLevel: high`는 §9.3이 자동 실행을 막고, 낮은 것도 도우미의 판단이라
@@ -187,7 +281,9 @@ export function VoiceSearchSheet({
          */
         setPhase({
           kind: "candidates",
-          candidates: [{ menuId, score: 0, matchedBy: "semantic", matchedTerm: query }],
+          candidates: [
+            { menuId: proposal.menuId, score: 0, matchedBy: "semantic", matchedTerm: query },
+          ],
         });
       })
       .catch(() => {
@@ -349,9 +445,45 @@ export function VoiceSearchSheet({
           </div>
         </form>
 
+        {/*
+          **무엇으로 고쳐 들었는지 먼저 말한다** (AI-6). 결과보다 위에 두는 이유는,
+          사용자가 자기 말과 다른 답을 보기 **전에** 왜 다른지 알아야 하기 때문이다.
+        */}
+        {heardAs && (
+          <p className="minui-heard-as" role="status">
+            <span className="minui-heard-as-mark">이렇게 들었어요</span>
+            <span className="minui-heard-as-query">{heardAs.query}</span>
+            <ProvenanceBadge provenance="ai" model={heardAs.model} />
+          </p>
+        )}
+
         {phase.kind === "candidates" && (
           <section className="minui-group" aria-label="찾은 메뉴">
             <h3 className="minui-group-name">이거 말씀하신 건가요?</h3>
+
+            {/*
+              **AI가 낸 것이면 그렇다고 말한다** (AI-9).
+
+              화면에 뜨는 이름과 위험도는 모델의 것이 아니다 — `validateProposal`이
+              카탈로그에서 다시 만든다. 모델이 정한 것은 <b>어느 것인지</b>와 <b>왜</b>
+              한 줄뿐이고, 그 한 줄도 길이·숫자 검사를 지났다. 버린 것이 있으면 그것도
+              적는다: 검증이 있다는 사실은 <b>버린 것을 보여 줄 때만</b> 사용자에게 보인다.
+            */}
+            {aiProposal &&
+              phase.candidates.some((candidate) => candidate.menuId === aiProposal.menuId) && (
+                <p className="minui-ai-proposal" role="note">
+                  <span className="minui-ai-proposal-mark">
+                    AI 제안 · 메뉴와 위험도는 확인함
+                    {aiProposal.model ? ` (${aiProposal.model})` : ""}
+                  </span>
+                  {aiProposal.why && <span className="minui-ai-proposal-why">{aiProposal.why}</span>}
+                  {aiProposal.dropped && (
+                    <span className="minui-ai-proposal-dropped">
+                      AI가 쓴 설명 한 줄은 버렸어요 — {aiProposal.dropped}
+                    </span>
+                  )}
+                </p>
+              )}
             <ul className="minui-group-list">
               {phase.candidates.map((candidate) => {
                 const menu = byId.get(candidate.menuId);
@@ -393,6 +525,11 @@ export function VoiceSearchSheet({
                 );
               })}
             </ul>
+            {onBrowseAll && (
+              <button type="button" className="minui-search-browse" onClick={onBrowseAll}>
+                말 대신 전체 메뉴에서 직접 찾아볼래요
+              </button>
+            )}
           </section>
         )}
 

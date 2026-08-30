@@ -355,6 +355,15 @@
   overflow-wrap: anywhere;
 }
 
+/* 출처가 있는 설명과 기본 설명을 섞어 보이지 않게 하는 짧은 표지다. */
+.minui-menu-row-hint-kind {
+  display: block;
+  margin-bottom: 0.12rem;
+  color: var(--minui-ink-3);
+  font-size: var(--minui-text-xs, var(--minui-text-s));
+  font-weight: 700;
+}
+
 /*
  * 근거. **답보다 한 단계 물러나 보여야 한다.**
  *
@@ -453,6 +462,121 @@
   color: var(--minui-accent);
 }
 
+/* ── 홈 카드 직접 편집 ─────────────────────────────────── */
+
+.minui-card-order,
+.minui-card-picker {
+  margin: 0;
+  padding: 0;
+}
+
+.minui-card-order {
+  display: grid;
+  gap: 0.5rem;
+  list-style-position: inside;
+}
+
+.minui-card-order li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.65rem;
+  min-height: var(--minui-touch-min);
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--minui-line);
+  border-radius: var(--minui-radius);
+  background: var(--minui-surface);
+  font-weight: 700;
+}
+
+.minui-card-order li > div {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.minui-card-order button {
+  min-width: var(--minui-touch-min);
+  min-height: calc(var(--minui-touch-min) * 0.75);
+  padding-inline: 0.55rem;
+  border: 1px solid var(--minui-line-strong);
+  border-radius: var(--minui-radius);
+  background: var(--minui-surface);
+  color: var(--minui-ink);
+  font: inherit;
+  font-size: var(--minui-text-s);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.minui-card-picker {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+  min-height: var(--minui-touch-min);
+  padding: 0.65rem 0.9rem;
+  border: 1px solid var(--minui-line);
+  border-radius: var(--minui-radius);
+  background: var(--minui-surface);
+  color: var(--minui-ink);
+  font: inherit;
+  font-size: var(--minui-text-m);
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.minui-card-picker span:last-child {
+  color: var(--minui-ink-3);
+  font-size: var(--minui-text-s);
+  font-weight: 600;
+  text-align: right;
+}
+
+.minui-card-picker[aria-pressed="true"] {
+  border-color: var(--minui-accent);
+  background: var(--minui-accent-soft);
+  color: var(--minui-accent);
+}
+
+.minui-card-editor-state {
+  margin: 0.6rem 0 0;
+  color: var(--minui-ink-2);
+  font-size: var(--minui-text-s);
+}
+
+.minui-card-editor-save,
+.minui-card-editor-reset {
+  width: 100%;
+  min-height: var(--minui-touch-min);
+  margin-top: 0.75rem;
+  border-radius: var(--minui-radius);
+  font: inherit;
+  font-size: var(--minui-text-m);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.minui-card-editor-save {
+  border: 1px solid var(--minui-accent);
+  background: var(--minui-accent);
+  color: var(--minui-accent-ink);
+}
+
+.minui-card-editor-reset {
+  border: 1px solid var(--minui-line-strong);
+  background: var(--minui-surface);
+  color: var(--minui-ink-2);
+}
+
+.minui-card-editor-save:disabled,
+.minui-card-editor-reset:disabled,
+.minui-card-order button:disabled {
+  cursor: default;
+  opacity: 0.55;
+}
+
 /* ── 말로 찾기 ─────────────────────────────────────────── */
 
 .minui-mic {
@@ -526,6 +650,22 @@
   cursor: pointer;
 }
 
+.minui-search-browse {
+  width: 100%;
+  min-height: var(--minui-touch-min);
+  margin-top: 0.7rem;
+  padding: 0.6rem 1rem;
+  border: 1px dashed var(--minui-line-strong);
+  border-radius: var(--minui-radius);
+  background: var(--minui-surface);
+  color: var(--minui-ink-2);
+  font: inherit;
+  font-size: var(--minui-text-m);
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
 /* 후보는 큰 버튼으로. 자동 실행하지 않고 사용자가 고른다 (기획안 F4). */
 .minui-candidate {
   display: flex;
@@ -546,6 +686,7 @@
 .minui-candidate:focus-visible,
 .minui-search-input:focus-visible,
 .minui-search-submit:focus-visible,
+.minui-search-browse:focus-visible,
 .minui-mic:focus-visible {
   outline: 3px solid var(--minui-accent);
   outline-offset: 2px;
@@ -644,6 +785,11 @@
  * 셋이 되면 원칙 P1이 흔들린다. 대신 88dp 규칙에는 예외를 두지 않는다. 조용한 것과
  * 누르기 어려운 것은 다르고, 이 화면을 찾는 사람은 이미 헤매고 있는 사람이다.
  */
+.minui-quiet-actions {
+  display: grid;
+  border-top: 1px solid var(--minui-line);
+}
+
 .minui-quiet-link {
   display: block;
   width: 100%;
@@ -657,6 +803,10 @@
   text-decoration: underline;
   text-underline-offset: 0.25em;
   cursor: pointer;
+}
+
+.minui-quiet-link + .minui-quiet-link {
+  border-top: 1px solid var(--minui-line);
 }
 
 .minui-quiet-link:focus-visible {
@@ -926,4 +1076,217 @@
   flex-shrink: 0;
   color: var(--minui-ink-3);
   font-size: var(--minui-text-s);
+}
+
+/* ── 보내기 전 안심 점검 (F13) ─────────────────────────────────────────── */
+
+/*
+ * 빨간 상자 하나에 여섯 줄을 몰아넣지 않는다. 경고가 길어지면 사람은 읽는 대신
+ * 아래 버튼을 찾는다. 그래서 `stop`만 테두리를 갖고, `notice`는 같은 상자 안의
+ * 조용한 줄로 남는다.
+ */
+.minui-safety {
+  margin: var(--minui-gap) 0;
+  padding: calc(var(--minui-gap) * 0.8);
+  border: 1px solid var(--minui-warn);
+  border-radius: var(--minui-radius);
+  background: var(--minui-warn-soft);
+}
+
+.minui-safety-title {
+  margin: 0 0 calc(var(--minui-gap) * 0.5);
+  color: var(--minui-warn);
+  font-size: var(--minui-text-m);
+  font-weight: 700;
+}
+
+.minui-safety-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: calc(var(--minui-gap) * 0.4);
+}
+
+.minui-safety-list li {
+  color: var(--minui-ink);
+  font-size: var(--minui-text-m);
+  line-height: 1.5;
+}
+
+/*
+ * 색만으로 세기를 알리지 않는다 — 색을 못 보는 사람에게는 아무것도 알린 것이 아니다.
+ * 그래서 `stop`은 굵기와 왼쪽 선을 함께 쓴다 (카드의 "새로 왔어요"와 같은 판단).
+ */
+.minui-safety-stop {
+  padding-left: calc(var(--minui-gap) * 0.5);
+  border-left: 3px solid var(--minui-warn);
+  font-weight: 700;
+}
+
+.minui-safety-notice {
+  padding-left: calc(var(--minui-gap) * 0.5 + 3px);
+  color: var(--minui-ink-2);
+}
+
+/* ── 읽어 주기 (F16) ───────────────────────────────────────────────────── */
+
+.minui-speak {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: var(--minui-touch-min);
+  padding: 0.4rem 0.9rem;
+  border: 1px solid var(--minui-line-strong);
+  border-radius: var(--minui-radius);
+  background: var(--minui-surface);
+  color: var(--minui-ink);
+  font-family: inherit;
+  font-size: var(--minui-text-s);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.minui-speak:focus-visible {
+  outline: 3px solid var(--minui-accent);
+  outline-offset: 2px;
+}
+
+.minui-speak-text {
+  white-space: nowrap;
+}
+
+/* ── 화면 대비 스위치 (F17) ────────────────────────────────────────────── */
+
+.minui-contrast-control {
+  display: flex;
+  gap: var(--minui-gap);
+}
+
+/*
+ * 88px을 지킨다. 접근성 설정을 고르는 버튼이 작으면, 그것이 필요한 사람이 정확히
+ * 못 누른다 — 적응 UI 동의 버튼이 40px이었던 것을 실측에서 잡았던 그 결함이다
+ * (`docs/기획안.md` §11.3).
+ */
+.minui-contrast-button {
+  flex: 1;
+  min-height: var(--minui-touch-min);
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--minui-line-strong);
+  border-radius: var(--minui-radius);
+  background: var(--minui-surface);
+  color: var(--minui-ink);
+  font-family: inherit;
+  font-size: var(--minui-text-m);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.minui-contrast-button[aria-pressed="true"] {
+  border-color: var(--minui-accent);
+  background: var(--minui-accent);
+  color: var(--minui-accent-ink);
+}
+
+.minui-contrast-button:focus-visible {
+  outline: 3px solid var(--minui-accent);
+  outline-offset: 2px;
+}
+
+/* ── 출처 배지 (AI-8) ──────────────────────────────────────────────────── */
+
+/*
+ * `.minui-menu-row-hint-kind`를 대신한다. 자리와 무게는 그대로 두고 — 이 줄은
+ * 읽으라고 있는 것이 아니라 **어디서 온 말인지 알리려고** 있다 — `AI`일 때만
+ * 눈에 걸리게 한다.
+ */
+.minui-provenance {
+  display: block;
+  margin-bottom: 0.12rem;
+  color: var(--minui-ink-3);
+  font-size: var(--minui-text-xs, var(--minui-text-s));
+  font-weight: 700;
+}
+
+/*
+ * 색만으로 구별하지 않는다 — 배지의 **글자가 이미 다르다**. 색은 훑어 읽는 사람을
+ * 위한 보조일 뿐이고, 색을 못 봐도 "AI 도우미가 쓴 설명"이라는 말이 그대로 있다.
+ */
+.minui-provenance[data-provenance="ai"] {
+  color: var(--minui-warn);
+}
+
+.minui-provenance[data-provenance="grounded"] {
+  color: var(--minui-accent);
+}
+
+/* ── 검증된 AI 제안 (AI-9) ─────────────────────────────────────────────── */
+
+/*
+ * 후보 **위**에 둔다. 누르기 전에 읽혀야 하기 때문이다 — 아래에 두면 이미 누른 뒤에
+ * "그건 AI가 고른 거였어요"를 말하는 셈이 된다.
+ */
+.minui-ai-proposal {
+  display: grid;
+  gap: 0.25rem;
+  margin: 0 0 var(--minui-gap);
+  padding: calc(var(--minui-gap) * 0.7);
+  border: 1px dashed var(--minui-warn);
+  border-radius: var(--minui-radius);
+  background: var(--minui-warn-soft);
+  font-size: var(--minui-text-s);
+  line-height: 1.5;
+}
+
+.minui-ai-proposal-mark {
+  color: var(--minui-warn);
+  font-weight: 700;
+}
+
+.minui-ai-proposal-why {
+  color: var(--minui-ink);
+}
+
+/* 버린 것은 한 단계 물러나 보인다. 알리되 주인공은 아니다. */
+.minui-ai-proposal-dropped {
+  color: var(--minui-ink-2);
+}
+
+/*
+ * 안심 점검의 「할 일」 한 줄 (AI-5).
+ *
+ * 걸린 것 아래 한 단계 물러나 붙는다. 무엇이 걸렸는지가 먼저이고 무엇을 할지가
+ * 그다음이다 — 같은 무게로 두면 여섯 항목이 열두 줄이 되어 아무도 안 읽는다.
+ */
+.minui-safety-tip {
+  display: block;
+  margin-top: 0.15rem;
+  color: var(--minui-ink-2);
+  font-size: var(--minui-text-s);
+  font-weight: 400;
+}
+
+/* ── 이렇게 들었어요 (AI-6) ────────────────────────────────────────────── */
+
+.minui-heard-as {
+  display: grid;
+  gap: 0.2rem;
+  margin: 0 0 var(--minui-gap);
+  padding: calc(var(--minui-gap) * 0.7);
+  border: 1px solid var(--minui-line-strong);
+  border-radius: var(--minui-radius);
+  background: var(--minui-surface-2);
+}
+
+.minui-heard-as-mark {
+  color: var(--minui-ink-2);
+  font-size: var(--minui-text-s);
+  font-weight: 700;
+}
+
+/* 고쳐 들은 말 자체는 크게. 사용자가 맞는지 **확인할 수 있어야** 이 기능이 성립한다. */
+.minui-heard-as-query {
+  color: var(--minui-ink);
+  font-size: var(--minui-text-l);
+  font-weight: 700;
 }

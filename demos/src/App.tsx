@@ -3,6 +3,8 @@ import { IndexedDbStorageAdapter, MinUIHome, MinUIProvider } from "@minui/react"
 import { makeStt } from "./stt.js";
 import { useCallback, useMemo, useState } from "react";
 import { assistEndpoint, makeAssist } from "@host-ai/assist.js";
+import { makeClarify } from "@host-ai/clarify.js";
+import { makeCorrect } from "@host-ai/correct.js";
 import { makeExplain, makeGroundedHint } from "@host-ai/explain.js";
 import { makeRetrieve } from "./match.js";
 import { ClassicShell } from "./ClassicShell.js";
@@ -158,6 +160,13 @@ function SiteDemo({ site }: { site: SiteMeta }) {
     () => (ASSIST_URL ? makeAssist(site.catalog, ASSIST_URL) : undefined),
     [site.catalog],
   );
+  /*
+   * 한 문장 되묻기 (AI-3). 도우미와 같은 규칙 — 중계기가 없으면 만들지 않고 안 넘긴다.
+   * 그러면 지금까지의 갈래 되묻기가 그대로 답이 된다.
+   */
+  const clarify = useMemo(() => makeClarify(), []);
+  // 잘못 들린 말 고쳐 쓰기 (AI-6). 사이트마다 메뉴가 달라 카탈로그를 함께 넘긴다.
+  const correct = useMemo(() => makeCorrect(site.catalog), [site.catalog]);
   // 카탈로그에 뜻풀이가 없는 메뉴에만 붙는다. 같은 이유로 서버를 거친다.
   const explain = useMemo(() => makeExplain(site.catalog), [site.catalog]);
   // 그 답이 공개 안내문에서 온 것이면 원문 한 줄과 주소를 함께 준다. 대부분은 없다.
@@ -181,6 +190,8 @@ function SiteDemo({ site }: { site: SiteMeta }) {
       storage={storage}
       coldStartPresets={site.presets}
       {...(assist ? { assist } : {})}
+      {...(clarify ? { clarify } : {})}
+      {...(correct ? { correct } : {})}
       explain={explain}
       groundedHint={grounded}
       {...(retrieve ? { retrieve } : {})}

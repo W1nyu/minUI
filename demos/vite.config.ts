@@ -2,6 +2,7 @@ import { fileURLToPath } from "node:url";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 import { matchRoute } from "./src/matchRoute.js";
+import { aiRoutes } from "./src/aiRoutes.js";
 import { assistRoute } from "./src/assistRoute.js";
 import { explainRoute } from "./src/explainRoute.js";
 import { studioRoute } from "./src/studioRoute.js";
@@ -41,6 +42,8 @@ export default defineConfig({
     react(),
     assistRoute(),
     explainRoute(),
+    // 되묻기 한 문장(AI-3)과 확인 문장 뼈대(AI-4). 배포에서는 중계기의 같은 경로가 된다.
+    aiRoutes(),
     studioRoute(),
     ...(process.env["MINUI_NEURAL"] === "1" ? [matchRoute()] : []),
   ],

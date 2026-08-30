@@ -10,6 +10,7 @@ import {
 } from "../adaptation/AdaptiveSupport.js";
 import { CATALOG } from "../catalog.js";
 import { formatWon } from "../screens/ScreenFrame.js";
+import { summarizeMonth } from "../summary.js";
 
 /**
  * MinUI 모드.
@@ -46,13 +47,17 @@ export function MinUIShell({ stt }: { stt?: SttLike } = {}) {
         return next ? <>{next.label} {formatWon(next.amount)}</> : null;
       }
       case "inquiry.history": {
-        const latest = transactions[0];
-        return latest ? (
-          <>
-            {latest.counterparty} {latest.direction === "in" ? "+" : "−"}
-            {formatWon(latest.amount)}
-          </>
-        ) : null;
+        /*
+         * 최근 한 건이 아니라 **이번 달 합계**를 얹는다 (AI-7).
+         *
+         * 전에는 맨 위 거래를 보여 줬는데, 그것은 목록의 첫 줄을 미리 보여 준 것일 뿐
+         * 사용자가 알고 싶은 것("이번 달 얼마나 나갔지")에 답하지 않았다. 카드에
+         * 답을 얹는다는 S2의 규칙은 <b>목록의 일부</b>가 아니라 <b>물음의 답</b>을
+         * 얹으라는 뜻이다.
+         */
+        const summary = summarizeMonth(transactions);
+        if (summary.count === 0) return null;
+        return <>이번 달 {formatWon(summary.spent)} 나감</>;
       }
       case "transfer.auto": {
         const active = autoTransfers.filter((item) => item.active).length;
@@ -97,7 +102,9 @@ export function MinUIShell({ stt }: { stt?: SttLike } = {}) {
 
   if (!onboarded) return <OnboardingSheet onDone={finishOnboarding} />;
 
-  const level: SupportLevel = adaptive.consented ? adaptive.level : "guided";
+  // 직접 고른 도움 정도는 동의와 별개다. 동의는 행동 합계를 모을지의 선택이고,
+  // 사용자가 자기 화면을 고르는 데까지 막을 이유는 없다.
+  const level: SupportLevel = adaptive.level;
 
   return (
     <MinUIHome
@@ -130,6 +137,32 @@ export function MinUIShell({ stt }: { stt?: SttLike } = {}) {
 function AdaptiveSupportControl() {
   const adaptive = useAdaptiveSupport();
 
+  const picker = (
+    <div className="adaptive-level-picker" role="group" aria-label="화면 도움 정도 직접 고르기">
+      <button
+        type="button"
+        aria-pressed={adaptive.manualLevel === "simple"}
+        onClick={() => adaptive.setLevel("simple")}
+      >
+        더 단순하게
+      </button>
+      <button
+        type="button"
+        aria-pressed={adaptive.manualLevel === "guided"}
+        onClick={() => adaptive.setLevel("guided")}
+      >
+        지금처럼
+      </button>
+      <button
+        type="button"
+        aria-pressed={adaptive.manualLevel === "standard"}
+        onClick={() => adaptive.setLevel("standard")}
+      >
+        도움 줄이기
+      </button>
+    </div>
+  );
+
   if (!adaptive.asked) {
     return (
       <section className="adaptive-support" aria-label="화면 도움 설정">
@@ -145,15 +178,21 @@ function AdaptiveSupportControl() {
             아니요, 지금 화면 유지
           </button>
         </div>
+        <p className="adaptive-support-direct">또는 기록 없이 직접 고르실 수 있어요.</p>
+        {picker}
       </section>
     );
   }
 
   if (!adaptive.consented) {
     return (
-      <button type="button" className="adaptive-support-link" onClick={adaptive.grantConsent}>
-        화면 도움 맞추기
-      </button>
+      <section className="adaptive-support" aria-label="화면 도움 설정">
+        <p>화면 도움을 직접 고르실 수 있어요. 사용 기록은 모으지 않아요.</p>
+        {picker}
+        <button type="button" className="adaptive-support-link" onClick={adaptive.grantConsent}>
+          사용하면서 맞추기
+        </button>
+      </section>
     );
   }
 
@@ -162,6 +201,12 @@ function AdaptiveSupportControl() {
       <p>
         화면 도움: <strong>{supportLevelText(adaptive.level)}</strong>
       </p>
+      {picker}
+      {adaptive.manualLevel && (
+        <button type="button" onClick={adaptive.useAutomaticLevel}>
+          사용하면서 맞추기로 돌아가기
+        </button>
+      )}
       <button type="button" onClick={adaptive.forget}>
         도움 기록 지우기
       </button>

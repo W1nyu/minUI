@@ -1,4 +1,6 @@
 import type { MenuCatalog, MenuId } from "@minui/core";
+import { aiEndpoint, askRelay } from "./endpoints.js";
+import { isSafeMenuLabel } from "./privacy.js";
 import cache from "./explain-cache.json";
 import sources from "./explain-sources.json";
 
@@ -30,34 +32,64 @@ export function explainKey(label: string, path?: readonly string[]): string {
   return path && path.length > 0 ? `${label}|${path.join(">")}` : label;
 }
 
+/** 뜻풀이 하나와 그것이 어디서 왔는지 (AI-8). 화면이 출처 배지를 그린다. */
+export interface ExplainAnswer {
+  hint: string | null;
+  provenance: "cache" | "ai";
+  model?: string | undefined;
+}
+
+/**
+ * <p><b>중계기가 있으면 캐시 밖도 답한다</b> (AI-2). 전에는 `/api/explain` 상대 경로만
+ * 불렀고, 정적 배포에는 그 주소가 없어 캐시에 없는 메뉴는 늘 "뜻을 알 수 없었어요"였다.
+ * 이제 중계기 주소가 설정돼 있으면 그쪽에 묻는다 — <b>배포된 공개 데모에서도</b> 캐시
+ * 밖의 말이 풀린다.
+ *
+ * <p>중계기가 없으면 지금까지와 <b>바이트 단위로 같게</b> 돈다. 주소가 없으면 호출
+ * 자체를 안 만들고, 프로덕션 번들에서 그 가지가 사라진다.
+ */
 export function makeExplain(catalog: MenuCatalog) {
   const byId = new Map(catalog.map((menu) => [menu.id, menu]));
+  const endpoint = aiEndpoint("explain");
 
-  return async (menuId: MenuId): Promise<string | null> => {
+  return async (menuId: MenuId): Promise<ExplainAnswer | null> => {
     const menu = byId.get(menuId);
     if (!menu) return null;
 
     const cached = CACHE[explainKey(menu.label, menu.path)];
-    if (cached !== undefined) return cached.length > 0 ? cached : null;
-
-    try {
-      const response = await fetch("/api/explain", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({
-          label: menu.label,
-          ...(menu.path ? { path: menu.path } : {}),
-        }),
-      });
-      if (!response.ok) return null;
-
-      const answer = (await response.json()) as { hint: string | null };
-      return answer.hint ?? null;
-    } catch {
-      // 정적 배포에는 이 주소가 없다. 못 물었다는 것과 물었는데 모른다는 것을
-      // 화면에서 굳이 가르지 않는다 — 둘 다 "뜻을 알 수 없었어요"다.
-      return null;
+    /*
+     * **구워 둔 답이 먼저다.** 결정론이라 같은 메뉴에서 늘 같은 것이 나오고, 한도를
+     * 안 쓰고, 즉시 뜬다. 모델은 캐시가 모르는 것만 맡는다 — 검색이 로컬 먼저인 것과
+     * 같은 순서다.
+     */
+    if (cached !== undefined) {
+      return cached.length > 0
+        ? { hint: cached, provenance: "cache" }
+        : { hint: null, provenance: "cache" };
     }
+
+    // 주소가 없으면 여기서 끝. "못 물었다"와 "물었는데 모른다"를 화면에서 가르지 않는다.
+    if (!endpoint) return { hint: null, provenance: "cache" };
+
+    // 카탈로그는 남의 사이트에서 긁어온 것이다. 사람 이름이 든 라벨을 내보내지 않는다.
+    if (!isSafeMenuLabel(menu.label)) return { hint: null, provenance: "cache" };
+
+    const answer = await askRelay(
+      endpoint,
+      { label: menu.label, ...(menu.path ? { path: menu.path } : {}) },
+      (payload) => {
+        const hint = payload["hint"];
+        if (typeof hint !== "string" || hint.length === 0) return null;
+        const model = payload["model"];
+        return {
+          hint,
+          provenance: "ai" as const,
+          ...(typeof model === "string" ? { model } : {}),
+        };
+      },
+    );
+
+    return answer ?? { hint: null, provenance: "cache" };
   };
 }
 
