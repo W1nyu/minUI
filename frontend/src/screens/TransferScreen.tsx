@@ -10,6 +10,7 @@ import { makeSafetyTips, type SafetyTips } from "@host-ai/safetyTips.js";
 import { ProvenanceBadge, SafetyNotes, SpeakButton } from "@minui/react";
 import { useEffect, useId, useMemo, useState } from "react";
 import { useAdaptiveSupport } from "../adaptation/AdaptiveSupport.js";
+import { useAiRelay } from "../AiSwitch.js";
 import { useBank } from "../BankContext.js";
 import { buildTransferFacts } from "../safetyFacts.js";
 import { ScreenFrame, formatWon } from "./ScreenFrame.js";
@@ -50,7 +51,11 @@ export function TransferScreen({
    * <p>`useMemo`로 한 번만 만든다. 매 렌더 새로 만들면 아래 효과의 의존성이 매번
    * 달라져 확인 화면에 들어갈 때마다 모델을 다시 부른다.
    */
-  const askConfirm = useMemo(() => makeConfirmSentence(), []);
+  const aiRelay = useAiRelay();
+  const askConfirm = useMemo(
+    () => (aiRelay ? makeConfirmSentence() : undefined),
+    [aiRelay],
+  );
   const [aiConfirm, setAiConfirm] = useState<ConfirmSentence | null>(null);
 
   /**
@@ -60,7 +65,7 @@ export function TransferScreen({
    * 캐시되지만, 조언은 <b>점검 종류 이름만</b>으로 정해진다 — `SafetyKind`가 여섯이라
    * 조합이 유한하고, 며칠이면 사실상 전부 캐시돼 한도를 안 쓴다.
    */
-  const askTips = useMemo(() => makeSafetyTips(), []);
+  const askTips = useMemo(() => (aiRelay ? makeSafetyTips() : undefined), [aiRelay]);
   const [aiTips, setAiTips] = useState<SafetyTips | null>(null);
 
   /*

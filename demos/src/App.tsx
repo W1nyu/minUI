@@ -5,6 +5,7 @@ import { useCallback, useMemo, useState } from "react";
 import { assistEndpoint, makeAssist } from "@host-ai/assist.js";
 import { makeClarify } from "@host-ai/clarify.js";
 import { makeCorrect } from "@host-ai/correct.js";
+import { GuardDemo } from "./GuardDemo.js";
 import { makeExplain, makeGroundedHint } from "@host-ai/explain.js";
 import { makeRetrieve } from "./match.js";
 import { ClassicShell } from "./ClassicShell.js";
@@ -49,6 +50,11 @@ export function App() {
   const [studio, setStudio] = useState(
     () => currentRoute() === "studio",
   );
+  /*
+   * 「AI가 못 하는 것」도 주소로만 들어간다. 탭 바에 두면 다섯 사이트와 성격이 섞인다 —
+   * 이곳은 <b>사이트가 아니라 검증기를 보는 곳</b>이다.
+   */
+  const [guard, setGuard] = useState(() => currentRoute() === "guard");
 
   const [slug, setSlug] = useState(() => {
     // findSite는 띄우지 않는 곳(COLD_SITES)도 찾는다. 주소를 직접 친 경우를 위해 남겨 둔
@@ -57,6 +63,20 @@ export function App() {
     return findSite(fromPath)?.slug ?? SITES[0]!.slug;
   });
   const site = findSite(slug)!;
+
+  if (guard) {
+    return (
+      <div className="app app-wide">
+        <GuardDemo
+          catalog={site.catalog}
+          onBack={() => {
+            setGuard(false);
+            window.history.replaceState(null, "", routeHref(slug));
+          }}
+        />
+      </div>
+    );
+  }
 
   if (studio) {
     return (
@@ -136,6 +156,20 @@ export function App() {
       <a className="studio-link bank-link" href={routeHref("bank/")}>
         미니은행 시연 열기 →
       </a>
+      {/*
+       * 안전 경계를 눈으로 보는 곳. 지금까지 이 검증은 테스트만 재고 있었고,
+       * 테스트는 심사자가 볼 수 없다.
+       */}
+      <button
+        type="button"
+        className="studio-link guard-link"
+        onClick={() => {
+          setGuard(true);
+          window.history.replaceState(null, "", routeHref("guard"));
+        }}
+      >
+        AI가 못 하는 것 보기 →
+      </button>
     </div>
   );
 }

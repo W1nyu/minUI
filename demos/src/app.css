@@ -113,9 +113,17 @@ body {
   color: var(--minui-ink-3);
 }
 
-/* 수집본 표시는 출처보다 한 단 낮춘다 — 읽히되 앞서지 않게. */
+/*
+ * 수집본 표시는 출처보다 한 단 낮춘다 — 읽히되 앞서지 않게.
+ *
+ * **opacity로 낮추지 않는다.** `--minui-ink-3`은 세 배경 모두에서 4.5:1을 겨우 넘게
+ * 맞춰 둔 색인데(tokens.css의 주석), 거기 0.75를 곱하면 그 조정이 그대로 무효가 된다.
+ * axe를 색 대비를 **켜고** 돌렸더니 걸렸다 — 2026-08-31.
+ *
+ * 무게는 글자 굵기로 낮춘다. 색은 이미 가장 낮은 단이라 더 내릴 데가 없다.
+ */
 .bar-captured {
-  opacity: 0.75;
+  font-weight: 400;
   white-space: nowrap;
 }
 
@@ -754,3 +762,192 @@ body {
   line-height: 1.5;
   color: var(--minui-ink-2);
 }
+
+/* ── AI가 못 하는 것 (시연용 검증기 페이지) ───────────────────────────── */
+
+.guard {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  padding: 1.2rem;
+  max-width: 68rem;
+  margin: 0 auto;
+}
+
+.guard-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.guard-head h1 {
+  margin: 0 0 0.4rem;
+  font-size: var(--minui-text-xl);
+}
+
+.guard-back {
+  flex: none;
+  min-height: var(--minui-touch-min);
+  padding: 0 0.9rem;
+  border: 1px solid var(--minui-line-strong);
+  border-radius: 10px;
+  background: var(--minui-surface);
+  color: var(--minui-ink);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.guard-lead {
+  margin: 0;
+  max-width: 46rem;
+  color: var(--minui-ink-2);
+  line-height: 1.6;
+}
+
+/* 넓은 화면에서는 나란히, 좁으면 위아래로. 왼쪽이 입력, 오른쪽이 결과다. */
+.guard-body {
+  display: grid;
+  gap: 1.2rem;
+  grid-template-columns: minmax(16rem, 22rem) 1fr;
+  align-items: start;
+}
+
+@media (max-width: 52rem) {
+  .guard-body { grid-template-columns: 1fr; }
+}
+
+.guard-body h2 {
+  margin: 0 0 0.5rem;
+  font-size: var(--minui-text-m);
+}
+
+.guard-samples ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.guard-sample {
+  width: 100%;
+  min-height: var(--minui-touch-min);
+  padding: 0.7rem 0.9rem;
+  border: 1px solid var(--minui-line);
+  border-radius: 12px;
+  background: var(--minui-surface);
+  color: var(--minui-ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  display: grid;
+  gap: 0.2rem;
+}
+
+.guard-sample[aria-pressed="true"] {
+  border-color: var(--minui-accent);
+  box-shadow: inset 3px 0 0 var(--minui-accent);
+}
+
+.guard-sample-name { font-weight: 700; }
+
+.guard-sample-intent {
+  color: var(--minui-ink-2);
+  font-size: var(--minui-text-s);
+  line-height: 1.5;
+}
+
+.guard-io { display: grid; gap: 0.5rem; }
+
+.guard-input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid var(--minui-line-strong);
+  border-radius: 12px;
+  background: var(--minui-surface);
+  color: var(--minui-ink);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  resize: vertical;
+}
+
+/*
+ * 통과와 거절을 색만으로 가르지 않는다 — 굵은 낱말("통과"/"버렸습니다")이 먼저 있고
+ * 색은 훑어 읽는 사람을 위한 보조다.
+ */
+.guard-verdict {
+  margin: 0;
+  padding: 0.7rem 0.9rem;
+  border-radius: 10px;
+  line-height: 1.6;
+}
+
+.guard-pass {
+  border: 1px solid var(--minui-accent);
+  background: var(--minui-accent-soft);
+  color: var(--minui-accent);
+}
+
+.guard-reject {
+  border: 1px solid var(--minui-warn);
+  background: var(--minui-warn-soft);
+  color: var(--minui-warn);
+}
+
+/* 기계가 쓰는 이름은 작게 뒤에. 로그에서 찾을 때 쓰라고 남긴다. */
+.guard-code {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0.05rem 0.4rem;
+  border-radius: 6px;
+  background: var(--minui-surface);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.85rem;
+}
+
+.guard-result {
+  margin: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.guard-result > div {
+  display: grid;
+  gap: 0.15rem;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid var(--minui-line);
+  border-radius: 10px;
+  background: var(--minui-surface);
+}
+
+.guard-result dt {
+  color: var(--minui-ink-2);
+  font-size: var(--minui-text-s);
+  font-weight: 700;
+}
+
+.guard-result dd {
+  margin: 0;
+  font-size: var(--minui-text-m);
+  font-weight: 600;
+}
+
+/* 왜 그 값이 되었는지. 값보다 한 단계 물러나 보인다. */
+.guard-note {
+  display: block;
+  margin-top: 0.1rem;
+  color: var(--minui-ink-2);
+  font-size: var(--minui-text-s);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.guard-foot {
+  color: var(--minui-ink-2);
+  font-size: var(--minui-text-s);
+  line-height: 1.6;
+}
+
+.guard-foot p { margin: 0; }

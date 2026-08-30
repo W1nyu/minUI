@@ -48,9 +48,20 @@ export interface ExplainAnswer {
  * <p>중계기가 없으면 지금까지와 <b>바이트 단위로 같게</b> 돈다. 주소가 없으면 호출
  * 자체를 안 만들고, 프로덕션 번들에서 그 가지가 사라진다.
  */
-export function makeExplain(catalog: MenuCatalog) {
+export interface ExplainOptions {
+  /**
+   * 중계기를 쓸 것인가. **기본은 켬.**
+   *
+   * <p>시연에서 "AI 끄고 보기"를 누르면 여기가 `false`가 된다. 그때도 <b>구워 둔
+   * 451개는 그대로 나온다</b> — 캐시는 AI가 아니다. 끄는 것은 <b>중계기</b>이지
+   * 기기가 이미 가진 답이 아니고, 그 구분이 이 스위치의 요점이다.
+   */
+  relay?: boolean;
+}
+
+export function makeExplain(catalog: MenuCatalog, options: ExplainOptions = {}) {
   const byId = new Map(catalog.map((menu) => [menu.id, menu]));
-  const endpoint = aiEndpoint("explain");
+  const endpoint = options.relay === false ? undefined : aiEndpoint("explain");
 
   return async (menuId: MenuId): Promise<ExplainAnswer | null> => {
     const menu = byId.get(menuId);

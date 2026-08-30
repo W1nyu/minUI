@@ -5,6 +5,7 @@ import { makeCorrect } from "@host-ai/correct.js";
 import { makeExplain, makeGroundedHint } from "@host-ai/explain.js";
 import { IndexedDbStorageAdapter, MinUIProvider, type SttLike } from "@minui/react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { AiSwitch, AiSwitchProvider, useAiRelay } from "./AiSwitch.js";
 import { BankProvider } from "./BankContext.js";
 import { DemoLedgerNotice } from "./DemoLedgerNotice.js";
 import { AdaptiveSupportProvider, useAdaptiveSupport } from "./adaptation/AdaptiveSupport.js";
@@ -47,7 +48,20 @@ export interface AppProps {
   resetDemoLedger?: () => void | Promise<void>;
 }
 
-export function App({
+/**
+ * 바깥 껍데기. **AI 스위치가 여기 있어야 하는 이유**는 아래 capability들이 그 값에
+ * 따라 <b>만들어지거나 안 만들어지기</b> 때문이다 — 스위치를 안쪽에 두면 스위치를
+ * 읽는 훅이 capability를 만드는 자리보다 아래에 있게 된다.
+ */
+export function App(props: AppProps) {
+  return (
+    <AiSwitchProvider>
+      <AppInner {...props} />
+    </AiSwitchProvider>
+  );
+}
+
+function AppInner({
   api,
   initialMode = "minui",
   storageKey = "demo",
@@ -67,6 +81,14 @@ export function App({
    * 정해야 한 화면만 연습을 잊는 일이 안 생긴다.
    */
   const [practice, setPractice] = useState(false);
+  /**
+   * 중계기를 쓸 것인가 (시연 스위치). **끄면 아래 capability들이 아예 안 만들어진다.**
+   *
+   * <p>`undefined`를 넘기는 것과 만들어 놓고 안 부르는 것은 다르다 — 전자는 화면에
+   * 그 상태 자체가 안 생기고, 후자는 "묻는 중"이 잠깐 떴다 사라진다. 이 저장소가
+   * `assist`를 다루던 방식 그대로다.
+   */
+  const aiRelay = useAiRelay();
   const recorder = useTaskRecorder();
 
   const realApi = useMemo(() => api ?? new MockBankApi(), [api]);
@@ -118,9 +140,10 @@ export function App({
    * 판단이 바뀐 것이 아니라 조건이 생긴 것이다.
    */
   const assist = useMemo(() => {
+    if (!aiRelay) return undefined;
     const endpoint = assistEndpoint();
     return endpoint ? makeAssist(CATALOG, endpoint) : undefined;
-  }, []);
+  }, [aiRelay]);
 
   /*
    * 「이해 지원」 — 뜻풀이를 비워 둔 여섯 메뉴에서 "이게 무슨 뜻이에요?"가 뜬다.
@@ -130,7 +153,11 @@ export function App({
    * `/api/explain`까지 간다 (`shared/host-ai/explain.ts`).
    *
    */
-  const explain = useMemo(() => makeExplain(CATALOG), []);
+  /*
+   * **끄더라도 구워 둔 451개는 그대로 나온다.** 캐시는 AI가 아니다 — 끄는 것은
+   * 중계기이지 기기가 이미 가진 답이 아니고, 그 구분이 이 스위치의 요점이다.
+   */
+  const explain = useMemo(() => makeExplain(CATALOG, { relay: aiRelay }), [aiRelay]);
   const grounded = useMemo(() => makeGroundedHint(CATALOG), []);
 
   /*
@@ -143,13 +170,13 @@ export function App({
    * 한 문장 되묻기 (AI-3). 중계기가 없으면 `undefined`라 넘기지 않고, 그러면
    * 지금까지의 갈래 되묻기가 그대로 답이 된다.
    */
-  const clarify = useMemo(() => makeClarify(), []);
+  const clarify = useMemo(() => (aiRelay ? makeClarify() : undefined), [aiRelay]);
 
   /*
    * 잘못 들린 말 고쳐 쓰기 (AI-6). 목적지를 고르지 않고 질의만 고치므로, 고쳐진 말은
    * 배운 말·자모 보정·위험도 경계를 그대로 지난다.
    */
-  const correct = useMemo(() => makeCorrect(CATALOG), []);
+  const correct = useMemo(() => (aiRelay ? makeCorrect(CATALOG) : undefined), [aiRelay]);
 
   return (
     <MinUIProvider
@@ -174,7 +201,14 @@ export function App({
               <DemoLedgerNotice {...(resetDemoLedger ? { onReset: resetDemoLedger } : {})} />
             )}
             <ModeSwitch mode={mode} onChange={setMode} />
-            <PracticeSwitch practice={practice} onChange={setPractice} />
+            {/*
+              진행자용 조절 한 줄. 연습 모드와 AI 스위치가 자리를 나눠 쓴다 —
+              각자 줄을 차지하면 머리 띠가 넷이 되어 카드가 화면 아래로 밀린다.
+            */}
+            <div className="demo-bar">
+              <PracticeSwitch practice={practice} onChange={setPractice} />
+              <AiSwitch />
+            </div>
             <main className="app-body">
               {mode === "minui" ? <MinUIShell {...(stt ? { stt } : {})} /> : <ClassicShell />}
             </main>
@@ -238,23 +272,21 @@ function PracticeSwitch({
 }) {
   if (!practice) {
     return (
-      <div className="practice-bar">
-        <button type="button" className="practice-start" onClick={() => onChange(true)}>
-          연습해 보기 — 돈이 나가지 않아요
-        </button>
-      </div>
+      <button type="button" className="demo-quiet" onClick={() => onChange(true)}>
+        연습해 보기 — 돈이 나가지 않아요
+      </button>
     );
   }
 
   return (
-    <div className="practice-bar practice-bar-on" role="status">
-      <p className="practice-badge">
+    <span className="demo-loud demo-loud-accent" role="status">
+      <span className="demo-loud-text">
         <strong>연습 중</strong> — 실제로 보내지지 않아요
-      </p>
-      <button type="button" className="practice-stop" onClick={() => onChange(false)}>
+      </span>
+      <button type="button" className="demo-restore" onClick={() => onChange(false)}>
         연습 끝내기
       </button>
-    </div>
+    </span>
   );
 }
 
