@@ -26,6 +26,15 @@ export {
 } from "./search/SearchPipeline.js";
 export { combineRisk, requiresConfirm } from "./risk.js";
 export {
+  checkTransfer,
+  requiresExtraConfirm,
+  type PastTransfer,
+  type SafetyKind,
+  type SafetyLevel,
+  type SafetyNote,
+  type TransferFacts,
+} from "./safety.js";
+export {
   COPILOT_INTENTS,
   MAX_WHY_CHARS,
   nextSteps,
@@ -93,6 +102,7 @@ export type {
   Clock,
   ColdStartPresets,
   ColdStartProfile,
+  Contrast,
   LayoutState,
   LearnedTerm,
   MenuCatalog,

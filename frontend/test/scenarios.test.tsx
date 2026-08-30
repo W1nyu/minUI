@@ -122,7 +122,13 @@ async function s1(mode: Mode) {
     screen.getByRole("option", { name: /행복아파트 관리사무소/ }),
   );
   await userEvent.type(screen.getByLabelText("보낼 금액"), "187000");
-  await userEvent.click(screen.getByRole("button", { name: "보내기" }));
+  /*
+   * 확인 화면도 두 모드가 같은 컴포넌트를 쓰므로 세 걸음이 양쪽에 똑같이 붙는다.
+   * §12.2의 탭 수 비교는 그대로 유효하고 절댓값만 함께 는다.
+   */
+  await userEvent.click(screen.getByRole("button", { name: "내용 확인하기" }));
+  await userEvent.click(screen.getByRole("checkbox"));
+  await userEvent.click(screen.getByRole("button", { name: "네, 확인하고 보내기" }));
   await waitFor(() => expect(screen.getByRole("status")).toBeInTheDocument());
 }
 

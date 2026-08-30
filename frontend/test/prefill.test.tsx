@@ -137,7 +137,19 @@ describe("음성만으로는 이체 화면이 저절로 열리지 않는다 ★"
     await userEvent.click(within(dialog).getByRole("button", { name: /들었어요/ }));
     expect(within(dialog).queryByText(/보냈습니다/)).not.toBeInTheDocument();
 
-    await userEvent.click(within(dialog).getByRole("button", { name: "보내기" }));
+    /*
+     * 확인 화면을 지나야 보내진다. **읽는 자리와 누르는 자리가 갈라져 있다** —
+     * 내용 확인을 눌러도 아직 원장은 그대로이고, 수취 정보를 확인했다고 표시하기
+     * 전에는 마지막 버튼이 눌리지도 않는다.
+     */
+    await userEvent.click(within(dialog).getByRole("button", { name: "내용 확인하기" }));
+    expect(within(dialog).queryByText(/보냈습니다/)).not.toBeInTheDocument();
+    expect(
+      within(dialog).getByRole("button", { name: "네, 확인하고 보내기" }),
+    ).toBeDisabled();
+
+    await userEvent.click(within(dialog).getByRole("checkbox"));
+    await userEvent.click(within(dialog).getByRole("button", { name: "네, 확인하고 보내기" }));
     expect(await within(dialog).findByText(/보냈습니다/)).toBeInTheDocument();
   });
 });

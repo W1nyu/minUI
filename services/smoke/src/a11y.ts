@@ -285,7 +285,10 @@ const CHECKS: Check[] = [
       await page.getByRole("button", { name: /전체 메뉴/ }).click();
       await page.getByRole("dialog").getByRole("button", { name: /^계좌 이체$/ }).click();
       expect(
-        await seen(page.getByRole("dialog", { name: "계좌 이체" }).getByRole("button", { name: "보내기" })),
+        // 확인 단계가 생기면서 이 화면의 주 버튼이 `보내기` → `내용 확인하기`가 됐다 (F13).
+        await seen(
+          page.getByRole("dialog", { name: "계좌 이체" }).getByRole("button", { name: "내용 확인하기" }),
+        ),
         "200% 확대에서 이체 확인 버튼에 닿지 못한다",
         problems,
       );

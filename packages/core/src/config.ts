@@ -176,6 +176,29 @@ export interface MinUIConfig {
     visitsUntilPersonalized: number;
   };
   /**
+   * 보내기 직전 안심 점검 (F13, `safety.ts`).
+   *
+   * <p>이 값들이 코드가 아니라 설정에 있어야 하는 이유는 불변 규칙 3 그대로다 —
+   * 금융사마다 "큰 금액"이 다르고, 늦은 밤의 경계도 다르다. 무엇보다 이 값들은
+   * <b>아직 사용자로 재지 않았다.</b> 초기 가설이므로 고치기 쉬운 자리에 둔다.
+   */
+  safety: {
+    /** 평소 보내던 최대 금액의 몇 배부터 "평소보다 크다"고 볼 것인가 */
+    largeAmountRatio: number;
+    /** 기록이 모자라 "평소"를 말할 수 없을 때 쓰는 절대 기준 */
+    largeAmountFloor: number;
+    /** "평소"를 말하려면 이 사람에게 최소 몇 번은 보냈어야 한다 */
+    minHistoryForUsual: number;
+    /** 늦은 밤이 시작되는 시각 (사용자 달력 기준, 0~23) */
+    lateNightFromHour: number;
+    /** 늦은 밤이 끝나는 시각. `from`보다 작으면 자정을 넘는 구간이다 */
+    lateNightToHour: number;
+    /** 같은 곳에 같은 금액을 다시 보낼 때 "방금"으로 볼 간격 */
+    repeatWindowMs: number;
+    /** 보내고 남는 돈이 원래 잔액의 이 비율 아래면 알린다 */
+    lowBalanceRatio: number;
+  };
+  /**
    * 개인 동의어 학습 (M7).
    *
    * <p>사용자가 쓴 표현을 검색이 못 알아들었는데 결국 그 메뉴로 갔다면, 그 표현은
@@ -291,6 +314,25 @@ export const DEFAULT_CONFIG: MinUIConfig = {
   },
   coldStart: {
     visitsUntilPersonalized: 8,
+  },
+  /*
+   * **고른 값이지 유도한 값이 아니다.** 이 표를 근거로 삼지 말 것 — 사용자 테스트에서
+   * "너무 자주 뜬다"가 나오면 가장 먼저 움직일 값들이다.
+   *
+   *   largeAmountRatio 2.0   평소의 두 배. 1.5로 두면 관리비가 오른 달마다 뜬다
+   *   largeAmountFloor 50만   기록이 없을 때. 보이스피싱 첫 송금액대를 염두에 뒀다
+   *   lateNight 23~6         잠든 사람을 깨워 시키는 수법이 있다. 막지는 않고 알린다
+   *   repeatWindow 3분       두 번 눌린 것과 정말 두 번 보내는 것을 가르는 간격
+   *   lowBalanceRatio 0.1    보내고 10%도 안 남으면 알린다
+   */
+  safety: {
+    largeAmountRatio: 2,
+    largeAmountFloor: 500_000,
+    minHistoryForUsual: 2,
+    lateNightFromHour: 23,
+    lateNightToHour: 6,
+    repeatWindowMs: 3 * 60_000,
+    lowBalanceRatio: 0.1,
   },
   learning: {
     enabled: true,

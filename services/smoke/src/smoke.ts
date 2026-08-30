@@ -198,10 +198,18 @@ const SCENARIOS: Scenario[] = [
         problems,
       );
 
-      await screen.getByRole("button", { name: "보내기" }).click();
+      // 확인 단계가 생기면서 이 화면의 주 버튼이 바뀌었다 (F13).
+      await screen.getByRole("button", { name: "내용 확인하기" }).click();
       expect(
         await seen(screen.getByText(/받는 분을 선택/)),
         "빈 채로 보냈는데 이유를 말하지 않는다",
+        problems,
+      );
+      expect(
+        // 확인 화면은 다이얼로그 **이름이 바뀐다**(`보낼 내용 확인`). `screen`이 아니라
+        // 페이지에서 찾아야 "안 떴다"가 진짜 안 떴다는 뜻이 된다.
+        !(await seen(page.getByRole("button", { name: "네, 확인하고 보내기" }), 1_500)),
+        "보낼 것이 정해지지도 않았는데 확인 화면이 떴다 ★",
         problems,
       );
       expect(
@@ -236,7 +244,17 @@ const SCENARIOS: Scenario[] = [
       const uncle = select.locator("option", { hasText: "삼촌" }).first();
       await select.selectOption(await uncle.getAttribute("value") ?? "");
       await screen.getByLabel("보낼 금액").fill("30000");
-      await screen.getByRole("button", { name: "보내기" }).click();
+      /*
+       * **확인 단계 셋** (F13). 내용 확인 → 수취 정보 확인 표시 → 보내기.
+       * 사람이 읽어야 하는 자리가 하나 늘었고, 그것이 §9.3의 "최종 확정은 사람이
+       * 한다"를 화면에서 실제로 밟게 한다. 스모크도 사람과 같은 길을 간다.
+       */
+      await screen.getByRole("button", { name: "내용 확인하기" }).click();
+      // 다이얼로그 이름이 `계좌 이체` → `보낼 내용 확인`으로 바뀐다. 같은 로케이터로
+      // 이어서 찾으면 아무것도 못 찾는다.
+      const confirming = page.getByRole("dialog", { name: "보낼 내용 확인" });
+      await confirming.getByRole("checkbox").check();
+      await confirming.getByRole("button", { name: "네, 확인하고 보내기" }).click();
 
       /*
        * 성공하면 화면이 **"이체 완료"로 갈아탄다** — `계좌 이체` 다이얼로그는 사라진다.

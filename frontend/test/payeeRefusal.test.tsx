@@ -64,10 +64,13 @@ describe("수취인 — 못 고르면 비워 둔다", () => {
     const dialog = await openTransfer("박영희한테 송금");
 
     await userEvent.type(within(dialog).getByLabelText("보낼 금액"), "30000");
-    await userEvent.click(within(dialog).getByRole("button", { name: "보내기" }));
+    await userEvent.click(within(dialog).getByRole("button", { name: "내용 확인하기" }));
 
     expect(await within(dialog).findByText(/받는 분을 선택/)).toBeInTheDocument();
-    // 보냈다는 화면이 뜨면 안 된다.
+    // 확인 화면조차 뜨지 않는다. 보낼 것이 정해지지 않았으므로 읽을 것도 없다.
+    expect(
+      within(dialog).queryByRole("button", { name: "네, 확인하고 보내기" }),
+    ).not.toBeInTheDocument();
     expect(within(dialog).queryByText(/보냈습니다/)).not.toBeInTheDocument();
   });
 

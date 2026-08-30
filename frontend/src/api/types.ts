@@ -65,6 +65,13 @@ export interface UpcomingDeposit {
 export interface BankApi {
   /** Contest-only virtual Open Banking implementation, never a real bank. */
   readonly demoMode?: "open-banking-mock";
+  /**
+   * 연습 모드인가 (F14). `demoMode`와 같은 모양의 표시다.
+   *
+   * <p>화면들이 이 값을 보고 <b>완료 문구만</b> 바꾼다. 무엇을 부를지는 여전히
+   * 구현이 정하므로, 이 표시를 지워도 연습이 진짜 이체가 되지는 않는다.
+   */
+  readonly practice?: boolean;
   listAccounts(): Promise<Account[]>;
   listTransactions(accountId: string): Promise<Transaction[]>;
   listAutoTransfers(): Promise<AutoTransfer[]>;

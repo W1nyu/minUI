@@ -24,6 +24,18 @@ async function waitForApp() {
   );
 }
 
+/**
+ * 이체의 마지막 세 걸음 — 내용 확인 → 수취 정보 확인 표시 → 보내기.
+ *
+ * <p>전에는 `보내기` 한 번이었다. 확인 화면이 생기면서 사람이 읽어야 하는 자리가 하나
+ * 늘었고, 그것이 §9.3의 "최종 확정은 사람이 한다"를 화면에서 실제로 밟게 한다.
+ */
+async function confirmAndSend(scope: { getByRole: typeof screen.getByRole } = screen) {
+  await userEvent.click(scope.getByRole("button", { name: "내용 확인하기" }));
+  await userEvent.click(scope.getByRole("checkbox"));
+  await userEvent.click(scope.getByRole("button", { name: "네, 확인하고 보내기" }));
+}
+
 describe("카탈로그", () => {
   it("메뉴가 25개다 (기획안 §10.2)", () => {
     expect(CATALOG).toHaveLength(25);
@@ -135,7 +147,7 @@ describe("실제로 동작하는 화면", () => {
       screen.getByRole("option", { name: /행복아파트 관리사무소/ }),
     );
     await userEvent.type(screen.getByLabelText("보낼 금액"), "187000");
-    await userEvent.click(screen.getByRole("button", { name: "보내기" }));
+    await confirmAndSend();
 
     await waitFor(() =>
       expect(screen.getByRole("status")).toHaveTextContent(
@@ -168,7 +180,7 @@ describe("실제로 동작하는 화면", () => {
       screen.getByRole("option", { name: /행복아파트 관리사무소/ }),
     );
     await userEvent.type(screen.getByLabelText("보낼 금액"), "99999999");
-    await userEvent.click(screen.getByRole("button", { name: "보내기" }));
+    await confirmAndSend();
 
     await waitFor(() =>
       expect(screen.getByRole("alert")).toHaveTextContent("잔액이 부족합니다."),
