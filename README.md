@@ -71,7 +71,8 @@ MinUI의 AI는 거래를 대신하는 챗봇이 아니다. 사용자의 말에�
 
 **없는 것이 고장으로 보이지 않게 만들어 뒀다.** 중계기 주소가 없으면 `assist`·`clarify`를
 아예 안 넘겨 "묻는 중" 상태가 생기지 않고, 되묻기와 고정 문구가 그대로 답이 된다 —
-그것이 「실패 회복」이다. 프로덕션 번들에서 호출 경로 자체가 사라진다.
+그것이 「실패 회복」이다. 중계기 주소는 번들에 들어가지도 않는다 — 주소를 안 준
+빌드에서 그 호스트 문자열은 **0건**이다(2026-08-30 실측).
 `services/smoke`가 배포된 주소에서 이 여섯 가지를 실제로 밟아 확인한다.
 
 **AI가 값을 만들지 못한다.** 확인 문장은 모델이 뼈대만 쓰고 앱이 값을 채운다 —
@@ -204,7 +205,10 @@ pnpm dlx wrangler@3 secret put GOOGLE_API_KEY     # 키는 여기에만 둔다
 pnpm dlx wrangler@3 secret put DEEPSEEK_API_KEY   # 두 번째 무료 한도 (선택)
 pnpm dlx wrangler@3 deploy                        # 주소가 나온다
 # 그 주소를 저장소 Variables의 ASSIST_URL에 넣으면 다음 배포부터 붙는다.
-# 네 경로는 이 주소 하나에서 유도된다 — 환경변수를 넷으로 늘리지 않는다.
+# 여섯 경로는 이 주소 하나에서 유도된다 — 환경변수를 여섯으로 늘리지 않는다.
+#
+# 띄우기 전에 번들이 되는지만 먼저 본다. 로그인도 계정도 필요 없다:
+pnpm dlx wrangler@3 deploy --dry-run --outdir /tmp/w   # 42KB / gzip 10.6KB (2026-08-30)
 
 pnpm --filter @minui/harvester recall  # 자동 수집 회수율 (손 수집본 대비)
 
