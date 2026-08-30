@@ -54,3 +54,6 @@ demos/src/vectors/
 # 근거로 인용한 문장 몇 줄(shared/host-ai/explain-sources.json)이다.
 # 다시 받으려면: pnpm --filter @minui/harvester docs -- https://www.kebhana.com/ kebhana
 tools/docs/
+
+# 손으로 쓰는 디자인 노트. **커밋하지 않는다** — 저장소 소유자의 지시(2026-08-30).
+DESIGN-apple.md
