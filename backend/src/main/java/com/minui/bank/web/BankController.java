@@ -58,7 +58,16 @@ public class BankController {
     /** 비밀번호 칸이 없다. 받아 두면 언젠가 그것으로 무엇을 하게 된다. */
     public record SignIn(@NotBlank String userId) {}
 
-    public record Session(String token, DemoSessionService.UserView user) {}
+    /**
+     * 들어간 뒤 화면이 곧바로 필요로 하는 것까지 함께 준다.
+     *
+     * <p>{@code accounts}가 있는 이유: 로그인 직후 화면이 하는 첫 일이 통장 목록을 그리는
+     * 것이라, 이것을 빼면 어느 클라이언트든 곧장 한 번을 더 부른다.
+     */
+    public record Session(
+            String token,
+            DemoSessionService.UserView user,
+            List<AccountQueryService.AccountView> accounts) {}
 
     @PostMapping("/sessions")
     public ResponseEntity<?> signIn(@Valid @RequestBody SignIn request) {
@@ -72,7 +81,8 @@ public class BankController {
                                                 sessions.listUsers().stream()
                                                         .filter(u -> u.id().equals(request.userId()))
                                                         .findFirst()
-                                                        .orElse(null))))
+                                                        .orElse(null),
+                                                queries.listAccountsOf(request.userId()))))
                 .orElseGet(
                         () ->
                                 ResponseEntity.status(HttpStatus.UNAUTHORIZED)

@@ -1,6 +1,7 @@
 package com.minui.bank.service;
 
 import com.minui.bank.domain.DemoUser;
+import com.minui.bank.repository.AccountRepository;
 import com.minui.bank.repository.DemoUserRepository;
 import java.util.Map;
 import java.util.Optional;
@@ -26,18 +27,33 @@ import org.springframework.transaction.annotation.Transactional;
 public class DemoSessionService {
 
     private final DemoUserRepository users;
+    private final AccountRepository accounts;
     private final Map<String, String> userIdByToken = new ConcurrentHashMap<>();
 
-    public DemoSessionService(DemoUserRepository users) {
+    public DemoSessionService(DemoUserRepository users, AccountRepository accounts) {
         this.users = users;
+        this.accounts = accounts;
     }
 
-    /** 화면에 내보내도 되는 만큼만. */
-    public record UserView(String id, String name, String ageBand, String group) {}
+    /**
+     * 화면에 내보내도 되는 만큼만.
+     *
+     * <p>{@code accountCount}가 있는 이유: 로그인 화면이 사람 카드에 "통장 2개"를 적는데,
+     * 그것 때문에 사람마다 계좌 목록을 한 번씩 더 부르게 하면 열둘이면 열두 번이다.
+     */
+    public record UserView(
+            String id, String name, String ageBand, String group, long accountCount) {}
 
     public java.util.List<UserView> listUsers() {
         return users.findAll().stream()
-                .map(user -> new UserView(user.getId(), user.getName(), user.getAgeBand(), user.getGroup()))
+                .map(
+                        user ->
+                                new UserView(
+                                        user.getId(),
+                                        user.getName(),
+                                        user.getAgeBand(),
+                                        user.getGroup(),
+                                        accounts.findByOwnerId(user.getId()).size()))
                 .toList();
     }
 

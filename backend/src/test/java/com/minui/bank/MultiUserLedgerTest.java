@@ -191,6 +191,8 @@ class MultiUserLedgerTest {
                         .getContentAsString();
 
         assertThat(body).contains("김순자").contains("박정호");
+        // 통장 수를 함께 준다 — 로그인 화면이 사람마다 계좌 목록을 또 부르지 않게.
+        assertThat(body).contains("\"accountCount\":2").contains("\"accountCount\":1");
         // 비밀번호라는 개념 자체가 없으므로 그 이름조차 응답에 나오면 안 된다.
         assertThat(body).doesNotContain("pin").doesNotContain("password");
     }
@@ -204,11 +206,21 @@ class MultiUserLedgerTest {
     @Test
     @DisplayName("아는 사람이면 비밀번호 없이 들어간다")
     void signInOnlyChecksThatThePersonExists() throws Exception {
-        mvc.perform(
-                        post("/api/sessions")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content("{\"userId\":\"u-1\"}"))
-                .andExpect(result -> assertThat(result.getResponse().getStatus()).isEqualTo(200));
+        String body =
+                mvc.perform(
+                                post("/api/sessions")
+                                        .contentType(MediaType.APPLICATION_JSON)
+                                        .content("{\"userId\":\"u-1\"}"))
+                        .andExpect(
+                                result ->
+                                        assertThat(result.getResponse().getStatus()).isEqualTo(200))
+                        .andReturn()
+                        .getResponse()
+                        .getContentAsString();
+
+        // 들어간 뒤 곧바로 필요한 것까지 함께 온다 — 통장 목록을 또 부르지 않게.
+        assertThat(body).contains("demo-u-1").contains("김순자").contains("acc-1").contains("acc-2");
+        assertThat(body).doesNotContain("acc-12");
 
         mvc.perform(
                         post("/api/sessions")
