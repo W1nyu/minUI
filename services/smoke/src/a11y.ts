@@ -10,6 +10,7 @@ import {
   passOnboarding,
   report,
   seen,
+  signIn,
   STEP_TIMEOUT,
   waitForDeploy,
   type Problem,
@@ -177,6 +178,7 @@ const CHECKS: Check[] = [
         await page.setViewportSize({ width: viewport.width, height: viewport.height });
         for (const url of [BASE, BANK]) {
           await page.goto(url, { waitUntil: "domcontentloaded", timeout: STEP_TIMEOUT });
+          await signIn(page);
           await passOnboarding(page);
           const layout = await measureLayout(page);
           const where = `${viewport.name}(${viewport.width}px) ${url}`;
@@ -202,6 +204,7 @@ const CHECKS: Check[] = [
       const page = await context.newPage();
       await page.setViewportSize({ width: 360, height: 740 });
       await page.goto(BANK, { waitUntil: "domcontentloaded", timeout: STEP_TIMEOUT });
+      await signIn(page);
       await passOnboarding(page);
 
       const home = await measureLayout(page);
@@ -236,6 +239,10 @@ const CHECKS: Check[] = [
       noteViolations(await runAxe(page), "루트", problems);
 
       await page.goto(BANK, { waitUntil: "domcontentloaded", timeout: STEP_TIMEOUT });
+      // 로그인 화면도 재는 자리다 — 첫 화면이 여기이므로 빠뜨리면 안 된다.
+      noteViolations(await runAxe(page), "은행 시연(로그인)", problems);
+
+      await signIn(page);
       noteViolations(await runAxe(page), "은행 시연(온보딩)", problems);
 
       await passOnboarding(page);
@@ -263,6 +270,7 @@ const CHECKS: Check[] = [
       const page = await context.newPage();
       await page.setViewportSize({ width: 640, height: 512 });
       await page.goto(BANK, { waitUntil: "domcontentloaded", timeout: STEP_TIMEOUT });
+      await signIn(page);
       await passOnboarding(page);
 
       const layout = await measureLayout(page);
@@ -302,6 +310,7 @@ const CHECKS: Check[] = [
       const page = await context.newPage();
       await page.setViewportSize({ width: 390, height: 844 });
       await page.goto(BANK, { waitUntil: "domcontentloaded", timeout: STEP_TIMEOUT });
+      await signIn(page);
       await passOnboarding(page);
 
       /** Tab을 눌러 그 이름의 버튼에 초점이 갈 때까지. 못 가면 거짓. */
@@ -356,6 +365,7 @@ const CHECKS: Check[] = [
         delete window.webkitSpeechRecognition;
       });
       await page.goto(BANK, { waitUntil: "domcontentloaded", timeout: STEP_TIMEOUT });
+      await signIn(page);
       await passOnboarding(page);
 
       await page.getByRole("button", { name: /말로 찾기/ }).click();

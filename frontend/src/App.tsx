@@ -4,7 +4,7 @@ import { makeClarify } from "@host-ai/clarify.js";
 import { makeCorrect } from "@host-ai/correct.js";
 import { makeExplain, makeGroundedHint } from "@host-ai/explain.js";
 import { IndexedDbStorageAdapter, MinUIProvider, type SttLike } from "@minui/react";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import { AiSwitch, AiSwitchProvider, useAiRelay } from "./AiSwitch.js";
 import { BankProvider } from "./BankContext.js";
 import { DemoLedgerNotice } from "./DemoLedgerNotice.js";
@@ -18,6 +18,7 @@ import { useTaskRecorder } from "./instrumentation/TaskRecorder.js";
 import { ClassicShell } from "./modes/ClassicShell.js";
 import { MinUIShell } from "./modes/MinUIShell.js";
 import { Screen } from "./screens/index.js";
+import { useOptionalSession } from "./session/SessionContext.js";
 import { makeTts } from "./tts.js";
 
 export type Mode = "minui" | "classic";
@@ -46,6 +47,13 @@ export interface AppProps {
   demoData?: boolean;
   /** 가상 원장 초기화. 정적 시연에서만 넘긴다. */
   resetDemoLedger?: () => void | Promise<void>;
+  /**
+   * 로그인 화면으로 물러나기.
+   *
+   * <p>없으면 나가기 버튼 자체가 안 생긴다 — 사용자 개념 없이 `App`을 단독으로 그리는
+   * 기존 테스트와 계측 대본이 그대로 돌아야 하기 때문이다.
+   */
+  onExit?: () => void;
 }
 
 /**
@@ -68,6 +76,7 @@ function AppInner({
   stt,
   demoData = false,
   resetDemoLedger,
+  onExit,
 }: AppProps) {
   const [mode, setMode] = useState<Mode>(initialMode);
   const [openMenuId, setOpenMenuId] = useState<MenuId | null>(null);
@@ -208,6 +217,7 @@ function AppInner({
             <div className="demo-bar">
               <PracticeSwitch practice={practice} onChange={setPractice} />
               <AiSwitch />
+              {onExit && <SessionBar onExit={onExit} />}
             </div>
             <main className="app-body">
               {mode === "minui" ? <MinUIShell {...(stt ? { stt } : {})} /> : <ClassicShell />}
@@ -253,6 +263,57 @@ function AdaptiveNavigationBridge({ menuId }: { menuId: MenuId | null }) {
   }, [adaptive, menuId]);
 
   return null;
+}
+
+/**
+ * 지금 누구로 보고 있는지와, 물러나는 문.
+ *
+ * <p>이름을 상시로 띄우는 이유는 연습 모드 배지와 같다 — 시연 중에 사람을 바꿔 가며
+ * 보다 보면 <b>지금 누구인지를 잊는다.</b> 두 사람의 화면이 같은 모양이라 더 그렇다.
+ */
+function SessionBar({ onExit }: { onExit: () => void }) {
+  const session = useOptionalSession();
+  const switchId = useId();
+  if (!session?.user) return null;
+
+  const { user, users, viewAs } = session;
+
+  return (
+    <span className="demo-session">
+      <span className="demo-session-who">
+        <strong>{user.name}</strong>님으로 보는 중
+      </span>
+      {/*
+        진행자용 빠른 전환. **나가기와 다른 물건이다.**
+
+        나가기는 사용자가 쓰는 문이라 다시 들어올 때 번호를 묻는 것이 맞고, 이쪽은
+        진행자가 사람을 갈아 끼우는 자리라 묻지 않는다. 시연 중 왕복이 잦은데 매번
+        여섯 자리를 누르면 그 시간이 전부 대본 밖의 시간이 된다. 번호를 건너뛰어도
+        잃는 것이 없다 — 애초에 지키는 것이 없다.
+
+        `data-demo-chrome`은 이것이 MinUI가 얹히는 화면이 아니라 이 데모에만 있는
+        진행 장치임을 DOM에 남긴다 (모드 스위치와 같은 표시).
+      */}
+      <label className="demo-session-switch" htmlFor={switchId}>
+        <span className="demo-session-switch-label">진행자용 — 다른 사람으로 바로 보기</span>
+        <select
+          id={switchId}
+          value={user.id}
+          data-demo-chrome="true"
+          onChange={(event) => viewAs(event.target.value)}
+        >
+          {users.map((candidate) => (
+            <option key={candidate.id} value={candidate.id}>
+              {candidate.name} ({candidate.group})
+            </option>
+          ))}
+        </select>
+      </label>
+      <button type="button" className="demo-quiet" onClick={onExit}>
+        나가기
+      </button>
+    </span>
+  );
 }
 
 /**

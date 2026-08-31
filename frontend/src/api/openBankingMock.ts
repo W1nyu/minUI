@@ -1,3 +1,11 @@
+import {
+  DEFAULT_USER_ID,
+  DEMO_ACCOUNTS,
+  DEMO_AUTO_TRANSFERS,
+  DEMO_HISTORY,
+  DEMO_UPCOMING_DEPOSITS,
+  userById,
+} from "../session/personas.js";
 import type {
   Account,
   AutoTransfer,
@@ -73,6 +81,17 @@ export interface OpenBankingDepositResponse {
 }
 
 interface DemoAccount extends Account {
+  /** 기관 계좌는 주인이 없다 — 받기만 하고 로그인 대상이 아니다. */
+  ownerId: string | null;
+  /**
+   * 남이 부르는 이름.
+   *
+   * <p>`Account.nickname`은 <b>주인이 부르는 이름</b>('주거래 통장')을 담고, 이쪽은
+   * 받는 분 목록과 거래내역에 뜨는 이름('김순자')을 담는다. 한 칸으로 합치면 둘 중
+   * 하나가 반드시 틀린다 — 남의 이체 목록에 '주거래 통장'이 뜨거나, 내 계좌 목록에
+   * 내 이름이 뜬다.
+   */
+  peerName: string;
   fintechUseNum: string;
   bankCode: string;
   bankName: string;
@@ -89,6 +108,17 @@ interface DemoLedgerEntry {
   counterparty: string;
 }
 
+/**
+ * 자동이체는 **어느 계좌에서 나가는지**를 함께 들고 있어야 한다.
+ *
+ * <p>화면 계약(`AutoTransfer`)에는 그 칸이 없다 — 사용자가 한 사람이던 때는 물어볼
+ * 필요가 없었기 때문이다. 이제는 남의 자동이체가 내 화면에 뜨면 안 되므로 원장 쪽에만
+ * 한 칸 더 둔다. 화면으로 나갈 때 이 칸은 떨어진다.
+ */
+interface StoredAutoTransfer extends AutoTransfer {
+  fromAccountId: string;
+}
+
 interface StoredTransfer {
   response: OpenBankingDepositResponse;
   result: TransferResult;
@@ -98,7 +128,7 @@ export interface DemoLedgerSnapshot {
   version: 1;
   accounts: DemoAccount[];
   entries: DemoLedgerEntry[];
-  autoTransfers: AutoTransfer[];
+  autoTransfers: StoredAutoTransfer[];
   transfers: Record<string, StoredTransfer>;
 }
 
@@ -144,120 +174,97 @@ export class SessionLedgerStorage implements DemoLedgerStorage {
   }
 }
 
-const INITIAL_ACCOUNTS: DemoAccount[] = [
-  {
-    id: "acc-1",
-    number: "110-234-567890",
-    nickname: "주거래 통장",
-    balance: 1_243_500,
-    fintechUseNum: "110000000000000000000001",
-    bankCode: "088",
-    bankName: "미니은행",
-    holderName: "김순자",
-  },
-  {
-    id: "acc-2",
-    number: "110-987-654321",
-    nickname: "적금 통장",
-    balance: 6_100_000,
-    fintechUseNum: "110000000000000000000002",
-    bankCode: "088",
-    bankName: "미니은행",
-    holderName: "김순자",
-  },
-  {
-    id: "acc-3",
-    number: "1002-345-678901",
-    nickname: "행복아파트 관리사무소",
-    balance: 0,
-    fintechUseNum: "110000000000000000000003",
-    bankCode: "020",
-    bankName: "행복은행",
-    holderName: "행복아파트 관리사무소",
-  },
-  {
-    id: "acc-4",
-    number: "612-21-0987-654",
-    nickname: "김미영",
-    balance: 0,
-    fintechUseNum: "110000000000000000000004",
-    bankCode: "004",
-    bankName: "국민은행",
-    holderName: "김미영",
-  },
-  {
-    id: "acc-5",
-    number: "110-456-789012",
-    nickname: "박정호",
-    balance: 0,
-    fintechUseNum: "110000000000000000000005",
-    bankCode: "088",
-    bankName: "미니은행",
-    holderName: "박정호",
-  },
-  {
-    id: "acc-6",
-    number: "356-910-234567",
-    nickname: "김영수 삼촌",
-    balance: 540_000,
-    fintechUseNum: "110000000000000000000006",
-    bankCode: "081",
-    bankName: "하나은행",
-    holderName: "김영수",
-  },
-];
+const OPENING_ACCOUNT = "acc-opening";
 
-const INITIAL_ENTRIES: DemoLedgerEntry[] = [
-  {
-    id: "tx-1",
-    accountId: "acc-1",
-    at: "2026-08-05T09:12:00+09:00",
-    transferId: "seed-1",
-    direction: "in",
-    amount: 612_000,
-    counterparty: "국민연금공단",
-  },
-  {
-    id: "tx-2",
-    accountId: "acc-1",
-    at: "2026-07-25T10:03:00+09:00",
-    transferId: "seed-2",
-    direction: "out",
-    amount: 187_000,
-    counterparty: "행복아파트 관리사무소",
-  },
-  {
-    id: "tx-3",
-    accountId: "acc-1",
-    at: "2026-07-18T14:40:00+09:00",
-    transferId: "seed-3",
-    direction: "out",
-    amount: 50_000,
-    counterparty: "김미영",
-  },
-  {
-    id: "tx-4",
-    accountId: "acc-1",
-    at: "2026-07-05T09:11:00+09:00",
-    transferId: "seed-4",
-    direction: "in",
-    amount: 612_000,
-    counterparty: "국민연금공단",
-  },
-];
+/** `acc-6`처럼 데모에만 있는 ID를 24자리 핀테크이용번호로 바꾼다. Spring 쪽과 같은 식이다. */
+function fintechUseNumber(accountId: string): string {
+  const suffix = Number(accountId.replace(/^acc-/, ""));
+  return `110000000000000000${String(suffix).padStart(6, "0")}`;
+}
 
-const INITIAL_AUTO_TRANSFERS: AutoTransfer[] = [
-  { id: "auto-1", payee: "행복아파트 관리사무소", amount: 187_000, dayOfMonth: 25, active: true },
-  { id: "auto-2", payee: "한국전력공사", amount: 42_300, dayOfMonth: 18, active: true },
-  { id: "auto-3", payee: "실버케어 보험", amount: 68_000, dayOfMonth: 10, active: false },
-];
+/**
+ * 사람과 계좌는 `shared/contracts/demo-users.json`에서 온다.
+ *
+ * <p>전에는 이 파일 안에 여섯 계좌가 박혀 있었다. Spring 시드에도 같은 여섯이 따로
+ * 박혀 있었고, 그래서 한쪽만 고치면 조용히 갈라졌다. 표를 하나로 옮긴 뒤로 이 함수가
+ * 하는 일은 그 표를 원장이 쓰는 모양으로 바꾸는 것뿐이다.
+ */
+function seedAccounts(): DemoAccount[] {
+  return DEMO_ACCOUNTS.map((account) => ({
+    id: account.id,
+    number: account.number,
+    nickname: account.ownerLabel,
+    balance: account.balance,
+    ownerId: account.ownerId,
+    peerName: account.nickname,
+    fintechUseNum: fintechUseNumber(account.id),
+    bankCode: account.bankCode,
+    bankName: account.bankName,
+    holderName:
+      (account.ownerId === null ? undefined : userById(account.ownerId)?.name) ?? account.nickname,
+  }));
+}
+
+/**
+ * 시드 거래내역을 **양쪽에** 기록한다.
+ *
+ * <p>전에는 김순자의 계좌에만 넣었다. 받는 쪽을 볼 화면이 없었으니 티가 안 났을 뿐,
+ * 원장으로 보면 한쪽만 움직인 거래였다. 이제 받는 사람으로 로그인할 수 있으므로
+ * 딸이 받은 5만원이 딸의 화면에도 있어야 한다.
+ *
+ * <p>개시 분개(`acc-opening`)에서 온 것은 받는 쪽만 남긴다 — 연금 입금에 '보낸 계좌'를
+ * 만들어 주면 화면에 없는 계좌가 거래내역에 나타난다.
+ */
+function seedEntries(accounts: readonly DemoAccount[]): DemoLedgerEntry[] {
+  const peerNameOf = (accountId: string) =>
+    accounts.find((account) => account.id === accountId)?.peerName ?? accountId;
+
+  return DEMO_HISTORY.flatMap((row, index) => {
+    const transferId = `seed-${index + 1}`;
+    const incoming: DemoLedgerEntry = {
+      id: `tx-${index + 1}-in`,
+      accountId: row.to,
+      transferId,
+      at: row.at,
+      direction: "in",
+      amount: row.amount,
+      counterparty: row.from === OPENING_ACCOUNT ? row.label : peerNameOf(row.from),
+    };
+
+    if (row.from === OPENING_ACCOUNT) return [incoming];
+
+    return [
+      {
+        id: `tx-${index + 1}-out`,
+        accountId: row.from,
+        transferId,
+        at: row.at,
+        direction: "out",
+        amount: row.amount,
+        counterparty: peerNameOf(row.to),
+      } satisfies DemoLedgerEntry,
+      incoming,
+    ];
+  });
+}
+
+function seedAutoTransfers(): StoredAutoTransfer[] {
+  return DEMO_AUTO_TRANSFERS.map((row) => ({
+    id: row.id,
+    fromAccountId: row.fromAccountId,
+    payee: row.payee,
+    amount: row.amount,
+    dayOfMonth: row.dayOfMonth,
+    active: row.active,
+  }));
+}
 
 function freshSnapshot(): DemoLedgerSnapshot {
   return {
     version: 1,
-    accounts: INITIAL_ACCOUNTS.map((account) => ({ ...account })),
-    entries: INITIAL_ENTRIES.map((entry) => ({ ...entry })),
-    autoTransfers: INITIAL_AUTO_TRANSFERS.map((item) => ({ ...item })),
+    accounts: seedAccounts(),
+    entries: seedEntries(seedAccounts()),
+    autoTransfers: seedAutoTransfers(),
     transfers: {},
   };
 }
@@ -307,18 +314,42 @@ export class OpenBankingMockApi implements BankApi {
   readonly demoMode = "open-banking-mock" as const;
   readonly #storage: DemoLedgerStorage | undefined;
   readonly #now: () => Date;
+  /**
+   * 지금 보고 있는 사람.
+   *
+   * <p><b>원장은 하나이고 보는 자리만 사람마다 다르다.</b> 그래야 김순자가 보낸 돈이
+   * 박정호로 로그인했을 때 실제로 도착해 있다 — 사람마다 원장을 따로 두면 이체가
+   * 허공으로 나가고, 그것은 이 데모가 보여 주려는 것과 정반대다.
+   *
+   * <p>기본값이 있는 것은 편의가 아니라 호환이다. 안 넘기면 지금까지처럼 김순자로 돈다.
+   */
+  #userId: string;
   #snapshot: DemoLedgerSnapshot;
 
-  constructor(options: { storage?: DemoLedgerStorage; now?: () => Date } = {}) {
+  constructor(
+    options: { storage?: DemoLedgerStorage; now?: () => Date; userId?: string } = {},
+  ) {
     this.#storage = options.storage;
     this.#now = options.now ?? (() => new Date());
+    this.#userId = options.userId ?? DEFAULT_USER_ID;
     this.#snapshot = options.storage?.load() ?? freshSnapshot();
   }
 
+  /** 지금 보고 있는 사람의 id. 화면이 인사말과 저장소 키에 쓴다. */
+  get userId(): string {
+    return this.#userId;
+  }
+
+  /**
+   * 보는 자리를 옮긴다. 원장은 그대로 두고 **필터만** 바꾼다 —
+   * 진행자용 빠른 전환이 이 문 하나를 지난다.
+   */
+  viewAs(userId: string): void {
+    this.#userId = userId;
+  }
+
   async listAccounts(): Promise<Account[]> {
-    return this.#snapshot.accounts
-      .filter((account) => account.id === "acc-1" || account.id === "acc-2")
-      .map(toAccount);
+    return this.#myAccounts().map(toAccount);
   }
 
   async listTransactions(accountId: string): Promise<Transaction[]> {
@@ -344,7 +375,10 @@ export class OpenBankingMockApi implements BankApi {
   }
 
   async listAutoTransfers(): Promise<AutoTransfer[]> {
-    return this.#snapshot.autoTransfers.map((item) => ({ ...item }));
+    const mine = new Set(this.#myAccounts().map((account) => account.id));
+    return this.#snapshot.autoTransfers
+      .filter((item) => mine.has(item.fromAccountId))
+      .map(({ fromAccountId: _fromAccountId, ...item }) => ({ ...item }));
   }
 
   async setAutoTransferActive(id: string, active: boolean): Promise<void> {
@@ -357,10 +391,11 @@ export class OpenBankingMockApi implements BankApi {
 
   async listRecentPayees(): Promise<Payee[]> {
     return this.#snapshot.accounts
-      .filter((account) => account.id !== "acc-1" && account.id !== "acc-2")
+      .filter((account) => account.ownerId !== this.#userId)
       .map((account) => ({
         id: account.id,
-        name: account.nickname,
+        // 받는 분 자리에서는 **남이 부르는 이름**이다. 주인이 뭐라 부르든 상관없다.
+        name: account.peerName,
         number: account.number,
         lastSentAt: this.#lastSentAt(account.id),
       }))
@@ -368,14 +403,13 @@ export class OpenBankingMockApi implements BankApi {
   }
 
   async listUpcomingDeposits(): Promise<UpcomingDeposit[]> {
-    return [
-      {
-        id: "dep-1",
-        label: "국민연금",
-        expectedAt: "2026-09-05T09:00:00+09:00",
-        amount: 612_000,
-      },
-    ];
+    const mine = new Set(this.#myAccounts().map((account) => account.id));
+    return DEMO_UPCOMING_DEPOSITS.filter((row) => mine.has(row.accountId)).map((row) => ({
+      id: row.id,
+      label: row.label,
+      expectedAt: row.expectedAt,
+      amount: row.amount,
+    }));
   }
 
   async transfer(request: TransferRequest, idempotencyKey: string): Promise<TransferResult> {
@@ -385,6 +419,14 @@ export class OpenBankingMockApi implements BankApi {
     const source = this.#accountById(request.fromAccountId);
     const destination = this.#accountById(request.toAccountId);
     if (!source || !destination) throw new Error("가상 계좌를 찾을 수 없습니다.");
+    /*
+     * 로그인한 사람의 계좌에서만 나간다.
+     *
+     * <p>화면이 내 계좌만 보여 주므로 여기까지 올 일이 없어 보이지만, 막는 자리는
+     * 화면이 아니라 원장이어야 한다 — 화면 하나가 실수로 남의 계좌 id를 넘겨도
+     * 돈이 움직이면 안 된다.
+     */
+    if (source.ownerId !== this.#userId) throw new Error("내 계좌가 아닙니다.");
     if (!Number.isSafeInteger(request.amount) || request.amount <= 0) {
       throw new Error("보낼 금액을 입력해 주세요.");
     }
@@ -497,7 +539,7 @@ export class OpenBankingMockApi implements BankApi {
         at,
         direction: "out",
         amount,
-        counterparty: destination.nickname,
+        counterparty: destination.peerName,
       },
       {
         id: `${transferId}-in`,
@@ -506,7 +548,7 @@ export class OpenBankingMockApi implements BankApi {
         at,
         direction: "in",
         amount,
-        counterparty: source.nickname,
+        counterparty: source.peerName,
       },
     );
 
@@ -530,7 +572,7 @@ export class OpenBankingMockApi implements BankApi {
           bank_rsp_code: "000",
           bank_rsp_message: "",
           fintech_use_num: destination.fintechUseNum,
-          account_alias: destination.nickname,
+          account_alias: destination.peerName,
           bank_code_std: destination.bankCode,
           bank_name: destination.bankName,
           account_num_masked: maskAccountNumber(destination.number),
@@ -546,11 +588,24 @@ export class OpenBankingMockApi implements BankApi {
     return this.#snapshot.accounts.find((account) => account.id === id);
   }
 
+  /** 표에 적힌 순서를 지킨다 — 첫 계좌가 주거래다. */
+  #myAccounts(): DemoAccount[] {
+    return this.#snapshot.accounts.filter((account) => account.ownerId === this.#userId);
+  }
+
+  /**
+   * 내가 저 사람에게 마지막으로 보낸 때. 받는 분 목록의 순서를 정한다.
+   *
+   * <p>전에는 `acc-1`만 봤다. 계좌가 여럿인 사람은 어느 통장에서 보냈든 같은 사람이므로
+   * **내 계좌 전부**를 본다.
+   */
   #lastSentAt(accountId: string): string {
+    const mine = new Set(this.#myAccounts().map((account) => account.id));
+    const peerName = this.#accountById(accountId)?.peerName;
     return (
       this.#snapshot.entries
-        .filter((entry) => entry.accountId === "acc-1" && entry.direction === "out")
-        .filter((entry) => entry.counterparty === this.#accountById(accountId)?.nickname)
+        .filter((entry) => mine.has(entry.accountId) && entry.direction === "out")
+        .filter((entry) => entry.counterparty === peerName)
         .sort((left, right) => right.at.localeCompare(left.at))[0]?.at ?? "1970-01-01T00:00:00.000Z"
     );
   }
@@ -565,8 +620,11 @@ export class MockBankApi extends OpenBankingMockApi {}
 
 /** 실제 정적 데모에는 브라우저 탭 안에서만 남는 가상 원장을 쓴다. */
 export class SessionOpenBankingMockApi extends OpenBankingMockApi {
-  constructor(key?: string) {
-    super({ storage: new SessionLedgerStorage(key) });
+  constructor(options: { userId?: string; key?: string } = {}) {
+    super({
+      storage: new SessionLedgerStorage(options.key),
+      ...(options.userId ? { userId: options.userId } : {}),
+    });
   }
 }
 
@@ -574,6 +632,7 @@ function toAccount(account: DemoAccount): Account {
   return {
     id: account.id,
     number: account.number,
+    // 내 계좌 목록이므로 **주인이 부르는 이름**이다.
     nickname: account.nickname,
     balance: account.balance,
   };

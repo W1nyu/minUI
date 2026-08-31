@@ -7,6 +7,7 @@ import {
   passOnboarding,
   report,
   seen,
+  signIn,
   STEP_TIMEOUT,
   waitForDeploy,
   type Problem,
@@ -147,6 +148,7 @@ const SCENARIOS: Scenario[] = [
         waitUntil: "domcontentloaded",
         timeout: STEP_TIMEOUT,
       });
+      await signIn(page);
 
       const notice = page.getByRole("complementary", { name: /가상 오픈뱅킹 시연 안내/ });
       expect(await seen(notice), "가상 오픈뱅킹 고지가 안 보인다", problems);
@@ -184,6 +186,7 @@ const SCENARIOS: Scenario[] = [
         waitUntil: "domcontentloaded",
         timeout: STEP_TIMEOUT,
       });
+      await signIn(page);
       await passOnboarding(page);
 
       await page.getByRole("button", { name: /전체 메뉴/ }).click();
@@ -227,6 +230,7 @@ const SCENARIOS: Scenario[] = [
         waitUntil: "domcontentloaded",
         timeout: STEP_TIMEOUT,
       });
+      await signIn(page);
       await passOnboarding(page);
 
       const before = await page.getByRole("button", { name: /잔액 보기/ }).innerText();
@@ -312,6 +316,7 @@ async function freshContextStartsClean(browser: Browser, problems: Problem[]): P
       waitUntil: "domcontentloaded",
       timeout: STEP_TIMEOUT,
     });
+    await signIn(page);
     await passOnboarding(page);
     const balance = await page.getByRole("button", { name: /잔액 보기/ }).innerText();
     expect(

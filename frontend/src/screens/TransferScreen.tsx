@@ -29,7 +29,7 @@ export function TransferScreen({
   /** 음성으로 열렸다면 사용자가 한 말 (M9). 도메인 해석은 이 화면이 한다. */
   spoken?: string;
 }) {
-  const { accounts, payees, transactions, complete, api, reload } = useBank();
+  const { accounts, selectedAccount, payees, transactions, complete, api, reload } = useBank();
   const isOpenBankingMock = api.demoMode === "open-banking-mock";
   const isPractice = api.practice === true;
   /**
@@ -120,7 +120,18 @@ export function TransferScreen({
 
   const payeeFieldId = useId();
   const amountFieldId = useId();
-  const account = accounts[0];
+  const sourceFieldId = useId();
+
+  /*
+   * 어느 통장에서 나가는가.
+   *
+   * <p>전에는 `accounts[0]`이었다 — 사용자가 한 사람이고 통장이 둘이던 때는 물을
+   * 필요가 없었기 때문이다. 사람마다 통장 수가 다른 지금, 안 묻는 것은 <b>틀린 통장에서
+   * 돈이 나가는 것</b>이 된다. 다만 통장이 하나뿐인 사람에게는 아래에서 칸 자체를
+   * 안 그린다 — 모두에게 한 걸음을 물리면 이 저장소가 줄이려는 단계 수가 늘어난다.
+   */
+  const [sourceId, setSourceId] = useState(() => selectedAccount?.id ?? "");
+  const account = accounts.find((item) => item.id === sourceId) ?? selectedAccount ?? accounts[0];
   const payee = payees.find((p) => p.id === payeeId);
 
   function prepareConfirmation() {
@@ -486,11 +497,30 @@ export function TransferScreen({
     </p>
   );
 
-  const accountLine = (
-    <p className="field-note">
-      보낼 통장: {account?.nickname} ({formatWon(account?.balance ?? 0)})
-    </p>
-  );
+  const accountLine =
+    accounts.length > 1 ? (
+      <>
+        <label className="field-label" htmlFor={sourceFieldId}>
+          보낼 통장
+        </label>
+        <select
+          id={sourceFieldId}
+          className="field"
+          value={account?.id ?? ""}
+          onChange={(event) => setSourceId(event.target.value)}
+        >
+          {accounts.map((item) => (
+            <option key={item.id} value={item.id}>
+              {item.nickname} ({formatWon(item.balance)})
+            </option>
+          ))}
+        </select>
+      </>
+    ) : (
+      <p className="field-note">
+        보낼 통장: {account?.nickname} ({formatWon(account?.balance ?? 0)})
+      </p>
+    );
 
   const mockNote = isOpenBankingMock && (
     <p className="mock-api-note">

@@ -892,6 +892,13 @@ body {
  */
 .demo-quiet {
   min-height: var(--minui-touch-min);
+  /*
+   * **폭도 88px이다.** 높이만 잡아 뒀다가 `나가기`(두 글자)가 55.4×88로 떨어져
+   * a11y 스모크에 걸렸다 — 글자가 짧으면 높이만으로는 기준을 못 채운다.
+   * 「연습해 보기」처럼 긴 글자는 원래 넘으므로 이 줄로 달라지는 것이 없다.
+   * 이 저장소가 44px 연습 버튼과 40px 동의 버튼을 잡았던 그 검사다.
+   */
+  min-width: var(--minui-touch-min);
   padding: 0.4rem 0.2rem;
   border: 0;
   background: none;
@@ -1044,4 +1051,354 @@ body {
   margin: 0;
   font-size: var(--minui-text-l);
   line-height: 1.5;
+}
+
+/* ── 은행 앱 크롬의 구조 문법 (DESIGN-apple.md 참고) ────────────────────── */
+
+/*
+ * **가져온 것은 문법이지 값이 아니다.**
+ *
+ * `DESIGN-apple.md`는 apple.com을 뜯어 적은 문서다. 거기서 가져온 것은 넷이다 —
+ * 8px 배수의 간격 체계, 반경 세 종류 + pill, 카드에 그림자 대신 헤어라인,
+ * 누를 때 `scale(0.95)`. 이것들은 **값이 아니라 규칙**이라 이 저장소의 색·크기와
+ * 충돌하지 않는다.
+ *
+ * 안 가져온 것도 그만큼 분명하다.
+ *   - **터치 44px** — 이 저장소의 기준은 88px이고 `services/smoke/src/a11y.ts`가
+ *     그것을 잰다. 고령 사용자의 손떨림을 고려해 WCAG 권고의 두 배로 정한 값이라
+ *     (§11.3), 시각 참고 문서 하나 때문에 내릴 값이 아니다
+ *   - **Action Blue #0066cc** — 액센트는 `--minui-accent`(틸) 하나다. 고대비 모드와
+ *     어두운 테마가 그 토큰에 맞춰 값을 이미 갖고 있어서, 색을 갈면 그 둘을 다시
+ *     맞추고 대비를 다시 재야 한다. 그 문서의 "단일 액센트" 규칙 자체는 지킨다
+ *
+ * 그래서 아래 토큰은 `--minui-*`를 **덮지 않고 그 위에 얹는다.** 색과 글씨 크기는
+ * 여전히 저쪽 것이고, 여기 있는 것은 간격·모서리·눌림뿐이다.
+ */
+:root {
+  --bank-space-xs: 8px;
+  --bank-space-sm: 12px;
+  --bank-space-md: 17px;
+  --bank-space-lg: 24px;
+  --bank-space-xl: 32px;
+  --bank-space-section: 48px;
+
+  --bank-radius-sm: 8px;
+  --bank-radius-md: 11px;
+  --bank-radius-lg: 18px;
+  --bank-radius-pill: 9999px;
+
+  /* 그림자가 아니라 선으로 경계를 낸다. 고대비 모드가 이 선을 진하게 만든다. */
+  --bank-hairline: 1px solid var(--minui-line);
+}
+
+:root[data-minui-contrast="high"] {
+  --bank-hairline: 2px solid var(--minui-line-strong);
+}
+
+/*
+ * 누를 때 살짝 들어간다. 그 문서가 문서화한 유일한 움직임이고, 마우스가 없는
+ * 화면에서 "눌렸다"를 알리는 가장 값싼 신호다. 움직임을 줄여 달라는 요청은
+ * `tokens.css`의 `prefers-reduced-motion` 블록이 이미 전역으로 끈다.
+ */
+.login-user:active,
+.login-key:active,
+.account-pick:active {
+  transform: scale(0.95);
+}
+
+/* ── 로그인 (시연용) ───────────────────────────────────────────────────── */
+
+/*
+ * 로그인도 **같은 휴대폰 폭** 안에 있다.
+ *
+ * 앱 프레임(`.app`) 밖에 있는 화면이라 처음에는 화면 전체로 퍼졌다. 키패드가 데스크톱
+ * 폭으로 늘어나면 숫자 하나가 500px짜리 띠가 되고, 그것은 실제 기기에서 이 화면이
+ * 어떻게 보이는지를 감추는 그림이다 — `.app`이 폭을 고정한 것과 같은 이유다.
+ */
+.login {
+  display: grid;
+  align-content: start;
+  gap: var(--bank-space-lg);
+  padding: var(--bank-space-lg) var(--bank-space-md) var(--bank-space-section);
+  overflow-y: auto;
+  height: 100%;
+  max-width: var(--minui-frame-width);
+  margin: 0 auto;
+  background: var(--minui-paper);
+  box-shadow: 0 0 0 1px var(--minui-line);
+}
+
+.login-head {
+  display: grid;
+  gap: var(--bank-space-xs);
+}
+
+.login-title {
+  margin: 0;
+  font-size: var(--minui-text-xl);
+  /* 300/400/600/700 사다리 — 500은 그 문서가 일부러 비워 둔 자리다. */
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.login-lead {
+  margin: 0;
+  color: var(--minui-ink-2);
+  font-size: var(--minui-text-m);
+  line-height: 1.47;
+}
+
+.login-back {
+  justify-self: start;
+  min-height: var(--minui-touch-min);
+  padding: 0 var(--bank-space-sm);
+  margin-left: calc(var(--bank-space-sm) * -1);
+  border: 0;
+  background: none;
+  color: var(--minui-accent);
+  font-family: inherit;
+  font-size: var(--minui-text-m);
+  cursor: pointer;
+}
+
+.login-group {
+  display: grid;
+  gap: var(--bank-space-sm);
+}
+
+.login-group-title {
+  margin: 0;
+  color: var(--minui-ink-3);
+  font-size: var(--minui-text-s);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.login-user-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--bank-space-sm);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/*
+ * 카드에 그림자를 얹지 않는다 — 그 문서가 그림자를 제품 사진 하나에만 허용한다.
+ * 경계는 헤어라인이 낸다. 고대비 모드에서 그림자가 얼룩이 되는 문제와도 방향이 같다.
+ */
+.login-user {
+  display: grid;
+  gap: 2px;
+  width: 100%;
+  min-height: var(--minui-touch-min);
+  padding: var(--bank-space-sm) var(--bank-space-md);
+  border: var(--bank-hairline);
+  border-radius: var(--bank-radius-lg);
+  background: var(--minui-surface);
+  color: inherit;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.login-user-name {
+  font-size: var(--minui-text-m);
+  font-weight: 600;
+}
+
+.login-user-meta {
+  color: var(--minui-ink-3);
+  font-size: var(--minui-text-s);
+}
+
+.login-dots {
+  display: flex;
+  justify-content: center;
+  gap: var(--bank-space-sm);
+  margin: 0;
+}
+
+.login-dots span {
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--minui-line-strong);
+  border-radius: var(--bank-radius-pill);
+}
+
+.login-dots span[data-filled="true"] {
+  border-color: var(--minui-accent);
+  background: var(--minui-accent);
+}
+
+.login-keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--bank-space-xs);
+}
+
+.login-key {
+  min-height: var(--minui-touch-min);
+  border: var(--bank-hairline);
+  border-radius: var(--bank-radius-md);
+  background: var(--minui-surface);
+  color: inherit;
+  font-family: inherit;
+  font-size: var(--minui-text-l);
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.login-key-quiet {
+  font-size: var(--minui-text-m);
+  color: var(--minui-ink-2);
+}
+
+.login-key-blank {
+  border: 0;
+  background: none;
+}
+
+/*
+ * 시연용이라는 말은 화면에서 사라지지 않는다. 가상 원장 고지 띠·연습 모드 배지와
+ * 같은 규칙이다 — 무엇을 보고 있는지 모르는 데모가 제일 나쁘다.
+ */
+.login-disclaimer {
+  margin: 0;
+  padding: var(--bank-space-sm) var(--bank-space-md);
+  border: var(--bank-hairline);
+  border-radius: var(--bank-radius-md);
+  background: var(--minui-surface-2);
+  color: var(--minui-ink-2);
+  font-size: var(--minui-text-s);
+  line-height: 1.5;
+}
+
+/* ── 지금 누구로 보는 중인가 ───────────────────────────────────────────── */
+
+/*
+ * 지금 누구로 보는 중인가.
+ *
+ * <b>조용해야 한다.</b> 처음에는 나가기를 `.demo-restore`(테두리 있는 버튼)로 뒀는데,
+ * 그것은 연습 모드가 **켜졌을 때**만 뜨는 눈에 띄는 물건이다. 나가기는 늘 떠 있으므로
+ * 같은 무게를 주면 진행자용 한 줄이 통째로 두꺼워지고 카드가 화면 아래로 밀린다 —
+ * 이 띠에 이미 적혀 있는 걱정 그대로다. 무게는 낮추고 누를 면적(88px)은 지킨다.
+ */
+.demo-session {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--bank-space-xs);
+  margin-left: auto;
+}
+
+.demo-session-who {
+  color: var(--minui-ink-2);
+  font-size: var(--minui-text-s);
+}
+
+.demo-session .demo-quiet {
+  padding-inline: var(--bank-space-xs);
+}
+
+/* ── 전체 계좌 조회 ────────────────────────────────────────────────────── */
+
+.accounts-total {
+  display: grid;
+  gap: 2px;
+  padding: var(--bank-space-md);
+  border: var(--bank-hairline);
+  border-radius: var(--bank-radius-lg);
+  background: var(--minui-surface);
+}
+
+.accounts-total-label {
+  margin: 0;
+  color: var(--minui-ink-3);
+  font-size: var(--minui-text-s);
+}
+
+.accounts-total-amount {
+  font-size: var(--minui-text-xl);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+/* 고르는 버튼이지만 목록의 한 줄로 보여야 한다 — 생김새는 `.account`를 그대로 쓴다. */
+.account-pick {
+  width: 100%;
+  min-height: var(--minui-touch-min);
+  border-radius: var(--bank-radius-lg);
+  color: inherit;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.account-pick[aria-checked="true"] {
+  border-color: var(--minui-accent);
+  background: var(--minui-accent-soft);
+}
+
+.accounts-recent {
+  display: grid;
+  gap: var(--bank-space-sm);
+  margin-top: var(--bank-space-xs);
+}
+
+.accounts-recent-title {
+  margin: 0;
+  font-size: var(--minui-text-m);
+  font-weight: 600;
+}
+
+.classic-account-more {
+  margin: var(--bank-space-xs) 0 0;
+}
+
+.classic-account-more button {
+  min-height: var(--minui-touch-min);
+  padding: 0 var(--bank-space-sm);
+  margin-left: calc(var(--bank-space-sm) * -1);
+  border: 0;
+  background: none;
+  color: var(--minui-accent);
+  font-family: inherit;
+  font-size: var(--minui-text-s);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* ── 진행자용 빠른 전환 ─────────────────────────────────────────────────── */
+
+/*
+ * 라벨은 **읽히되 안 보인다.**
+ *
+ * 이 띠에는 이미 세 가지가 들어 있어 "진행자용 — 다른 사람으로 바로 보기"를 글자로
+ * 띄우면 줄이 하나 더 늘고, 그러면 카드가 화면 아래로 밀린다 (이 띠가 원래 걱정하던 것).
+ * 고른 사람 이름이 셀렉트 안에 이미 보이므로 눈으로 보는 사람은 라벨 없이도 안다 —
+ * 스크린리더 사용자만 그 단서가 없어서, 그쪽에만 남긴다.
+ */
+.demo-session-switch-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.demo-session-switch select {
+  max-width: 10rem;
+  padding: 0.3rem var(--bank-space-xs);
+  border: var(--bank-hairline);
+  border-radius: var(--bank-radius-sm);
+  background: var(--minui-surface);
+  color: var(--minui-ink-2);
+  font-family: inherit;
+  font-size: var(--minui-text-s);
+  cursor: pointer;
 }

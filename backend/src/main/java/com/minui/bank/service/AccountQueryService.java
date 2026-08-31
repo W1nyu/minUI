@@ -1,5 +1,6 @@
 package com.minui.bank.service;
 
+import com.minui.bank.config.DemoPersonaCatalog;
 import com.minui.bank.domain.Account;
 import com.minui.bank.domain.LedgerEntry;
 import com.minui.bank.repository.AccountRepository;
@@ -18,10 +19,13 @@ public class AccountQueryService {
 
     private final AccountRepository accounts;
     private final LedgerEntryRepository ledger;
+    private final DemoPersonaCatalog personas;
 
-    public AccountQueryService(AccountRepository accounts, LedgerEntryRepository ledger) {
+    public AccountQueryService(
+            AccountRepository accounts, LedgerEntryRepository ledger, DemoPersonaCatalog personas) {
         this.accounts = accounts;
         this.ledger = ledger;
+        this.personas = personas;
     }
 
     public record AccountView(
@@ -43,6 +47,34 @@ public class AccountQueryService {
 
     public List<AccountView> listAccounts() {
         return accounts.findAllByOrderByNumberAsc().stream().map(this::toView).toList();
+    }
+
+    /**
+     * 그 사람의 통장. <b>표에 적힌 순서를 지킨다 — 첫 줄이 주거래 통장이다.</b>
+     *
+     * <p>계좌번호순으로 정렬하지 않는다. 박정호의 월급 통장({@code acc-12},
+     * 110-503-…)이 잘 안 쓰는 통장({@code acc-5}, 110-456-…)보다 번호가 커서, 번호로
+     * 줄을 세우면 잔액 카드에 0원짜리 통장이 뜬다. 사람이 쓰는 순서는 표가 안다.
+     */
+    public List<AccountView> listAccountsOf(String userId) {
+        List<String> order = personas.accounts().stream().map(a -> a.id()).toList();
+        return accounts.findByOwnerId(userId).stream()
+                .sorted(java.util.Comparator.comparingInt(account -> order.indexOf(account.getId())))
+                /*
+                 * **내 목록에서는 내가 부르는 이름이다.** DB의 nickname은 남이 부르는
+                 * 이름("김순자")이라 그대로 쓰면 자기 통장 목록에 자기 이름이 뜬다.
+                 * 브라우저 원장이 같은 자리에서 `ownerLabel`을 쓰므로 두 경로가 여기서
+                 * 갈리면 "어디서 봤느냐"에 따라 통장 이름이 달라진다.
+                 */
+                .map(
+                        account ->
+                                new AccountView(
+                                        account.getId(),
+                                        account.getNumber(),
+                                        personas.ownerLabel(account.getId()),
+                                        account.getCurrency(),
+                                        ledger.balanceOf(account.getId())))
+                .toList();
     }
 
     public Optional<AccountView> findAccount(String accountId) {

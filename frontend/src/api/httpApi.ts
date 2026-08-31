@@ -1,3 +1,4 @@
+import { DEFAULT_USER_ID, userById } from "../session/personas.js";
 import type {
   Account,
   AutoTransfer,
@@ -19,20 +20,41 @@ export class HttpBankApi implements BankApi {
   /** The Spring demo server also provides only the virtual Mock contract. */
   readonly demoMode = "open-banking-mock" as const;
   readonly #baseUrl: string;
-  /** 데모는 계좌 하나를 주거래로 고정한다. 로그인이 없으므로 세션 대신 상수다. */
-  readonly #primaryAccountId: string;
+  /**
+   * 지금 보고 있는 사람.
+   *
+   * <p>전에는 이 자리에 `primaryAccountId = "acc-1"` 상수가 있었고 주석에 "로그인이
+   * 없으므로 세션 대신 상수다"라고 적혀 있었다. 로그인이 생겼으므로 상수가 사람이 됐다.
+   * 기본값을 남겨 두는 것은 호환이다 — 안 넘기면 지금까지처럼 김순자로 돈다.
+   */
+  readonly #userId: string;
+  /**
+   * 시연용 세션 표식. **인증이 아니다** — 서버도 이 값으로 소유권만 가려낼 뿐이고,
+   * 없으면 지금까지처럼 아무나 부를 수 있는 상태로 돈다.
+   */
+  readonly #session: string | undefined;
 
-  constructor(baseUrl = "http://localhost:8080", primaryAccountId = "acc-1") {
+  constructor(
+    baseUrl = "http://localhost:8080",
+    options: { userId?: string; session?: string } = {},
+  ) {
     this.#baseUrl = baseUrl.replace(/\/$/, "");
-    this.#primaryAccountId = primaryAccountId;
+    this.#userId = options.userId ?? DEFAULT_USER_ID;
+    this.#session = options.session;
   }
 
   async listAccounts(): Promise<Account[]> {
-    const accounts = await this.#get<RawAccount[]>("/api/accounts");
+    /*
+     * 사람으로 물어본다. 전에는 계좌 전부를 받아 와 `acc-1`·`acc-2`만 남겼다 —
+     * 계좌가 여섯일 때만 되는 방식이었고, 무엇보다 <b>남의 통장이 브라우저까지
+     * 왔다가 화면 앞에서 걸러졌다.</b> 자르는 자리는 서버여야 한다.
+     */
+    const accounts = await this.#get<RawAccount[]>(
+      `/api/users/${encodeURIComponent(this.#userId)}/accounts`,
+    );
     // 개시 분개는 회계 장치이지 사용자의 통장이 아니다. 화면에서는 감춘다.
     return accounts
       .filter((account) => account.id !== "acc-opening")
-      .filter((account) => account.id === "acc-1" || account.id === "acc-2")
       .map((account) => ({
         id: account.id,
         number: account.number,
@@ -57,7 +79,7 @@ export class HttpBankApi implements BankApi {
 
   async listAutoTransfers(): Promise<AutoTransfer[]> {
     const rows = await this.#get<RawAutoTransfer[]>(
-      `/api/accounts/${this.#primaryAccountId}/auto-transfers`,
+      `/api/users/${encodeURIComponent(this.#userId)}/auto-transfers`,
     );
     return rows.map((row) => ({
       id: row.id,
@@ -78,7 +100,7 @@ export class HttpBankApi implements BankApi {
 
   async listRecentPayees(): Promise<Payee[]> {
     const rows = await this.#get<RawPayee[]>(
-      `/api/accounts/${this.#primaryAccountId}/payees`,
+      `/api/users/${encodeURIComponent(this.#userId)}/payees`,
     );
     return rows.map((row) => ({
       id: row.id,
@@ -90,7 +112,7 @@ export class HttpBankApi implements BankApi {
 
   async listUpcomingDeposits(): Promise<UpcomingDeposit[]> {
     const rows = await this.#get<RawUpcomingDeposit[]>(
-      `/api/accounts/${this.#primaryAccountId}/upcoming-deposits`,
+      `/api/users/${encodeURIComponent(this.#userId)}/upcoming-deposits`,
     );
     return rows.map((row) => ({
       id: row.id,
@@ -141,7 +163,7 @@ export class HttpBankApi implements BankApi {
             fintech_use_num: fintechUseNumber(request.toAccountId),
             print_content: request.memo ?? "minUI 가상이체",
             tran_amt: String(request.amount),
-            req_client_name: "김순자",
+            req_client_name: this.#holderName(),
             req_client_num: "MINUI-DEMO-USER",
             transfer_purpose: "TR",
           },
@@ -166,8 +188,19 @@ export class HttpBankApi implements BankApi {
     return (await response.json()) as T;
   }
 
+  /** 요청을 보낸 사람의 이름. 전에는 `"김순자"`가 글자 그대로 박혀 있었다. */
+  #holderName(): string {
+    return userById(this.#userId)?.name ?? "미니은행 이용자";
+  }
+
   async #send(path: string, init: RequestInit): Promise<Response> {
-    const response = await fetch(`${this.#baseUrl}${path}`, init);
+    const response = await fetch(`${this.#baseUrl}${path}`, {
+      ...init,
+      headers: {
+        ...init.headers,
+        ...(this.#session ? { "X-Demo-Session": this.#session } : {}),
+      },
+    });
 
     if (!response.ok) {
       // 백엔드가 사용자에게 그대로 보여도 되는 한국어 메시지를 준다.

@@ -6,6 +6,7 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
   type ReactNode,
 } from "react";
@@ -22,6 +23,14 @@ import { useTaskRecorder } from "./instrumentation/TaskRecorder.js";
 interface BankContextValue {
   api: BankApi;
   accounts: Account[];
+  /**
+   * 지금 보고 있는 통장. 거래내역과 이체의 기본 출금 계좌가 이것을 따른다.
+   *
+   * <p>전에는 `accounts[0]`이 곧 답이었다. 사람마다 통장 수가 달라지면서 '첫 번째'가
+   * 아니라 <b>고른 것</b>이어야 하는 자리가 생겼다. 아무것도 안 고르면 여전히 첫 통장이다.
+   */
+  selectedAccount: Account | undefined;
+  selectAccount: (accountId: string) => void;
   transactions: Transaction[];
   autoTransfers: AutoTransfer[];
   payees: Payee[];
@@ -54,6 +63,15 @@ export function BankProvider({ api, children }: { api: BankApi; children: ReactN
   const [autoTransfers, setAutoTransfers] = useState<AutoTransfer[]>([]);
   const [payees, setPayees] = useState<Payee[]>([]);
   const [deposits, setDeposits] = useState<UpcomingDeposit[]>([]);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  /*
+   * 고른 통장을 ref로도 들고 있는다.
+   *
+   * <p>`reload`가 이 값을 읽어야 하는데 의존성으로 넣으면 <b>고를 때마다 전체를 다시
+   * 불러온다</b> — 통장을 바꾸는 것은 거래내역만 바뀌는 일이지 계좌·수취인·자동이체를
+   * 다시 받아올 일이 아니다.
+   */
+  const selectedIdRef = useRef<string | null>(null);
 
   const reload = useCallback(async () => {
     const [nextAccounts, nextAuto, nextPayees, nextDeposits] = await Promise.all([
@@ -67,13 +85,29 @@ export function BankProvider({ api, children }: { api: BankApi; children: ReactN
     setPayees(nextPayees);
     setDeposits(nextDeposits);
 
-    const primary = nextAccounts[0];
-    setTransactions(primary ? await api.listTransactions(primary.id) : []);
+    /*
+     * 고른 통장이 이번 목록에 없으면 (사람이 바뀌었다) 주거래로 되돌린다.
+     * 남아 있는 id로 남의 거래내역을 부르는 것이 여기서 막힌다.
+     */
+    const chosen =
+      nextAccounts.find((account) => account.id === selectedIdRef.current) ?? nextAccounts[0];
+    selectedIdRef.current = chosen?.id ?? null;
+    setSelectedId(chosen?.id ?? null);
+    setTransactions(chosen ? await api.listTransactions(chosen.id) : []);
   }, [api]);
 
   useEffect(() => {
     void reload();
   }, [reload]);
+
+  const selectAccount = useCallback(
+    (accountId: string) => {
+      selectedIdRef.current = accountId;
+      setSelectedId(accountId);
+      void api.listTransactions(accountId).then(setTransactions);
+    },
+    [api],
+  );
 
   const setAutoTransferActive = useCallback(
     async (id: string, active: boolean) => {
@@ -87,6 +121,8 @@ export function BankProvider({ api, children }: { api: BankApi; children: ReactN
     () => ({
       api,
       accounts,
+      selectedAccount: accounts.find((account) => account.id === selectedId) ?? accounts[0],
+      selectAccount,
       transactions,
       autoTransfers,
       payees,
@@ -98,6 +134,8 @@ export function BankProvider({ api, children }: { api: BankApi; children: ReactN
     [
       api,
       accounts,
+      selectedId,
+      selectAccount,
       transactions,
       autoTransfers,
       payees,

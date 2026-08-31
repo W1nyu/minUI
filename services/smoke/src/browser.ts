@@ -45,6 +45,30 @@ export async function seen(locator: Locator, timeout = STEP_TIMEOUT): Promise<bo
  *
  * <p>홈이 실제로 떴는지까지 확인하고 돌려준다. 여기서 안 기다리면 다음 단계가 헛친다.
  */
+/**
+ * 로그인 문을 지난다.
+ *
+ * <p>미니은행이 「누구로 볼까요?」로 시작하게 되면서 생긴 단계다. <b>비밀번호를 확인하지
+ * 않으므로</b> 아무 숫자나 여섯 번 누르면 들어간다 — 그것이 그 화면의 설계이고,
+ * 여기서 그것에 기대는 것이 아니라 <b>그 사실을 밟아 확인하는 것</b>이다.
+ *
+ * <p>로그인 화면이 아니면 아무 일도 하지 않는다. 부르는 쪽이 "지금 로그인 화면인가"를
+ * 따지지 않아도 되게 하려는 것 — {@link passOnboarding}이 같은 모양으로 있다.
+ */
+export async function signIn(page: Page, name = "김순자"): Promise<void> {
+  const card = page.getByRole("button", { name: new RegExp(name) });
+  if (!(await seen(card))) return;
+
+  await card.click();
+  const key = page.getByRole("button", { name: "숫자 7" });
+  await key.waitFor({ state: "visible", timeout: STEP_TIMEOUT });
+  for (let pressed = 0; pressed < 6; pressed += 1) await key.click();
+
+  await page
+    .getByRole("group", { name: "화면 방식" })
+    .waitFor({ state: "visible", timeout: STEP_TIMEOUT });
+}
+
 export async function passOnboarding(page: Page): Promise<void> {
   const first = page.getByRole("button", { name: /돈을 보내요/ });
   if (!(await seen(first))) return;

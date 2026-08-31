@@ -25,4 +25,12 @@ public interface AccountRepository extends JpaRepository<Account, String> {
     List<Account> lockAllByIdInOrder(@Param("ids") List<String> ids);
 
     List<Account> findAllByOrderByNumberAsc();
+
+    /**
+     * 그 사람의 통장.
+     *
+     * <p>자르는 자리가 여기여야 한다. 전에는 계좌 전부를 내려보내고 브라우저가
+     * {@code acc-1}·{@code acc-2}만 남겼다 — 남의 통장이 화면 앞까지 갔다가 걸러졌다.
+     */
+    List<Account> findByOwnerId(String ownerId);
 }

@@ -17,11 +17,12 @@ type Tab = "home" | "menu";
  */
 export function ClassicShell() {
   const { open } = useMinUI();
-  const { accounts, deposits } = useBank();
+  const { accounts, selectedAccount, deposits } = useBank();
   const [tab, setTab] = useState<Tab>("home");
   const [openCategory, setOpenCategory] = useState<string | null>(null);
 
-  const primary = accounts[0];
+  // 고른 통장이 곧 홈 카드에 뜨는 통장이다. 안 골랐으면 주거래.
+  const primary = selectedAccount ?? accounts[0];
   const quickMenus = CATALOG.slice(0, 8);
 
   return (
@@ -45,6 +46,17 @@ export function ClassicShell() {
             <p className="classic-account-balance">
               {primary ? formatWon(primary.balance) : "—"}
             </p>
+            {/*
+              통장이 여럿인 사람에게만 "다른 통장" 통로를 준다. 하나뿐인 사람에게
+              띄우면 누를 것이 없는 버튼이 하나 생긴다.
+            */}
+            {accounts.length > 1 && (
+              <p className="classic-account-more">
+                <button type="button" onClick={() => open("inquiry.accounts")}>
+                  다른 통장 보기 ({accounts.length}개)
+                </button>
+              </p>
+            )}
             <div className="classic-account-actions">
               <button type="button" onClick={() => open("transfer.account")}>
                 이체

@@ -52,6 +52,19 @@ public class Account {
     @Column(nullable = false, length = 60)
     private String nickname;
 
+    /**
+     * 이 계좌의 주인.
+     *
+     * <p>기관 계좌(관리사무소·한국전력공사)와 개시 분개에는 주인이 없어 {@code null}이다 —
+     * 받기만 하고 로그인 대상이 아니다. 그래서 {@code nullable}이다.
+     *
+     * <p>전에는 이 칸이 없었다. 사용자가 한 사람이라 "누구의 계좌인가"를 물을 일이
+     * 없었기 때문이다. 그때는 화면이 {@code acc-1}·{@code acc-2}를 상수로 알고 있었고,
+     * 남의 통장이 브라우저까지 갔다가 화면 앞에서 걸러졌다. 자르는 자리를 여기로 옮긴다.
+     */
+    @Column(length = 40)
+    private String ownerId;
+
     @Column(nullable = false, length = 3)
     private String currency;
 
@@ -71,17 +84,28 @@ public class Account {
         // JPA용
     }
 
-    /** 고객 계좌를 만든다. */
+    /** 주인 없는 고객 계좌를 만든다 — 기관 계좌가 이쪽이다. */
     public Account(String id, String number, String nickname, String currency) {
-        this(id, number, nickname, currency, Type.ASSET);
+        this(id, number, nickname, currency, Type.ASSET, null);
     }
 
     public Account(String id, String number, String nickname, String currency, Type type) {
+        this(id, number, nickname, currency, type, null);
+    }
+
+    public Account(
+            String id,
+            String number,
+            String nickname,
+            String currency,
+            Type type,
+            String ownerId) {
         this.id = id;
         this.number = number;
         this.nickname = nickname;
         this.currency = currency;
         this.type = type;
+        this.ownerId = ownerId;
     }
 
     /** 이 계좌에서 나가는 돈에 잔액 검사를 적용해야 하는가. */
@@ -103,6 +127,15 @@ public class Account {
 
     public String getNickname() {
         return nickname;
+    }
+
+    /** 주인이 없으면 {@code null}. */
+    public String getOwnerId() {
+        return ownerId;
+    }
+
+    public boolean isOwnedBy(String userId) {
+        return ownerId != null && ownerId.equals(userId);
     }
 
     public String getCurrency() {

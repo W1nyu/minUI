@@ -21,6 +21,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+	// 시연용 사람 표를 읽는 데 쓴다 (`DemoPersonaCatalog`). 4.x의 모듈형 스타터는
+	// jackson을 컴파일 경로까지 끌어오지 않아 여기서 명시한다.
+	implementation 'com.fasterxml.jackson.core:jackson-databind'
 	runtimeOnly 'org.postgresql:postgresql'
 	testImplementation 'org.springframework.boot:spring-boot-starter-data-jpa-test'
 	testImplementation 'org.springframework.boot:spring-boot-starter-validation-test'
@@ -29,6 +32,19 @@ dependencies {
 	testImplementation 'org.testcontainers:testcontainers-junit-jupiter'
 	testImplementation 'org.testcontainers:testcontainers-postgresql'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+/*
+ * 시연용 사람 표를 클래스패스에 싣는다.
+ *
+ * 이 파일은 **브라우저 원장과 같은 것**이다 (`frontend/src/session/personas.ts`가 같은
+ * 파일을 import 한다). 복사본을 backend 아래 따로 두면 그 순간부터 두 원장이 서로 다른
+ * 사람을 알게 된다 — `openbanking-cases.json`을 한 곳에 둔 것과 같은 이유다.
+ */
+processResources {
+	from('../shared/contracts') {
+		include 'demo-users.json'
+	}
 }
 
 tasks.named('test') {
@@ -41,6 +57,11 @@ tasks.named('test') {
 	// `BUILD SUCCESSFUL in 1s`로 지나갔다 — 그러면 대조가 가짜가 된다.
 	inputs.file(rootProject.file('../shared/contracts/openbanking-cases.json'))
 			.withPropertyName('openBankingContract')
+			.withPathSensitivity(PathSensitivity.RELATIVE)
+
+	// 사람 표도 같은 이유로 입력이다. 사람을 늘리고 테스트가 안 도는 것이 제일 나쁘다.
+	inputs.file(rootProject.file('../shared/contracts/demo-users.json'))
+			.withPropertyName('demoUsersContract')
 			.withPathSensitivity(PathSensitivity.RELATIVE)
 }
 

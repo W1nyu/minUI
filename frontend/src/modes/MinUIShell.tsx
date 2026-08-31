@@ -10,6 +10,7 @@ import {
 } from "../adaptation/AdaptiveSupport.js";
 import { CATALOG } from "../catalog.js";
 import { formatWon } from "../screens/ScreenFrame.js";
+import { useSessionUser } from "../session/SessionContext.js";
 import { summarizeMonth } from "../summary.js";
 
 /**
@@ -105,6 +106,7 @@ export function MinUIShell({ stt }: { stt?: SttLike } = {}) {
   // 직접 고른 도움 정도는 동의와 별개다. 동의는 행동 합계를 모을지의 선택이고,
   // 사용자가 자기 화면을 고르는 데까지 막을 이유는 없다.
   const level: SupportLevel = adaptive.level;
+  const user = useSessionUser();
 
   return (
     <MinUIHome
@@ -118,8 +120,13 @@ export function MinUIShell({ stt }: { stt?: SttLike } = {}) {
       }}
       header={
         <header className="minui-greeting">
+          {/*
+            이름은 로그인한 사람에게서 온다. 전에는 여기에 '김순자'가 글자 그대로
+            박혀 있었다 — 사용자가 한 사람이던 때의 흔적이고, 사람을 늘리면 남의
+            화면에 남의 이름이 뜨는 자리가 된다.
+          */}
           <p className="minui-greeting-text">
-            <strong>김순자</strong>님, 안녕하세요
+            <strong>{user?.name ?? "고객"}</strong>님, 안녕하세요
           </p>
           <AdaptiveSupportControl />
         </header>

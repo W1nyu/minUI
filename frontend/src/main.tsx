@@ -1,6 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { App } from "./App.js";
+import { BankApp } from "./BankApp.js";
 import { HttpBankApi } from "./api/httpApi.js";
 import { SessionOpenBankingMockApi } from "./api/mockApi.js";
 import { MetricsBridge } from "./instrumentation/MetricsBridge.js";
@@ -28,9 +28,15 @@ if (!container) throw new Error("#root를 찾을 수 없습니다.");
  * `MockBankApi`는 흉내가 아니라 <b>같은 `BankApi`의 완전한 구현</b>이다 — 잔액을 실제로
  * 깎고, 거래내역 맨 앞에 넣고, 멱등성 키까지 지킨다. 이체가 끝까지 도는 것을 보여 주는
  * 데는 이것으로 충분하다.
+ *
+ * <p>이제 <b>사람마다</b> 만든다. 어느 쪽으로 붙든 로그인한 사람의 통장만 보이고,
+ * 원장은 하나를 나눠 본다 — 김순자가 보낸 돈이 박정호로 들어갔을 때 도착해 있어야 한다.
  */
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
-const api = apiBaseUrl ? new HttpBankApi(apiBaseUrl) : new SessionOpenBankingMockApi();
+const apiFor = (userId: string) =>
+  apiBaseUrl
+    ? new HttpBankApi(apiBaseUrl, { userId, session: `demo-${userId}` })
+    : new SessionOpenBankingMockApi({ userId });
 // Both implementations are contest-only virtual ledgers; the local backend
 // persists its test data while the static demo keeps it in this browser session.
 const demoData = true;
@@ -53,14 +59,7 @@ createRoot(container).render(
     <TaskRecorderProvider>
       <MetricsBridge />
       {stt && <SttBridge stt={stt} />}
-      <App
-        api={api}
-        demoData={demoData}
-        {...(demoData
-          ? { resetDemoLedger: () => (api as SessionOpenBankingMockApi).resetDemoLedger() }
-          : {})}
-        {...(stt ? { stt } : {})}
-      />
+      <BankApp apiFor={apiFor} demoData={demoData} {...(stt ? { stt } : {})} />
     </TaskRecorderProvider>
   </StrictMode>,
 );

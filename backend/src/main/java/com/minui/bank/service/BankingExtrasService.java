@@ -63,6 +63,9 @@ public class BankingExtrasService {
     public record UpcomingDepositView(
             String id, String label, String expectedAt, BigDecimal amount) {}
 
+    /** 한 번도 안 보낸 상대의 "마지막으로 보낸 때". 목록 맨 뒤로 가라는 뜻이다. */
+    private static final String EPOCH = "1970-01-01T00:00:00Z";
+
     public List<AutoTransferView> listAutoTransfers(String accountId) {
         return autoTransfers.findByFromAccountIdOrderByDayOfMonthAsc(accountId).stream()
                 .map(
@@ -73,6 +76,56 @@ public class BankingExtrasService {
                                         a.getAmount(),
                                         a.getDayOfMonth(),
                                         a.isActive()))
+                .toList();
+    }
+
+    /** 그 사람의 모든 통장에서 나가는 자동이체. 통장이 여럿이면 합쳐 보여 준다. */
+    public List<AutoTransferView> listAutoTransfersOf(String userId) {
+        return accounts.findByOwnerId(userId).stream()
+                .flatMap(account -> listAutoTransfers(account.getId()).stream())
+                .toList();
+    }
+
+    /**
+     * 그 사람이 보낼 수 있는 상대 — <b>내 것이 아닌 통장 전부.</b>
+     *
+     * <p>계좌 하나만 놓고 보는 {@link #listRecentPayees(String)}와 다르게 판단한다.
+     * 저쪽은 "이 통장에서 보낸 적 있는 곳"을 뽑는데, 그 규칙이면 <b>처음 쓰는 사람은
+     * 아무에게도 못 보낸다</b> — 보낸 적이 있어야 목록에 뜨고, 목록에 떠야 보낼 수 있는
+     * 순환이다. 사람이 열둘로 늘면서 그 순환이 실제 문제가 됐다.
+     *
+     * <p>브라우저 원장이 하던 것과 같아진다는 점도 중요하다. 두 원장이 다른 목록을 주면
+     * "어디서 봤느냐"에 따라 보낼 수 있는 사람이 달라진다.
+     */
+    public List<PayeeView> listRecentPayeesOf(String userId) {
+        Map<String, String> lastSentByAccount = new LinkedHashMap<>();
+        for (Account mine : accounts.findByOwnerId(userId)) {
+            for (PayeeView sent : listRecentPayees(mine.getId())) {
+                lastSentByAccount.merge(
+                        sent.id(),
+                        sent.lastSentAt(),
+                        (left, right) -> left.compareTo(right) >= 0 ? left : right);
+            }
+        }
+
+        return accounts.findAllByOrderByNumberAsc().stream()
+                .filter(account -> account.getType() == Account.Type.ASSET)
+                .filter(account -> !account.isOwnedBy(userId))
+                .map(
+                        account ->
+                                new PayeeView(
+                                        account.getId(),
+                                        account.getNickname(),
+                                        account.getNumber(),
+                                        lastSentByAccount.getOrDefault(
+                                                account.getId(), EPOCH)))
+                .sorted(Comparator.comparing(PayeeView::lastSentAt).reversed())
+                .toList();
+    }
+
+    public List<UpcomingDepositView> listUpcomingDepositsOf(String userId) {
+        return accounts.findByOwnerId(userId).stream()
+                .flatMap(account -> listUpcomingDeposits(account.getId()).stream())
                 .toList();
     }
 

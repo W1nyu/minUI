@@ -1,6 +1,7 @@
 package com.minui.bank.web;
 
 import com.minui.bank.domain.Account;
+import com.minui.bank.config.DemoPersonaCatalog;
 import com.minui.bank.repository.AccountRepository;
 import com.minui.bank.service.AccountQueryService;
 import com.minui.bank.service.TransferCoordinator;
@@ -41,16 +42,19 @@ public class OpenBankingMockController {
     private final AccountRepository accounts;
     private final AccountQueryService queries;
     private final TransferCoordinator transfers;
+    private final DemoPersonaCatalog personas;
     private final Clock clock;
 
     public OpenBankingMockController(
             AccountRepository accounts,
             AccountQueryService queries,
             TransferCoordinator transfers,
+            DemoPersonaCatalog personas,
             Clock clock) {
         this.accounts = accounts;
         this.queries = queries;
         this.transfers = transfers;
+        this.personas = personas;
         this.clock = clock;
     }
 
@@ -123,7 +127,14 @@ public class OpenBankingMockController {
                         bankName(source.getId()),
                         mask(source.getNumber()),
                         request.wd_print_content(),
-                        "김순자",
+                        /*
+                         * 출금 계좌의 실제 예금주.
+                         *
+                         * <p>전에는 여기에 `"김순자"`가 글자 그대로 박혀 있었다 — 사용자가
+                         * 한 사람이던 때의 흔적이다. 사람이 열둘이 된 지금 그대로 두면
+                         * 박정호가 보낸 이체 응답에 김순자의 이름이 붙는다.
+                         */
+                        personas.holderName(source.getId()),
                         "1",
                         List.of(
                                 new DepositLineResponse(
@@ -255,12 +266,17 @@ public class OpenBankingMockController {
         }
     }
 
-    private static String accountIdBankCode(String accountId) {
-        return accountId.equals("acc-4") ? "004" : accountId.equals("acc-3") ? "020" : accountId.equals("acc-6") ? "081" : "088";
+    /*
+     * 은행 코드와 이름은 **표에서 온다** (`shared/contracts/demo-users.json`).
+     * 전에는 계좌 id를 세 번 비교하는 삼항 연산이었다 — 계좌가 여섯일 때만 되는 방식이고,
+     * 무엇보다 브라우저 원장이 같은 값을 자기 표에서 따로 들고 있어서 갈라질 자리였다.
+     */
+    private String accountIdBankCode(String accountId) {
+        return personas.bankCode(accountId);
     }
 
-    private static String bankName(String accountId) {
-        return accountId.equals("acc-4") ? "국민은행" : accountId.equals("acc-3") ? "행복은행" : accountId.equals("acc-6") ? "하나은행" : "미니은행";
+    private String bankName(String accountId) {
+        return personas.bankName(accountId);
     }
 
     private static String mask(String number) {
