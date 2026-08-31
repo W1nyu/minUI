@@ -57,12 +57,22 @@ async function boot(mode: Mode, stt?: MockSttProvider) {
   await waitFor(() =>
     expect(screen.getByRole("group", { name: "화면 방식" })).toBeInTheDocument(),
   );
+  /*
+   * **카드가 생긴 것이 아니라 잔액이 채워진 것을 기다린다.**
+   *
+   * <p>전에는 버튼이 DOM에 있으면 준비된 것으로 봤다. 그런데 카드의 금액은 원장을
+   * 불러온 <b>뒤에</b> 들어차므로, 그 사이에 단언이 실행되면 빈 카드를 읽는다.
+   * S2는 "탭 0회로 잔액이 읽힌다"를 재는 과제라 바로 그 값을 보는데, 병렬 부하가
+   * 걸린 날에만 간헐로 깨졌다 — 시간이 아니라 <b>기다리는 대상</b>이 틀렸던 것이다.
+   */
   if (mode === "minui") {
     await waitFor(() =>
-      expect(screen.getByRole("button", { name: /잔액 보기/ })).toBeInTheDocument(),
+      expect(screen.getByRole("button", { name: /잔액 보기/ })).toHaveTextContent(/\d,\d{3}원/),
     );
   } else {
-    await waitFor(() => expect(screen.getByText("주거래 통장")).toBeInTheDocument());
+    await waitFor(() =>
+      expect(screen.getByRole("region", { name: "주거래 통장" })).toHaveTextContent(/\d,\d{3}원/),
+    );
   }
   return view;
 }

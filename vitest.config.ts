@@ -121,6 +121,17 @@ export default defineConfig({
           environment: "jsdom",
           include: ["test/**/*.test.{ts,tsx}"],
           setupFiles: ["./test/setup.ts"],
+          /*
+           * 기본 5초로는 모자란다. 여기 테스트는 **앱 전체를 jsdom에 그리고** 두 모드를
+           * 오가며 이체를 끝까지 밟는다 — 격리 실행이면 1.4초지만, 파일 61개가 함께 도는
+           * 부하에서는 3배 넘게 느려져 간헐로 5초를 넘겼다.
+           *
+           * 늘리는 것이 답이 아닌 경우와 구분해서 적어 둔다. 같이 깨지던 S2는 시간이
+           * 아니라 **기다리는 대상**이 틀린 것이었고(`scenarios.test.tsx`의 `boot`),
+           * 그쪽은 시간을 늘리지 않고 고쳤다. 이 값은 진짜 멈춘 것을 여전히 잡을 만큼은
+           * 짧게 둔다.
+           */
+          testTimeout: 15_000,
         },
       },
       {
