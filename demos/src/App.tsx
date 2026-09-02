@@ -10,7 +10,7 @@ import { makeRetrieve } from "./match.js";
 import { ClassicShell } from "./ClassicShell.js";
 import { Studio } from "./Studio.js";
 import { StubScreen } from "./StubScreen.js";
-import { SITES, capturedOn, findSite, type SiteMeta } from "./sites.js";
+import { SITES, findSite, type SiteMeta } from "./sites.js";
 import { currentRoute, routeHref } from "./routePath.js";
 
 type Mode = "minui" | "classic";
@@ -78,6 +78,8 @@ export function App() {
         </a>
         <button
           type="button"
+          hidden
+          data-demo-tool="studio"
           onClick={() => {
             setStudio(true);
             window.history.replaceState(null, "", routeHref("studio"));
@@ -170,23 +172,6 @@ function SiteDemo({ site }: { site: SiteMeta }) {
       <header className="bar">
         <div>
           <p className="bar-name">{site.name}</p>
-          {/*
-            * 날짜와 "수집본"을 함께 적는다. 둘 중 하나만 있으면 이 목록이 그 금융사의
-            * **현재 메뉴**로 읽힌다 — 남의 사이트는 예고 없이 바뀌고 이 저장소는
-            * 그때마다 따라가지 않는다. 여기 있는 것은 이식이 되는지 보려고 어느 날
-            * 떠 놓은 사본이고, 그렇게 말해 두는 것이 맞다.
-            */}
-          <p className="bar-source">
-            {site.catalog.length.toLocaleString()}개 메뉴 · {site.source}
-            {capturedOn(site.catalogId) && (
-              <>
-                {" · "}
-                <span className="bar-captured">
-                  {capturedOn(site.catalogId)} 수집본 (이식 검증용)
-                </span>
-              </>
-            )}
-          </p>
         </div>
         <div className="switch" role="group" aria-label="화면 방식">
           <button

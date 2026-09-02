@@ -103,6 +103,16 @@ const SCENARIOS: Scenario[] = [
         "쉬운 모드 버튼이 안 보인다",
         problems,
       );
+      expect(
+        !(await seen(page.getByRole("button", { name: "+다른 금융사 얹어 보기" }), 1_500)),
+        "숨긴 Studio 진입 버튼이 화면에 보인다",
+        problems,
+      );
+      expect(
+        !(await seen(page.getByText(/수집본|이식 검증용|메뉴 체계를 그대로/), 1_500)),
+        "금융사 메뉴의 부연 설명이 화면에 남아 있다",
+        problems,
+      );
 
       // 다른 금융사로 바꿔도 화면이 서는지. base path가 깨지면 여기서 죽는다.
       const second = switcher.getByRole("button").nth(1);
@@ -185,6 +195,23 @@ const SCENARIOS: Scenario[] = [
         "화면 도움 선택 UI가 남아 있다",
         problems,
       );
+      expect(
+        !(await seen(page.getByRole("button", { name: /연습해 보기|연습 끝내기/ }), 1_500)),
+        "연습 이체 기능이 화면에 남아 있다",
+        problems,
+      );
+      expect(
+        !(await seen(page.getByRole("button", { name: /AI 도우미 끄고 보기|다시 켜기/ }), 1_500)),
+        "AI 도우미 스위치가 화면에 남아 있다",
+        problems,
+      );
+
+      const sessionIsOutside = await page.evaluate(() => {
+        const frame = document.querySelector(".app")?.getBoundingClientRect();
+        const session = document.querySelector(".demo-session")?.getBoundingClientRect();
+        return Boolean(frame && session && session.right <= frame.left);
+      });
+      expect(sessionIsOutside, "사용자·나가기 도구가 휴대폰 프레임 밖 왼쪽에 있지 않다", problems);
     },
   },
 

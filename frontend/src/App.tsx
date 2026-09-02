@@ -5,11 +5,9 @@ import { makeCorrect } from "@host-ai/correct.js";
 import { makeExplain, makeGroundedHint } from "@host-ai/explain.js";
 import { IndexedDbStorageAdapter, MinUIProvider, type SttLike } from "@minui/react";
 import { useCallback, useId, useMemo, useState } from "react";
-import { AiSwitch, AiSwitchProvider, useAiRelay } from "./AiSwitch.js";
 import { BankProvider } from "./BankContext.js";
 import { DemoLedgerNotice } from "./DemoLedgerNotice.js";
 import { MockBankApi } from "./api/mockApi.js";
-import { PracticeBankApi } from "./api/practiceApi.js";
 import type { BankApi } from "./api/types.js";
 import { CATALOG, COLD_START_PRESETS } from "./catalog.js";
 import { FeedbackSheet } from "./FeedbackSheet.js";
@@ -55,17 +53,8 @@ export interface AppProps {
   onExit?: () => void;
 }
 
-/**
- * 바깥 껍데기. **AI 스위치가 여기 있어야 하는 이유**는 아래 capability들이 그 값에
- * 따라 <b>만들어지거나 안 만들어지기</b> 때문이다 — 스위치를 안쪽에 두면 스위치를
- * 읽는 훅이 capability를 만드는 자리보다 아래에 있게 된다.
- */
 export function App(props: AppProps) {
-  return (
-    <AiSwitchProvider>
-      <AppInner {...props} />
-    </AiSwitchProvider>
-  );
+  return <AppInner {...props} />;
 }
 
 function AppInner({
@@ -81,29 +70,9 @@ function AppInner({
   const [openMenuId, setOpenMenuId] = useState<MenuId | null>(null);
   const [prefill, setPrefill] = useState<Slots>({});
   const [feedbackOpen, setFeedbackOpen] = useState(false);
-  /**
-   * 연습 모드 (F14). **기본은 꺼짐** — 시연은 진짜(가상 원장) 이체로 시작한다.
-   *
-   * <p>상태가 여기 있는 이유는 이것이 <b>어떤 API를 쓰는가</b>의 문제라서다. 화면
-   * 어딘가의 표시가 아니라 데이터가 흐르는 경로 자체를 바꾸므로, 경로를 정하는 곳에서
-   * 정해야 한 화면만 연습을 잊는 일이 안 생긴다.
-   */
-  const [practice, setPractice] = useState(false);
-  /**
-   * 중계기를 쓸 것인가 (시연 스위치). **끄면 아래 capability들이 아예 안 만들어진다.**
-   *
-   * <p>`undefined`를 넘기는 것과 만들어 놓고 안 부르는 것은 다르다 — 전자는 화면에
-   * 그 상태 자체가 안 생기고, 후자는 "묻는 중"이 잠깐 떴다 사라진다. 이 저장소가
-   * `assist`를 다루던 방식 그대로다.
-   */
-  const aiRelay = useAiRelay();
   const recorder = useTaskRecorder();
 
-  const realApi = useMemo(() => api ?? new MockBankApi(), [api]);
-  const bankApi = useMemo(
-    () => (practice ? new PracticeBankApi(realApi) : realApi),
-    [practice, realApi],
-  );
+  const bankApi = useMemo(() => api ?? new MockBankApi(), [api]);
   const storage = useMemo(() => new IndexedDbStorageAdapter(storageKey), [storageKey]);
 
   /**
@@ -148,10 +117,9 @@ function AppInner({
    * 판단이 바뀐 것이 아니라 조건이 생긴 것이다.
    */
   const assist = useMemo(() => {
-    if (!aiRelay) return undefined;
     const endpoint = assistEndpoint();
     return endpoint ? makeAssist(CATALOG, endpoint) : undefined;
-  }, [aiRelay]);
+  }, []);
 
   /*
    * 「이해 지원」 — 뜻풀이를 비워 둔 여섯 메뉴에서 "이게 무슨 뜻이에요?"가 뜬다.
@@ -161,11 +129,7 @@ function AppInner({
    * `/api/explain`까지 간다 (`shared/host-ai/explain.ts`).
    *
    */
-  /*
-   * **끄더라도 구워 둔 451개는 그대로 나온다.** 캐시는 AI가 아니다 — 끄는 것은
-   * 중계기이지 기기가 이미 가진 답이 아니고, 그 구분이 이 스위치의 요점이다.
-   */
-  const explain = useMemo(() => makeExplain(CATALOG, { relay: aiRelay }), [aiRelay]);
+  const explain = useMemo(() => makeExplain(CATALOG), []);
   const grounded = useMemo(() => makeGroundedHint(CATALOG), []);
 
   /*
@@ -178,13 +142,13 @@ function AppInner({
    * 한 문장 되묻기 (AI-3). 중계기가 없으면 `undefined`라 넘기지 않고, 그러면
    * 지금까지의 갈래 되묻기가 그대로 답이 된다.
    */
-  const clarify = useMemo(() => (aiRelay ? makeClarify() : undefined), [aiRelay]);
+  const clarify = useMemo(() => makeClarify(), []);
 
   /*
    * 잘못 들린 말 고쳐 쓰기 (AI-6). 목적지를 고르지 않고 질의만 고치므로, 고쳐진 말은
    * 배운 말·자모 보정·위험도 경계를 그대로 지난다.
    */
-  const correct = useMemo(() => (aiRelay ? makeCorrect(CATALOG) : undefined), [aiRelay]);
+  const correct = useMemo(() => makeCorrect(CATALOG), []);
 
   return (
     <MinUIProvider
@@ -202,6 +166,7 @@ function AppInner({
       fallback={<p className="loading">불러오는 중…</p>}
     >
       <BankProvider api={bankApi}>
+        {onExit && <SessionBar onExit={onExit} />}
         <div className="app" data-mode={mode}>
           {demoData && (
             <>
@@ -212,15 +177,6 @@ function AppInner({
             </>
           )}
             <ModeSwitch mode={mode} onChange={setMode} />
-            {/*
-              진행자용 조절 한 줄. 연습 모드와 AI 스위치가 자리를 나눠 쓴다 —
-              각자 줄을 차지하면 머리 띠가 넷이 되어 카드가 화면 아래로 밀린다.
-            */}
-            <div className="demo-bar">
-              <PracticeSwitch practice={practice} onChange={setPractice} />
-              <AiSwitch />
-              {onExit && <SessionBar onExit={onExit} />}
-            </div>
             <main className="app-body">
               {mode === "minui" ? <MinUIShell {...(stt ? { stt } : {})} /> : <ClassicShell />}
             </main>
@@ -228,7 +184,7 @@ function AppInner({
               의견 링크는 **스크롤 영역 밖**에 둔다 (F11).
               
               처음에는 `app-body` 안에 뒀는데, 홈이 자기 스크롤을 갖고 있어서 이 링크가
-              카드 목록 한가운데를 가로막고 앉았다. 위의 `app-bar`·`practice-bar`와 같은
+              카드 목록 한가운데를 가로막고 앉았다. 위의 `app-bar`와 같은
               자리다 — 화면의 <b>테두리</b>에 속하는 것은 내용과 함께 스크롤되면 안 된다.
             */}
             <button type="button" className="feedback-trigger" onClick={() => setFeedbackOpen(true)}>
@@ -251,8 +207,7 @@ function AppInner({
 /**
  * 지금 누구로 보고 있는지와, 물러나는 문.
  *
- * <p>이름을 상시로 띄우는 이유는 연습 모드 배지와 같다 — 시연 중에 사람을 바꿔 가며
- * 보다 보면 <b>지금 누구인지를 잊는다.</b> 두 사람의 화면이 같은 모양이라 더 그렇다.
+ * <p>이름을 상시로 띄워 두면 시연 중 사람을 바꿔 가며 봐도 지금 누구의 화면인지 알 수 있다.
  */
 function SessionBar({ onExit }: { onExit: () => void }) {
   const session = useOptionalSession();
@@ -294,41 +249,6 @@ function SessionBar({ onExit }: { onExit: () => void }) {
       </label>
       <button type="button" className="demo-quiet" onClick={onExit}>
         나가기
-      </button>
-    </span>
-  );
-}
-
-/**
- * 연습 모드 스위치와 상시 배지 (F14).
- *
- * <p>켜져 있을 때 <b>화면에서 사라지지 않는</b> 것이 요점이다. 스위치만 두고 배지를
- * 안 두면, 연습으로 켜 놓은 것을 잊은 사람이 진짜로 보냈다고 믿는다 — 그것은 연습이
- * 만들 수 있는 가장 나쁜 결과다. 가상 원장 고지 띠와 <b>다른 자리</b>에 두는 이유도
- * 같다. 두 고지가 겹쳐 보이면 둘 다 배경이 된다.
- */
-function PracticeSwitch({
-  practice,
-  onChange,
-}: {
-  practice: boolean;
-  onChange: (practice: boolean) => void;
-}) {
-  if (!practice) {
-    return (
-      <button type="button" className="demo-quiet" onClick={() => onChange(true)}>
-        연습해 보기 — 돈이 나가지 않아요
-      </button>
-    );
-  }
-
-  return (
-    <span className="demo-loud demo-loud-accent" role="status">
-      <span className="demo-loud-text">
-        <strong>연습 중</strong> — 실제로 보내지지 않아요
-      </span>
-      <button type="button" className="demo-restore" onClick={() => onChange(false)}>
-        연습 끝내기
       </button>
     </span>
   );

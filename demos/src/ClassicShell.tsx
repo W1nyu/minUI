@@ -56,11 +56,6 @@ export function ClassicShell({ site }: { site: SiteMeta }) {
 
   return (
     <div className="classic">
-      <p className="classic-note">
-        {site.name}의 메뉴 체계를 그대로 펼친 화면입니다. 카테고리 {groups.length}개, 메뉴{" "}
-        {site.catalog.length.toLocaleString()}개.
-      </p>
-
       <div className="classic-search">
         <label htmlFor={searchId}>메뉴 검색</label>
         <input

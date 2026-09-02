@@ -643,6 +643,7 @@ body {
 @media (max-width: 34rem) {
   .demo-data-notice { top: 0.5rem; right: 0.5rem; }
   .demo-back-link { top: 3.6rem; right: 0.5rem; }
+  .demo-session { top: 0.5rem; left: 0.5rem; }
 }
 
 .mock-api-note {
@@ -805,38 +806,8 @@ body {
   cursor: pointer;
 }
 
-/* ── 진행자용 조절 한 줄 (F14 연습 · AI 스위치) ───────────────────────── */
-
-/*
- * 둘이 한 줄을 나눠 쓴다. 각자 띠를 가지면 머리 띠가 넷이 되어 카드가 화면 아래로
- * 밀리고, 「큰 카드 넉 장이 첫 화면」이라는 원칙 P1이 조용히 깨진다.
- */
-.demo-bar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.4rem 1rem;
-  padding: 0.35rem 1rem;
-  border-bottom: 1px solid var(--minui-line);
-  background: var(--minui-surface);
-}
-
-/*
- * 켜기 전에는 조용한 링크다. 홈에 큰 버튼이 더 생기면 원칙 P1이 흔들린다 —
- * 이것들은 필요한 사람이 찾아 누르는 것이지 첫 화면의 주인공이 아니다.
- *
- * **88px은 지킨다.** 처음에 44px로 뒀다가 `pnpm --filter @minui/smoke a11y`가 잡았다.
- * 조용해 보이는 것과 작은 것은 다른 문제다 — 무게는 색과 밑줄로 낮추고 누를 면적은
- * 지킨다. 적응 UI 동의 버튼이 40px이었던 것을 잡았던 그 검사다.
- */
 .demo-quiet {
   min-height: var(--minui-touch-min);
-  /*
-   * **폭도 88px이다.** 높이만 잡아 뒀다가 `나가기`(두 글자)가 55.4×88로 떨어져
-   * a11y 스모크에 걸렸다 — 글자가 짧으면 높이만으로는 기준을 못 채운다.
-   * 「연습해 보기」처럼 긴 글자는 원래 넘으므로 이 줄로 달라지는 것이 없다.
-   * 이 저장소가 44px 연습 버튼과 40px 동의 버튼을 잡았던 그 검사다.
-   */
   min-width: var(--minui-touch-min);
   padding: 0.4rem 0.2rem;
   border: 0;
@@ -845,49 +816,6 @@ body {
   font-family: inherit;
   font-size: var(--minui-text-s);
   text-decoration: underline;
-  cursor: pointer;
-}
-
-/*
- * 켜진 뒤에는 반대로 눈에 띈다. 켜 놓은 것을 잊고 "진짜로 보냈다" 또는 "AI가 답을
- * 못 한다"고 오해하는 것이 이 스위치들이 만들 수 있는 가장 나쁜 결과다.
- */
-.demo-loud {
-  display: inline-flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.25rem 0.6rem;
-  border-radius: 10px;
-}
-
-.demo-loud-accent {
-  border: 1px solid var(--minui-accent);
-  background: var(--minui-accent-soft);
-  color: var(--minui-accent);
-}
-
-.demo-loud-warn {
-  border: 1px solid var(--minui-warn);
-  background: var(--minui-warn-soft);
-  color: var(--minui-warn);
-}
-
-.demo-loud-text {
-  font-size: var(--minui-text-s);
-  line-height: 1.5;
-}
-
-.demo-restore {
-  min-height: var(--minui-touch-min);
-  padding: 0.3rem 0.7rem;
-  border: 1px solid currentColor;
-  border-radius: 8px;
-  background: var(--minui-surface);
-  color: inherit;
-  font-family: inherit;
-  font-size: var(--minui-text-s);
-  font-weight: 700;
   cursor: pointer;
 }
 
@@ -1215,20 +1143,20 @@ body {
 
 /* ── 지금 누구로 보는 중인가 ───────────────────────────────────────────── */
 
-/*
- * 지금 누구로 보는 중인가.
- *
- * <b>조용해야 한다.</b> 처음에는 나가기를 `.demo-restore`(테두리 있는 버튼)로 뒀는데,
- * 그것은 연습 모드가 **켜졌을 때**만 뜨는 눈에 띄는 물건이다. 나가기는 늘 떠 있으므로
- * 같은 무게를 주면 진행자용 한 줄이 통째로 두꺼워지고 카드가 화면 아래로 밀린다 —
- * 이 띠에 이미 적혀 있는 걱정 그대로다. 무게는 낮추고 누를 면적(88px)은 지킨다.
- */
 .demo-session {
-  display: inline-flex;
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 40;
+  display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: var(--bank-space-xs);
-  margin-left: auto;
+  max-width: min(25rem, calc(100vw - 2rem));
+  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--minui-line-strong);
+  border-radius: 0.5rem;
+  background: var(--minui-surface);
 }
 
 .demo-session-who {

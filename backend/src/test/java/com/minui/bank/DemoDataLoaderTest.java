@@ -129,12 +129,12 @@ class DemoDataLoaderTest {
     }
 
     @Test
-    @DisplayName("개시 잔액이 0인 계좌는 분개를 만들지 않는다")
-    void zeroOpeningMakesNoEntry() {
+    @DisplayName("개시 잔액이 없어도 시드 거래로 잔액을 만들 수 있다")
+    void historyCanFundAnAccountWithNoOpeningBalance() {
         loader.run();
 
-        // acc-5는 받기만 하는 통장이라 개시 잔액이 없다. 예전에는 1전을 넣었다.
-        assertThat(ledger.balanceOf("acc-5")).isEqualByComparingTo(BigDecimal.ZERO);
+        // acc-5는 개시 분개 없이 월급 입금 한 건으로 잔액을 만든다.
+        assertThat(ledger.balanceOf("acc-5")).isEqualByComparingTo(new BigDecimal("350000"));
         assertThat(ledger.balanceOf("acc-1")).isGreaterThan(BigDecimal.ZERO);
     }
 

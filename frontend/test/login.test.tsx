@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, beforeEach } from "vitest";
 import { BankApp } from "../src/BankApp.js";
@@ -73,6 +73,21 @@ describe("로그인", () => {
     await waitForHome();
     // 인사말과 "누구로 보는 중" 배지 두 자리에 뜬다 — 둘 다 그 사람이어야 한다.
     expect(screen.getAllByText(/김순자/).length).toBeGreaterThan(0);
+  });
+
+  it("보고 있는 사람과 나가기 버튼은 휴대폰 화면 밖 왼쪽에 둔다", async () => {
+    renderBankApp();
+    await signIn("김순자");
+    await waitForHome();
+
+    const session = document.querySelector<HTMLElement>(".demo-session");
+    const phone = document.querySelector(".app");
+
+    expect(session).not.toBeNull();
+    expect(phone).not.toBeNull();
+    expect(phone!.contains(session)).toBe(false);
+    expect(session).toHaveTextContent("김순자님으로 보는 중");
+    expect(within(session!).getByRole("button", { name: "나가기" })).toBeInTheDocument();
   });
 
   /*
