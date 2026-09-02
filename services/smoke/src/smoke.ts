@@ -114,6 +114,13 @@ const SCENARIOS: Scenario[] = [
         problems,
       );
 
+      await page.getByRole("button", { name: "원래 메뉴" }).click();
+      expect(
+        !(await seen(page.getByText(/메뉴 체계를 그대로 펼친 화면입니다/), 1_500)),
+        "원래 메뉴에 금융사 메뉴 부연 설명이 남아 있다",
+        problems,
+      );
+
       // 다른 금융사로 바꿔도 화면이 서는지. base path가 깨지면 여기서 죽는다.
       const second = switcher.getByRole("button").nth(1);
       const name = (await second.innerText()).trim();
@@ -203,6 +210,16 @@ const SCENARIOS: Scenario[] = [
       expect(
         !(await seen(page.getByRole("button", { name: /AI 도우미 끄고 보기|다시 켜기/ }), 1_500)),
         "AI 도우미 스위치가 화면에 남아 있다",
+        problems,
+      );
+      expect(
+        !(await seen(page.getByRole("button", { name: "왜 이렇게 보이나요?" }), 1_500)),
+        "왜 이렇게 보이나요? 버튼이 화면에 남아 있다",
+        problems,
+      );
+      expect(
+        !(await seen(page.getByRole("button", { name: "이 화면에 의견 남기기" }), 1_500)),
+        "의견 남기기 버튼이 화면에 남아 있다",
         problems,
       );
 

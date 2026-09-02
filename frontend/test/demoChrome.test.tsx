@@ -25,6 +25,7 @@ describe("공개 시연 상단", () => {
     expect(within(notice).queryByText(/테스트 계좌|실제 계좌|마이데이터/)).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /연습해 보기|연습 끝내기/ })).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /AI 도우미 끄고 보기|다시 켜기/ })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "이 화면에 의견 남기기" })).not.toBeInTheDocument();
 
     const back = screen.getByRole("link", { name: /이전 화면/ });
     expect(back).toHaveAttribute("href", "../");
@@ -45,5 +46,6 @@ describe("화면 도움", () => {
     );
     expect(screen.queryByRole("region", { name: /화면 도움/ })).not.toBeInTheDocument();
     expect(document.querySelector('.minui-root[data-support-level="standard"]')).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "왜 이렇게 보이나요?" })).not.toBeInTheDocument();
   });
 });

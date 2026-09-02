@@ -105,6 +105,7 @@ export function MinUIShell({ stt }: { stt?: SttLike } = {}) {
       renderCardDetail={renderCardDetail}
       stt={provider}
       supportLevel={FIXED_SUPPORT_LEVEL}
+      showWhy={false}
       header={
         <header className="minui-greeting">
           {/*
