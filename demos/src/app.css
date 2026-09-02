@@ -717,6 +717,11 @@ body {
   cursor: pointer;
 }
 
+/* Studio 통로는 주소로만 남긴다. 위 선택자가 native `hidden`을 덮지 않게 한다. */
+.external-demo-actions > [hidden] {
+  display: none !important;
+}
+
 .external-demo-actions > a {
   border-color: var(--minui-accent);
   background: var(--minui-accent);

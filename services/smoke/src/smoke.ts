@@ -104,7 +104,7 @@ const SCENARIOS: Scenario[] = [
         problems,
       );
       expect(
-        !(await seen(page.getByRole("button", { name: "+다른 금융사 얹어 보기" }), 1_500)),
+        !(await seen(page.locator("[data-demo-tool=studio]"), 1_500)),
         "숨긴 Studio 진입 버튼이 화면에 보인다",
         problems,
       );
