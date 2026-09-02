@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   DEMO_ACCOUNTS,
   DEMO_GROUPS,
+  DEMO_HISTORY,
   DEMO_USERS,
   accountsOf,
   userById,
@@ -72,6 +73,21 @@ describe("시연용 사람 표", () => {
     }
   });
 
+  it("로그인해서 보는 각 계좌에 이체를 시험할 잔액이 있다", () => {
+    for (const account of DEMO_ACCOUNTS.filter((candidate) => candidate.ownerId !== null)) {
+      expect(account.balance, `${account.ownerLabel} (${account.id})`).toBeGreaterThan(0);
+    }
+  });
+
+  it("로그인해서 보는 각 계좌에는 상대방이 적힌 거래 내역이 있다", () => {
+    for (const account of DEMO_ACCOUNTS.filter((candidate) => candidate.ownerId !== null)) {
+      expect(
+        DEMO_HISTORY.some((entry) => entry.from === account.id || entry.to === account.id),
+        `${account.ownerLabel} (${account.id})의 거래 내역`,
+      ).toBe(true);
+    }
+  });
+
   /*
    * `acc-1`~`acc-6`은 기존 테스트와 `openbanking-cases.json` 대조가 걸려 있는 값이다.
    * 사람을 늘리다가 이 여섯을 건드리면 그쪽이 조용히 깨지므로 여기에 못을 박아 둔다.
@@ -79,13 +95,13 @@ describe("시연용 사람 표", () => {
    * <p>acc-3·acc-4의 잔액만 0에서 올라갔다. 시드 거래내역을 **양쪽에** 기록하게 되면서
    * 받은 쪽에도 돈이 남기 때문이다 — 전에는 받는 화면이 없어 0이어도 티가 안 났다.
    */
-  it("기존 여섯 계좌의 번호와 잔액이 그대로다", () => {
+  it("기존 여섯 계좌의 번호와 시연 잔액이 맞다", () => {
     const expected = [
       { id: "acc-1", number: "110-234-567890", ownerLabel: "주거래 통장", balance: 1_243_500 },
       { id: "acc-2", number: "110-987-654321", ownerLabel: "적금 통장", balance: 6_100_000 },
       { id: "acc-3", number: "1002-345-678901", nickname: "행복아파트 관리사무소", balance: 187_000 },
       { id: "acc-4", number: "612-21-0987-654", nickname: "김미영", balance: 50_000 },
-      { id: "acc-5", number: "110-456-789012", nickname: "박정호", balance: 0 },
+      { id: "acc-5", number: "110-456-789012", nickname: "박정호", balance: 350_000 },
       { id: "acc-6", number: "356-910-234567", nickname: "김영수 삼촌", balance: 540_000 },
     ];
 

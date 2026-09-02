@@ -260,6 +260,18 @@ describe("전체 메뉴 (원칙 P2)", () => {
     }
   });
 
+  it("메뉴 이름을 입력하면 전체 메뉴 안에서 바로 좁힌다", async () => {
+    renderHome();
+    await waitForCards();
+    await userEvent.click(screen.getByRole("button", { name: /전체 메뉴/ }));
+
+    const dialog = screen.getByRole("dialog", { name: "전체 메뉴" });
+    await userEvent.type(within(dialog).getByRole("searchbox", { name: "메뉴 검색" }), "자동");
+
+    expect(within(dialog).getByRole("button", { name: "자동이체 관리" })).toBeInTheDocument();
+    expect(within(dialog).queryByRole("button", { name: "계좌 이체" })).not.toBeInTheDocument();
+  });
+
   it("Escape로 닫힌다", async () => {
     renderHome();
     await waitForCards();

@@ -56,10 +56,6 @@ export function StubScreen({
             </>
           )}
         </dl>
-        <p className="notice">
-          실제 화면은 만들지 않았습니다. 이 데모가 확인하는 것은 카드 배치와 검색이
-          실제 금융사 메뉴 위에서도 그대로 동작하는가입니다.
-        </p>
         <button type="button" className="primary" onClick={onBack}>
           돌아가기
         </button>

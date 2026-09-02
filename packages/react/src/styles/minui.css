@@ -291,6 +291,41 @@
   padding: var(--minui-gap);
 }
 
+.minui-all-menu-search {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0 0 1.25rem;
+}
+
+.minui-all-menu-search label {
+  color: var(--minui-ink-2);
+  font-size: var(--minui-text-s);
+  font-weight: 700;
+}
+
+.minui-all-menu-search input {
+  width: 100%;
+  min-height: var(--minui-touch-min);
+  padding: 0 0.9rem;
+  border: 1px solid var(--minui-line-strong);
+  border-radius: var(--minui-radius);
+  background: var(--minui-surface);
+  color: var(--minui-ink);
+  font: inherit;
+  font-size: var(--minui-text-m);
+}
+
+.minui-all-menu-search input:focus-visible {
+  outline: 3px solid var(--minui-accent);
+  outline-offset: 2px;
+}
+
+.minui-all-menu-empty {
+  margin: 0;
+  color: var(--minui-ink-2);
+  font-size: var(--minui-text-m);
+}
+
 .minui-group {
   margin: 0 0 1.25rem;
 }

@@ -28,8 +28,8 @@
     "한 칸으로 합치면 둘 중 하나가 틀린다 — 남의 이체 목록에 '주거래 통장'이 뜨거나,",
     "내 계좌 목록에 내 이름이 뜬다. 기관 계좌는 둘이 같다.",
     "",
-    "`acc-1`~`acc-6`의 id·계좌번호·금액은 **바꾸지 않는다.** 기존 테스트와",
-    "`openbanking-cases.json` 대조가 이 값에 걸려 있다. 새 사람은 `acc-7`부터 붙인다.",
+    "`acc-1`~`acc-6`의 id·계좌번호는 **바꾸지 않는다.** 기존 테스트와",
+    "`openbanking-cases.json` 대조가 이 값에 걸려 있다. 시연 잔액과 거래 내역은 갱신할 수 있다.",
     "계좌번호는 숫자 7자리 이상이어야 한다 — Mock의 마스킹이 앞 7자리를 자른다.",
     "",
     "계좌를 적은 **순서가 곧 통장 순서다.** 한 사람의 첫 줄이 그 사람의 주거래 통장이고,",
@@ -44,7 +44,7 @@
     "것이었는데, 실제로는 반대였다 — 사람을 바꿀 때마다 어느 번호였는지 찾아야 했다.",
     "지키는 것이 없는 번호에 그 비용을 물릴 이유가 없어서 전부 `000000`으로 맞췄다."
   ],
-  "version": 5,
+  "version": 6,
   "notReal": [
     "실제 고객·실계좌·마이데이터 연결 없음",
     "비밀번호·인증 없음 — 키패드는 은행 앱의 모양을 보여 주는 시늉이고 무엇을 눌러도 들어간다",
@@ -162,7 +162,7 @@
       "nickname": "김순자 적금",
       "bankCode": "088",
       "bankName": "미니은행",
-      "opening": 6100000,
+      "opening": 5850000,
       "balance": 6100000
     },
     {
@@ -184,7 +184,7 @@
       "nickname": "김미영 월급",
       "bankCode": "088",
       "bankName": "미니은행",
-      "opening": 3240000,
+      "opening": 2940000,
       "balance": 3240000
     },
     {
@@ -206,7 +206,7 @@
       "nickname": "김영수 삼촌",
       "bankCode": "081",
       "bankName": "하나은행",
-      "opening": 540000,
+      "opening": 470000,
       "balance": 540000
     },
     {
@@ -217,7 +217,7 @@
       "nickname": "이말순",
       "bankCode": "088",
       "bankName": "미니은행",
-      "opening": 820000,
+      "opening": 720000,
       "balance": 820000
     },
     {
@@ -228,7 +228,7 @@
       "nickname": "정복순",
       "bankCode": "088",
       "bankName": "미니은행",
-      "opening": 1150000,
+      "opening": 1050000,
       "balance": 1150000
     },
     {
@@ -239,7 +239,7 @@
       "nickname": "박상철",
       "bankCode": "088",
       "bankName": "미니은행",
-      "opening": 5480000,
+      "opening": 5180000,
       "balance": 5480000
     },
     {
@@ -250,7 +250,7 @@
       "nickname": "최은주",
       "bankCode": "088",
       "bankName": "미니은행",
-      "opening": 2760000,
+      "opening": 2660000,
       "balance": 2760000
     },
     {
@@ -261,7 +261,7 @@
       "nickname": "박정호 월급",
       "bankCode": "088",
       "bankName": "미니은행",
-      "opening": 1870000,
+      "opening": 1520000,
       "balance": 1870000
     },
     {
@@ -273,7 +273,7 @@
       "bankCode": "088",
       "bankName": "미니은행",
       "opening": 0,
-      "balance": 0
+      "balance": 350000
     },
     {
       "id": "acc-13",
@@ -283,7 +283,7 @@
       "nickname": "한지우",
       "bankCode": "088",
       "bankName": "미니은행",
-      "opening": 128000,
+      "opening": 98000,
       "balance": 128000
     },
     {
@@ -294,7 +294,7 @@
       "nickname": "오세진",
       "bankCode": "088",
       "bankName": "미니은행",
-      "opening": 2310000,
+      "opening": 2110000,
       "balance": 2310000
     },
     {
@@ -305,7 +305,7 @@
       "nickname": "행복마트",
       "bankCode": "088",
       "bankName": "미니은행",
-      "opening": 4520000,
+      "opening": 4370000,
       "balance": 4520000
     },
     {
@@ -316,7 +316,7 @@
       "nickname": "신촌김밥",
       "bankCode": "088",
       "bankName": "미니은행",
-      "opening": 1980000,
+      "opening": 1840000,
       "balance": 1980000
     },
     {
@@ -381,6 +381,97 @@
       "amount": 50000,
       "label": "김미영",
       "at": "2026-07-18T05:40:00Z"
+    },
+    {
+      "from": "acc-opening",
+      "to": "acc-2",
+      "amount": 250000,
+      "label": "미니은행 적금 이자",
+      "at": "2026-08-28T00:30:00Z"
+    },
+    {
+      "from": "acc-opening",
+      "to": "acc-9",
+      "amount": 300000,
+      "label": "주식회사 다온",
+      "at": "2026-08-27T00:30:00Z"
+    },
+    {
+      "from": "acc-opening",
+      "to": "acc-6",
+      "amount": 70000,
+      "label": "국민연금공단",
+      "at": "2026-08-29T00:30:00Z"
+    },
+    {
+      "from": "acc-opening",
+      "to": "acc-7",
+      "amount": 100000,
+      "label": "경로당 회비 정산",
+      "at": "2026-08-26T00:30:00Z"
+    },
+    {
+      "from": "acc-opening",
+      "to": "acc-8",
+      "amount": 100000,
+      "label": "국민연금공단",
+      "at": "2026-08-25T00:30:00Z"
+    },
+    {
+      "from": "acc-opening",
+      "to": "acc-10",
+      "amount": 300000,
+      "label": "주식회사 한빛",
+      "at": "2026-08-28T00:30:00Z"
+    },
+    {
+      "from": "acc-opening",
+      "to": "acc-11",
+      "amount": 100000,
+      "label": "정기예금 이자",
+      "at": "2026-08-27T00:30:00Z"
+    },
+    {
+      "from": "acc-opening",
+      "to": "acc-12",
+      "amount": 350000,
+      "label": "주식회사 새봄",
+      "at": "2026-08-25T00:30:00Z"
+    },
+    {
+      "from": "acc-opening",
+      "to": "acc-5",
+      "amount": 350000,
+      "label": "박정호 월급",
+      "at": "2026-08-25T00:31:00Z"
+    },
+    {
+      "from": "acc-opening",
+      "to": "acc-13",
+      "amount": 30000,
+      "label": "아르바이트 급여",
+      "at": "2026-08-30T00:30:00Z"
+    },
+    {
+      "from": "acc-opening",
+      "to": "acc-14",
+      "amount": 200000,
+      "label": "주식회사 다온",
+      "at": "2026-08-31T00:30:00Z"
+    },
+    {
+      "from": "acc-opening",
+      "to": "acc-15",
+      "amount": 150000,
+      "label": "카드 매출 정산",
+      "at": "2026-08-29T00:30:00Z"
+    },
+    {
+      "from": "acc-opening",
+      "to": "acc-16",
+      "amount": 140000,
+      "label": "배달앱 정산",
+      "at": "2026-08-30T00:30:00Z"
     }
   ],
   "autoTransfers": [

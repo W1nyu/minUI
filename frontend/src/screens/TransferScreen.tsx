@@ -9,7 +9,6 @@ import { makeConfirmSentence, type ConfirmSentence } from "@host-ai/confirm.js";
 import { makeSafetyTips, type SafetyTips } from "@host-ai/safetyTips.js";
 import { ProvenanceBadge, SafetyNotes, SpeakButton } from "@minui/react";
 import { useEffect, useId, useMemo, useState } from "react";
-import { useAiRelay } from "../AiSwitch.js";
 import { useBank } from "../BankContext.js";
 import { buildTransferFacts } from "../safetyFacts.js";
 import { ScreenFrame, formatWon } from "./ScreenFrame.js";
@@ -30,7 +29,6 @@ export function TransferScreen({
 }) {
   const { accounts, selectedAccount, payees, transactions, complete, api, reload } = useBank();
   const isOpenBankingMock = api.demoMode === "open-banking-mock";
-  const isPractice = api.practice === true;
   /**
    * **한 화면 한 가지** (F18). M16의 도움 정도가 지금까지는 밀도만 바꿨는데, 이체는
    * 이 앱에서 <b>한 화면이 가장 많은 것을 요구하는 자리</b>다 — 받는 분과 금액을 함께
@@ -49,11 +47,7 @@ export function TransferScreen({
    * <p>`useMemo`로 한 번만 만든다. 매 렌더 새로 만들면 아래 효과의 의존성이 매번
    * 달라져 확인 화면에 들어갈 때마다 모델을 다시 부른다.
    */
-  const aiRelay = useAiRelay();
-  const askConfirm = useMemo(
-    () => (aiRelay ? makeConfirmSentence() : undefined),
-    [aiRelay],
-  );
+  const askConfirm = useMemo(() => makeConfirmSentence(), []);
   const [aiConfirm, setAiConfirm] = useState<ConfirmSentence | null>(null);
 
   /**
@@ -63,7 +57,7 @@ export function TransferScreen({
    * 캐시되지만, 조언은 <b>점검 종류 이름만</b>으로 정해진다 — `SafetyKind`가 여섯이라
    * 조합이 유한하고, 며칠이면 사실상 전부 캐시돼 한도를 안 쓴다.
    */
-  const askTips = useMemo(() => (aiRelay ? makeSafetyTips() : undefined), [aiRelay]);
+  const askTips = useMemo(() => makeSafetyTips(), []);
   const [aiTips, setAiTips] = useState<SafetyTips | null>(null);
 
   /*
@@ -246,35 +240,16 @@ export function TransferScreen({
 
   if (done) {
     return (
-      <ScreenFrame title={isPractice ? "연습 완료" : "이체 완료"} onBack={onBack}>
+      <ScreenFrame title="이체 완료" onBack={onBack}>
         <p className="notice" role="status">
-          {isPractice ? (
-            <>
-              {done.payee}님께 {formatWon(done.amount)}을 보내는 연습을 마쳤어요.
-              실제로는 나가지 않았습니다.
-            </>
-          ) : (
-            <>
-              {done.payee}님께 {formatWon(done.amount)}을 보냈습니다.
-            </>
-          )}
+          {done.payee}님께 {formatWon(done.amount)}을 보냈습니다.
         </p>
-        {isPractice ? (
-          <p className="field-note">
-            잔액과 거래 내역은 그대로예요.
+        {isOpenBankingMock && (
+          <p className="mock-api-note">
+            가상 오픈뱅킹 Mock이 성공 응답을 보냈고, 테스트 원장이 바뀌었습니다.
           </p>
-        ) : (
-          isOpenBankingMock && (
-            <p className="mock-api-note">
-              가상 오픈뱅킹 Mock이 성공 응답을 보냈고, 테스트 원장이 바뀌었습니다.
-            </p>
-          )
         )}
-        {/*
-          **보낸 뒤에도 길이 있다** (F15). 연습에는 붙이지 않는다 — 아무 일도 일어나지
-          않았는데 되돌리는 법을 알려 주면 연습이 무섭게 느껴진다.
-        */}
-        {!isPractice && <WrongTransferHelp />}
+        <WrongTransferHelp />
         <button type="button" className="primary-button" onClick={onBack}>
           확인
         </button>

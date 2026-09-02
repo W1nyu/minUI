@@ -23,6 +23,8 @@ export interface AllMenuSheetProps {
 export function AllMenuSheet({ catalog, onClose, onSelect }: AllMenuSheetProps) {
   const { isPinned, togglePin, explain, groundedHint } = useMinUI();
   const closeRef = useRef<HTMLButtonElement>(null);
+  const [query, setQuery] = useState("");
+  const searchId = useId();
   /**
    * 도우미가 풀어 준 것. 세션 동안만 들고 있는다 — 카탈로그를 고치지 않는다.
    *
@@ -63,7 +65,21 @@ export function AllMenuSheet({ catalog, onClose, onSelect }: AllMenuSheetProps) 
    * 7개짜리에서는 한 묶음이 100줄이 넘어 묶은 뜻이 사라진다. 실제로 사용자가
    * "이건 이것들 중 하나구나"라고 느끼는 단위는 바로 위 상위메뉴다.
    */
-  const groups = useMemo(() => groupByPath(catalog), [catalog]);
+  const filteredCatalog = useMemo(() => {
+    const needle = squash(query);
+    if (needle === "") return catalog;
+
+    return catalog.filter((menu) =>
+      [menu.label, menu.hint ?? "", ...(menu.synonyms ?? []), ...(menu.path ?? [])].some((value) =>
+        squash(value).includes(needle),
+      ),
+    );
+  }, [catalog, query]);
+
+  const groups = useMemo(
+    () => groupByPath(filteredCatalog, catalog),
+    [catalog, filteredCatalog],
+  );
 
   // 열자마자 닫기 버튼에 초점을 준다. 되돌아가는 길을 먼저 알려주는 편이
   // 목록을 먼저 읽히는 것보다 덜 불안하다.
@@ -101,6 +117,17 @@ export function AllMenuSheet({ catalog, onClose, onSelect }: AllMenuSheetProps) 
       </div>
 
       <div className="minui-sheet-body">
+        <form className="minui-all-menu-search" role="search" onSubmit={(event) => event.preventDefault()}>
+          <label htmlFor={searchId}>메뉴 검색</label>
+          <input
+            id={searchId}
+            type="search"
+            value={query}
+            placeholder="메뉴 이름을 입력하세요"
+            autoComplete="off"
+            onChange={(event) => setQuery(event.target.value)}
+          />
+        </form>
         {/*
           글씨 크기 조절은 홈이 아니라 여기에 있다. 88dp를 지키면 이 컨트롤은
           카드와 맞먹는 덩치가 되는데, 홈에서 카드와 시선을 다투게 할 물건이 아니다.
@@ -234,6 +261,11 @@ export function AllMenuSheet({ catalog, onClose, onSelect }: AllMenuSheetProps) 
             </ul>
           </section>
         ))}
+        {query.trim() !== "" && filteredCatalog.length === 0 && (
+          <p className="minui-all-menu-empty" role="status">
+            찾는 메뉴가 없습니다.
+          </p>
+        )}
       </div>
     </div>
   );
@@ -254,6 +286,11 @@ const OPEN_BUTTON_STYLE = {
   cursor: "pointer",
   padding: 0,
 } as const;
+
+/** 띄어쓰기·기호를 무시해 "자동 이체"와 "자동이체"를 같은 말로 찾는다. */
+function squash(value: string): string {
+  return value.replace(/[\s/·]+/g, "").toLowerCase();
+}
 
 /** 도우미가 답한 것 하나. 문장과 출처가 함께 다닌다 (AI-8). */
 interface AskedHint {
