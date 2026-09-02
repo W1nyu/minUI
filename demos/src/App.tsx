@@ -5,7 +5,6 @@ import { useCallback, useMemo, useState } from "react";
 import { assistEndpoint, makeAssist } from "@host-ai/assist.js";
 import { makeClarify } from "@host-ai/clarify.js";
 import { makeCorrect } from "@host-ai/correct.js";
-import { GuardDemo } from "./GuardDemo.js";
 import { makeExplain, makeGroundedHint } from "@host-ai/explain.js";
 import { makeRetrieve } from "./match.js";
 import { ClassicShell } from "./ClassicShell.js";
@@ -50,12 +49,6 @@ export function App() {
   const [studio, setStudio] = useState(
     () => currentRoute() === "studio",
   );
-  /*
-   * 「AI가 못 하는 것」도 주소로만 들어간다. 탭 바에 두면 다섯 사이트와 성격이 섞인다 —
-   * 이곳은 <b>사이트가 아니라 검증기를 보는 곳</b>이다.
-   */
-  const [guard, setGuard] = useState(() => currentRoute() === "guard");
-
   const [slug, setSlug] = useState(() => {
     // findSite는 띄우지 않는 곳(COLD_SITES)도 찾는다. 주소를 직접 친 경우를 위해 남겨 둔
     // 통로이고, 탭 바에는 SITES만 나온다.
@@ -63,20 +56,6 @@ export function App() {
     return findSite(fromPath)?.slug ?? SITES[0]!.slug;
   });
   const site = findSite(slug)!;
-
-  if (guard) {
-    return (
-      <div className="app app-wide">
-        <GuardDemo
-          catalog={site.catalog}
-          onBack={() => {
-            setGuard(false);
-            window.history.replaceState(null, "", routeHref(slug));
-          }}
-        />
-      </div>
-    );
-  }
 
   if (studio) {
     return (
@@ -92,46 +71,33 @@ export function App() {
   }
 
   return (
-    <div className="app" style={{ "--site-accent": site.accent } as React.CSSProperties}>
-      <div className="entry">
-        <a className="entry-cta" href={routeHref("bank/")}>
+    <>
+      <nav className="external-demo-actions" aria-label="시연 도구">
+        <a href={routeHref("bank/")}>
           가상 이체 시연
         </a>
+        <button
+          type="button"
+          onClick={() => {
+            setStudio(true);
+            window.history.replaceState(null, "", routeHref("studio"));
+          }}
+        >
+          + 다른 금융사 얹어 보기
+        </button>
+      </nav>
+      <div className="app" style={{ "--site-accent": site.accent } as React.CSSProperties}>
+        <SiteSwitch
+          current={site}
+          onChange={(next) => {
+            setSlug(next);
+            window.history.replaceState(null, "", routeHref(next));
+          }}
+        />
+        {/* key를 바꿔 사이트마다 엔진을 새로 만든다. 사이트별로 사용 이력이 섞이면 안 된다. */}
+        <SiteDemo key={site.slug} site={site} />
       </div>
-      <SiteSwitch
-        current={site}
-        onChange={(next) => {
-          setSlug(next);
-          window.history.replaceState(null, "", routeHref(next));
-        }}
-      />
-      {/* key를 바꿔 사이트마다 엔진을 새로 만든다. 사이트별로 사용 이력이 섞이면 안 된다. */}
-      <SiteDemo key={site.slug} site={site} />
-      <button
-        type="button"
-        className="studio-link"
-        onClick={() => {
-          setStudio(true);
-          window.history.replaceState(null, "", routeHref("studio"));
-        }}
-      >
-        + 다른 금융사 얹어 보기
-      </button>
-      {/*
-       * 안전 경계를 눈으로 보는 곳. 지금까지 이 검증은 테스트만 재고 있었고,
-       * 테스트는 심사자가 볼 수 없다.
-       */}
-      <button
-        type="button"
-        className="studio-link guard-link"
-        onClick={() => {
-          setGuard(true);
-          window.history.replaceState(null, "", routeHref("guard"));
-        }}
-      >
-        AI가 못 하는 것 보기 →
-      </button>
-    </div>
+    </>
   );
 }
 

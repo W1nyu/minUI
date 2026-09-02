@@ -3,11 +3,6 @@ import { MinUIHome, OnboardingSheet, type SttLike } from "@minui/react";
 import { makeStt } from "../stt.js";
 import { useMemo, useState } from "react";
 import { useBank } from "../BankContext.js";
-import {
-  supportLevelText,
-  useAdaptiveSupport,
-  type SupportLevel,
-} from "../adaptation/AdaptiveSupport.js";
 import { CATALOG } from "../catalog.js";
 import { formatWon } from "../screens/ScreenFrame.js";
 import { useSessionUser } from "../session/SessionContext.js";
@@ -20,10 +15,11 @@ import { summarizeMonth } from "../summary.js";
  * 카드가 들고 있을 답을 채워 주는 것뿐이다. 어떤 카드를 보여줄지는 엔진이 정한다.
  */
 const ONBOARDED_KEY = "minui.demo.onboarded";
+const FIXED_SUPPORT_LEVEL = "standard";
 
 export function MinUIShell({ stt }: { stt?: SttLike } = {}) {
   const { accounts, deposits, autoTransfers, transactions } = useBank();
-  const adaptive = useAdaptiveSupport();
+  const user = useSessionUser();
 
   /**
    * 브라우저 Web Speech 하나를 쓴다 (`../stt.ts`).
@@ -103,21 +99,12 @@ export function MinUIShell({ stt }: { stt?: SttLike } = {}) {
 
   if (!onboarded) return <OnboardingSheet onDone={finishOnboarding} />;
 
-  // 직접 고른 도움 정도는 동의와 별개다. 동의는 행동 합계를 모을지의 선택이고,
-  // 사용자가 자기 화면을 고르는 데까지 막을 이유는 없다.
-  const level: SupportLevel = adaptive.level;
-  const user = useSessionUser();
-
   return (
     <MinUIHome
       catalog={CATALOG}
       renderCardDetail={renderCardDetail}
       stt={provider}
-      supportLevel={level}
-      onInteraction={(interaction) => {
-        if (interaction.kind === "press") adaptive.recordPress(interaction.durationMs);
-        else adaptive.recordVoice(interaction.durationMs);
-      }}
+      supportLevel={FIXED_SUPPORT_LEVEL}
       header={
         <header className="minui-greeting">
           {/*
@@ -128,90 +115,8 @@ export function MinUIShell({ stt }: { stt?: SttLike } = {}) {
           <p className="minui-greeting-text">
             <strong>{user?.name ?? "고객"}</strong>님, 안녕하세요
           </p>
-          <AdaptiveSupportControl />
         </header>
       }
     />
-  );
-}
-
-/**
- * "불안도"라는 낙인 대신 사용자가 보는 것은 화면의 도움 정도뿐이다.
- *
- * <p>동의 전에는 어떤 원문·메뉴 ID·음성도 저장하지 않는다. 동의 뒤에도 남는 것은 합계 네
- * 개뿐이고 탭을 닫거나 이 버튼으로 지우면 사라진다.
- */
-function AdaptiveSupportControl() {
-  const adaptive = useAdaptiveSupport();
-
-  const picker = (
-    <div className="adaptive-level-picker" role="group" aria-label="화면 도움 정도 직접 고르기">
-      <button
-        type="button"
-        aria-pressed={adaptive.manualLevel === "simple"}
-        onClick={() => adaptive.setLevel("simple")}
-      >
-        더 단순하게
-      </button>
-      <button
-        type="button"
-        aria-pressed={adaptive.manualLevel === "guided"}
-        onClick={() => adaptive.setLevel("guided")}
-      >
-        지금처럼
-      </button>
-      <button
-        type="button"
-        aria-pressed={adaptive.manualLevel === "standard"}
-        onClick={() => adaptive.setLevel("standard")}
-      >
-        도움 줄이기
-      </button>
-    </div>
-  );
-
-  if (!adaptive.asked) {
-    return (
-      <section className="adaptive-support" aria-label="화면 도움 설정">
-        <p>이 탭의 사용 기록으로 화면을 맞출까요?</p>
-        <div>
-          <button type="button" onClick={adaptive.grantConsent}>
-            네
-          </button>
-          <button type="button" onClick={adaptive.declineConsent}>
-            아니오
-          </button>
-        </div>
-      </section>
-    );
-  }
-
-  if (!adaptive.consented) {
-    return (
-      <section className="adaptive-support" aria-label="화면 도움 설정">
-        <p>화면 도움을 고르세요.</p>
-        {picker}
-        <button type="button" className="adaptive-support-link" onClick={adaptive.grantConsent}>
-          자동 맞춤
-        </button>
-      </section>
-    );
-  }
-
-  return (
-    <section className="adaptive-support" aria-label="현재 화면 도움 정도">
-      <p>
-        화면 도움: <strong>{supportLevelText(adaptive.level)}</strong>
-      </p>
-      {picker}
-      {adaptive.manualLevel && (
-        <button type="button" onClick={adaptive.useAutomaticLevel}>
-          사용하면서 맞추기로 돌아가기
-        </button>
-      )}
-      <button type="button" onClick={adaptive.forget}>
-        도움 기록 지우기
-      </button>
-    </section>
   );
 }

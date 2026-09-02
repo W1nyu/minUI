@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { App } from "../src/App.js";
 
@@ -7,16 +7,17 @@ function bankEntry() {
   return screen.getByRole("link", { name: "가상 이체 시연" });
 }
 
-describe("첫 화면 — 가상 이체 시연", () => {
-  it("버튼 하나만 맨 위에 둔다", () => {
+describe("첫 화면 — 바깥 시연 도구", () => {
+  it("가상 이체와 Studio 진입을 휴대폰 프레임 밖에 둔다", () => {
     render(<App />);
 
-    expect(bankEntry()).toBeInTheDocument();
-    expect(screen.getAllByRole("link", { name: "가상 이체 시연" })).toHaveLength(1);
+    const actions = screen.getByRole("navigation", { name: "시연 도구" });
+    const phone = document.querySelector(".app")!;
 
-    const siteSwitch = screen.getByRole("navigation", { name: "이식 대상" });
-    const order = bankEntry().compareDocumentPosition(siteSwitch);
-    expect(order & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(within(actions).getByRole("link", { name: "가상 이체 시연" })).toBe(bankEntry());
+    expect(within(actions).getByRole("button", { name: "+ 다른 금융사 얹어 보기" })).toBeInTheDocument();
+    expect(phone.contains(actions)).toBe(false);
+    expect(actions.compareDocumentPosition(phone) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
 
   it("설명 배너 없이 바로 시연으로 들어간다", () => {
@@ -31,5 +32,11 @@ describe("첫 화면 — 가상 이체 시연", () => {
 
     // vite의 base가 "/"인 테스트에서는 "/bank/"다. Pages에서는 "/minUI/bank/"가 된다.
     expect(bankEntry()).toHaveAttribute("href", `${import.meta.env.BASE_URL}bank/`);
+  });
+
+  it("AI 검증기 진입은 보여 주지 않는다", () => {
+    render(<App />);
+
+    expect(screen.queryByRole("button", { name: /AI가 못 하는 것/ })).not.toBeInTheDocument();
   });
 });

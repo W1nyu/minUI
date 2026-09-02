@@ -485,8 +485,7 @@ body {
   font-size: 0.9rem;
 }
 
-.studio-exit,
-.studio-link {
+.studio-exit {
   min-height: 40px;
   padding: 0 0.9rem;
   border: 1px solid var(--minui-line-strong);
@@ -498,20 +497,6 @@ body {
   font-weight: 600;
   cursor: pointer;
   flex-shrink: 0;
-}
-
-/* 데모 화면 아래에 두는 진입점. 탭 바를 어지럽히지 않는다. */
-.studio-link {
-  margin: 0.5rem auto 0.9rem;
-  display: block;
-}
-
-/* 미니은행 링크는 버튼이 아니라 앵커다 — 다른 앱으로 나간다. */
-.bank-link {
-  width: fit-content;
-  text-align: center;
-  text-decoration: none;
-  line-height: 38px;
 }
 
 .studio-form {
@@ -703,35 +688,44 @@ body {
   cursor: pointer;
 }
 
-/* ── 첫 화면 진입 ───────────────────────────────────────────────────────── */
-.entry {
-  box-sizing: border-box;
-  max-width: 30rem;
-  margin: 0 auto 0.75rem;
-  padding: 0 1rem;
+/* ── 프레임 밖 시연 도구 ─────────────────────────────────────────────────── */
+.external-demo-actions {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 40;
+  display: grid;
+  gap: 0.5rem;
+  width: min(13rem, calc(100vw - 2rem));
 }
 
-.entry-cta {
-  display: block;
-  box-sizing: border-box;
-  width: 100%;
-  min-height: var(--minui-touch-min);
-  padding: 0.9rem 1rem;
-  border-radius: 12px;
-  background: var(--site-accent, var(--minui-accent));
-  color: #fff;
-  font-size: 1.05rem;
-  font-weight: 700;
-  text-align: center;
-  text-decoration: none;
-  line-height: 1.4;
+.external-demo-actions > * {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.12s;
+  min-height: 44px;
+  padding: 0.5rem 0.8rem;
+  border: 1px solid var(--minui-line-strong);
+  border-radius: 10px;
+  background: var(--minui-surface);
+  color: var(--minui-ink);
+  font: inherit;
+  font-size: 0.86rem;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
 }
-.entry-cta:active { transform: scale(0.97); }
-.entry-cta:focus-visible { outline: 3px solid var(--minui-ink); outline-offset: 2px; }
+
+.external-demo-actions > a {
+  border-color: var(--minui-accent);
+  background: var(--minui-accent);
+  color: var(--minui-accent-ink);
+}
+
+@media (max-width: 34rem) {
+  .external-demo-actions { top: 0.5rem; right: 0.5rem; }
+}
 
 /* ── AI가 못 하는 것 (시연용 검증기 페이지) ───────────────────────────── */
 

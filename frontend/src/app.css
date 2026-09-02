@@ -164,73 +164,6 @@ body {
   color: var(--minui-ink-2);
 }
 
-.adaptive-support {
-  width: 100%;
-  margin: 0;
-  padding: 0.65rem 0.75rem;
-  border: 1px solid var(--minui-line);
-  border-radius: 0.75rem;
-  background: var(--minui-surface-2);
-  color: var(--minui-ink-2);
-  font-size: var(--minui-text-s);
-  line-height: 1.45;
-}
-
-.adaptive-support p {
-  margin: 0;
-}
-
-.adaptive-support div {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  margin-top: 0.5rem;
-}
-
-.adaptive-support-direct { margin-top: 0.65rem !important; }
-
-.adaptive-level-picker {
-  display: grid !important;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  margin-top: 0.5rem;
-}
-
-.adaptive-level-picker button {
-  min-width: 0;
-  padding-inline: 0.4rem;
-  font-size: var(--minui-text-s);
-}
-
-.adaptive-level-picker button[aria-pressed="true"] {
-  border-color: var(--minui-accent);
-  background: var(--minui-accent-soft);
-  color: var(--minui-accent);
-}
-
-/*
- * **참가자가 누르는 것이다.** 40px이었는데 실제 브라우저 측정(`@minui/smoke a11y`)에서
- * 이 저장소가 정한 88px 기준에 걸렸다. 동의를 묻는 버튼이 작으면, 손떨림이 있는 사람은
- * 거절하려다 허락하게 된다 — 동의에서 그것은 가장 나쁜 실수다.
- */
-.adaptive-support button,
-.adaptive-support-link {
-  min-height: var(--minui-touch-min);
-  padding: 0 0.75rem;
-  border: 1px solid var(--minui-line-strong);
-  border-radius: 0.55rem;
-  background: var(--minui-surface);
-  color: var(--minui-ink);
-  font: inherit;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.adaptive-support-link {
-  min-height: var(--minui-touch-min);
-  padding-inline: 1rem;
-  color: var(--minui-accent);
-}
-
 .minui-greeting-text strong {
   color: var(--minui-ink);
 }
@@ -664,13 +597,14 @@ body {
 
 /* ── 가상 원장 초기화 ───────────────────────────────────────────────────── */
 .demo-data-notice {
-  display: flex;
-  justify-content: flex-end;
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 40;
   margin: 0;
-  padding: 0.45rem 1rem;
-  background: var(--minui-surface-2);
+  padding: 0;
+  background: transparent;
   color: var(--minui-warn);
-  border-bottom: 1px solid var(--minui-line);
 }
 
 .demo-data-notice button {
@@ -685,6 +619,30 @@ body {
   font-size: var(--minui-text-s);
   font-weight: 700;
   cursor: pointer;
+}
+
+.demo-back-link {
+  position: fixed;
+  top: 4.1rem;
+  right: 1rem;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.25rem;
+  padding: 0 0.7rem;
+  border: 1px solid var(--minui-line-strong);
+  border-radius: 0.5rem;
+  background: var(--minui-surface);
+  color: var(--minui-ink);
+  font-size: var(--minui-text-s);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+@media (max-width: 34rem) {
+  .demo-data-notice { top: 0.5rem; right: 0.5rem; }
+  .demo-back-link { top: 3.6rem; right: 0.5rem; }
 }
 
 .mock-api-note {

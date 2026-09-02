@@ -4,11 +4,10 @@ import { makeClarify } from "@host-ai/clarify.js";
 import { makeCorrect } from "@host-ai/correct.js";
 import { makeExplain, makeGroundedHint } from "@host-ai/explain.js";
 import { IndexedDbStorageAdapter, MinUIProvider, type SttLike } from "@minui/react";
-import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
+import { useCallback, useId, useMemo, useState } from "react";
 import { AiSwitch, AiSwitchProvider, useAiRelay } from "./AiSwitch.js";
 import { BankProvider } from "./BankContext.js";
 import { DemoLedgerNotice } from "./DemoLedgerNotice.js";
-import { AdaptiveSupportProvider, useAdaptiveSupport } from "./adaptation/AdaptiveSupport.js";
 import { MockBankApi } from "./api/mockApi.js";
 import { PracticeBankApi } from "./api/practiceApi.js";
 import type { BankApi } from "./api/types.js";
@@ -202,13 +201,16 @@ function AppInner({
       {...(correct ? { correct } : {})}
       fallback={<p className="loading">불러오는 중…</p>}
     >
-      <AdaptiveSupportProvider storageKey={storageKey}>
-        <AdaptiveNavigationBridge menuId={openMenuId} />
-        <BankProvider api={bankApi}>
-          <div className="app" data-mode={mode}>
-            {demoData && (
+      <BankProvider api={bankApi}>
+        <div className="app" data-mode={mode}>
+          {demoData && (
+            <>
               <DemoLedgerNotice {...(resetDemoLedger ? { onReset: resetDemoLedger } : {})} />
-            )}
+              <a className="demo-back-link" href="../" data-demo-chrome="true">
+                ← 이전 화면
+              </a>
+            </>
+          )}
             <ModeSwitch mode={mode} onChange={setMode} />
             {/*
               진행자용 조절 한 줄. 연습 모드와 AI 스위치가 자리를 나눠 쓴다 —
@@ -239,30 +241,11 @@ function AppInner({
                 onBack={() => setOpenMenuId(null)}
               />
             )}
-          </div>
-        </BankProvider>
-      </AdaptiveSupportProvider>
+        </div>
+      </BankProvider>
       {feedbackOpen && <FeedbackSheet releaseId={RELEASE_ID} onClose={() => setFeedbackOpen(false)} />}
     </MinUIProvider>
   );
-}
-
-/**
- * 오클릭은 "메뉴 이름"을 저장하지 않고, 화면을 열었다가 바로 돌아온 횟수로만 센다.
- *
- * <p>App은 선택 화면을 여닫는 사실만 알고, 동의/집계/망각은 적응 Provider가 맡는다.
- */
-function AdaptiveNavigationBridge({ menuId }: { menuId: MenuId | null }) {
-  const adaptive = useAdaptiveSupport();
-  const previous = useRef<MenuId | null>(null);
-
-  useEffect(() => {
-    if (menuId && previous.current !== menuId) adaptive.recordMenuOpened("screen");
-    if (!menuId && previous.current) adaptive.recordMenuClosed("screen");
-    previous.current = menuId;
-  }, [adaptive, menuId]);
-
-  return null;
 }
 
 /**

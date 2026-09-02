@@ -9,7 +9,6 @@ import { makeConfirmSentence, type ConfirmSentence } from "@host-ai/confirm.js";
 import { makeSafetyTips, type SafetyTips } from "@host-ai/safetyTips.js";
 import { ProvenanceBadge, SafetyNotes, SpeakButton } from "@minui/react";
 import { useEffect, useId, useMemo, useState } from "react";
-import { useAdaptiveSupport } from "../adaptation/AdaptiveSupport.js";
 import { useAiRelay } from "../AiSwitch.js";
 import { useBank } from "../BankContext.js";
 import { buildTransferFacts } from "../safetyFacts.js";
@@ -37,11 +36,10 @@ export function TransferScreen({
    * 이 앱에서 <b>한 화면이 가장 많은 것을 요구하는 자리</b>다 — 받는 분과 금액을 함께
    * 물어보고 그 아래에 통장·고지·제안이 같이 있다.
    *
-   * <p>`simple`에서는 한 번에 하나만 묻는다. <b>같은 상태·같은 API·같은 확인 단계</b>를
-   * 쓰고 렌더만 갈라진다 — §12.2의 통제(두 모드가 같은 화면을 쓴다)가 여기서도 살아
-   * 있어야 완료 시간 차이를 UI 탓이라고 말할 수 있다.
+   * <p>공개 데모는 한 가지 일반 화면으로 고정한다. 같은 상태·같은 API·같은 확인 단계를
+   * 쓰므로, 이체 순서와 마지막 확인은 화면 도움 설정에 따라 바뀌지 않는다.
    */
-  const stepwise = useAdaptiveSupport().level === "simple";
+  const stepwise = false;
   const [step, setStep] = useState<"payee" | "amount">("payee");
 
   /**
@@ -252,8 +250,8 @@ export function TransferScreen({
         <p className="notice" role="status">
           {isPractice ? (
             <>
-              연습이라 실제로는 나가지 않았어요. {done.payee}님께 {formatWon(done.amount)}을
-              보내는 연습을 마쳤습니다.
+              {done.payee}님께 {formatWon(done.amount)}을 보내는 연습을 마쳤어요.
+              실제로는 나가지 않았습니다.
             </>
           ) : (
             <>
@@ -263,12 +261,12 @@ export function TransferScreen({
         </p>
         {isPractice ? (
           <p className="field-note">
-            잔액과 거래 내역은 그대로예요. 몇 번이든 다시 해 보셔도 됩니다.
+            잔액과 거래 내역은 그대로예요.
           </p>
         ) : (
           isOpenBankingMock && (
             <p className="mock-api-note">
-              가상 오픈뱅킹 Mock의 성공 응답을 받아 테스트 원장과 잔액을 갱신했습니다.
+              가상 오픈뱅킹 Mock이 성공 응답을 보냈고, 테스트 원장이 바뀌었습니다.
             </p>
           )
         )}
@@ -333,7 +331,7 @@ export function TransferScreen({
           setRecipientChecked(false);
         }}
         menuId="transfer.account"
-        guide="받는 분과 계좌번호, 보낼 금액을 모두 읽어 본 뒤 확인 표시를 해 주세요."
+        guide="받는 분, 계좌번호, 금액을 확인하고 표시해 주세요."
       >
         <div className="confirm-head">
           {/*
@@ -350,7 +348,7 @@ export function TransferScreen({
                 {aiConfirm.text}
               </>
             ) : (
-              "아래 내용을 읽고 맞는지 확인해 주세요. 아직 보내지지 않았어요."
+              "아직 보내지 않았어요. 아래 내용을 확인해 주세요."
             )}
           </p>
           <SpeakButton
@@ -394,13 +392,13 @@ export function TransferScreen({
           />
           <span>
             {needsSafetyCheck
-              ? "위 내용을 읽었고, 받는 분과 계좌번호가 맞습니다."
-              : "받는 분 이름과 계좌번호가 맞는지 확인했습니다."}
+              ? "받는 분과 계좌번호가 맞습니다."
+              : "받는 분과 계좌번호를 확인했습니다."}
           </span>
         </label>
         {!recipientChecked && (
           <p className="field-note" role="status">
-            확인 표시를 해야 보내기 버튼을 누를 수 있어요.
+            확인 표시를 해야 보낼 수 있어요.
           </p>
         )}
         {error && <p className="error" role="alert">{error}</p>}
@@ -438,7 +436,7 @@ export function TransferScreen({
       </label>
       {heardPayee && (
         <p className="field-note" role="status">
-          말씀하신 <strong>{heardPayee}</strong>님을 골라 뒀어요. 맞는지 봐 주세요.
+          <strong>{heardPayee}</strong>님으로 골랐어요. 맞는지 확인해 주세요.
         </p>
       )}
       <select
@@ -524,9 +522,7 @@ export function TransferScreen({
 
   const mockNote = isOpenBankingMock && (
     <p className="mock-api-note">
-      시연용 OAuth 2.0 동의 상태만 준비되어 있어요. 아래 내용을 사람이 확인하고
-      보내기를 누르면 가상 Open Banking JSON 요청이 실행됩니다. 실제 계좌·토큰은 쓰지
-      않습니다.
+      시연용 가상 Open Banking 요청입니다. 실제 계좌·토큰은 쓰지 않습니다.
     </p>
   );
 
@@ -548,7 +544,7 @@ export function TransferScreen({
         guide={
           onPayeeStep
             ? "누구에게 보낼지 먼저 고르세요."
-            : "얼마를 보낼지 적으세요. 다음 화면에서 확인합니다."
+            : "얼마를 보낼지 적으세요."
         }
       >
         <p className="step-mark">{onPayeeStep ? "1 / 2 단계" : "2 / 2 단계"}</p>
@@ -601,7 +597,7 @@ export function TransferScreen({
       title="계좌 이체"
       onBack={onBack}
       menuId="transfer.account"
-      guide="받는 분을 고르고 보낼 금액을 적은 뒤, 내용을 확인해 주세요."
+      guide="받는 분과 보낼 금액을 적으세요."
     >
       {accountLine}
       {mockNote}
@@ -653,8 +649,7 @@ function WrongTransferHelp() {
         <li>은행에서 돌려받지 못하면 예금보험공사의 착오송금 반환지원 제도를 문의합니다.</li>
       </ol>
       <p className="mock-api-note">
-        시연용 일반 안내입니다. 실제 기한·수수료·대상 조건은 은행과 예금보험공사의 공식
-        안내를 확인해 주세요.
+        시연용 일반 안내입니다. 기한과 수수료는 은행과 예금보험공사 안내를 확인해 주세요.
       </p>
       <button type="button" className="quiet-link" onClick={() => setOpen(false)}>
         접기
