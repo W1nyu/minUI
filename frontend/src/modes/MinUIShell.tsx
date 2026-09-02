@@ -173,20 +173,15 @@ function AdaptiveSupportControl() {
   if (!adaptive.asked) {
     return (
       <section className="adaptive-support" aria-label="화면 도움 설정">
-        <p>
-          누름 시간·되돌아감·말하기 대기 시간을 <strong>이 탭 안에서 합계만</strong> 보고,
-          화면을 더 단순하게 맞출까요?
-        </p>
+        <p>이 탭의 사용 기록으로 화면을 맞출까요?</p>
         <div>
           <button type="button" onClick={adaptive.grantConsent}>
-            네, 맞춰 주세요
+            네
           </button>
           <button type="button" onClick={adaptive.declineConsent}>
-            아니요, 지금 화면 유지
+            아니오
           </button>
         </div>
-        <p className="adaptive-support-direct">또는 기록 없이 직접 고르실 수 있어요.</p>
-        {picker}
       </section>
     );
   }
@@ -194,10 +189,10 @@ function AdaptiveSupportControl() {
   if (!adaptive.consented) {
     return (
       <section className="adaptive-support" aria-label="화면 도움 설정">
-        <p>화면 도움을 직접 고르실 수 있어요. 사용 기록은 모으지 않아요.</p>
+        <p>화면 도움을 고르세요.</p>
         {picker}
         <button type="button" className="adaptive-support-link" onClick={adaptive.grantConsent}>
-          사용하면서 맞추기
+          자동 맞춤
         </button>
       </section>
     );

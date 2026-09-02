@@ -93,42 +93,11 @@ export function App() {
 
   return (
     <div className="app" style={{ "--site-accent": site.accent } as React.CSSProperties}>
-      {/*
-       * **첫 화면이 어디로 보내는가.** 전에는 미니은행으로 가는 통로가 화면 맨 아래
-       * 작은 링크 하나뿐이었다. 스크롤하지 않은 사람은 이식 데모만 보고 나간다 —
-       * 그런데 이 프로젝트의 핵심(말로 찾아 → 사람이 확인 → 가상 잔액이 바뀐다)은
-       * 거기에만 있다.
-       *
-       * 문구도 "실제로 이체해 보기"였는데 움직이는 것은 가상 원장이다.
-       * 시연의 범위를 잘못 전달하는 문구가 첫 화면에 있으면 뒤에 붙인 고지가 무색해진다.
-       */}
-      <section className="entry" aria-labelledby="entry-title">
-        <p className="entry-eyebrow" id="entry-title">공모전 시연</p>
-        <p className="entry-line">
-          <strong>말로 찾고</strong> → <strong>사람이 확인하고</strong> →{" "}
-          <strong>가상 잔액이 바뀝니다</strong>
-        </p>
+      <div className="entry">
         <a className="entry-cta" href={routeHref("bank/")}>
-          가상 이체 시연 시작 →
+          가상 이체 시연
         </a>
-        <p className="entry-note">
-          테스트 계좌와 <strong>가상 원장</strong>으로만 동작합니다. 실제 계좌·송금·마이데이터는
-          연결하지 않고, 보내기 전에 <strong>사람이 마지막으로 확인</strong>합니다.
-        </p>
-        <p className="entry-note">
-          아래는 <strong>이식 데모</strong>입니다 — 실제 금융사 메뉴를 그대로 얹어 검색과 카드가
-          어떻게 도는지 보여 줍니다. 도착 화면은 스텁입니다.
-        </p>
-        {/*
-         * 여기에 원격 AI가 없다는 것을 **미리** 말한다. 없는 것이 고장으로 보이지 않게
-         * 만들어 두긴 했지만(도우미가 없으면 되묻기가 그대로 답이 된다), 무엇이 도는지
-         * 모르는 채로 쓰는 것과 알고 쓰는 것은 다르다.
-         */}
-        <p className="entry-note">
-          검색·뜻풀이·다음 단계 안내는 <strong>이 기기 안에서</strong> 돕니다. 원격 AI 없이
-          도는 것이 기본이고, 못 찾으면 되묻기로 이어집니다.
-        </p>
-      </section>
+      </div>
       <SiteSwitch
         current={site}
         onChange={(next) => {
@@ -148,14 +117,6 @@ export function App() {
       >
         + 다른 금융사 얹어 보기
       </button>
-      {/*
-       * 미니은행으로 가는 통로. 여기 다섯 곳은 실제 금융사 메뉴를 얹은 것이라
-       * 도착 화면이 스텁이고, 이체가 끝까지 도는 곳은 미니은행 하나뿐이다.
-       * 둘을 오갈 수 있어야 "찾는 것"과 "해내는 것"이 한 흐름으로 보인다.
-       */}
-      <a className="studio-link bank-link" href={routeHref("bank/")}>
-        미니은행 시연 열기 →
-      </a>
       {/*
        * 안전 경계를 눈으로 보는 곳. 지금까지 이 검증은 테스트만 재고 있었고,
        * 테스트는 심사자가 볼 수 없다.

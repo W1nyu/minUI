@@ -662,48 +662,29 @@ body {
   font-weight: 600;
 }
 
-/*
- * 계정계 없이 도는 중임을 알리는 띠.
- *
- * 접었다 펼 수 있게 만들지 않았다 — 한 번 닫으면 그 뒤로는 무엇을 보고 있는지
- * 모르는 채로 남는다. 계속 보이는 것이 이 띠의 일이다.
- */
+/* ── 가상 원장 초기화 ───────────────────────────────────────────────────── */
 .demo-data-notice {
+  display: flex;
+  justify-content: flex-end;
   margin: 0;
-  padding: 0.55rem 1rem;
-  background: var(--minui-warn-soft);
+  padding: 0.45rem 1rem;
+  background: var(--minui-surface-2);
   color: var(--minui-warn);
   border-bottom: 1px solid var(--minui-line);
-  font-size: 0.85rem;
-  text-align: center;
-}
-
-.demo-data-notice p {
-  margin: 0;
-  line-height: 1.45;
 }
 
 .demo-data-notice button {
   min-height: 2.25rem;
-  margin: 0.35rem 0.2rem 0 0;
+  margin: 0;
   padding: 0 0.7rem;
   border: 1px solid currentColor;
   border-radius: 0.5rem;
   background: var(--minui-surface);
   color: inherit;
   font: inherit;
-  font-size: 0.8rem;
+  font-size: var(--minui-text-s);
   font-weight: 700;
   cursor: pointer;
-}
-
-.demo-ledger-actions {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.25rem 0.5rem;
-  flex-wrap: wrap;
-  margin-top: 0.25rem;
 }
 
 .mock-api-note {

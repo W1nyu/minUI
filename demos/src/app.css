@@ -703,35 +703,12 @@ body {
   cursor: pointer;
 }
 
-/* ── 첫 화면 진입 (P0) ────────────────────────────────────────────────────
- *
- * 이식 데모보다 **위에** 둔다. 심사자가 스크롤하지 않아도 이 프로젝트의 핵심으로
- * 가는 길이 보여야 한다. 문구는 반드시 "가상"이라고 말한다 — 여기서 범위를 잘못
- * 전달하면 뒤에 붙인 모든 고지가 무색해진다.
- */
+/* ── 첫 화면 진입 ───────────────────────────────────────────────────────── */
 .entry {
   box-sizing: border-box;
   max-width: 30rem;
-  margin: 0 auto 1rem;
-  padding: 1.1rem 1.25rem 1.25rem;
-  border: 1px solid var(--minui-line-strong);
-  border-radius: 16px;
-  background: var(--minui-surface);
-}
-
-.entry-eyebrow {
-  margin: 0 0 0.35rem;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.09em;
-  color: var(--site-accent, var(--minui-accent));
-}
-
-.entry-line {
-  margin: 0 0 0.9rem;
-  font-size: 1.05rem;
-  line-height: 1.45;
-  color: var(--minui-ink);
+  margin: 0 auto 0.75rem;
+  padding: 0 1rem;
 }
 
 .entry-cta {
@@ -755,13 +732,6 @@ body {
 }
 .entry-cta:active { transform: scale(0.97); }
 .entry-cta:focus-visible { outline: 3px solid var(--minui-ink); outline-offset: 2px; }
-
-.entry-note {
-  margin: 0.8rem 0 0;
-  font-size: 0.82rem;
-  line-height: 1.5;
-  color: var(--minui-ink-2);
-}
 
 /* ── AI가 못 하는 것 (시연용 검증기 페이지) ───────────────────────────── */
 

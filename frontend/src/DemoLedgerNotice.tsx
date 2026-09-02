@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useBank } from "./BankContext.js";
 
 /**
@@ -9,43 +8,24 @@ import { useBank } from "./BankContext.js";
  */
 export function DemoLedgerNotice({ onReset }: { onReset?: () => void | Promise<void> }) {
   const { reload } = useBank();
-  const [confirming, setConfirming] = useState(false);
-  const [message, setMessage] = useState<string | null>(null);
 
   async function reset() {
+    if (!window.confirm("가상 원장을 초기화할까요?")) return;
     await onReset?.();
     await reload();
-    setConfirming(false);
-    setMessage("가상 원장을 처음 상태로 되돌렸습니다.");
   }
+
+  if (!onReset) return null;
 
   return (
     <aside
       className="demo-data-notice"
-      aria-label="가상 오픈뱅킹 시연 안내"
+      aria-label="가상 오픈뱅킹 시연"
       data-demo-chrome="true"
     >
-      <p>
-        <strong>가상 오픈뱅킹 시연</strong> — 테스트 계좌·OAuth 표기만 사용하며,
-        실제 계좌·토큰·마이데이터는 연결하지 않습니다.
-      </p>
-      {onReset &&
-        (confirming ? (
-          <span className="demo-ledger-actions">
-            <span>이 탭의 가상 거래를 모두 처음으로 되돌릴까요?</span>
-            <button type="button" onClick={() => void reset()}>
-              네, 초기화
-            </button>
-            <button type="button" onClick={() => setConfirming(false)}>
-              아니요
-            </button>
-          </span>
-        ) : (
-          <button type="button" onClick={() => setConfirming(true)}>
-            가상 원장 초기화
-          </button>
-        ))}
-      {message && <span role="status">{message}</span>}
+      <button type="button" onClick={() => void reset()}>
+        가상 원장 초기화
+      </button>
     </aside>
   );
 }
