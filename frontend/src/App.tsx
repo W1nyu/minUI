@@ -10,7 +10,6 @@ import { DemoLedgerNotice } from "./DemoLedgerNotice.js";
 import { MockBankApi } from "./api/mockApi.js";
 import type { BankApi } from "./api/types.js";
 import { CATALOG, COLD_START_PRESETS } from "./catalog.js";
-import { FeedbackSheet } from "./FeedbackSheet.js";
 import { useTaskRecorder } from "./instrumentation/TaskRecorder.js";
 import { ClassicShell } from "./modes/ClassicShell.js";
 import { MinUIShell } from "./modes/MinUIShell.js";
@@ -19,9 +18,6 @@ import { useOptionalSession } from "./session/SessionContext.js";
 import { makeTts } from "./tts.js";
 
 export type Mode = "minui" | "classic";
-
-/** 피드백이 어느 배포본에서 나왔는지 사용자도 함께 볼 수 있는 식별자. */
-const RELEASE_ID = import.meta.env.VITE_RELEASE_ID ?? "public-demo";
 
 export interface AppProps {
   /** 테스트와 M1 백엔드 교체를 위한 주입 지점. */
@@ -69,7 +65,6 @@ function AppInner({
   const [mode, setMode] = useState<Mode>(initialMode);
   const [openMenuId, setOpenMenuId] = useState<MenuId | null>(null);
   const [prefill, setPrefill] = useState<Slots>({});
-  const [feedbackOpen, setFeedbackOpen] = useState(false);
   const recorder = useTaskRecorder();
 
   const bankApi = useMemo(() => api ?? new MockBankApi(), [api]);
@@ -180,16 +175,6 @@ function AppInner({
             <main className="app-body">
               {mode === "minui" ? <MinUIShell {...(stt ? { stt } : {})} /> : <ClassicShell />}
             </main>
-            {/*
-              의견 링크는 **스크롤 영역 밖**에 둔다 (F11).
-              
-              처음에는 `app-body` 안에 뒀는데, 홈이 자기 스크롤을 갖고 있어서 이 링크가
-              카드 목록 한가운데를 가로막고 앉았다. 위의 `app-bar`와 같은
-              자리다 — 화면의 <b>테두리</b>에 속하는 것은 내용과 함께 스크롤되면 안 된다.
-            */}
-            <button type="button" className="feedback-trigger" onClick={() => setFeedbackOpen(true)}>
-              이 화면에 의견 남기기
-            </button>
             {openMenuId && (
               <Screen
                 menuId={openMenuId}
@@ -199,7 +184,6 @@ function AppInner({
             )}
         </div>
       </BankProvider>
-      {feedbackOpen && <FeedbackSheet releaseId={RELEASE_ID} onClose={() => setFeedbackOpen(false)} />}
     </MinUIProvider>
   );
 }

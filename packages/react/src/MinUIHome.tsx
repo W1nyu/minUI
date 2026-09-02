@@ -26,6 +26,8 @@ export interface MinUIHomeProps {
    * 영향을 주지 않는다.
    */
   supportLevel?: "simple" | "guided" | "standard";
+  /** 호스트가 홈의 "왜 이렇게 보이나요?" 링크를 감춘다. 기본값은 표시다. */
+  showWhy?: boolean;
   /** 호스트가 명시적으로 요청했을 때만 주는 기기 안 상호작용 요약. */
   onInteraction?: (interaction: MinUIInteraction) => void;
 }
@@ -43,6 +45,7 @@ export function MinUIHome({
   header,
   stt,
   supportLevel = "guided",
+  showWhy = true,
   onInteraction,
 }: MinUIHomeProps) {
   const { cards, open } = useMinUI();
@@ -132,19 +135,21 @@ export function MinUIHome({
         >
           홈 카드 고르기
         </button>
-        <button
-          type="button"
-          className="minui-quiet-link"
-          onClick={() => {
-            notePress();
-            setSheet("why");
-          }}
-        >
-          왜 이렇게 보이나요?
-        </button>
+        {showWhy && (
+          <button
+            type="button"
+            className="minui-quiet-link"
+            onClick={() => {
+              notePress();
+              setSheet("why");
+            }}
+          >
+            왜 이렇게 보이나요?
+          </button>
+        )}
       </div>
 
-      {sheet === "why" && (
+      {showWhy && sheet === "why" && (
         <AdaptationSheet catalog={catalog} onClose={() => setSheet("none")} />
       )}
 
