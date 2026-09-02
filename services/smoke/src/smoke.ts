@@ -142,7 +142,7 @@ const SCENARIOS: Scenario[] = [
   },
 
   {
-    name: "③ 은행 시연에 Mock 고지와 적응 UI 동의가 보인다",
+    name: "③ 은행 시연의 바깥 도구와 고정 화면이 보인다",
     run: async (page, problems) => {
       await page.goto(BANK, {
         waitUntil: "domcontentloaded",
@@ -150,30 +150,39 @@ const SCENARIOS: Scenario[] = [
       });
       await signIn(page);
 
-      const notice = page.getByRole("complementary", { name: /가상 오픈뱅킹 시연 안내/ });
-      expect(await seen(notice), "가상 오픈뱅킹 고지가 안 보인다", problems);
+      const notice = page.getByRole("complementary", { name: "가상 오픈뱅킹 시연" });
+      expect(await seen(notice), "가상 원장 초기화 도구가 안 보인다", problems);
 
-      // 안쪽 <strong>만 잡으면 제목만 읽고 본문을 못 본다.
       const noticeText = (await seen(notice)) ? await notice.innerText() : "";
       expect(
-        /실제 계좌/.test(noticeText) && /마이데이터/.test(noticeText),
-        `고지에 실제 계좌·마이데이터 미연결 설명이 없다: ${noticeText.slice(0, 80)}`,
+        noticeText.trim() === "가상 원장 초기화",
+        `초기화 도구에 부연 설명이 남아 있다: ${noticeText.slice(0, 80)}`,
         problems,
       );
+      expect(
+        await seen(page.getByRole("link", { name: /이전 화면/ })),
+        "이전 화면 버튼이 안 보인다",
+        problems,
+      );
+
+      const controlsAreOutside = await page.evaluate(() => {
+        const frame = document.querySelector(".app")?.getBoundingClientRect();
+        const reset = document.querySelector(".demo-data-notice")?.getBoundingClientRect();
+        const back = document.querySelector(".demo-back-link")?.getBoundingClientRect();
+        return Boolean(frame && reset && back && reset.left >= frame.right && back.left >= frame.right);
+      });
+      expect(controlsAreOutside, "초기화·이전 화면 도구가 휴대폰 프레임 밖 오른쪽에 있지 않다", problems);
 
       await passOnboarding(page);
 
-      /*
-       * 동의는 **선택지가 둘 다 있어야** 동의다. "네"만 있으면 그것은 통보다.
-       */
       expect(
-        await seen(page.getByRole("button", { name: /네, 맞춰 주세요/ })),
-        "적응 UI 동의의 '네' 선택지가 없다",
+        await seen(page.locator('.minui-root[data-support-level="standard"]')),
+        "고정된 기본 화면이 안 보인다",
         problems,
       );
       expect(
-        await seen(page.getByRole("button", { name: /아니요, 지금 화면 유지/ })),
-        "적응 UI 동의의 '아니요' 선택지가 없다 — 거절할 수 없으면 동의가 아니다",
+        !(await seen(page.locator(".adaptive-support"), 1_500)),
+        "화면 도움 선택 UI가 남아 있다",
         problems,
       );
     },
