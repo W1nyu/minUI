@@ -83,7 +83,7 @@ export function App() {
             window.history.replaceState(null, "", routeHref("studio"));
           }}
         >
-          + 다른 금융사 얹어 보기
+          +다른 금융사 얹어 보기
         </button>
       </nav>
       <div className="app" style={{ "--site-accent": site.accent } as React.CSSProperties}>

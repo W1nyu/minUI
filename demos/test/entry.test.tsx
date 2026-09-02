@@ -15,7 +15,7 @@ describe("첫 화면 — 바깥 시연 도구", () => {
     const phone = document.querySelector(".app")!;
 
     expect(within(actions).getByRole("link", { name: "가상 이체 시연" })).toBe(bankEntry());
-    expect(within(actions).getByRole("button", { name: "+ 다른 금융사 얹어 보기" })).toBeInTheDocument();
+    expect(within(actions).getByRole("button", { name: "+다른 금융사 얹어 보기" })).toBeInTheDocument();
     expect(phone.contains(actions)).toBe(false);
     expect(actions.compareDocumentPosition(phone) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
