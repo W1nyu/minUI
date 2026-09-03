@@ -595,54 +595,92 @@ body {
   font-weight: 600;
 }
 
-/* ── 가상 원장 초기화 ───────────────────────────────────────────────────── */
-.demo-data-notice {
+/* ── 프레임 밖 시연 도구 ───────────────────────────────────────────────── */
+.demo-tools {
   position: fixed;
   top: 1rem;
   right: 1rem;
   z-index: 40;
-  margin: 0;
-  padding: 0;
-  background: transparent;
-  color: var(--minui-warn);
 }
 
-.demo-data-notice button {
+.demo-tools-toggle {
+  display: none;
+}
+
+.demo-tools-list {
+  display: grid;
+  gap: 0.5rem;
+  width: min(13rem, calc(100vw - 2rem));
+}
+
+.demo-data-notice,
+.demo-back-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   min-height: 2.25rem;
   margin: 0;
   padding: 0 0.7rem;
-  border: 1px solid currentColor;
+  border: 1px solid var(--minui-line-strong);
   border-radius: 0.5rem;
   background: var(--minui-surface);
-  color: inherit;
+  color: var(--minui-ink);
   font: inherit;
   font-size: var(--minui-text-s);
   font-weight: 700;
   cursor: pointer;
 }
 
+.demo-data-notice {
+  border-color: var(--minui-warn);
+  color: var(--minui-warn);
+}
+
 .demo-back-link {
-  position: fixed;
-  top: 4.1rem;
-  right: 1rem;
-  z-index: 40;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 2.25rem;
-  padding: 0 0.7rem;
-  border: 1px solid var(--minui-line-strong);
-  border-radius: 0.5rem;
-  background: var(--minui-surface);
-  color: var(--minui-ink);
-  font-size: var(--minui-text-s);
-  font-weight: 700;
   text-decoration: none;
 }
 
 @media (max-width: 34rem) {
-  .demo-data-notice { top: 0.5rem; right: 0.5rem; }
-  .demo-back-link { top: 3.6rem; right: 0.5rem; }
+  .demo-tools {
+    position: relative;
+    top: auto;
+    right: auto;
+    flex: none;
+  }
+
+  .demo-tools-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    min-width: 48px;
+    min-height: 48px;
+    padding: 0;
+    border: 1px solid var(--minui-line-strong);
+    border-radius: 0.5rem;
+    background: var(--minui-surface);
+    color: var(--minui-ink);
+    font: inherit;
+    font-size: 1.25rem;
+    cursor: pointer;
+  }
+
+  .demo-tools-list {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    display: none;
+    width: min(13rem, calc(100vw - 1rem));
+    padding: 0.5rem;
+    border: 1px solid var(--minui-line-strong);
+    border-radius: 0.75rem;
+    background: var(--minui-surface);
+  }
+
+  .demo-tools[data-open="true"] .demo-tools-list {
+    display: grid;
+  }
+
   .demo-session { top: 0.5rem; left: 0.5rem; }
 }
 

@@ -4,6 +4,7 @@ import { makeClarify } from "@host-ai/clarify.js";
 import { makeCorrect } from "@host-ai/correct.js";
 import { makeExplain, makeGroundedHint } from "@host-ai/explain.js";
 import { IndexedDbStorageAdapter, MinUIProvider, type SttLike } from "@minui/react";
+import type { ReactNode } from "react";
 import { useCallback, useId, useMemo, useState } from "react";
 import { BankProvider } from "./BankContext.js";
 import { DemoLedgerNotice } from "./DemoLedgerNotice.js";
@@ -163,15 +164,13 @@ function AppInner({
       <BankProvider api={bankApi}>
         {onExit && <SessionBar onExit={onExit} />}
         <div className="app" data-mode={mode}>
-          {demoData && (
-            <>
-              <DemoLedgerNotice {...(resetDemoLedger ? { onReset: resetDemoLedger } : {})} />
-              <a className="demo-back-link" href="../" data-demo-chrome="true">
-                ← 이전 화면
-              </a>
-            </>
-          )}
-            <ModeSwitch mode={mode} onChange={setMode} />
+            <ModeSwitch
+              mode={mode}
+              onChange={setMode}
+              demoTools={
+                demoData ? <DemoTools {...(resetDemoLedger ? { onReset: resetDemoLedger } : {})} /> : undefined
+              }
+            />
             <main className="app-body">
               {mode === "minui" ? <MinUIShell {...(stt ? { stt } : {})} /> : <ClassicShell />}
             </main>
@@ -185,6 +184,49 @@ function AppInner({
         </div>
       </BankProvider>
     </MinUIProvider>
+  );
+}
+
+/**
+ * 시연에만 필요한 원장 초기화·나가기 도구.
+ *
+ * <p>넓은 화면에서는 프레임 밖에 항상 두고, 좁은 화면에서는 48px 햄버거 하나만 남긴다.
+ * 펼친 뒤에만 메뉴가 앱 위에 놓여 홈 카드와 이체 흐름을 평소에는 가리지 않는다.
+ */
+function DemoTools({ onReset }: { onReset?: () => void | Promise<void> }) {
+  const [open, setOpen] = useState(false);
+  const menuId = useId();
+
+  return (
+    <nav
+      className="demo-tools"
+      aria-label="시연 도구"
+      data-demo-chrome="true"
+      data-open={open}
+      onKeyDown={(event) => {
+        if (event.key === "Escape") setOpen(false);
+      }}
+    >
+      <button
+        type="button"
+        className="demo-tools-toggle"
+        aria-label={open ? "시연 도구 닫기" : "시연 도구 열기"}
+        aria-controls={menuId}
+        aria-expanded={open}
+        onClick={() => setOpen((visible) => !visible)}
+      >
+        <span aria-hidden="true">☰</span>
+      </button>
+      <div className="demo-tools-list" id={menuId}>
+        <DemoLedgerNotice
+          {...(onReset ? { onReset } : {})}
+          onComplete={() => setOpen(false)}
+        />
+        <a className="demo-back-link" href="../" data-demo-chrome="true">
+          ← 이전 화면
+        </a>
+      </div>
+    </nav>
   );
 }
 
@@ -244,7 +286,15 @@ function SessionBar({ onExit }: { onExit: () => void }) {
  * 실제 제품이라면 설정 화면 깊숙이 들어갈 물건이지만, 이 데모의 목적 자체가
  * **같은 기능을 두 UI로 비교하는 것**이라 가장 눈에 띄는 자리에 둔다.
  */
-function ModeSwitch({ mode, onChange }: { mode: Mode; onChange: (mode: Mode) => void }) {
+function ModeSwitch({
+  mode,
+  onChange,
+  demoTools,
+}: {
+  mode: Mode;
+  onChange: (mode: Mode) => void;
+  demoTools?: ReactNode;
+}) {
   return (
     <header className="app-bar">
       <p className="app-bar-title">
@@ -276,6 +326,7 @@ function ModeSwitch({ mode, onChange }: { mode: Mode; onChange: (mode: Mode) => 
           쉬운 모드
         </button>
       </div>
+      {demoTools}
     </header>
   );
 }
