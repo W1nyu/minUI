@@ -193,7 +193,7 @@ function SiteDemo({ site }: { site: SiteMeta }) {
 
       <main className="body">
         {mode === "minui" ? (
-          <MinUIHome catalog={site.catalog} stt={stt} />
+          <MinUIHome catalog={site.catalog} stt={stt} showCardEditor={false} showWhy={false} />
         ) : (
           <ClassicShell site={site} />
         )}
