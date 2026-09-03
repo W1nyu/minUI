@@ -8,19 +8,22 @@ function bankEntry() {
 }
 
 describe("첫 화면 — 바깥 시연 도구", () => {
-  it("가상 이체만 휴대폰 프레임 밖에 둔다", () => {
+  it("가상 이체는 접을 수 있는 시연 도구 메뉴 안에서 연다", () => {
     render(<App />);
 
     const actions = screen.getByRole("navigation", { name: "시연 도구" });
     const phone = document.querySelector(".app")!;
+    const toggle = within(actions).getByRole("button", { name: "시연 도구 열기" });
 
     expect(within(actions).getByRole("link", { name: "가상 이체 시연" })).toBe(bankEntry());
+    expect(toggle).toHaveAttribute("aria-expanded", "false");
+    fireEvent.click(toggle);
+    expect(toggle).toHaveAttribute("aria-expanded", "true");
     expect(screen.queryByRole("button", { name: "+다른 금융사 얹어 보기" })).not.toBeInTheDocument();
     const studioEntry = document.querySelector<HTMLButtonElement>("[data-demo-tool=studio]");
     expect(studioEntry).toBeTruthy();
     expect(studioEntry).toHaveProperty("hidden", true);
-    expect(phone.contains(actions)).toBe(false);
-    expect(actions.compareDocumentPosition(phone) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(phone.contains(actions)).toBe(true);
   });
 
   it("설명 배너 없이 바로 시연으로 들어간다", () => {

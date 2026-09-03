@@ -7,7 +7,7 @@ import { MockBankApi } from "../src/api/mockApi.js";
 let key = 0;
 
 describe("공개 시연 상단", () => {
-  it("가상 원장 초기화와 이전 화면 버튼을 프레임 밖 도구로 둔다", async () => {
+  it("가상 원장 초기화와 이전 화면을 접을 수 있는 시연 도구에 둔다", async () => {
     const reset = vi.fn();
     const confirm = vi.spyOn(window, "confirm").mockReturnValue(true);
     render(
@@ -19,21 +19,26 @@ describe("공개 시연 상단", () => {
       />,
     );
 
-    const notice = await screen.findByRole("complementary", { name: "가상 오픈뱅킹 시연" });
-    expect(within(notice).getByRole("button", { name: "가상 원장 초기화" })).toBeInTheDocument();
-    expect(within(notice).getAllByRole("button")).toHaveLength(1);
-    expect(within(notice).queryByText(/테스트 계좌|실제 계좌|마이데이터/)).not.toBeInTheDocument();
+    const actions = await screen.findByRole("navigation", { name: "시연 도구" });
+    expect(document.querySelector(".app-bar")?.contains(actions)).toBe(true);
+    const toggle = within(actions).getByRole("button", { name: "시연 도구 열기" });
+    expect(toggle).toHaveAttribute("aria-expanded", "false");
+    await userEvent.click(toggle);
+    expect(toggle).toHaveAttribute("aria-expanded", "true");
+    expect(within(actions).getByRole("button", { name: "가상 원장 초기화" })).toBeInTheDocument();
+    expect(within(actions).queryByText(/테스트 계좌|실제 계좌|마이데이터/)).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /연습해 보기|연습 끝내기/ })).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /AI 도우미 끄고 보기|다시 켜기/ })).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "이 화면에 의견 남기기" })).not.toBeInTheDocument();
 
-    const back = screen.getByRole("link", { name: /이전 화면/ });
+    const back = within(actions).getByRole("link", { name: /이전 화면/ });
     expect(back).toHaveAttribute("href", "../");
     expect(back).toHaveAttribute("data-demo-chrome", "true");
 
-    await userEvent.click(within(notice).getByRole("button", { name: "가상 원장 초기화" }));
+    await userEvent.click(within(actions).getByRole("button", { name: "가상 원장 초기화" }));
     expect(confirm).toHaveBeenCalledWith("가상 원장을 초기화할까요?");
     await waitFor(() => expect(reset).toHaveBeenCalledOnce());
+    expect(toggle).toHaveAttribute("aria-expanded", "false");
   });
 });
 

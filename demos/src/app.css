@@ -694,12 +694,19 @@ body {
   top: 1rem;
   right: 1rem;
   z-index: 40;
-  display: grid;
-  gap: 0.5rem;
   width: min(13rem, calc(100vw - 2rem));
 }
 
-.external-demo-actions > * {
+.external-demo-actions-toggle {
+  display: none;
+}
+
+.external-demo-actions-list {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.external-demo-actions-list > * {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -718,18 +725,58 @@ body {
 }
 
 /* Studio 통로는 주소로만 남긴다. 위 선택자가 native `hidden`을 덮지 않게 한다. */
-.external-demo-actions > [hidden] {
+.external-demo-actions-list > [hidden] {
   display: none !important;
 }
 
-.external-demo-actions > a {
+.external-demo-actions-list > a {
   border-color: var(--minui-accent);
   background: var(--minui-accent);
   color: var(--minui-accent-ink);
 }
 
 @media (max-width: 34rem) {
-  .external-demo-actions { top: 0.5rem; right: 0.5rem; }
+  .external-demo-actions {
+    position: relative;
+    top: auto;
+    right: auto;
+    align-self: flex-end;
+    flex: none;
+    width: 48px;
+  }
+
+  .external-demo-actions-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    min-width: 48px;
+    min-height: 48px;
+    padding: 0;
+    border: 1px solid var(--minui-line-strong);
+    border-radius: 10px;
+    background: var(--minui-surface);
+    color: var(--minui-ink);
+    font: inherit;
+    font-size: 1.25rem;
+    cursor: pointer;
+  }
+
+  .external-demo-actions-list {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    display: none;
+    width: min(13rem, calc(100vw - 1rem));
+    padding: 0.5rem;
+    border: 1px solid var(--minui-line-strong);
+    border-radius: 12px;
+    background: var(--minui-surface);
+  }
+
+  .external-demo-actions[data-open="true"] .external-demo-actions-list {
+    display: grid;
+  }
 }
 
 /* ── AI가 못 하는 것 (시연용 검증기 페이지) ───────────────────────────── */

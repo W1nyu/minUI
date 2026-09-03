@@ -1,7 +1,7 @@
 import type { MenuId } from "@minui/core";
 import { IndexedDbStorageAdapter, MinUIHome, MinUIProvider } from "@minui/react";
 import { makeStt } from "./stt.js";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useId, useMemo, useState } from "react";
 import { assistEndpoint, makeAssist } from "@host-ai/assist.js";
 import { makeClarify } from "@host-ai/clarify.js";
 import { makeCorrect } from "@host-ai/correct.js";
@@ -55,6 +55,8 @@ export function App() {
     const fromPath = currentRoute();
     return findSite(fromPath)?.slug ?? SITES[0]!.slug;
   });
+  const [demoToolsOpen, setDemoToolsOpen] = useState(false);
+  const demoToolsId = useId();
   const site = findSite(slug)!;
 
   if (studio) {
@@ -71,35 +73,69 @@ export function App() {
   }
 
   return (
-    <>
-      <nav className="external-demo-actions" aria-label="시연 도구">
-        <a href={routeHref("bank/")}>
-          가상 이체 시연
-        </a>
-        <button
-          type="button"
-          hidden
-          data-demo-tool="studio"
-          onClick={() => {
-            setStudio(true);
-            window.history.replaceState(null, "", routeHref("studio"));
-          }}
-        >
+    <div className="app" style={{ "--site-accent": site.accent } as React.CSSProperties}>
+      <SiteSwitch
+        current={site}
+        onChange={(next) => {
+          setSlug(next);
+          window.history.replaceState(null, "", routeHref(next));
+        }}
+      />
+      <ExternalDemoActions
+        open={demoToolsOpen}
+        menuId={demoToolsId}
+        onToggle={() => setDemoToolsOpen((current) => !current)}
+        onClose={() => setDemoToolsOpen(false)}
+        onOpenStudio={() => {
+          setStudio(true);
+          window.history.replaceState(null, "", routeHref("studio"));
+        }}
+      />
+      {/* key를 바꿔 사이트마다 엔진을 새로 만든다. 사이트별로 사용 이력이 섞이면 안 된다. */}
+      <SiteDemo key={site.slug} site={site} />
+    </div>
+  );
+}
+
+function ExternalDemoActions({
+  open,
+  menuId,
+  onToggle,
+  onClose,
+  onOpenStudio,
+}: {
+  open: boolean;
+  menuId: string;
+  onToggle: () => void;
+  onClose: () => void;
+  onOpenStudio: () => void;
+}) {
+  return (
+    <nav
+      className="external-demo-actions"
+      aria-label="시연 도구"
+      data-open={open}
+      onKeyDown={(event) => {
+        if (event.key === "Escape") onClose();
+      }}
+    >
+      <button
+        type="button"
+        className="external-demo-actions-toggle"
+        aria-label={open ? "시연 도구 닫기" : "시연 도구 열기"}
+        aria-controls={menuId}
+        aria-expanded={open}
+        onClick={onToggle}
+      >
+        <span aria-hidden="true">☰</span>
+      </button>
+      <div className="external-demo-actions-list" id={menuId}>
+        <a href={routeHref("bank/")}>가상 이체 시연</a>
+        <button type="button" hidden data-demo-tool="studio" onClick={onOpenStudio}>
           +다른 금융사 얹어 보기
         </button>
-      </nav>
-      <div className="app" style={{ "--site-accent": site.accent } as React.CSSProperties}>
-        <SiteSwitch
-          current={site}
-          onChange={(next) => {
-            setSlug(next);
-            window.history.replaceState(null, "", routeHref(next));
-          }}
-        />
-        {/* key를 바꿔 사이트마다 엔진을 새로 만든다. 사이트별로 사용 이력이 섞이면 안 된다. */}
-        <SiteDemo key={site.slug} site={site} />
       </div>
-    </>
+    </nav>
   );
 }
 
