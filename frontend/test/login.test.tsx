@@ -39,6 +39,12 @@ async function waitForHome() {
   );
 }
 
+async function openDemoTools() {
+  const tools = screen.getByRole("navigation", { name: "시연 도구" });
+  await userEvent.click(within(tools).getByRole("button", { name: "시연 도구 열기" }));
+  return tools;
+}
+
 beforeEach(() => {
   sessionStorage.clear();
 });
@@ -71,23 +77,21 @@ describe("로그인", () => {
     await signIn("김순자");
 
     await waitForHome();
-    // 인사말과 "누구로 보는 중" 배지 두 자리에 뜬다 — 둘 다 그 사람이어야 한다.
+    // 인사말이 로그인한 사람을 가리킨다.
     expect(screen.getAllByText(/김순자/).length).toBeGreaterThan(0);
   });
 
-  it("보고 있는 사람과 나가기 버튼은 휴대폰 화면 밖 왼쪽에 둔다", async () => {
+  it("계정 로그아웃은 시연 도구 메뉴 안에 둔다", async () => {
     renderBankApp();
     await signIn("김순자");
     await waitForHome();
 
-    const session = document.querySelector<HTMLElement>(".demo-session");
-    const phone = document.querySelector(".app");
+    const tools = await openDemoTools();
+    const phone = document.querySelector(".app")!;
 
-    expect(session).not.toBeNull();
-    expect(phone).not.toBeNull();
-    expect(phone!.contains(session)).toBe(false);
-    expect(session).toHaveTextContent("김순자님으로 보는 중");
-    expect(within(session!).getByRole("button", { name: "나가기" })).toBeInTheDocument();
+    expect(phone.contains(tools)).toBe(true);
+    expect(within(tools).getByRole("button", { name: "계정 로그아웃" })).toBeInTheDocument();
+    expect(screen.queryByText(/님으로 보는 중|다른 사람으로 바로 보기/)).not.toBeInTheDocument();
   });
 
   /*
@@ -100,7 +104,8 @@ describe("로그인", () => {
     await signIn("김순자", "482913");
     await waitForHome();
 
-    await userEvent.click(screen.getByRole("button", { name: "나가기" }));
+    const tools = await openDemoTools();
+    await userEvent.click(within(tools).getByRole("button", { name: "계정 로그아웃" }));
     await signIn("김순자", "770051");
     await waitForHome();
   });
@@ -127,39 +132,15 @@ describe("로그인", () => {
     expect(screen.queryByText("1,243,500원")).not.toBeInTheDocument();
   });
 
-  it("나가기를 누르면 로그인 화면으로 돌아온다", async () => {
+  it("계정 로그아웃을 누르면 로그인 화면으로 돌아온다", async () => {
     renderBankApp();
     await signIn("김순자");
     await waitForHome();
 
-    await userEvent.click(screen.getByRole("button", { name: "나가기" }));
+    const tools = await openDemoTools();
+    await userEvent.click(within(tools).getByRole("button", { name: "계정 로그아웃" }));
 
     expect(await screen.findByRole("heading", { name: "고령" })).toBeInTheDocument();
-  });
-
-  /*
-   * 진행자용 빠른 전환 (F: 시연 진행).
-   *
-   * <p>나가기와 **다른 물건**이다. 나가기는 사용자가 쓰는 문이라 다시 들어올 때 번호를
-   * 묻는 것이 맞고, 이쪽은 시연 진행자가 사람을 갈아 끼우는 자리라 묻지 않는다.
-   * 시연 중 왕복이 잦은데 매번 여섯 자리를 누르면 그 시간이 전부 대본 밖의 시간이 된다.
-   *
-   * <p>PIN을 건너뛰어도 잃는 것이 없다 — 애초에 지키는 것이 없기 때문이다.
-   */
-  it("진행자는 번호 없이 다른 사람으로 바로 넘어간다", async () => {
-    renderBankApp();
-    await signIn("김순자");
-    await waitForHome();
-
-    await userEvent.selectOptions(
-      screen.getByLabelText("진행자용 — 다른 사람으로 바로 보기"),
-      "u-8",
-    );
-
-    // 번호를 묻지 않고 그대로 박정호의 화면이다.
-    await waitFor(() => expect(screen.getByText("1,870,000원")).toBeInTheDocument());
-    expect(screen.queryByRole("group", { name: "간편 비밀번호 키패드" })).not.toBeInTheDocument();
-    expect(screen.getAllByText(/박정호/).length).toBeGreaterThan(0);
   });
 
   /*
@@ -181,7 +162,8 @@ describe("로그인", () => {
 
     await signIn("김순자");
     await waitForHome();
-    await userEvent.click(screen.getByRole("button", { name: "나가기" }));
+    const tools = await openDemoTools();
+    await userEvent.click(within(tools).getByRole("button", { name: "계정 로그아웃" }));
     await signIn("박정호");
     await waitForHome();
 
