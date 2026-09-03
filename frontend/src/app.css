@@ -614,6 +614,7 @@ body {
 }
 
 .demo-data-notice,
+.demo-logout,
 .demo-back-link {
   display: flex;
   align-items: center;
@@ -681,7 +682,6 @@ body {
     display: grid;
   }
 
-  .demo-session { top: 0.5rem; left: 0.5rem; }
 }
 
 .mock-api-note {
@@ -1179,33 +1179,6 @@ body {
   line-height: 1.5;
 }
 
-/* ── 지금 누구로 보는 중인가 ───────────────────────────────────────────── */
-
-.demo-session {
-  position: fixed;
-  top: 1rem;
-  left: 1rem;
-  z-index: 40;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--bank-space-xs);
-  max-width: min(25rem, calc(100vw - 2rem));
-  padding: 0.35rem 0.5rem;
-  border: 1px solid var(--minui-line-strong);
-  border-radius: 0.5rem;
-  background: var(--minui-surface);
-}
-
-.demo-session-who {
-  color: var(--minui-ink-2);
-  font-size: var(--minui-text-s);
-}
-
-.demo-session .demo-quiet {
-  padding-inline: var(--bank-space-xs);
-}
-
 /* ── 전체 계좌 조회 ────────────────────────────────────────────────────── */
 
 .accounts-total {
@@ -1271,39 +1244,5 @@ body {
   font-family: inherit;
   font-size: var(--minui-text-s);
   text-decoration: underline;
-  cursor: pointer;
-}
-
-/* ── 진행자용 빠른 전환 ─────────────────────────────────────────────────── */
-
-/*
- * 라벨은 **읽히되 안 보인다.**
- *
- * 이 띠에는 이미 세 가지가 들어 있어 "진행자용 — 다른 사람으로 바로 보기"를 글자로
- * 띄우면 줄이 하나 더 늘고, 그러면 카드가 화면 아래로 밀린다 (이 띠가 원래 걱정하던 것).
- * 고른 사람 이름이 셀렉트 안에 이미 보이므로 눈으로 보는 사람은 라벨 없이도 안다 —
- * 스크린리더 사용자만 그 단서가 없어서, 그쪽에만 남긴다.
- */
-.demo-session-switch-label {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-  border: 0;
-}
-
-.demo-session-switch select {
-  max-width: 10rem;
-  padding: 0.3rem var(--bank-space-xs);
-  border: var(--bank-hairline);
-  border-radius: var(--bank-radius-sm);
-  background: var(--minui-surface);
-  color: var(--minui-ink-2);
-  font-family: inherit;
-  font-size: var(--minui-text-s);
   cursor: pointer;
 }
