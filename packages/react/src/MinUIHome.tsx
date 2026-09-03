@@ -26,6 +26,8 @@ export interface MinUIHomeProps {
    * 영향을 주지 않는다.
    */
   supportLevel?: "simple" | "guided" | "standard";
+  /** 호스트가 홈 카드 편집 링크를 감춘다. 기본값은 표시다. */
+  showCardEditor?: boolean;
   /** 호스트가 홈의 "왜 이렇게 보이나요?" 링크를 감춘다. 기본값은 표시다. */
   showWhy?: boolean;
   /** 호스트가 명시적으로 요청했을 때만 주는 기기 안 상호작용 요약. */
@@ -45,6 +47,7 @@ export function MinUIHome({
   header,
   stt,
   supportLevel = "guided",
+  showCardEditor = true,
   showWhy = true,
   onInteraction,
 }: MinUIHomeProps) {
@@ -124,18 +127,21 @@ export function MinUIHome({
         도달하는 통로이고 이것은 물어보는 자리다. 같은 크기로 놓으면 홈에 큰 버튼이
         셋이 되어 원칙 P1이 흔들린다.
       */}
-      <div className="minui-quiet-actions">
-        <button
-          type="button"
-          className="minui-quiet-link"
-          onClick={() => {
-            notePress();
-            setSheet("cards");
-          }}
-        >
-          홈 카드 고르기
-        </button>
-        {showWhy && (
+      {(showCardEditor || showWhy) && (
+        <div className="minui-quiet-actions">
+          {showCardEditor && (
+            <button
+              type="button"
+              className="minui-quiet-link"
+              onClick={() => {
+                notePress();
+                setSheet("cards");
+              }}
+            >
+              홈 카드 고르기
+            </button>
+          )}
+          {showWhy && (
           <button
             type="button"
             className="minui-quiet-link"
@@ -146,14 +152,15 @@ export function MinUIHome({
           >
             왜 이렇게 보이나요?
           </button>
-        )}
-      </div>
+          )}
+        </div>
+      )}
 
       {showWhy && sheet === "why" && (
         <AdaptationSheet catalog={catalog} onClose={() => setSheet("none")} />
       )}
 
-      {sheet === "cards" && (
+      {showCardEditor && sheet === "cards" && (
         <HomeCardEditor catalog={catalog} onClose={() => setSheet("none")} />
       )}
 

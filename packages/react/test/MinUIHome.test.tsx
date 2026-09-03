@@ -118,22 +118,21 @@ describe("어려운 말 풀이", () => {
     expect(card).not.toHaveTextContent("지금 통장에 남아 있는 돈이에요");
   });
 
-  it("전체 메뉴에서 뜻풀이가 함께 뜬다", async () => {
+  it("전체 메뉴에는 뜻풀이를 붙이지 않는다", async () => {
     renderHome();
     await waitForCards();
     await userEvent.click(screen.getByRole("button", { name: /전체 메뉴/ }));
 
     const dialog = screen.getByRole("dialog", { name: "전체 메뉴" });
-    expect(
-      within(dialog).getByText("하루에 보낼 수 있는 최대 금액을 바꿔요"),
-    ).toBeInTheDocument();
+    expect(within(dialog).queryByText("하루에 보낼 수 있는 최대 금액을 바꿔요")).not.toBeInTheDocument();
+    expect(within(dialog).queryByRole("button", { name: "이게 무슨 뜻이에요?" })).not.toBeInTheDocument();
   });
 
   /**
    * 이름이 아니라 설명으로 붙어야 한다. 700줄짜리 목록에서 모든 버튼 이름이
    * "메뉴명 + 한 문장"이 되면 스크린리더 사용자가 훑어 나갈 수가 없다.
    */
-  it("전체 메뉴의 뜻풀이는 이름이 아니라 설명으로 붙는다", async () => {
+  it("전체 메뉴의 메뉴 이름에는 설명 연결을 붙이지 않는다", async () => {
     renderHome();
     await waitForCards();
     await userEvent.click(screen.getByRole("button", { name: /전체 메뉴/ }));
@@ -141,11 +140,7 @@ describe("어려운 말 풀이", () => {
     const dialog = screen.getByRole("dialog", { name: "전체 메뉴" });
     const open = within(dialog).getByRole("button", { name: "한도 변경" });
 
-    const describedBy = open.getAttribute("aria-describedby");
-    expect(describedBy).toBeTruthy();
-    expect(document.getElementById(describedBy!)).toHaveTextContent(
-      "하루에 보낼 수 있는 최대 금액을 바꿔요",
-    );
+    expect(open).not.toHaveAttribute("aria-describedby");
   });
 
   it("뜻풀이가 없는 메뉴에는 빈 자리를 만들지 않는다", async () => {
@@ -176,74 +171,11 @@ describe("이게 무슨 뜻이에요? (런타임 뜻풀이)", () => {
     return screen.getByRole("dialog", { name: "전체 메뉴" });
   }
 
-  function rowOf(dialog: HTMLElement, label: string) {
-    return within(dialog).getByRole("button", { name: label }).closest("li")!;
-  }
-
-  it("도우미가 없으면 묻는 버튼도 없다 — LLM 없이 100% 돈다", async () => {
-    const dialog = await openMenus();
+  it("도우미가 있어도 메뉴 아래에 설명을 붙이지 않는다", async () => {
+    const dialog = await openMenus(async () => "지난 거래를 모아 봐요");
 
     expect(within(dialog).queryByRole("button", { name: ASK })).not.toBeInTheDocument();
-  });
-
-  it("뜻풀이가 이미 있는 메뉴에는 묻지 않는다", async () => {
-    const dialog = await openMenus(async () => "쓰이지 않아야 한다");
-
-    expect(
-      within(rowOf(dialog, "한도 변경")).queryByRole("button", { name: ASK }),
-    ).not.toBeInTheDocument();
-  });
-
-  it("뜻풀이가 없는 메뉴에만 묻는 버튼이 붙는다", async () => {
-    const dialog = await openMenus(async () => "지난 거래를 모아 봐요");
-
-    expect(
-      within(rowOf(dialog, "거래 내역")).getByRole("button", { name: ASK }),
-    ).toBeInTheDocument();
-  });
-
-  it("누르면 그 자리에 풀이가 뜨고 설명으로 연결된다", async () => {
-    const dialog = await openMenus(async () => "지난 거래를 모아 봐요");
-
-    await userEvent.click(
-      within(rowOf(dialog, "거래 내역")).getByRole("button", { name: ASK }),
-    );
-
-    const open = within(dialog).getByRole("button", { name: "거래 내역" });
-    await waitFor(() => expect(open).toHaveAttribute("aria-describedby"));
-    expect(
-      document.getElementById(open.getAttribute("aria-describedby")!),
-    ).toHaveTextContent("지난 거래를 모아 봐요");
-  });
-
-  /** 도우미가 모르면 모른다고 한다. 틀린 풀이는 없는 것보다 나쁘다. */
-  it("도우미가 답을 못 주면 막다른 길을 만들지 않는다", async () => {
-    const dialog = await openMenus(async () => null);
-
-    await userEvent.click(
-      within(rowOf(dialog, "거래 내역")).getByRole("button", { name: ASK }),
-    );
-
-    await waitFor(() =>
-      expect(within(rowOf(dialog, "거래 내역"))
-        .getByText(/알 수 없|찾지 못/)).toBeInTheDocument(),
-    );
-  });
-
-  it("도우미가 죽어도 화면은 그대로다", async () => {
-    const dialog = await openMenus(async () => {
-      throw new Error("네트워크 끊김");
-    });
-
-    await userEvent.click(
-      within(rowOf(dialog, "거래 내역")).getByRole("button", { name: ASK }),
-    );
-
-    await waitFor(() =>
-      expect(within(rowOf(dialog, "거래 내역"))
-        .getByText(/알 수 없|찾지 못/)).toBeInTheDocument(),
-    );
-    expect(within(dialog).getByRole("button", { name: "거래 내역" })).toBeInTheDocument();
+    expect(within(dialog).queryByText("지난 거래를 모아 봐요")).not.toBeInTheDocument();
   });
 });
 

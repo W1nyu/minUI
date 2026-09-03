@@ -58,4 +58,13 @@ describe("첫 화면 — 바깥 시연 도구", () => {
 
     expect(screen.queryByText(/수집본|이식 검증용|메뉴 체계를 그대로/)).not.toBeInTheDocument();
   });
+
+  it("홈 카드 편집과 배치 설명 도구를 보이지 않는다", async () => {
+    window.history.replaceState(null, "", import.meta.env.BASE_URL);
+    render(<App />);
+
+    await screen.findByRole("button", { name: /전체 메뉴/ });
+    expect(screen.queryByRole("button", { name: "홈 카드 고르기" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "왜 이렇게 보이나요?" })).not.toBeInTheDocument();
+  });
 });

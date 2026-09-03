@@ -46,6 +46,7 @@ describe("화면 도움", () => {
     );
     expect(screen.queryByRole("region", { name: /화면 도움/ })).not.toBeInTheDocument();
     expect(document.querySelector('.minui-root[data-support-level="standard"]')).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "홈 카드 고르기" })).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: "왜 이렇게 보이나요?" })).not.toBeInTheDocument();
   });
 });

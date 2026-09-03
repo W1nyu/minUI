@@ -25,46 +25,15 @@ async function openAllMenu() {
   return { user, sheet };
 }
 
-describe("어려운 말을 그 자리에서 묻는다", () => {
-  it("뜻풀이를 비워 둔 메뉴에는 묻는 버튼이 뜬다", async () => {
+describe("전체 메뉴를 간결하게 보여 준다", () => {
+  it("메뉴 아래에 뜻풀이·출처·질문 버튼을 붙이지 않는다", async () => {
     const { sheet } = await openAllMenu();
 
-    // catalog.ts가 일부러 비워 둔 여섯 중 하나. 기획안 §12가 "이름을 모르는 것"으로
-    // 지목한 바로 그 메뉴다.
     const row = within(sheet).getByRole("button", { name: /이체 한도 변경/ });
     expect(row).toBeInTheDocument();
-
-    const ask = within(sheet).getAllByRole("button", { name: /무슨 뜻이에요/ });
-    expect(ask.length).toBeGreaterThan(0);
-  });
-
-  it("뜻풀이가 이미 있는 메뉴에는 묻는 버튼이 없다", async () => {
-    const { sheet } = await openAllMenu();
-
-    // 뜻풀이가 있으면 답이 이미 화면에 있다. 버튼을 또 두면 누를 것이 늘기만 한다.
-    expect(within(sheet).getByText("통장에 남은 돈을 봅니다")).toBeInTheDocument();
-
-    const asked = within(sheet).getAllByRole("button", { name: /무슨 뜻이에요/ });
-    // 비워 둔 것이 여섯이므로 묻는 버튼도 그 수를 넘지 않는다.
-    expect(asked.length).toBeLessThanOrEqual(6);
-  });
-
-  it("물어보면 그 자리에 답이 남는다", async () => {
-    const { user, sheet } = await openAllMenu();
-
-    const before = within(sheet).getAllByRole("button", { name: /무슨 뜻이에요/ }).length;
-    await user.click(within(sheet).getAllByRole("button", { name: /무슨 뜻이에요/ })[0]!);
-
-    /*
-     * 캐시가 답하면 뜻풀이가, 캐시에도 없고 서버도 없으면 "알 수 없었어요"가 나온다.
-     * 어느 쪽이든 **버튼이 사라지고 답이 그 자리에 남는 것**이 계약이다 —
-     * 물어봤는데 아무 일도 안 일어나는 상태를 만들지 않는다(`AllMenuSheet`).
-     */
-    await waitFor(() => {
-      expect(within(sheet).queryAllByRole("button", { name: /무슨 뜻이에요/ })).toHaveLength(
-        before - 1,
-      );
-    });
+    expect(within(sheet).queryByText("통장에 남은 돈을 봅니다")).not.toBeInTheDocument();
+    expect(within(sheet).queryByText("이 기기에 있는 설명")).not.toBeInTheDocument();
+    expect(within(sheet).queryByRole("button", { name: /무슨 뜻이에요/ })).not.toBeInTheDocument();
   });
 });
 
