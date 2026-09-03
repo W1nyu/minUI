@@ -166,7 +166,7 @@ function AppInner({
               mode={mode}
               onChange={setMode}
               demoTools={
-                demoData
+                demoData || onExit
                   ? <DemoTools {...(resetDemoLedger ? { onReset: resetDemoLedger } : {})} {...(onExit ? { onExit } : {})} />
                   : undefined
               }
