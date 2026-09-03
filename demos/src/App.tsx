@@ -1,6 +1,7 @@
 import type { MenuId } from "@minui/core";
 import { IndexedDbStorageAdapter, MinUIHome, MinUIProvider } from "@minui/react";
 import { makeStt } from "./stt.js";
+import type { ReactNode } from "react";
 import { useCallback, useId, useMemo, useState } from "react";
 import { assistEndpoint, makeAssist } from "@host-ai/assist.js";
 import { makeClarify } from "@host-ai/clarify.js";
@@ -74,22 +75,24 @@ export function App() {
 
   return (
     <div className="app" style={{ "--site-accent": site.accent } as React.CSSProperties}>
-      <SiteSwitch
+      <SiteTabs
         current={site}
         onChange={(next) => {
           setSlug(next);
           window.history.replaceState(null, "", routeHref(next));
         }}
-      />
-      <ExternalDemoActions
-        open={demoToolsOpen}
-        menuId={demoToolsId}
-        onToggle={() => setDemoToolsOpen((current) => !current)}
-        onClose={() => setDemoToolsOpen(false)}
-        onOpenStudio={() => {
-          setStudio(true);
-          window.history.replaceState(null, "", routeHref("studio"));
-        }}
+        demoTools={
+          <ExternalDemoActions
+            open={demoToolsOpen}
+            menuId={demoToolsId}
+            onToggle={() => setDemoToolsOpen((current) => !current)}
+            onClose={() => setDemoToolsOpen(false)}
+            onOpenStudio={() => {
+              setStudio(true);
+              window.history.replaceState(null, "", routeHref("studio"));
+            }}
+          />
+        }
       />
       {/* key를 바꿔 사이트마다 엔진을 새로 만든다. 사이트별로 사용 이력이 섞이면 안 된다. */}
       <SiteDemo key={site.slug} site={site} />
@@ -246,25 +249,30 @@ function SiteDemo({ site }: { site: SiteMeta }) {
   );
 }
 
-function SiteSwitch({
+function SiteTabs({
   current,
   onChange,
+  demoTools,
 }: {
   current: SiteMeta;
   onChange: (slug: string) => void;
+  demoTools: ReactNode;
 }) {
   return (
-    <nav className="sites" aria-label="이식 대상">
-      {SITES.map((site) => (
-        <button
-          key={site.slug}
-          type="button"
-          aria-current={site.slug === current.slug ? "page" : undefined}
-          onClick={() => onChange(site.slug)}
-        >
-          {site.name}
-        </button>
-      ))}
-    </nav>
+    <div className="site-tabs">
+      <nav className="sites" aria-label="이식 대상">
+        {SITES.map((site) => (
+          <button
+            key={site.slug}
+            type="button"
+            aria-current={site.slug === current.slug ? "page" : undefined}
+            onClick={() => onChange(site.slug)}
+          >
+            {site.name}
+          </button>
+        ))}
+      </nav>
+      {demoTools}
+    </div>
   );
 }

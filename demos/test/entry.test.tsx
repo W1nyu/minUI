@@ -13,8 +13,11 @@ describe("첫 화면 — 바깥 시연 도구", () => {
 
     const actions = screen.getByRole("navigation", { name: "시연 도구" });
     const phone = document.querySelector(".app")!;
+    const siteTabs = document.querySelector(".site-tabs")!;
     const toggle = within(actions).getByRole("button", { name: "시연 도구 열기" });
 
+    expect(siteTabs).toContainElement(screen.getByRole("navigation", { name: "이식 대상" }));
+    expect(siteTabs).toContainElement(actions);
     expect(within(actions).getByRole("link", { name: "가상 이체 시연" })).toBe(bankEntry());
     expect(toggle).toHaveAttribute("aria-expanded", "false");
     fireEvent.click(toggle);

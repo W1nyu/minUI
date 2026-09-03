@@ -54,8 +54,15 @@ body {
  * 실제로 그렇게 보이지 않는다는 지적을 받았다. 이 띠는 앱 껍데기라 양쪽 테마에서
  * 똑같이 어두운 편이 낫고, 그러려면 뒤집히지 않는 값이어야 한다.
  */
+.site-tabs {
+  display: flex;
+  min-width: 0;
+}
+
 .sites {
   display: grid;
+  flex: 1;
+  min-width: 0;
   /* 사이트 수만큼 자동으로 나눈다. 늘어날 때마다 여기를 고치지 않도록. */
   grid-auto-flow: column;
   grid-auto-columns: 1fr;
@@ -740,7 +747,6 @@ body {
     position: relative;
     top: auto;
     right: auto;
-    align-self: flex-end;
     flex: none;
     width: 48px;
   }
