@@ -1,6 +1,7 @@
 import {
   Listeners,
   type SttError,
+  type SttPhrase,
   type SttProvider,
   type SttResult,
 } from "./SttProvider.js";
@@ -12,6 +13,12 @@ export interface ScriptedUtterance {
   text: string;
   /** 0..1. 저품질 STT를 흉내 내려면 낮게 준다. */
   confidence?: number;
+  /**
+   * 같은 발화에 대한 다른 후보들 (M21). `text`를 첫 칸으로 앞에 붙여 낸다.
+   *
+   * <p>실제 브라우저 없이 N-best 경로를 검증하려면 이것이 필요하다.
+   */
+  alternatives?: string[];
   /** 이 발화 대신 오류를 낸다. */
   error?: SttError;
   /**
@@ -43,6 +50,10 @@ export class MockSttProvider implements SttProvider {
   #index = 0;
   #running = false;
   #held: ScriptedUtterance | null = null;
+  /** 마지막으로 받은 편향 목록 (M22). 테스트가 배선을 확인하는 데 쓴다. */
+  phrases: readonly SttPhrase[] = [];
+  /** 기기 안에서 돌라는 요청을 받았는가 (M22). */
+  wantsLocal = false;
 
   constructor(script: ScriptedUtterance[] = []) {
     this.#script = [...script];
@@ -81,10 +92,15 @@ export class MockSttProvider implements SttProvider {
       return;
     }
 
-    this.#final.emit({
-      text: utterance.text,
-      confidence: utterance.confidence ?? 1,
-    });
+    this.#final.emit(toResult(utterance));
+  }
+
+  setPhrases(phrases: readonly SttPhrase[]): void {
+    this.phrases = phrases;
+  }
+
+  preferLocal(value: boolean): void {
+    this.wantsLocal = value;
   }
 
   /** `holdFinal`로 붙잡아 둔 최종 결과를 내보낸다. */
@@ -93,10 +109,7 @@ export class MockSttProvider implements SttProvider {
     this.#held = null;
     if (!utterance || !this.#running) return;
 
-    this.#final.emit({
-      text: utterance.text,
-      confidence: utterance.confidence ?? 1,
-    });
+    this.#final.emit(toResult(utterance));
   }
 
   stop(): void {
@@ -115,4 +128,24 @@ export class MockSttProvider implements SttProvider {
   onError(callback: (error: SttError) => void): () => void {
     return this.#error.add(callback);
   }
+}
+
+/** 스크립트 한 줄을 인식 결과로 옮긴다. 대안이 있으면 `text`를 1순위로 앞에 세운다. */
+function toResult(utterance: ScriptedUtterance): SttResult {
+  const confidence = utterance.confidence ?? 1;
+  if (!utterance.alternatives || utterance.alternatives.length === 0) {
+    return { text: utterance.text, confidence };
+  }
+
+  const texts = [utterance.text, ...utterance.alternatives];
+  const seen = new Set<string>();
+  const alternatives = texts
+    .filter((text) => {
+      if (seen.has(text)) return false;
+      seen.add(text);
+      return true;
+    })
+    .map((text) => ({ text, confidence }));
+
+  return { text: utterance.text, confidence, alternatives };
 }

@@ -1,0 +1,857 @@
+{
+  "description": "낭독용 프롬프트. site-queries.json과 voice-queries.json에서 생성한다. 손으로 고치지 말고 pnpm --filter tools build:stt-prompts 로 다시 만든다.",
+  "protocol": "docs/음성코퍼스-프로토콜.md",
+  "generatedAt": "2026-09-03",
+  "prompts": [
+    {
+      "id": "kbstar-001",
+      "text": "잔액 좀 보자",
+      "site": "kbstar",
+      "expect": "국민은행 계좌조회"
+    },
+    {
+      "id": "kbstar-002",
+      "text": "돈 얼마 있는지",
+      "site": "kbstar",
+      "expect": "국민은행 계좌조회"
+    },
+    {
+      "id": "kbstar-003",
+      "text": "통장 정리하고 싶어",
+      "site": "kbstar",
+      "expect": "거래내역 조회"
+    },
+    {
+      "id": "kbstar-004",
+      "text": "들어온 돈 확인",
+      "site": "kbstar",
+      "expect": "거래내역 조회"
+    },
+    {
+      "id": "kbstar-005",
+      "text": "돈 부쳐야 하는데",
+      "site": "kbstar",
+      "expect": "계좌이체"
+    },
+    {
+      "id": "kbstar-006",
+      "text": "자동이체 그만하고 싶어",
+      "site": "kbstar",
+      "expect": "자동이체내역 조회/해지/변경"
+    },
+    {
+      "id": "kbstar-007",
+      "text": "매달 빠져나가는 거",
+      "site": "kbstar",
+      "expect": "자동이체내역 조회/해지/변경"
+    },
+    {
+      "id": "kbstar-008",
+      "text": "관리비 내야 해",
+      "site": "kbstar",
+      "expect": "공과금 조회/납부"
+    },
+    {
+      "id": "kbstar-009",
+      "text": "달러 얼마야",
+      "site": "kbstar",
+      "expect": "환율조회"
+    },
+    {
+      "id": "kbstar-010",
+      "text": "비밀번호 바꾸려고",
+      "site": "kbstar",
+      "expect": "계좌비밀번호 신규/변경"
+    },
+    {
+      "id": "kbstar-011",
+      "text": "적금 들고 싶은데",
+      "site": "kbstar",
+      "expect": "예금 상품/가입"
+    },
+    {
+      "id": "kbstar-012",
+      "text": "돈 빌리려고",
+      "site": "kbstar",
+      "expect": "신용대출"
+    },
+    {
+      "id": "kbstar-013",
+      "text": "이체 한도 늘려줘",
+      "site": "kbstar",
+      "expect": "이체한도 조회/감액"
+    },
+    {
+      "id": "kbstar-014",
+      "text": "공과금 자동으로 내게 해줘",
+      "site": "kbstar",
+      "expect": "공과금 등록/관리"
+    },
+    {
+      "id": "kbstar-015",
+      "text": "환율 알려줘",
+      "site": "kbstar",
+      "expect": "환율조회"
+    },
+    {
+      "id": "shinhan-001",
+      "text": "잔액 보여줘",
+      "site": "shinhan",
+      "expect": "전체계좌"
+    },
+    {
+      "id": "shinhan-002",
+      "text": "적금 얼마 모였어",
+      "site": "shinhan",
+      "expect": "예금/신탁"
+    },
+    {
+      "id": "shinhan-003",
+      "text": "돈 보내려고",
+      "site": "shinhan",
+      "expect": "당행/다른기관이체"
+    },
+    {
+      "id": "shinhan-004",
+      "text": "다른 은행으로 부쳐야 해",
+      "site": "shinhan",
+      "expect": "당행/다른기관이체"
+    },
+    {
+      "id": "shinhan-005",
+      "text": "자동이체 안 나가게 해줘",
+      "site": "shinhan",
+      "expect": "자동이체 조회/변경/취소"
+    },
+    {
+      "id": "shinhan-006",
+      "text": "떼가는 거 그만",
+      "site": "shinhan",
+      "expect": "자동이체 조회/변경/취소"
+    },
+    {
+      "id": "shinhan-007",
+      "text": "자동이체 새로 걸래",
+      "site": "shinhan",
+      "expect": "자동이체 등록"
+    },
+    {
+      "id": "shinhan-008",
+      "text": "관리비 낼래",
+      "site": "shinhan",
+      "expect": "나의 공과금 조회/납부"
+    },
+    {
+      "id": "shinhan-009",
+      "text": "달러로 바꾸고 싶어",
+      "site": "shinhan",
+      "expect": "환전"
+    },
+    {
+      "id": "shinhan-010",
+      "text": "잠자는 돈 있나",
+      "site": "shinhan",
+      "expect": "휴면예금조회"
+    },
+    {
+      "id": "shinhan-011",
+      "text": "빚 얼마 남았어",
+      "site": "shinhan",
+      "expect": "대출"
+    },
+    {
+      "id": "shinhan-012",
+      "text": "인증서 새로 받아야 해",
+      "site": "shinhan",
+      "expect": "인증서 발급/재발급"
+    },
+    {
+      "id": "shinhan-013",
+      "text": "인증서 기간 늘리기",
+      "site": "shinhan",
+      "expect": "인증서 갱신"
+    },
+    {
+      "id": "shinhan-014",
+      "text": "보낼 수 있는 금액 줄여줘",
+      "site": "shinhan",
+      "expect": "이체한도감액"
+    },
+    {
+      "id": "shinhan-015",
+      "text": "빌린 돈 내역",
+      "site": "shinhan",
+      "expect": "대출계좌조회"
+    },
+    {
+      "id": "kbsec-001",
+      "text": "얼마 있는지 보자",
+      "site": "kbsec",
+      "expect": "계좌별잔고조회"
+    },
+    {
+      "id": "kbsec-002",
+      "text": "얼마 벌었어",
+      "site": "kbsec",
+      "expect": "계좌별수익률"
+    },
+    {
+      "id": "kbsec-003",
+      "text": "뺄 수 있는 돈",
+      "site": "kbsec",
+      "expect": "출금가능금액"
+    },
+    {
+      "id": "kbsec-004",
+      "text": "돈 빼려고",
+      "site": "kbsec",
+      "expect": "이체"
+    },
+    {
+      "id": "kbsec-005",
+      "text": "펀드 사고 싶어",
+      "site": "kbsec",
+      "expect": "펀드몰"
+    },
+    {
+      "id": "kbsec-006",
+      "text": "펀드 뭐 있어",
+      "site": "kbsec",
+      "expect": "펀드몰"
+    },
+    {
+      "id": "kbsec-007",
+      "text": "노후 준비하려고",
+      "site": "kbsec",
+      "expect": "IRP(개인형퇴직연금)"
+    },
+    {
+      "id": "kbsec-008",
+      "text": "연금 세금 혜택",
+      "site": "kbsec",
+      "expect": "연금계좌 절세활용법"
+    },
+    {
+      "id": "kbsec-009",
+      "text": "계좌 새로 만들래",
+      "site": "kbsec",
+      "expect": "비대면계좌개설"
+    },
+    {
+      "id": "kbsec-010",
+      "text": "잔고 증명서 떼야 해",
+      "site": "kbsec",
+      "expect": "잔고증명서발급"
+    },
+    {
+      "id": "kbsec-011",
+      "text": "계좌 확인서 필요해",
+      "site": "kbsec",
+      "expect": "계좌개설확인서"
+    },
+    {
+      "id": "kbsec-012",
+      "text": "CMA 이자 얼마",
+      "site": "kbsec",
+      "expect": "CMA잔고수익률조회"
+    },
+    {
+      "id": "kbsec-013",
+      "text": "채권 값 보기",
+      "site": "kbsec",
+      "expect": "채권시세"
+    },
+    {
+      "id": "kbsec-014",
+      "text": "찾을 수 있는 금액",
+      "site": "kbsec",
+      "expect": "출금가능금액조회"
+    },
+    {
+      "id": "kbsec-015",
+      "text": "급여 자동으로 들어오게",
+      "site": "kbsec",
+      "expect": "급여이체 서비스"
+    },
+    {
+      "id": "miraeasset-001",
+      "text": "돈 보내려고",
+      "site": "miraeasset",
+      "expect": "간편이체"
+    },
+    {
+      "id": "miraeasset-002",
+      "text": "빠르게 송금",
+      "site": "miraeasset",
+      "expect": "간편이체"
+    },
+    {
+      "id": "miraeasset-003",
+      "text": "나중에 보내기",
+      "site": "miraeasset",
+      "expect": "다계좌/예약이체"
+    },
+    {
+      "id": "miraeasset-004",
+      "text": "펀드 얼마나 있어",
+      "site": "miraeasset",
+      "expect": "펀드잔고"
+    },
+    {
+      "id": "miraeasset-005",
+      "text": "수익 났나 보자",
+      "site": "miraeasset",
+      "expect": "기준가/수익률조회"
+    },
+    {
+      "id": "miraeasset-006",
+      "text": "연금 얼마 모였어",
+      "site": "miraeasset",
+      "expect": "개인연금 잔고"
+    },
+    {
+      "id": "miraeasset-007",
+      "text": "펀드 알아보고 싶어",
+      "site": "miraeasset",
+      "expect": "펀드검색"
+    },
+    {
+      "id": "miraeasset-008",
+      "text": "계좌 새로 만들래",
+      "site": "miraeasset",
+      "expect": "온라인 계좌개설"
+    },
+    {
+      "id": "miraeasset-009",
+      "text": "보낼 계좌 확인",
+      "site": "miraeasset",
+      "expect": "이체계좌/정보조회"
+    },
+    {
+      "id": "miraeasset-010",
+      "text": "개인연금 잔고",
+      "site": "miraeasset",
+      "expect": "개인연금 잔고"
+    },
+    {
+      "id": "miraeasset-011",
+      "text": "채권 수익률",
+      "site": "miraeasset",
+      "expect": "기준수익률"
+    },
+    {
+      "id": "miraeasset-012",
+      "text": "ELS 얼마 있어",
+      "site": "miraeasset",
+      "expect": "ELS/DLS보유잔고"
+    },
+    {
+      "id": "miraeasset-013",
+      "text": "청약 넣으려고",
+      "site": "miraeasset",
+      "expect": "공모주청약"
+    },
+    {
+      "id": "miraeasset-014",
+      "text": "수수료 얼마야",
+      "site": "miraeasset",
+      "expect": "운용/자산관리 수수료"
+    },
+    {
+      "id": "miraeasset-015",
+      "text": "해외주식 하고 싶어",
+      "site": "miraeasset",
+      "expect": "해외주식 거래안내"
+    },
+    {
+      "id": "kebhana-001",
+      "text": "잔액 좀 보자",
+      "site": "kebhana",
+      "expect": "계좌조회"
+    },
+    {
+      "id": "kebhana-002",
+      "text": "통장에 얼마 있어",
+      "site": "kebhana",
+      "expect": "계좌조회"
+    },
+    {
+      "id": "kebhana-003",
+      "text": "통장 정리하려고",
+      "site": "kebhana",
+      "expect": "거래내역조회"
+    },
+    {
+      "id": "kebhana-004",
+      "text": "들어온 돈 보고 싶어",
+      "site": "kebhana",
+      "expect": "거래내역조회"
+    },
+    {
+      "id": "kebhana-005",
+      "text": "돈 부쳐야 하는데",
+      "site": "kebhana",
+      "expect": "계좌이체"
+    },
+    {
+      "id": "kebhana-006",
+      "text": "딸한테 송금할래",
+      "site": "kebhana",
+      "expect": "계좌이체"
+    },
+    {
+      "id": "kebhana-007",
+      "text": "매달 나가는 거 끊고 싶어",
+      "site": "kebhana",
+      "expect": "자동이체 조회/변경/취소"
+    },
+    {
+      "id": "kebhana-008",
+      "text": "관리비 내야 해",
+      "site": "kebhana",
+      "expect": "공과금등록/납부"
+    },
+    {
+      "id": "kebhana-009",
+      "text": "달러 얼마야",
+      "site": "kebhana",
+      "expect": "환율/외화예금 금리"
+    },
+    {
+      "id": "kebhana-010",
+      "text": "빚 얼마 남았어",
+      "site": "kebhana",
+      "expect": "대출계좌조회"
+    },
+    {
+      "id": "kebhana-011",
+      "text": "적금 들고 싶은데",
+      "site": "kebhana",
+      "expect": "예금조회/추가입금"
+    },
+    {
+      "id": "kebhana-012",
+      "text": "펀드 얼마 벌었나",
+      "site": "kebhana",
+      "expect": "내펀드수익률조회"
+    },
+    {
+      "id": "kebhana-013",
+      "text": "인증서 새로 받아야 해",
+      "site": "kebhana",
+      "expect": "인증서 신규/재발급"
+    },
+    {
+      "id": "kebhana-014",
+      "text": "비번 바꾸려고",
+      "site": "kebhana",
+      "expect": "비밀번호 등록/변경"
+    },
+    {
+      "id": "kebhana-015",
+      "text": "서류 떼야 해",
+      "site": "kebhana",
+      "expect": "잔액증명서 발급"
+    },
+    {
+      "id": "bank-001",
+      "text": "돈 좀 부쳐야 하는데",
+      "site": "bank",
+      "expect": "transfer.account"
+    },
+    {
+      "id": "bank-002",
+      "text": "송금하려고",
+      "site": "bank",
+      "expect": "transfer.account"
+    },
+    {
+      "id": "bank-003",
+      "text": "돈 보내기",
+      "site": "bank",
+      "expect": "transfer.account"
+    },
+    {
+      "id": "bank-004",
+      "text": "계좌이체 해줘",
+      "site": "bank",
+      "expect": "transfer.account"
+    },
+    {
+      "id": "bank-005",
+      "text": "잔액 얼마 남았어",
+      "site": "bank",
+      "expect": "inquiry.balance"
+    },
+    {
+      "id": "bank-006",
+      "text": "돈 얼마 있어",
+      "site": "bank",
+      "expect": "inquiry.balance"
+    },
+    {
+      "id": "bank-007",
+      "text": "통장 확인하고 싶어",
+      "site": "bank",
+      "expect": "inquiry.balance"
+    },
+    {
+      "id": "bank-008",
+      "text": "잔고 좀 보자",
+      "site": "bank",
+      "expect": "inquiry.balance"
+    },
+    {
+      "id": "bank-009",
+      "text": "자동이체 안 나가게 해야 하는데",
+      "site": "bank",
+      "expect": "transfer.auto"
+    },
+    {
+      "id": "bank-010",
+      "text": "매달 나가는 돈 좀 보자",
+      "site": "bank",
+      "expect": "transfer.auto"
+    },
+    {
+      "id": "bank-011",
+      "text": "떼가는 거 그만하고 싶어",
+      "site": "bank",
+      "expect": "transfer.auto"
+    },
+    {
+      "id": "bank-012",
+      "text": "자동이체 해지",
+      "site": "bank",
+      "expect": "transfer.auto"
+    },
+    {
+      "id": "bank-013",
+      "text": "빠져나가는 돈 확인",
+      "site": "bank",
+      "expect": "transfer.auto"
+    },
+    {
+      "id": "bank-014",
+      "text": "입금 확인하려고",
+      "site": "bank",
+      "expect": "inquiry.history"
+    },
+    {
+      "id": "bank-015",
+      "text": "들어온 돈 보고 싶어",
+      "site": "bank",
+      "expect": "inquiry.history"
+    },
+    {
+      "id": "bank-016",
+      "text": "통장 정리해줘",
+      "site": "bank",
+      "expect": "inquiry.history"
+    },
+    {
+      "id": "bank-017",
+      "text": "내역 좀 보자",
+      "site": "bank",
+      "expect": "inquiry.history"
+    },
+    {
+      "id": "bank-018",
+      "text": "연금 언제 들어와",
+      "site": "bank",
+      "expect": "inquiry.deposit"
+    },
+    {
+      "id": "bank-019",
+      "text": "월급날이 언제지",
+      "site": "bank",
+      "expect": "inquiry.deposit"
+    },
+    {
+      "id": "bank-020",
+      "text": "들어올 돈 있나",
+      "site": "bank",
+      "expect": "inquiry.deposit"
+    },
+    {
+      "id": "bank-021",
+      "text": "통장 몇 개나 있어",
+      "site": "bank",
+      "expect": "inquiry.accounts"
+    },
+    {
+      "id": "bank-022",
+      "text": "계좌 목록 보여줘",
+      "site": "bank",
+      "expect": "inquiry.accounts"
+    },
+    {
+      "id": "bank-023",
+      "text": "영수증 떼야 하는데",
+      "site": "bank",
+      "expect": "inquiry.statement"
+    },
+    {
+      "id": "bank-024",
+      "text": "이체 확인증 필요해",
+      "site": "bank",
+      "expect": "inquiry.statement"
+    },
+    {
+      "id": "bank-025",
+      "text": "전에 보낸 사람한테 또 보내려고",
+      "site": "bank",
+      "expect": "transfer.recent"
+    },
+    {
+      "id": "bank-026",
+      "text": "지난번 그 계좌",
+      "site": "bank",
+      "expect": "transfer.recent"
+    },
+    {
+      "id": "bank-027",
+      "text": "나중에 보내기",
+      "site": "bank",
+      "expect": "transfer.reserve"
+    },
+    {
+      "id": "bank-028",
+      "text": "날짜 정해서 보내고 싶어",
+      "site": "bank",
+      "expect": "transfer.reserve"
+    },
+    {
+      "id": "bank-029",
+      "text": "외국으로 보내야 해",
+      "site": "bank",
+      "expect": "transfer.overseas"
+    },
+    {
+      "id": "bank-030",
+      "text": "달러 보내기",
+      "site": "bank",
+      "expect": "transfer.overseas"
+    },
+    {
+      "id": "bank-031",
+      "text": "한번에 여러 곳 보내기",
+      "site": "bank",
+      "expect": "transfer.bulk"
+    },
+    {
+      "id": "bank-032",
+      "text": "적금 들고 싶어",
+      "site": "bank",
+      "expect": "product.savings"
+    },
+    {
+      "id": "bank-033",
+      "text": "이자 많은 거 뭐 있어",
+      "site": "bank",
+      "expect": "product.savings"
+    },
+    {
+      "id": "bank-034",
+      "text": "돈 좀 빌리려고",
+      "site": "bank",
+      "expect": "product.loan"
+    },
+    {
+      "id": "bank-035",
+      "text": "대출 알아보고 싶어",
+      "site": "bank",
+      "expect": "product.loan"
+    },
+    {
+      "id": "bank-036",
+      "text": "체크카드 만들래",
+      "site": "bank",
+      "expect": "product.card"
+    },
+    {
+      "id": "bank-037",
+      "text": "펀드 가입하려고",
+      "site": "bank",
+      "expect": "product.fund"
+    },
+    {
+      "id": "bank-038",
+      "text": "보험 들고 싶은데",
+      "site": "bank",
+      "expect": "product.insurance"
+    },
+    {
+      "id": "bank-039",
+      "text": "노후 준비하려고",
+      "site": "bank",
+      "expect": "product.pension"
+    },
+    {
+      "id": "bank-040",
+      "text": "보낼 수 있는 금액 늘려줘",
+      "site": "bank",
+      "expect": "settings.limit"
+    },
+    {
+      "id": "bank-041",
+      "text": "한도 올리고 싶어",
+      "site": "bank",
+      "expect": "settings.limit"
+    },
+    {
+      "id": "bank-042",
+      "text": "돈 들어오면 알려줘",
+      "site": "bank",
+      "expect": "settings.alarm"
+    },
+    {
+      "id": "bank-043",
+      "text": "문자 알림 설정",
+      "site": "bank",
+      "expect": "settings.alarm"
+    },
+    {
+      "id": "bank-044",
+      "text": "주소 바꿔야 해",
+      "site": "bank",
+      "expect": "settings.profile"
+    },
+    {
+      "id": "bank-045",
+      "text": "글씨 크게 해줘",
+      "site": "bank",
+      "expect": "settings.display"
+    },
+    {
+      "id": "bank-046",
+      "text": "사람이랑 통화하고 싶어",
+      "site": "bank",
+      "expect": "support.call"
+    },
+    {
+      "id": "bank-047",
+      "text": "상담원 연결해줘",
+      "site": "bank",
+      "expect": "support.call"
+    },
+    {
+      "id": "bank-048",
+      "text": "공동인증서 갱신해야 하는데",
+      "site": "bank",
+      "expect": "auth.certificate"
+    },
+    {
+      "id": "bank-049",
+      "text": "비밀번호 바꾸려고",
+      "site": "bank",
+      "expect": "auth.password"
+    },
+    {
+      "id": "bank-050",
+      "text": "지문 등록하고 싶어",
+      "site": "bank",
+      "expect": "auth.simple"
+    },
+    {
+      "id": "negative-001",
+      "text": "날씨 어때",
+      "site": "any"
+    },
+    {
+      "id": "negative-002",
+      "text": "오늘 뉴스 좀 보여줘",
+      "site": "any"
+    },
+    {
+      "id": "negative-003",
+      "text": "김치찌개 끓이는 법",
+      "site": "any"
+    },
+    {
+      "id": "negative-004",
+      "text": "지하철 몇 시까지 다녀",
+      "site": "any"
+    },
+    {
+      "id": "negative-005",
+      "text": "아까 그거 다시",
+      "site": "any"
+    },
+    {
+      "id": "negative-006",
+      "text": "그거 있잖아 그거",
+      "site": "any"
+    },
+    {
+      "id": "negative-007",
+      "text": "음 저기 그",
+      "site": "any"
+    },
+    {
+      "id": "negative-008",
+      "text": "어제 뭐 했더라",
+      "site": "any"
+    },
+    {
+      "id": "negative-009",
+      "text": "우리 딸 전화번호",
+      "site": "any"
+    },
+    {
+      "id": "negative-010",
+      "text": "노래 좀 틀어줘",
+      "site": "any"
+    },
+    {
+      "id": "negative-011",
+      "text": "여기 어디야",
+      "site": "any"
+    },
+    {
+      "id": "negative-012",
+      "text": "사진 보여줘",
+      "site": "any"
+    },
+    {
+      "id": "negative-013",
+      "text": "배고픈데",
+      "site": "any"
+    },
+    {
+      "id": "negative-014",
+      "text": "티비 켜줘",
+      "site": "any"
+    },
+    {
+      "id": "negative-015",
+      "text": "택시 불러줘",
+      "site": "any"
+    },
+    {
+      "id": "negative-016",
+      "text": "약 먹을 시간이야",
+      "site": "any"
+    },
+    {
+      "id": "negative-017",
+      "text": "손자 생일이 언제였지",
+      "site": "any"
+    },
+    {
+      "id": "negative-018",
+      "text": "병원 예약해줘",
+      "site": "any"
+    },
+    {
+      "id": "negative-019",
+      "text": "문자 보내줘",
+      "site": "any"
+    },
+    {
+      "id": "negative-020",
+      "text": "알람 맞춰줘",
+      "site": "any"
+    }
+  ]
+}

@@ -27,11 +27,38 @@ export interface SttError {
   message: string;
 }
 
-/** 인식 결과 하나. */
-export interface SttResult {
+/** 엔진이 들은 것 하나. 순위가 있는 대안 목록의 한 칸이기도 하다. */
+export interface SttHypothesis {
   text: string;
   /** 0..1. 구현체가 신뢰도를 주지 않으면 1로 채운다. */
   confidence: number;
+}
+
+/** 인식 결과 하나. */
+export interface SttResult extends SttHypothesis {
+  /**
+   * 이 인식이 기기 안에서 돌았는가 (M22).
+   *
+   * <p>모르는 구현체는 주지 않는다. 벤치가 온디바이스와 클라우드를 갈라 보는 데 쓴다 —
+   * 둘은 다른 모델이므로 수치를 섞으면 안 된다.
+   */
+  local?: boolean;
+  /**
+   * 같은 발화에 대한 <b>다른 후보들</b>. 점수가 높은 것부터. (M21)
+   *
+   * <p>엔진이 들은 것을 하나로 확정하지 못할 때 여러 개를 준다. 첫 칸은 `text`와 같다.
+   * 지금까지 이 값을 받지 않고 1순위만 썼는데, 버린 것 안에 정답이 있는 경우가
+   * <b>공짜로 얻을 수 있는 회수</b>다 (기획안 §9.2).
+   *
+   * <p><b>선택 필드다.</b> 주지 않는 구현체가 있어도 부르는 쪽은 지금까지처럼 돈다.
+   */
+  alternatives?: readonly SttHypothesis[];
+}
+
+/** 인식기에 미리 알려 줄 말 하나 (M22). `boost`는 0..10 — 브라우저가 강제하는 범위다. */
+export interface SttPhrase {
+  phrase: string;
+  boost: number;
 }
 
 export interface SttProvider {
@@ -40,6 +67,26 @@ export interface SttProvider {
 
   start(): Promise<void>;
   stop(): void;
+
+  /**
+   * 이번 발화에서 나올 법한 말을 인식기에 미리 알려 준다 (M22). **선택 계약이다.**
+   *
+   * <p>M21이 되찾지 못한 오류는 발음 변이가 아니라 어휘 치환이었다 —
+   * `자동이체`→`자동차`, `돈 부쳐야 하는데`→`동두천`. 인식기가 자기가 은행 앱에서 듣고
+   * 있다는 걸 모르기 때문이고, 그것은 검색이 사후에 고칠 수 있는 종류가 아니다.
+   *
+   * <p>지원하지 않는 구현체에는 <b>없다.</b> 부르는 쪽은 `stt.setPhrases?.(...)`로 부르고,
+   * 없으면 지금까지처럼 돈다(불변 규칙 9).
+   */
+  setPhrases?(phrases: readonly SttPhrase[]): void;
+
+  /**
+   * 오디오가 기기를 떠나지 않는 인식을 <b>쓸 수 있으면</b> 쓴다 (M22). **선택 계약이다.**
+   *
+   * <p>강요가 아니라 요청이다 — 언어팩이 없으면 내려받게 하지 않고 조용히 지금까지의
+   * 경로로 돈다. 어느 쪽으로 돌았는지는 `SttResult.local`이 말한다.
+   */
+  preferLocal?(value: boolean): void;
 
   /** 중간 인식 결과. 응답 체감 속도를 높이는 데 쓴다 (기획안 §9.2). */
   onPartial(callback: (text: string) => void): () => void;

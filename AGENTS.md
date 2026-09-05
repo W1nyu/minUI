@@ -23,6 +23,12 @@
 | `services/matcher` | 원격 신경망 검색 (M11) | **모델 파일과 벡터가 여기 밖으로 나가지 않는다.** onnx는 `encoder`·`rerank`에만 있고, 벡터를 다루는 부분은 모델 없이 돌아 CI에서 재진다 |
 | `docs` | 기획안 — 설계·측정·실패 기록이 한 파일에 있다 | |
 
+**M21의 음성 코퍼스는 오디오를 남기지 않는다.** `demos/src/SttLab.tsx`(개발 전용,
+`MINUI_STT_LAB=1`일 때만 라우트가 생기고 배포 번들에 들어가지 않는다)가 모으는 것은
+`{읽으라고 한 문장, 인식기가 적은 말, 대안, 신뢰도, 익명 화자 id, 출처}`뿐이다.
+층위(TTS 합성·본인 낭독·다른 사람 낭독)를 섞어 평균내지 않고, 학습과 판정을 **화자로**
+가른다. 규약은 `docs/음성코퍼스-프로토콜.md`.
+
 ## 규칙의 적용 원칙 — 안전선은 지키고, 기본값은 개선한다
 
 이 프로젝트의 목표는 규칙 준수가 아니라 **금융 접근성을 실제로 높이는 제품**이다. 이식성은
@@ -174,6 +180,11 @@ pnpm --filter tools bench:learning     # 개인 동의어 학습이 나머지를
 pnpm --filter tools diagnose           # 놓친 질의가 왜 놓쳤는가
 pnpm --filter tools tune:threshold     # 임계값 저울 (정답 세트 + 답 없는 세트)
 pnpm --filter tools tune:search        # 파라미터 — 튜닝/검증 세트 분리
+pnpm --filter tools diagnose:homophones # 발음 표기가 만드는 충돌 (M21)
+pnpm --filter tools build:stt-prompts   # 낭독용 프롬프트 145건
+pnpm --filter tools fit:confusion       # 코퍼스 → 자모 혼동 비용표
+pnpm --filter tools bench:voice         # 음성 경로 사전 등록 게이트 (M21)
+MINUI_PRE_M21=1 pnpm --filter tools bench:sites      # M21을 끄고 같은 세트를 다시
 pnpm --filter tools measure:portability
 pnpm --filter tools report:usertest    # 사용자 테스트 1차 지표 (M10). 세션이 없으면 미측정을 그대로 찍는다
 

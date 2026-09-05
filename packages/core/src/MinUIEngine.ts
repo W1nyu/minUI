@@ -6,7 +6,14 @@ import { type MinUIConfig, type PartialConfig, resolveConfig } from "./config.js
 import { LearnedTerms } from "./search/LearnedTerms.js";
 import { MenuIndex } from "./search/MenuIndex.js";
 import { NgramTfIdfProvider } from "./search/NgramTfIdfProvider.js";
-import { SearchPipeline, type SearchOutcome } from "./search/SearchPipeline.js";
+import {
+  SearchPipeline,
+  type Hypothesis,
+  type SearchOptions,
+  type SearchOutcome,
+} from "./search/SearchPipeline.js";
+import { toPrior, type MenuPrior } from "./search/prior.js";
+import { buildBiasPhrases, type BiasPhrase } from "./search/bias.js";
 import { resolveVoiceAction, type VoiceAction } from "./search/voiceAction.js";
 import type { EmbeddingProvider } from "./search/EmbeddingProvider.js";
 import type { NeuralMatch, NeuralRetriever } from "./search/neural.js";
@@ -88,6 +95,9 @@ export interface MinUIEngineOptions {
  *   create()로 세션을 열고 → 세션 내내 getCards()는 같은 값을 낸다 → close()로 닫는다.
  *   재배치 결정은 create() 시점에 한 번만 이뤄지며, 그 결과는 *다음* 세션에 보인다.
  */
+/** 사전확률이 꺼져 있을 때 나눠 쓰는 빈 표. 질의마다 새로 만들지 않는다. */
+const EMPTY_PRIOR: MenuPrior = new Map();
+
 export class MinUIEngine {
   readonly #config: MinUIConfig;
   readonly #catalog: MenuCatalog;
@@ -235,7 +245,62 @@ export class MinUIEngine {
    * 무엇을 할지는 `voiceAction()`이 정하고, 실제로 여는 것은 호스트의 탭이다.
    */
   search(query: string): SearchOutcome {
-    return this.#search.search(query);
+    return this.#search.search(query, this.#prior());
+  }
+
+  /**
+   * 인식기에 미리 알려 줄 말 (M22).
+   *
+   * <p>호스트가 마이크를 열기 <b>직전에</b> 불러 STT에 넘긴다. 코어는 인식기를 모르므로
+   * 목록만 만든다(불변 규칙 1).
+   *
+   * <h3>개인 학습어는 넣지 않는다 (M22에서 내린 판단)</h3>
+   *
+   * <p>M7이 배운 말은 사용자가 실제로 쓴 말이라 편향 재료로 가장 강하다. 그런데
+   * <b>넣을지 말지를 정해야 하는 시점에 인식이 어디서 돌지 알 수 없다.</b> 온디바이스
+   * 여부는 언어팩 유무에 달려 있고 그 답은 `start()` 뒤에 온다. 언어팩이 없는 기기에서
+   * 넣으면 배운 말이 클라우드로 나가는데, §11.1은 그 값이 "기기를 떠나지 않는다"고
+   * 못 박았다.
+   *
+   * <p>그래서 여기서 나가는 것은 <b>공개 카탈로그의 메뉴 이름과 사람이 쓴 동의어</b>뿐이다.
+   * 개인정보가 아니다. 배운 말을 쓰려면 인식기가 "지금 기기 안에서 돈다"를 <b>미리</b>
+   * 말해 줄 수 있어야 하고, 그 계약이 생기면 `buildBiasPhrases`의 `extra`가 그 자리다.
+   */
+  biasPhrases(): BiasPhrase[] {
+    const settings = this.#config.search.bias;
+    if (!settings.enabled) return [];
+    return buildBiasPhrases(this.#catalog, this.#priorMap(), settings);
+  }
+
+  /** 오디오가 기기를 떠나지 않는 인식을 쓸 수 있으면 쓸 것인가 (M22, 설정값). */
+  preferLocalAudio(): boolean {
+    return this.#config.search.bias.preferLocal;
+  }
+
+  /**
+   * 이 사람이 무엇을 하러 왔을 가능성 (M22, 잡음 채널의 사전확률).
+   *
+   * <p><b>시계가 여기 있다.</b> 사전확률은 시각과 사용 이력을 봐야 하는데 `SearchPipeline`은
+   * 시계를 갖지 않으므로(불변 규칙 1), 엔진이 만들어 넘긴다.
+   *
+   * <p>꺼져 있으면 빈 것을 준다 — 그러면 파이프라인이 지금까지와 <b>바이트 동일</b>하게 돈다.
+   */
+  #prior(): SearchOptions {
+    const prior = this.#priorMap();
+    return prior.size > 0 ? { prior } : {};
+  }
+
+  /**
+   * 사전확률 표. 검색과 편향이 <b>같은 것</b>을 본다 — 두 벌로 두면 "자주 쓰는 것"의
+   * 뜻이 두 곳에서 갈라진다.
+   *
+   * <p>꺼져 있으면 빈 것을 준다. 그러면 검색은 지금까지와 바이트 동일하게 돌고,
+   * 편향은 카탈로그 순서로만 채워진다.
+   */
+  #priorMap(): MenuPrior {
+    const settings = this.#config.search.prior;
+    if (!settings.enabled) return EMPTY_PRIOR;
+    return toPrior(this.#rank(this.#clock()), settings);
   }
 
   /**
@@ -286,12 +351,40 @@ export class MinUIEngine {
     const remote = await this.#askRemote(query);
     if (!remote) return local;
 
-    return this.#search.searchMerged(query, remote);
+    return this.#search.searchMerged(query, remote, this.#prior());
   }
 
   /** 원격까지 물어보고 화면 동작까지 정한다 (M11). */
   async voiceActionWithRetrieval(query: string, sttConfidence?: number): Promise<VoiceAction> {
     return this.#act(await this.searchWithRetrieval(query), sttConfidence);
+  }
+
+  /**
+   * 인식 대안까지 함께 놓고 화면 동작을 정한다 (M21 N-best).
+   *
+   * <p><b>지금보다 나빠지지 않는다.</b> 대안이 하나뿐이거나 기능이 꺼져 있으면
+   * `voiceActionWithRetrieval`과 <b>같은 것</b>이 나온다. 대안을 함께 봐서도 못 좁혔으면
+   * 지금까지처럼 1순위 가설로 원격에 묻는다 — 넓히기가 실패했다고 기존 경로를
+   * 잃지는 않는다.
+   *
+   * <p>원격은 <b>1순위 가설로만</b> 묻는다. 대안마다 물으면 지연과 호출 수가 가설 수만큼
+   * 곱해지는데, 그 값을 치를 근거가 아직 없다.
+   *
+   * <p>§9.3의 안전 경계는 여기서도 `#act` 한 곳만 지난다.
+   */
+  async voiceActionFromHypotheses(
+    hypotheses: readonly Hypothesis[],
+    sttConfidence?: number,
+  ): Promise<VoiceAction> {
+    const primary = hypotheses[0]?.text ?? "";
+    if (hypotheses.length <= 1 || !this.#config.search.nbest.enabled) {
+      return this.voiceActionWithRetrieval(primary, sttConfidence);
+    }
+
+    const widened = this.#search.searchHypotheses(hypotheses, this.#prior());
+    if (widened.status === "ok") return this.#act(widened, sttConfidence);
+
+    return this.voiceActionWithRetrieval(primary, sttConfidence);
   }
 
   /**

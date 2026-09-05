@@ -1,0 +1,3961 @@
+{
+  "description": "음성 코퍼스. 오디오는 담지 않는다 — 무엇을 읽으라고 했고 무엇으로 적혔는지의 문자열 쌍뿐이다 (기획안 §11.2).",
+  "protocol": "docs/음성코퍼스-프로토콜.md",
+  "collectedAt": "2026-09-04 ~ 2026-09-05",
+  "engine": "web-speech ko-KR",
+  "rows": [
+    {
+      "promptId": "kbstar-001",
+      "site": "kbstar",
+      "intended": "잔액 좀 보자",
+      "expect": "국민은행 계좌조회",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "잔액 좀 보자",
+      "alternatives": [
+        "잔액 좀 보자"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbstar-002",
+      "site": "kbstar",
+      "intended": "돈 얼마 있는지",
+      "expect": "국민은행 계좌조회",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "돈 얼마 있는지",
+      "alternatives": [
+        "돈 얼마 있는지"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbstar-003",
+      "site": "kbstar",
+      "intended": "통장 정리하고 싶어",
+      "expect": "거래내역 조회",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "통장 정리 하고 싶어",
+      "alternatives": [
+        "통장 정리 하고 싶어",
+        "통장 정리하고 싶어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbstar-004",
+      "site": "kbstar",
+      "intended": "들어온 돈 확인",
+      "expect": "거래내역 조회",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "드론 돈 확인",
+      "alternatives": [
+        "드론 돈 확인"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbstar-005",
+      "site": "kbstar",
+      "intended": "돈 부쳐야 하는데",
+      "expect": "계좌이체",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "돈 부쳐야 하는데",
+      "alternatives": [
+        "돈 부쳐야 하는데"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbstar-006",
+      "site": "kbstar",
+      "intended": "자동이체 그만하고 싶어",
+      "expect": "자동이체내역 조회/해지/변경",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "자동차 그만하고 싶어",
+      "alternatives": [
+        "자동차 그만하고 싶어",
+        "자동차 그만 하고 싶어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbstar-007",
+      "site": "kbstar",
+      "intended": "매달 빠져나가는 거",
+      "expect": "자동이체내역 조회/해지/변경",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "매달 빠져나가는 거",
+      "alternatives": [
+        "매달 빠져나가는 거",
+        "몇 월 빠져나가는 거",
+        "빠져나가는 거",
+        "매달 빠져 나가는 거"
+      ],
+      "confidence": 0.8545651435852051
+    },
+    {
+      "promptId": "kbstar-008",
+      "site": "kbstar",
+      "intended": "관리비 내야 해",
+      "expect": "공과금 조회/납부",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "관리비 내야 해",
+      "alternatives": [
+        "관리비 내야 해"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbstar-009",
+      "site": "kbstar",
+      "intended": "달러 얼마야",
+      "expect": "환율조회",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "달러 얼마야",
+      "alternatives": [
+        "달러 얼마야"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbstar-010",
+      "site": "kbstar",
+      "intended": "비밀번호 바꾸려고",
+      "expect": "계좌비밀번호 신규/변경",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "비밀번호 바꾸려고",
+      "alternatives": [
+        "비밀번호 바꾸려고"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbstar-011",
+      "site": "kbstar",
+      "intended": "적금 들고 싶은데",
+      "expect": "예금 상품/가입",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "적금 좀 들고 싶은데",
+      "alternatives": [
+        "적금 좀 들고 싶은데"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbstar-012",
+      "site": "kbstar",
+      "intended": "돈 빌리려고",
+      "expect": "신용대출",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "",
+      "alternatives": [],
+      "confidence": 0,
+      "error": "timeout"
+    },
+    {
+      "promptId": "kbstar-013",
+      "site": "kbstar",
+      "intended": "이체 한도 늘려줘",
+      "expect": "이체한도 조회/감액",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "이체한도 들려 줘",
+      "alternatives": [
+        "이체한도 들려 줘",
+        "이체 한도 들려 줘",
+        "이찬도 들려 줘",
+        "이차 한도 들려 줘"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbstar-014",
+      "site": "kbstar",
+      "intended": "공과금 자동으로 내게 해줘",
+      "expect": "공과금 등록/관리",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "공과금 자동으로 되게 해 줘",
+      "alternatives": [
+        "공과금 자동으로 되게 해 줘"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbstar-015",
+      "site": "kbstar",
+      "intended": "환율 알려줘",
+      "expect": "환율조회",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "환율 알려 줘",
+      "alternatives": [
+        "환율 알려 줘"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "shinhan-001",
+      "site": "shinhan",
+      "intended": "잔액 보여줘",
+      "expect": "전체계좌",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "잔액 보여 줘",
+      "alternatives": [
+        "잔액 보여 줘",
+        "보여 줘",
+        "저녁에 보여 줘"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "shinhan-002",
+      "site": "shinhan",
+      "intended": "적금 얼마 모였어",
+      "expect": "예금/신탁",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "적금 얼마 모았어",
+      "alternatives": [
+        "적금 얼마 모았어",
+        "적금 얼마 나왔어",
+        "적금 얼마 먹었어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "shinhan-003",
+      "site": "shinhan",
+      "intended": "돈 보내려고",
+      "expect": "당행/다른기관이체",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "돈 보내라고",
+      "alternatives": [
+        "돈 보내라고",
+        "돈 보내려고"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "shinhan-004",
+      "site": "shinhan",
+      "intended": "다른 은행으로 부쳐야 해",
+      "expect": "당행/다른기관이체",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "",
+      "alternatives": [],
+      "confidence": 0,
+      "error": "timeout"
+    },
+    {
+      "promptId": "shinhan-005",
+      "site": "shinhan",
+      "intended": "자동이체 안 나가게 해줘",
+      "expect": "자동이체 조회/변경/취소",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "자동이체 안 나가게 해 줘",
+      "alternatives": [
+        "자동이체 안 나가게 해 줘",
+        "자동이체 안 나오게 해 줘",
+        "자동이체 안 나게 해 줘",
+        "자동 이체 안 나가게 해 줘"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "shinhan-006",
+      "site": "shinhan",
+      "intended": "떼가는 거 그만",
+      "expect": "자동이체 조회/변경/취소",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "",
+      "alternatives": [],
+      "confidence": 0,
+      "error": "timeout"
+    },
+    {
+      "promptId": "shinhan-007",
+      "site": "shinhan",
+      "intended": "자동이체 새로 걸래",
+      "expect": "자동이체 등록",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "자동 이체 세로 걸레",
+      "alternatives": [
+        "자동 이체 세로 걸레",
+        "자동 이체 새로 걸레",
+        "자동이체 세로 걸레"
+      ],
+      "confidence": 0.8594702482223511
+    },
+    {
+      "promptId": "shinhan-008",
+      "site": "shinhan",
+      "intended": "관리비 낼래",
+      "expect": "나의 공과금 조회/납부",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "관리비 낼래",
+      "alternatives": [
+        "관리비 낼래"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "shinhan-009",
+      "site": "shinhan",
+      "intended": "달러로 바꾸고 싶어",
+      "expect": "환전",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "달러로 바꾸고 싶어",
+      "alternatives": [
+        "달러로 바꾸고 싶어",
+        "바꾸고 싶어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "shinhan-010",
+      "site": "shinhan",
+      "intended": "잠자는 돈 있나",
+      "expect": "휴면예금조회",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "잠자는 돈 있나",
+      "alternatives": [
+        "잠자는 돈 있나"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "shinhan-011",
+      "site": "shinhan",
+      "intended": "빚 얼마 남았어",
+      "expect": "대출",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "빚 얼마나 남았어",
+      "alternatives": [
+        "빚 얼마나 남았어",
+        "빛 얼마나 남았어",
+        "빚 얼마 남았어",
+        "빚 얼마나 왔어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "shinhan-012",
+      "site": "shinhan",
+      "intended": "인증서 새로 받아야 해",
+      "expect": "인증서 발급/재발급",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "인증서 새로 받아야 해",
+      "alternatives": [
+        "인증서 새로 받아야 해"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "shinhan-013",
+      "site": "shinhan",
+      "intended": "인증서 기간 늘리기",
+      "expect": "인증서 갱신",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "인증서 기간 늘리기",
+      "alternatives": [
+        "인증서 기간 늘리기",
+        "인증서 기간 들리기"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "shinhan-014",
+      "site": "shinhan",
+      "intended": "보낼 수 있는 금액 줄여줘",
+      "expect": "이체한도감액",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "보낼 수 있는 금액 줄여 줘",
+      "alternatives": [
+        "보낼 수 있는 금액 줄여 줘"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "shinhan-015",
+      "site": "shinhan",
+      "intended": "빌린 돈 내역",
+      "expect": "대출계좌조회",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "",
+      "alternatives": [],
+      "confidence": 0,
+      "error": "timeout"
+    },
+    {
+      "promptId": "kbsec-001",
+      "site": "kbsec",
+      "intended": "얼마 있는지 보자",
+      "expect": "계좌별잔고조회",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "얼마 있는지 좀 보자",
+      "alternatives": [
+        "얼마 있는지 좀 보자"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbsec-002",
+      "site": "kbsec",
+      "intended": "얼마 벌었어",
+      "expect": "계좌별수익률",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "얼마 벌었어",
+      "alternatives": [
+        "얼마 벌었어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbsec-003",
+      "site": "kbsec",
+      "intended": "뺄 수 있는 돈",
+      "expect": "출금가능금액",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "딸 수 있는 돈",
+      "alternatives": [
+        "딸 수 있는 돈"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbsec-004",
+      "site": "kbsec",
+      "intended": "돈 빼려고",
+      "expect": "이체",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "돈 좀 빼라고",
+      "alternatives": [
+        "돈 좀 빼라고"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbsec-005",
+      "site": "kbsec",
+      "intended": "펀드 사고 싶어",
+      "expect": "펀드몰",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "펀드 좀 사고 싶어",
+      "alternatives": [
+        "펀드 좀 사고 싶어",
+        "펀드 좀 타고 싶어",
+        "판도 좀 사고 싶어",
+        "판듀 좀 사고 싶어",
+        "판도 좀 자고 싶어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbsec-006",
+      "site": "kbsec",
+      "intended": "펀드 뭐 있어",
+      "expect": "펀드몰",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "오늘 뭐 했어",
+      "alternatives": [
+        "오늘 뭐 했어",
+        "오늘 뭐 있어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbsec-007",
+      "site": "kbsec",
+      "intended": "노후 준비하려고",
+      "expect": "IRP(개인형퇴직연금)",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "노후 준비하려고",
+      "alternatives": [
+        "노후 준비하려고",
+        "노후 준비 하려고"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbsec-008",
+      "site": "kbsec",
+      "intended": "연금 세금 혜택",
+      "expect": "연금계좌 절세활용법",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "연금 혜택 혜택",
+      "alternatives": [
+        "연금 혜택 혜택"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbsec-009",
+      "site": "kbsec",
+      "intended": "계좌 새로 만들래",
+      "expect": "비대면계좌개설",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "계좌 새로 만들래",
+      "alternatives": [
+        "계좌 새로 만들래",
+        "계좌 새로 말해 줄래"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbsec-010",
+      "site": "kbsec",
+      "intended": "잔고 증명서 떼야 해",
+      "expect": "잔고증명서발급",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "잔고 증명서 떼야 해",
+      "alternatives": [
+        "잔고 증명서 떼야 해",
+        "장구 증명서 떼야 해",
+        "장고 증명서 떼야 해",
+        "잔고증명서 떼야 해"
+      ],
+      "confidence": 0.8699626922607422
+    },
+    {
+      "promptId": "kbsec-011",
+      "site": "kbsec",
+      "intended": "계좌 확인서 필요해",
+      "expect": "계좌개설확인서",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "계좌 확인서 필요해",
+      "alternatives": [
+        "계좌 확인서 필요해"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbsec-012",
+      "site": "kbsec",
+      "intended": "CMA 이자 얼마",
+      "expect": "CMA잔고수익률조회",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "CMA이자 얼마",
+      "alternatives": [
+        "CMA이자 얼마",
+        "CNA이자 얼마"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbsec-013",
+      "site": "kbsec",
+      "intended": "채권 값 보기",
+      "expect": "채권시세",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "채권 값",
+      "alternatives": [
+        "채권 값",
+        "채권값"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbsec-014",
+      "site": "kbsec",
+      "intended": "찾을 수 있는 금액",
+      "expect": "출금가능금액조회",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "찾을 수 있는 금액",
+      "alternatives": [
+        "찾을 수 있는 금액"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbsec-015",
+      "site": "kbsec",
+      "intended": "급여 자동으로 들어오게",
+      "expect": "급여이체 서비스",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "그게 자동으로",
+      "alternatives": [
+        "그게 자동으로",
+        "급여 자동으로"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "miraeasset-001",
+      "site": "miraeasset",
+      "intended": "돈 보내려고",
+      "expect": "간편이체",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "돈 보내려고",
+      "alternatives": [
+        "돈 보내려고",
+        "돈 보내라고"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "miraeasset-002",
+      "site": "miraeasset",
+      "intended": "빠르게 송금",
+      "expect": "간편이체",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "빠르게 송금",
+      "alternatives": [
+        "빠르게 송금",
+        "송금"
+      ],
+      "confidence": 0.7787294387817383
+    },
+    {
+      "promptId": "miraeasset-003",
+      "site": "miraeasset",
+      "intended": "나중에 보내기",
+      "expect": "다계좌/예약이체",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "나중에 보내",
+      "alternatives": [
+        "나중에 보내"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "miraeasset-004",
+      "site": "miraeasset",
+      "intended": "펀드 얼마나 있어",
+      "expect": "펀드잔고",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "펀드 얼마야",
+      "alternatives": [
+        "펀드 얼마야"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "miraeasset-005",
+      "site": "miraeasset",
+      "intended": "수익 났나 보자",
+      "expect": "기준가/수익률조회",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "수인아 나 보자",
+      "alternatives": [
+        "수인아 나 보자",
+        "수인아 하나 보자",
+        "수민아 나 보자",
+        "수연아 보자"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "miraeasset-006",
+      "site": "miraeasset",
+      "intended": "연금 얼마 모였어",
+      "expect": "개인연금 잔고",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "연금 얼마 뭐야",
+      "alternatives": [
+        "연금 얼마 뭐야",
+        "연금 얼마 모여"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "miraeasset-007",
+      "site": "miraeasset",
+      "intended": "펀드 알아보고 싶어",
+      "expect": "펀드검색",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "펀드 알아보고 싶어",
+      "alternatives": [
+        "펀드 알아보고 싶어",
+        "펀드 알아 보고 싶어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "miraeasset-008",
+      "site": "miraeasset",
+      "intended": "계좌 새로 만들래",
+      "expect": "온라인 계좌개설",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "계좌 새로 만들래",
+      "alternatives": [
+        "계좌 새로 만들래"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "miraeasset-009",
+      "site": "miraeasset",
+      "intended": "보낼 계좌 확인",
+      "expect": "이체계좌/정보조회",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "폰을 계좌",
+      "alternatives": [
+        "폰을 계좌",
+        "오늘 계좌",
+        "폰의 계좌",
+        "보내 계좌",
+        "보낼 계좌"
+      ],
+      "confidence": 0.7982295155525208
+    },
+    {
+      "promptId": "miraeasset-010",
+      "site": "miraeasset",
+      "intended": "개인연금 잔고",
+      "expect": "개인연금 잔고",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "개인연금 잠금",
+      "alternatives": [
+        "개인연금 잠금",
+        "개인 연금 잠금",
+        "개인연금 잔고",
+        "개인 연금 잔고",
+        "개인연금 잔금"
+      ],
+      "confidence": 0.7793368101119995
+    },
+    {
+      "promptId": "miraeasset-011",
+      "site": "miraeasset",
+      "intended": "채권 수익률",
+      "expect": "기준수익률",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "채권 수익",
+      "alternatives": [
+        "채권 수익"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "miraeasset-012",
+      "site": "miraeasset",
+      "intended": "ELS 얼마 있어",
+      "expect": "ELS/DLS보유잔고",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "els",
+      "alternatives": [
+        "els"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "miraeasset-013",
+      "site": "miraeasset",
+      "intended": "청약 넣으려고",
+      "expect": "공모주청약",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "청약 줘",
+      "alternatives": [
+        "청약 줘"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "miraeasset-014",
+      "site": "miraeasset",
+      "intended": "수수료 얼마야",
+      "expect": "운용/자산관리 수수료",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "수수료",
+      "alternatives": [
+        "수수료"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "miraeasset-015",
+      "site": "miraeasset",
+      "intended": "해외주식 하고 싶어",
+      "expect": "해외주식 거래안내",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "해외 주식 하고 싶어",
+      "alternatives": [
+        "해외 주식 하고 싶어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kebhana-001",
+      "site": "kebhana",
+      "intended": "잔액 좀 보자",
+      "expect": "계좌조회",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "자네 보고 싶은데",
+      "alternatives": [
+        "자네 보고 싶은데",
+        "자네 보고 싶은"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kebhana-002",
+      "site": "kebhana",
+      "intended": "통장에 얼마 있어",
+      "expect": "계좌조회",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "통장에 얼마",
+      "alternatives": [
+        "통장에 얼마"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kebhana-003",
+      "site": "kebhana",
+      "intended": "통장 정리하려고",
+      "expect": "거래내역조회",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "통장 정리 좀",
+      "alternatives": [
+        "통장 정리 좀"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kebhana-004",
+      "site": "kebhana",
+      "intended": "들어온 돈 보고 싶어",
+      "expect": "거래내역조회",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "드론 돈 얼마",
+      "alternatives": [
+        "드론 돈 얼마",
+        "저런 돈 얼마"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kebhana-005",
+      "site": "kebhana",
+      "intended": "돈 부쳐야 하는데",
+      "expect": "계좌이체",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "동두천",
+      "alternatives": [
+        "동두천",
+        "돈 부쳐야 하는데"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kebhana-006",
+      "site": "kebhana",
+      "intended": "딸한테 송금할래",
+      "expect": "계좌이체",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "딸한테 송금 좀",
+      "alternatives": [
+        "딸한테 송금 좀"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kebhana-007",
+      "site": "kebhana",
+      "intended": "매달 나가는 거 끊고 싶어",
+      "expect": "자동이체 조회/변경/취소",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "매달 나가는 거 그만",
+      "alternatives": [
+        "매달 나가는 거 그만"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kebhana-008",
+      "site": "kebhana",
+      "intended": "관리비 내야 해",
+      "expect": "공과금등록/납부",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "관리비 내야 하는데",
+      "alternatives": [
+        "관리비 내야 하는데"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kebhana-009",
+      "site": "kebhana",
+      "intended": "달러 얼마야",
+      "expect": "환율/외화예금 금리",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "달러 얼마",
+      "alternatives": [
+        "달러 얼마"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kebhana-010",
+      "site": "kebhana",
+      "intended": "빚 얼마 남았어",
+      "expect": "대출계좌조회",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "빚 얼마",
+      "alternatives": [
+        "빚 얼마"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kebhana-011",
+      "site": "kebhana",
+      "intended": "적금 들고 싶은데",
+      "expect": "예금조회/추가입금",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "적금 들래",
+      "alternatives": [
+        "적금 들래",
+        "적금 들고 해",
+        "적금 들고 내"
+      ],
+      "confidence": 0.7930970191955566
+    },
+    {
+      "promptId": "kebhana-012",
+      "site": "kebhana",
+      "intended": "펀드 얼마 벌었나",
+      "expect": "내펀드수익률조회",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "펀드 얼마 받았어",
+      "alternatives": [
+        "펀드 얼마 받았어",
+        "펀드 얼마 벌었어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kebhana-013",
+      "site": "kebhana",
+      "intended": "인증서 새로 받아야 해",
+      "expect": "인증서 신규/재발급",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "인증서 새로 발급",
+      "alternatives": [
+        "인증서 새로 발급"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kebhana-014",
+      "site": "kebhana",
+      "intended": "비번 바꾸려고",
+      "expect": "비밀번호 등록/변경",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "비번 바꾸려고",
+      "alternatives": [
+        "비번 바꾸려고"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kebhana-015",
+      "site": "kebhana",
+      "intended": "서류 떼야 해",
+      "expect": "잔액증명서 발급",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "서류 대화해",
+      "alternatives": [
+        "서류 대화해",
+        "서류 떼야 해",
+        "서류 대회",
+        "서류 대야의",
+        "서류 대하여"
+      ],
+      "confidence": 0.7922910451889038
+    },
+    {
+      "promptId": "bank-001",
+      "site": "bank",
+      "intended": "돈 좀 부쳐야 하는데",
+      "expect": "transfer.account",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "돈 좀 부칠",
+      "alternatives": [
+        "돈 좀 부칠"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-002",
+      "site": "bank",
+      "intended": "송금하려고",
+      "expect": "transfer.account",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "송금하려고",
+      "alternatives": [
+        "송금하려고",
+        "송금 하려고"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-003",
+      "site": "bank",
+      "intended": "돈 보내기",
+      "expect": "transfer.account",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "돈 보내기",
+      "alternatives": [
+        "돈 보내기"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-004",
+      "site": "bank",
+      "intended": "계좌이체 해줘",
+      "expect": "transfer.account",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "계좌 이체 해 줘",
+      "alternatives": [
+        "계좌 이체 해 줘",
+        "계좌 이체해 줘"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-005",
+      "site": "bank",
+      "intended": "잔액 얼마 남았어",
+      "expect": "inquiry.balance",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "잔액 얼마 남았어",
+      "alternatives": [
+        "잔액 얼마 남았어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-006",
+      "site": "bank",
+      "intended": "돈 얼마 있어",
+      "expect": "inquiry.balance",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "돈 얼마 있어",
+      "alternatives": [
+        "돈 얼마 있어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-007",
+      "site": "bank",
+      "intended": "통장 확인하고 싶어",
+      "expect": "inquiry.balance",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "통장 확인하고 싶어",
+      "alternatives": [
+        "통장 확인하고 싶어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-008",
+      "site": "bank",
+      "intended": "잔고 좀 보자",
+      "expect": "inquiry.balance",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "잔고 좀 보자",
+      "alternatives": [
+        "잔고 좀 보자",
+        "장구 좀 보자",
+        "장고 좀 보자",
+        "창고 좀 보자"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-009",
+      "site": "bank",
+      "intended": "자동이체 안 나가게 해야 하는데",
+      "expect": "transfer.auto",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "자동 이체 안 나가게 해야 하는데",
+      "alternatives": [
+        "자동 이체 안 나가게 해야 하는데",
+        "자동이체 안 나가게 해야 하는데",
+        "자동 이체 안 나게 해야 하는데",
+        "자동이체 안 나게 해야 하는데"
+      ],
+      "confidence": 0.8139383792877197
+    },
+    {
+      "promptId": "bank-010",
+      "site": "bank",
+      "intended": "매달 나가는 돈 좀 보자",
+      "expect": "transfer.auto",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "매달 나가는 좀 보자",
+      "alternatives": [
+        "매달 나가는 좀 보자"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-011",
+      "site": "bank",
+      "intended": "떼가는 거 그만하고 싶어",
+      "expect": "transfer.auto",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "내가 하는 거 그만하고 싶어",
+      "alternatives": [
+        "내가 하는 거 그만하고 싶어",
+        "내가 하는 거 그만 하고 싶어",
+        "내가 낸 거 그만하고 싶어",
+        "그만하고 싶어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-012",
+      "site": "bank",
+      "intended": "자동이체 해지",
+      "expect": "transfer.auto",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "자동 이체 해지",
+      "alternatives": [
+        "자동 이체 해지",
+        "자동이체 해지",
+        "자동 이체 해제",
+        "자동이체 해제"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-013",
+      "site": "bank",
+      "intended": "빠져나가는 돈 확인",
+      "expect": "transfer.auto",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "빠져나가는 돈 확인",
+      "alternatives": [
+        "빠져나가는 돈 확인"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-014",
+      "site": "bank",
+      "intended": "입금 확인하려고",
+      "expect": "inquiry.history",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "입금 확인하려고",
+      "alternatives": [
+        "입금 확인하려고"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-015",
+      "site": "bank",
+      "intended": "들어온 돈 보고 싶어",
+      "expect": "inquiry.history",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "더러운 돈 보고 싶어",
+      "alternatives": [
+        "더러운 돈 보고 싶어",
+        "드러운 돈 보고 싶어",
+        "들어온 돈 보고 싶어",
+        "드론 돈 보고 싶어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-016",
+      "site": "bank",
+      "intended": "통장 정리해줘",
+      "expect": "inquiry.history",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "통장 정리해 줘",
+      "alternatives": [
+        "통장 정리해 줘"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-017",
+      "site": "bank",
+      "intended": "내역 좀 보자",
+      "expect": "inquiry.history",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "내역 좀 보자",
+      "alternatives": [
+        "내역 좀 보자",
+        "내 욕 좀 보자"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-018",
+      "site": "bank",
+      "intended": "연금 언제 들어와",
+      "expect": "inquiry.deposit",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "연금 언제 들어와",
+      "alternatives": [
+        "연금 언제 들어와"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-019",
+      "site": "bank",
+      "intended": "월급날이 언제지",
+      "expect": "inquiry.deposit",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "월급 날이 언제지",
+      "alternatives": [
+        "월급 날이 언제지",
+        "월급날이 언제지"
+      ],
+      "confidence": 0.8284435272216797
+    },
+    {
+      "promptId": "bank-020",
+      "site": "bank",
+      "intended": "들어올 돈 있나",
+      "expect": "inquiry.deposit",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "들을 돈 있나",
+      "alternatives": [
+        "들을 돈 있나",
+        "들어올 돈 있나"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-021",
+      "site": "bank",
+      "intended": "통장 몇 개나 있어",
+      "expect": "inquiry.accounts",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "통장 몇 개나 있어",
+      "alternatives": [
+        "통장 몇 개나 있어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-022",
+      "site": "bank",
+      "intended": "계좌 목록 보여줘",
+      "expect": "inquiry.accounts",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "계좌 목록 보여 줘",
+      "alternatives": [
+        "계좌 목록 보여 줘"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-023",
+      "site": "bank",
+      "intended": "영수증 떼야 하는데",
+      "expect": "inquiry.statement",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "영수증 떼야 하는데",
+      "alternatives": [
+        "영수증 떼야 하는데"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-024",
+      "site": "bank",
+      "intended": "이체 확인증 필요해",
+      "expect": "inquiry.statement",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "이체 확인증 필요해",
+      "alternatives": [
+        "이체 확인증 필요해"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-025",
+      "site": "bank",
+      "intended": "전에 보낸 사람한테 또 보내려고",
+      "expect": "transfer.recent",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "전에 보낸 사람한테 또 보내려고",
+      "alternatives": [
+        "전에 보낸 사람한테 또 보내려고"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-026",
+      "site": "bank",
+      "intended": "지난번 그 계좌",
+      "expect": "transfer.recent",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "지난번 그 계좌",
+      "alternatives": [
+        "지난번 그 계좌",
+        "지난 번 그 계좌"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-027",
+      "site": "bank",
+      "intended": "나중에 보내기",
+      "expect": "transfer.reserve",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "나중에 보내기",
+      "alternatives": [
+        "나중에 보내기"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-028",
+      "site": "bank",
+      "intended": "날짜 정해서 보내고 싶어",
+      "expect": "transfer.reserve",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "날짜 정해서 보내고 싶어",
+      "alternatives": [
+        "날짜 정해서 보내고 싶어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-029",
+      "site": "bank",
+      "intended": "외국으로 보내야 해",
+      "expect": "transfer.overseas",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "외국으로 보내야 해",
+      "alternatives": [
+        "외국으로 보내야 해"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-030",
+      "site": "bank",
+      "intended": "달러 보내기",
+      "expect": "transfer.overseas",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "달러 보내기",
+      "alternatives": [
+        "달러 보내기"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-031",
+      "site": "bank",
+      "intended": "한번에 여러 곳 보내기",
+      "expect": "transfer.bulk",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "한 번에 여러 곳 보내기",
+      "alternatives": [
+        "한 번에 여러 곳 보내기"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-032",
+      "site": "bank",
+      "intended": "적금 들고 싶어",
+      "expect": "product.savings",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "적금 들고 싶어",
+      "alternatives": [
+        "적금 들고 싶어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-033",
+      "site": "bank",
+      "intended": "이자 많은 거 뭐 있어",
+      "expect": "product.savings",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "이자 많은 거 뭐 있어",
+      "alternatives": [
+        "이자 많은 거 뭐 있어",
+        "이전 많은 거 뭐 있어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-034",
+      "site": "bank",
+      "intended": "돈 좀 빌리려고",
+      "expect": "product.loan",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "돈 좀 빌리려고",
+      "alternatives": [
+        "돈 좀 빌리려고"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-035",
+      "site": "bank",
+      "intended": "대출 알아보고 싶어",
+      "expect": "product.loan",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "대출 알아보고 싶어",
+      "alternatives": [
+        "대출 알아보고 싶어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-036",
+      "site": "bank",
+      "intended": "체크카드 만들래",
+      "expect": "product.card",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "체크카드 만들래",
+      "alternatives": [
+        "체크카드 만들래",
+        "체크 카드 만들래"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-037",
+      "site": "bank",
+      "intended": "펀드 가입하려고",
+      "expect": "product.fund",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "펀드 가입하라고",
+      "alternatives": [
+        "펀드 가입하라고",
+        "펀드 가입하려고"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-038",
+      "site": "bank",
+      "intended": "보험 들고 싶은데",
+      "expect": "product.insurance",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "보험 들고 싶은데",
+      "alternatives": [
+        "보험 들고 싶은데",
+        "폰 들고 싶은데",
+        "본 들고 싶은데",
+        "봄 들고 싶은데"
+      ],
+      "confidence": 0.789827823638916
+    },
+    {
+      "promptId": "bank-039",
+      "site": "bank",
+      "intended": "노후 준비하려고",
+      "expect": "product.pension",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "노후 준비하려고",
+      "alternatives": [
+        "노후 준비하려고",
+        "노후 준비 하려고"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-040",
+      "site": "bank",
+      "intended": "보낼 수 있는 금액 늘려줘",
+      "expect": "settings.limit",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "보낼 수 있는 금액 알려 줘",
+      "alternatives": [
+        "보낼 수 있는 금액 알려 줘"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-041",
+      "site": "bank",
+      "intended": "한도 올리고 싶어",
+      "expect": "settings.limit",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "한도 올리고 싶어",
+      "alternatives": [
+        "한도 올리고 싶어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-042",
+      "site": "bank",
+      "intended": "돈 들어오면 알려줘",
+      "expect": "settings.alarm",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "돈 들어오면 알려 줘",
+      "alternatives": [
+        "돈 들어오면 알려 줘"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-043",
+      "site": "bank",
+      "intended": "문자 알림 설정",
+      "expect": "settings.alarm",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "문자 알림 설정",
+      "alternatives": [
+        "문자 알림 설정"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-044",
+      "site": "bank",
+      "intended": "주소 바꿔야 해",
+      "expect": "settings.profile",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "주소 바꿔야 해",
+      "alternatives": [
+        "주소 바꿔야 해"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-045",
+      "site": "bank",
+      "intended": "글씨 크게 해줘",
+      "expect": "settings.display",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "글씨 크게 해 줘",
+      "alternatives": [
+        "글씨 크게 해 줘"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-046",
+      "site": "bank",
+      "intended": "사람이랑 통화하고 싶어",
+      "expect": "support.call",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "사람이랑 통화하고 싶어",
+      "alternatives": [
+        "사람이랑 통화하고 싶어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-047",
+      "site": "bank",
+      "intended": "상담원 연결해줘",
+      "expect": "support.call",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "상담은 연결해 줘",
+      "alternatives": [
+        "상담은 연결해 줘",
+        "상담원 연결해 줘"
+      ],
+      "confidence": 0.866166889667511
+    },
+    {
+      "promptId": "bank-048",
+      "site": "bank",
+      "intended": "공동인증서 갱신해야 하는데",
+      "expect": "auth.certificate",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "공동 인증서 갱신해야 하는데",
+      "alternatives": [
+        "공동 인증서 갱신해야 하는데"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-049",
+      "site": "bank",
+      "intended": "비밀번호 바꾸려고",
+      "expect": "auth.password",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "비밀번호 바꾸려고",
+      "alternatives": [
+        "비밀번호 바꾸려고"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-050",
+      "site": "bank",
+      "intended": "지문 등록하고 싶어",
+      "expect": "auth.simple",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "지문 등록하고 싶어",
+      "alternatives": [
+        "지문 등록하고 싶어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "negative-001",
+      "site": "any",
+      "intended": "날씨 어때",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "날씨 어때",
+      "alternatives": [
+        "날씨 어때"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "negative-002",
+      "site": "any",
+      "intended": "오늘 뉴스 좀 보여줘",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "오늘 뉴스 좀 보여 줘",
+      "alternatives": [
+        "오늘 뉴스 좀 보여 줘"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "negative-003",
+      "site": "any",
+      "intended": "김치찌개 끓이는 법",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "김치찌개 끓이는 법",
+      "alternatives": [
+        "김치찌개 끓이는 법"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "negative-004",
+      "site": "any",
+      "intended": "지하철 몇 시까지 다녀",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "지하철 몇 시까지 다녀",
+      "alternatives": [
+        "지하철 몇 시까지 다녀"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "negative-005",
+      "site": "any",
+      "intended": "아까 그거 다시",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "아까 그거 다시",
+      "alternatives": [
+        "아까 그거 다시"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "negative-006",
+      "site": "any",
+      "intended": "그거 있잖아 그거",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "그거 있잖아 그거",
+      "alternatives": [
+        "그거 있잖아 그거"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "negative-007",
+      "site": "any",
+      "intended": "음 저기 그",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "음 저기 그",
+      "alternatives": [
+        "음 저기 그",
+        "응 저기 그",
+        "저기 그"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "negative-008",
+      "site": "any",
+      "intended": "어제 뭐 했더라",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "어제 뭐 했더라",
+      "alternatives": [
+        "어제 뭐 했더라"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "negative-009",
+      "site": "any",
+      "intended": "우리 딸 전화번호",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "우리 딸 전화번호",
+      "alternatives": [
+        "우리 딸 전화번호"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "negative-010",
+      "site": "any",
+      "intended": "노래 좀 틀어줘",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "노래 좀 틀어 줘",
+      "alternatives": [
+        "노래 좀 틀어 줘"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "negative-011",
+      "site": "any",
+      "intended": "여기 어디야",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "여기 어디야",
+      "alternatives": [
+        "여기 어디야"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "negative-012",
+      "site": "any",
+      "intended": "사진 보여줘",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "사진 보여 줘",
+      "alternatives": [
+        "사진 보여 줘"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "negative-013",
+      "site": "any",
+      "intended": "배고픈데",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "배고픈데",
+      "alternatives": [
+        "배고픈데"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "negative-014",
+      "site": "any",
+      "intended": "티비 켜줘",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "TV 켜 줘",
+      "alternatives": [
+        "TV 켜 줘"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "negative-015",
+      "site": "any",
+      "intended": "택시 불러줘",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "택시 불러 줘",
+      "alternatives": [
+        "택시 불러 줘"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "negative-016",
+      "site": "any",
+      "intended": "약 먹을 시간이야",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "약 먹을 시간이야",
+      "alternatives": [
+        "약 먹을 시간이야"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "negative-017",
+      "site": "any",
+      "intended": "손자 생일이 언제였지",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "손자 생일이 언제였지",
+      "alternatives": [
+        "손자 생일이 언제였지",
+        "전자 생일이 언제였지"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "negative-018",
+      "site": "any",
+      "intended": "병원 예약해줘",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "병원 예약해 줘",
+      "alternatives": [
+        "병원 예약해 줘"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "negative-019",
+      "site": "any",
+      "intended": "문자 보내줘",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "문자 보내 줘",
+      "alternatives": [
+        "문자 보내 줘"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "negative-020",
+      "site": "any",
+      "intended": "알람 맞춰줘",
+      "source": "self-recorded",
+      "speaker": "A1",
+      "heard": "알람 맞춰 줘",
+      "alternatives": [
+        "알람 맞춰 줘"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "negative-020",
+      "site": "any",
+      "intended": "알람 맞춰줘",
+      "source": "tts-synthetic",
+      "speaker": "Google 한국의",
+      "rate": 1,
+      "heard": "알람 맞춰 줘",
+      "alternatives": [
+        "알람 맞춰 줘"
+      ],
+      "confidence": 0.8177335262298584
+    },
+    {
+      "promptId": "negative-020",
+      "site": "any",
+      "intended": "알람 맞춰줘",
+      "source": "tts-synthetic",
+      "speaker": "Google 한국의",
+      "rate": 1,
+      "heard": "",
+      "alternatives": [],
+      "confidence": 0,
+      "error": "timeout"
+    },
+    {
+      "promptId": "kbstar-001",
+      "site": "kbstar",
+      "intended": "잔액 좀 보자",
+      "expect": "국민은행 계좌조회",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "잔액 좀 보자",
+      "alternatives": [
+        "잔액 좀 보자",
+        "전액 좀 보자"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbstar-002",
+      "site": "kbstar",
+      "intended": "돈 얼마 있는지",
+      "expect": "국민은행 계좌조회",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "돈 얼마 있는지",
+      "alternatives": [
+        "돈 얼마 있는지"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbstar-003",
+      "site": "kbstar",
+      "intended": "통장 정리하고 싶어",
+      "expect": "거래내역 조회",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "통장 종료하고 싶어",
+      "alternatives": [
+        "통장 종료하고 싶어",
+        "통장 종료 하고 싶어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbstar-004",
+      "site": "kbstar",
+      "intended": "들어온 돈 확인",
+      "expect": "거래내역 조회",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "드론 돈 확인",
+      "alternatives": [
+        "드론 돈 확인",
+        "드론 좀 확인",
+        "드론도 확인"
+      ],
+      "confidence": 0.8678043484687805
+    },
+    {
+      "promptId": "kbstar-005",
+      "site": "kbstar",
+      "intended": "돈 부쳐야 하는데",
+      "expect": "계좌이체",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "",
+      "alternatives": [],
+      "confidence": 0,
+      "error": "timeout"
+    },
+    {
+      "promptId": "kbstar-006",
+      "site": "kbstar",
+      "intended": "자동이체 그만하고 싶어",
+      "expect": "자동이체내역 조회/해지/변경",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "자동 이체 그만하고 싶어",
+      "alternatives": [
+        "자동 이체 그만하고 싶어",
+        "자동 이제 그만하고 싶어",
+        "자동 이체 그만 하고 싶어",
+        "자동이체 그만하고 싶어",
+        "자동 이제 그만 하고 싶어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbstar-007",
+      "site": "kbstar",
+      "intended": "매달 빠져나가는 거",
+      "expect": "자동이체내역 조회/해지/변경",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "매달 빠져나가는 거",
+      "alternatives": [
+        "매달 빠져나가는 거",
+        "매달 빠져 나가는 거"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbstar-008",
+      "site": "kbstar",
+      "intended": "관리비 내야 해",
+      "expect": "공과금 조회/납부",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "관리비 내야 해",
+      "alternatives": [
+        "관리비 내야 해"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbstar-009",
+      "site": "kbstar",
+      "intended": "달러 얼마야",
+      "expect": "환율조회",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "달러 얼마야",
+      "alternatives": [
+        "달러 얼마야",
+        "달러가 얼마야"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbstar-010",
+      "site": "kbstar",
+      "intended": "비밀번호 바꾸려고",
+      "expect": "계좌비밀번호 신규/변경",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "비밀번호 바꾸려고",
+      "alternatives": [
+        "비밀번호 바꾸려고"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbstar-011",
+      "site": "kbstar",
+      "intended": "적금 들고 싶은데",
+      "expect": "예금 상품/가입",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "적금 들고 싶은데",
+      "alternatives": [
+        "적금 들고 싶은데"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbstar-012",
+      "site": "kbstar",
+      "intended": "돈 빌리려고",
+      "expect": "신용대출",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "돈 빌리려고",
+      "alternatives": [
+        "돈 빌리려고",
+        "돈 빌리라고"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbstar-013",
+      "site": "kbstar",
+      "intended": "이체 한도 늘려줘",
+      "expect": "이체한도 조회/감액",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "이찬도 들려 줘",
+      "alternatives": [
+        "이찬도 들려 줘",
+        "이창도 들려 줘",
+        "이찬도 늘려 줘",
+        "이창도 늘려 줘"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbstar-014",
+      "site": "kbstar",
+      "intended": "공과금 자동으로 내게 해줘",
+      "expect": "공과금 등록/관리",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "공과금 자동으로 되게 해 줘",
+      "alternatives": [
+        "공과금 자동으로 되게 해 줘",
+        "공과금 자동으로 내게 해 줘",
+        "공과금 자동으로네 개 해 줘"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbstar-015",
+      "site": "kbstar",
+      "intended": "환율 알려줘",
+      "expect": "환율조회",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "환율 알려 줘",
+      "alternatives": [
+        "환율 알려 줘"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "shinhan-001",
+      "site": "shinhan",
+      "intended": "잔액 보여줘",
+      "expect": "전체계좌",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "잔액 보여 줘",
+      "alternatives": [
+        "잔액 보여 줘"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "shinhan-002",
+      "site": "shinhan",
+      "intended": "적금 얼마 모였어",
+      "expect": "예금/신탁",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "",
+      "alternatives": [],
+      "confidence": 0,
+      "error": "timeout"
+    },
+    {
+      "promptId": "shinhan-003",
+      "site": "shinhan",
+      "intended": "돈 보내려고",
+      "expect": "당행/다른기관이체",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "돈 보내라고",
+      "alternatives": [
+        "돈 보내라고",
+        "돈 보내려고"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "shinhan-004",
+      "site": "shinhan",
+      "intended": "다른 은행으로 부쳐야 해",
+      "expect": "당행/다른기관이체",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "다른 은행으로 부쳐야 해",
+      "alternatives": [
+        "다른 은행으로 부쳐야 해",
+        "다른 은행으로 붙여야 해"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "shinhan-005",
+      "site": "shinhan",
+      "intended": "자동이체 안 나가게 해줘",
+      "expect": "자동이체 조회/변경/취소",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "자동 이체 안 나가게 해 줘",
+      "alternatives": [
+        "자동 이체 안 나가게 해 줘",
+        "자동이체 안 나가게 해 줘"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "shinhan-006",
+      "site": "shinhan",
+      "intended": "떼가는 거 그만",
+      "expect": "자동이체 조회/변경/취소",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "떼 가는 거 그만",
+      "alternatives": [
+        "떼 가는 거 그만",
+        "내가 하는 거 그만"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "shinhan-007",
+      "site": "shinhan",
+      "intended": "자동이체 새로 걸래",
+      "expect": "자동이체 등록",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "자동 이체 새로 갈래",
+      "alternatives": [
+        "자동 이체 새로 갈래",
+        "자동 이체 세로 갈래"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "shinhan-008",
+      "site": "shinhan",
+      "intended": "관리비 낼래",
+      "expect": "나의 공과금 조회/납부",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "관리비 될래",
+      "alternatives": [
+        "관리비 될래",
+        "관리비 낼래"
+      ],
+      "confidence": 0.7944132089614868
+    },
+    {
+      "promptId": "shinhan-009",
+      "site": "shinhan",
+      "intended": "달러로 바꾸고 싶어",
+      "expect": "환전",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "달러로 바꾸고 싶어",
+      "alternatives": [
+        "달러로 바꾸고 싶어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "shinhan-010",
+      "site": "shinhan",
+      "intended": "잠자는 돈 있나",
+      "expect": "휴면예금조회",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "잠자는 돈 있나",
+      "alternatives": [
+        "잠자는 돈 있나",
+        "잔잔한 돈 있나"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "shinhan-011",
+      "site": "shinhan",
+      "intended": "빚 얼마 남았어",
+      "expect": "대출",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "빚 얼마 남았어",
+      "alternatives": [
+        "빚 얼마 남았어",
+        "빚 얼마나 왔어",
+        "빛 얼마 남았어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "shinhan-012",
+      "site": "shinhan",
+      "intended": "인증서 새로 받아야 해",
+      "expect": "인증서 발급/재발급",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "인증서 새로 받아야 해",
+      "alternatives": [
+        "인증서 새로 받아야 해"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "shinhan-013",
+      "site": "shinhan",
+      "intended": "인증서 기간 늘리기",
+      "expect": "인증서 갱신",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "인증서 기간 늘리기",
+      "alternatives": [
+        "인증서 기간 늘리기"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "shinhan-014",
+      "site": "shinhan",
+      "intended": "보낼 수 있는 금액 줄여줘",
+      "expect": "이체한도감액",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "보낼 수 있는 금액 줄여 줘",
+      "alternatives": [
+        "보낼 수 있는 금액 줄여 줘"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "shinhan-015",
+      "site": "shinhan",
+      "intended": "빌린 돈 내역",
+      "expect": "대출계좌조회",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "빌린 돈 내역",
+      "alternatives": [
+        "빌린 돈 내역",
+        "빌린 돈내어",
+        "빌린돈 내역"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbsec-001",
+      "site": "kbsec",
+      "intended": "얼마 있는지 보자",
+      "expect": "계좌별잔고조회",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "얼마 있는지 보자",
+      "alternatives": [
+        "얼마 있는지 보자"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbsec-002",
+      "site": "kbsec",
+      "intended": "얼마 벌었어",
+      "expect": "계좌별수익률",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "얼마 벌었어",
+      "alternatives": [
+        "얼마 벌었어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbsec-003",
+      "site": "kbsec",
+      "intended": "뺄 수 있는 돈",
+      "expect": "출금가능금액",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "뺄 수 있는",
+      "alternatives": [
+        "뺄 수 있는",
+        "할 수 있는"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbsec-004",
+      "site": "kbsec",
+      "intended": "돈 빼려고",
+      "expect": "이체",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "돈 빼라고",
+      "alternatives": [
+        "돈 빼라고",
+        "돈 빼려고"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbsec-005",
+      "site": "kbsec",
+      "intended": "펀드 사고 싶어",
+      "expect": "펀드몰",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "펀드 사고 싶어",
+      "alternatives": [
+        "펀드 사고 싶어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbsec-006",
+      "site": "kbsec",
+      "intended": "펀드 뭐 있어",
+      "expect": "펀드몰",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "펀드 뭐 있어",
+      "alternatives": [
+        "펀드 뭐 있어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbsec-007",
+      "site": "kbsec",
+      "intended": "노후 준비하려고",
+      "expect": "IRP(개인형퇴직연금)",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "노 준비하려고",
+      "alternatives": [
+        "노 준비하려고",
+        "노후 준비하려고",
+        "노후 준비 하려고",
+        "누구 준비하려고",
+        "노 준비 하려고"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbsec-008",
+      "site": "kbsec",
+      "intended": "연금 세금 혜택",
+      "expect": "연금계좌 절세활용법",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "연금 혜택 세금 혜택",
+      "alternatives": [
+        "연금 혜택 세금 혜택",
+        "연금 세탁 세금 혜택",
+        "연금 세택 세금 혜택"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbsec-009",
+      "site": "kbsec",
+      "intended": "계좌 새로 만들래",
+      "expect": "비대면계좌개설",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "계좌 새로 만들래",
+      "alternatives": [
+        "계좌 새로 만들래"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbsec-010",
+      "site": "kbsec",
+      "intended": "잔고 증명서 떼야 해",
+      "expect": "잔고증명서발급",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "잔고 증명서 떼야 해",
+      "alternatives": [
+        "잔고 증명서 떼야 해",
+        "잔고증명서 떼야 해",
+        "장구 증명서 떼야 해"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbsec-011",
+      "site": "kbsec",
+      "intended": "계좌 확인서 필요해",
+      "expect": "계좌개설확인서",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "계좌 확인서 필요해",
+      "alternatives": [
+        "계좌 확인서 필요해"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbsec-012",
+      "site": "kbsec",
+      "intended": "CMA 이자 얼마",
+      "expect": "CMA잔고수익률조회",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "CMA이자 얼마",
+      "alternatives": [
+        "CMA이자 얼마"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbsec-013",
+      "site": "kbsec",
+      "intended": "채권 값 보기",
+      "expect": "채권시세",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "채권 각 보기",
+      "alternatives": [
+        "채권 각 보기",
+        "채권 값 보기",
+        "채권 갓 보기",
+        "채권 값보기",
+        "채권 각도기"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbsec-014",
+      "site": "kbsec",
+      "intended": "찾을 수 있는 금액",
+      "expect": "출금가능금액조회",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "찾을 수 있는 금액",
+      "alternatives": [
+        "찾을 수 있는 금액"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kbsec-015",
+      "site": "kbsec",
+      "intended": "급여 자동으로 들어오게",
+      "expect": "급여이체 서비스",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "급여 자동으로 들여오기",
+      "alternatives": [
+        "급여 자동으로 들여오기",
+        "급여 자동으로 들여오게",
+        "급여 자동으로 들어오게",
+        "급여 자동으로 들어오기"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "miraeasset-001",
+      "site": "miraeasset",
+      "intended": "돈 보내려고",
+      "expect": "간편이체",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "돈 보내라고",
+      "alternatives": [
+        "돈 보내라고",
+        "돈 보내려고"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "miraeasset-002",
+      "site": "miraeasset",
+      "intended": "빠르게 송금",
+      "expect": "간편이체",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "빠르게 송금",
+      "alternatives": [
+        "빠르게 송금"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "miraeasset-003",
+      "site": "miraeasset",
+      "intended": "나중에 보내기",
+      "expect": "다계좌/예약이체",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "나중에 보내기",
+      "alternatives": [
+        "나중에 보내기"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "miraeasset-004",
+      "site": "miraeasset",
+      "intended": "펀드 얼마나 있어",
+      "expect": "펀드잔고",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "펀드 얼마나 있어",
+      "alternatives": [
+        "펀드 얼마나 있어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "miraeasset-005",
+      "site": "miraeasset",
+      "intended": "수익 났나 보자",
+      "expect": "기준가/수익률조회",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "수인 만나 보자",
+      "alternatives": [
+        "수인 만나 보자",
+        "스윙 만나 보자"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "miraeasset-006",
+      "site": "miraeasset",
+      "intended": "연금 얼마 모였어",
+      "expect": "개인연금 잔고",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "연금 얼마 모였어",
+      "alternatives": [
+        "연금 얼마 모였어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "miraeasset-007",
+      "site": "miraeasset",
+      "intended": "펀드 알아보고 싶어",
+      "expect": "펀드검색",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "펀드 알아보고 싶어",
+      "alternatives": [
+        "펀드 알아보고 싶어",
+        "펀드 알아 보고 싶어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "miraeasset-008",
+      "site": "miraeasset",
+      "intended": "계좌 새로 만들래",
+      "expect": "온라인 계좌개설",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "계좌 새로 만들래",
+      "alternatives": [
+        "계좌 새로 만들래"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "miraeasset-009",
+      "site": "miraeasset",
+      "intended": "보낼 계좌 확인",
+      "expect": "이체계좌/정보조회",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "보내 계좌 확인",
+      "alternatives": [
+        "보내 계좌 확인",
+        "보낼 계좌 확인",
+        "번역 계좌 확인",
+        "번외 계좌 확인",
+        "돈을 계좌 확인"
+      ],
+      "confidence": 0.789208173751831
+    },
+    {
+      "promptId": "miraeasset-010",
+      "site": "miraeasset",
+      "intended": "개인연금 잔고",
+      "expect": "개인연금 잔고",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "개인 연금 잔고",
+      "alternatives": [
+        "개인 연금 잔고",
+        "개인연금 잔고",
+        "개인 연금 장구",
+        "개인 연금 장고",
+        "개인연금 장구"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "miraeasset-011",
+      "site": "miraeasset",
+      "intended": "채권 수익률",
+      "expect": "기준수익률",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "채권 수익률",
+      "alternatives": [
+        "채권 수익률"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "miraeasset-012",
+      "site": "miraeasset",
+      "intended": "ELS 얼마 있어",
+      "expect": "ELS/DLS보유잔고",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "ELS 얼마 있어",
+      "alternatives": [
+        "ELS 얼마 있어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "miraeasset-013",
+      "site": "miraeasset",
+      "intended": "청약 넣으려고",
+      "expect": "공모주청약",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "청약 넣으려고",
+      "alternatives": [
+        "청약 넣으려고"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "miraeasset-014",
+      "site": "miraeasset",
+      "intended": "수수료 얼마야",
+      "expect": "운용/자산관리 수수료",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "수수료 얼마야",
+      "alternatives": [
+        "수수료 얼마야"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "miraeasset-015",
+      "site": "miraeasset",
+      "intended": "해외주식 하고 싶어",
+      "expect": "해외주식 거래안내",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "해외 주식 하고 싶어",
+      "alternatives": [
+        "해외 주식 하고 싶어",
+        "해외 주식 가고 싶어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kebhana-001",
+      "site": "kebhana",
+      "intended": "잔액 좀 보자",
+      "expect": "계좌조회",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "잔액 좀 보자",
+      "alternatives": [
+        "잔액 좀 보자"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kebhana-002",
+      "site": "kebhana",
+      "intended": "통장에 얼마 있어",
+      "expect": "계좌조회",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "통장에 얼마 있어",
+      "alternatives": [
+        "통장에 얼마 있어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kebhana-003",
+      "site": "kebhana",
+      "intended": "통장 정리하려고",
+      "expect": "거래내역조회",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "통장 정리하라고",
+      "alternatives": [
+        "통장 정리하라고",
+        "통장 정리 하라고"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kebhana-004",
+      "site": "kebhana",
+      "intended": "들어온 돈 보고 싶어",
+      "expect": "거래내역조회",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "드론 돈 보내고 싶어",
+      "alternatives": [
+        "드론 돈 보내고 싶어",
+        "드론 좀 보내고 싶어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kebhana-005",
+      "site": "kebhana",
+      "intended": "돈 부쳐야 하는데",
+      "expect": "계좌이체",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "도 붙여야 하는데",
+      "alternatives": [
+        "도 붙여야 하는데"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kebhana-006",
+      "site": "kebhana",
+      "intended": "딸한테 송금할래",
+      "expect": "계좌이체",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "딸한테 송금 할래",
+      "alternatives": [
+        "딸한테 송금 할래"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kebhana-007",
+      "site": "kebhana",
+      "intended": "매달 나가는 거 끊고 싶어",
+      "expect": "자동이체 조회/변경/취소",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "매달 나가는 거 끊고 싶어",
+      "alternatives": [
+        "매달 나가는 거 끊고 싶어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kebhana-008",
+      "site": "kebhana",
+      "intended": "관리비 내야 해",
+      "expect": "공과금등록/납부",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "관리비 내야 해",
+      "alternatives": [
+        "관리비 내야 해"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kebhana-009",
+      "site": "kebhana",
+      "intended": "달러 얼마야",
+      "expect": "환율/외화예금 금리",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "달러 얼마야",
+      "alternatives": [
+        "달러 얼마야"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kebhana-010",
+      "site": "kebhana",
+      "intended": "빚 얼마 남았어",
+      "expect": "대출계좌조회",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "빚 얼마 남았어",
+      "alternatives": [
+        "빚 얼마 남았어",
+        "비가 얼마 남았어",
+        "비는 얼마 남았어",
+        "빛 얼마 남았어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kebhana-011",
+      "site": "kebhana",
+      "intended": "적금 들고 싶은데",
+      "expect": "예금조회/추가입금",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "적금 들고 싶은데",
+      "alternatives": [
+        "적금 들고 싶은데"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kebhana-012",
+      "site": "kebhana",
+      "intended": "펀드 얼마 벌었나",
+      "expect": "내펀드수익률조회",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "펀드 얼마 벌었어",
+      "alternatives": [
+        "펀드 얼마 벌었어",
+        "번들 얼마 벌었어",
+        "펀드 얼마나 벌었어",
+        "본드 얼마 벌었어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kebhana-013",
+      "site": "kebhana",
+      "intended": "인증서 새로 받아야 해",
+      "expect": "인증서 신규/재발급",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "인증서 새로 받아야 해",
+      "alternatives": [
+        "인증서 새로 받아야 해"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kebhana-014",
+      "site": "kebhana",
+      "intended": "비번 바꾸려고",
+      "expect": "비밀번호 등록/변경",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "비번 바꾸려고",
+      "alternatives": [
+        "비번 바꾸려고",
+        "비번 바꾸라고"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "kebhana-015",
+      "site": "kebhana",
+      "intended": "서류 떼야 해",
+      "expect": "잔액증명서 발급",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "서류 떼야 해",
+      "alternatives": [
+        "서류 떼야 해"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-001",
+      "site": "bank",
+      "intended": "돈 좀 부쳐야 하는데",
+      "expect": "transfer.account",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "돈 좀 부쳐야 하는데",
+      "alternatives": [
+        "돈 좀 부쳐야 하는데"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-002",
+      "site": "bank",
+      "intended": "송금하려고",
+      "expect": "transfer.account",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "송금하려고",
+      "alternatives": [
+        "송금하려고",
+        "송금 하려고"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-003",
+      "site": "bank",
+      "intended": "돈 보내기",
+      "expect": "transfer.account",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "돈 보내기",
+      "alternatives": [
+        "돈 보내기"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-004",
+      "site": "bank",
+      "intended": "계좌이체 해줘",
+      "expect": "transfer.account",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "계좌 이체 해 줘",
+      "alternatives": [
+        "계좌 이체 해 줘",
+        "계좌 이체해 줘",
+        "계좌이체 해 줘"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-005",
+      "site": "bank",
+      "intended": "잔액 얼마 남았어",
+      "expect": "inquiry.balance",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "잔액 얼마 남았어",
+      "alternatives": [
+        "잔액 얼마 남았어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-006",
+      "site": "bank",
+      "intended": "돈 얼마 있어",
+      "expect": "inquiry.balance",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "돈 얼마 있어",
+      "alternatives": [
+        "돈 얼마 있어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-007",
+      "site": "bank",
+      "intended": "통장 확인하고 싶어",
+      "expect": "inquiry.balance",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "통장 확인하고 싶어",
+      "alternatives": [
+        "통장 확인하고 싶어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-008",
+      "site": "bank",
+      "intended": "잔고 좀 보자",
+      "expect": "inquiry.balance",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "당구 좀 보자",
+      "alternatives": [
+        "당구 좀 보자",
+        "장구 좀 보자",
+        "잔고 좀 보자",
+        "짱구 좀 보자",
+        "광고 좀 보자"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-009",
+      "site": "bank",
+      "intended": "자동이체 안 나가게 해야 하는데",
+      "expect": "transfer.auto",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "자동이체 안 나가게 해야 하는데",
+      "alternatives": [
+        "자동이체 안 나가게 해야 하는데",
+        "자동 이체 안 나가게 해야 하는데"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-010",
+      "site": "bank",
+      "intended": "매달 나가는 돈 좀 보자",
+      "expect": "transfer.auto",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "매달 나가는 돈 좀 보자",
+      "alternatives": [
+        "매달 나가는 돈 좀 보자"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-011",
+      "site": "bank",
+      "intended": "떼가는 거 그만하고 싶어",
+      "expect": "transfer.auto",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "내가 하는 거 그만하고 싶어",
+      "alternatives": [
+        "내가 하는 거 그만하고 싶어",
+        "대가는 거 그만하고 싶어",
+        "돼 가는 거 그만하고 싶어",
+        "돼가는 거 그만하고 싶어",
+        "내가 하는 거 그만 하고 싶어"
+      ],
+      "confidence": 0.7955374121665955
+    },
+    {
+      "promptId": "bank-012",
+      "site": "bank",
+      "intended": "자동이체 해지",
+      "expect": "transfer.auto",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "자동 이체 해제",
+      "alternatives": [
+        "자동 이체 해제",
+        "자동 이체 해지",
+        "자동이체 해제",
+        "자동이체 해지"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-013",
+      "site": "bank",
+      "intended": "빠져나가는 돈 확인",
+      "expect": "transfer.auto",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "빠져나가는 돈 확인",
+      "alternatives": [
+        "빠져나가는 돈 확인",
+        "빠져나가는 도나 확인",
+        "빠져나가는 도로 확인",
+        "빠져나가는 전화 확인"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-014",
+      "site": "bank",
+      "intended": "입금 확인하려고",
+      "expect": "inquiry.history",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "입금 확인하라고",
+      "alternatives": [
+        "입금 확인하라고"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-015",
+      "site": "bank",
+      "intended": "들어온 돈 보고 싶어",
+      "expect": "inquiry.history",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "드론 좀 보고 싶어",
+      "alternatives": [
+        "드론 좀 보고 싶어",
+        "드론 돈 보고 싶어",
+        "드론도 보고 싶어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-016",
+      "site": "bank",
+      "intended": "통장 정리해줘",
+      "expect": "inquiry.history",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "통장 정리해 줘",
+      "alternatives": [
+        "통장 정리해 줘"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-017",
+      "site": "bank",
+      "intended": "내역 좀 보자",
+      "expect": "inquiry.history",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "내역 좀 보자",
+      "alternatives": [
+        "내역 좀 보자",
+        "내 욕 좀 보자",
+        "내 음악 좀 보자"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-018",
+      "site": "bank",
+      "intended": "연금 언제 들어와",
+      "expect": "inquiry.deposit",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "연금 언제 들어와",
+      "alternatives": [
+        "연금 언제 들어와"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-019",
+      "site": "bank",
+      "intended": "월급날이 언제지",
+      "expect": "inquiry.deposit",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "월급 날이 언제지",
+      "alternatives": [
+        "월급 날이 언제지",
+        "월급날이 언제지"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-020",
+      "site": "bank",
+      "intended": "들어올 돈 있나",
+      "expect": "inquiry.deposit",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "드론 있나",
+      "alternatives": [
+        "드론 있나",
+        "드론 돈 있나",
+        "드론 울 돈 있나",
+        "드론",
+        "드론 돈이나"
+      ],
+      "confidence": 0.8225180506706238
+    },
+    {
+      "promptId": "bank-021",
+      "site": "bank",
+      "intended": "통장 몇 개나 있어",
+      "expect": "inquiry.accounts",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "통장 몇 개나 있어",
+      "alternatives": [
+        "통장 몇 개나 있어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-022",
+      "site": "bank",
+      "intended": "계좌 목록 보여줘",
+      "expect": "inquiry.accounts",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "계좌 목록 보여 줘",
+      "alternatives": [
+        "계좌 목록 보여 줘",
+        "계정 목록 보여 줘"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-023",
+      "site": "bank",
+      "intended": "영수증 떼야 하는데",
+      "expect": "inquiry.statement",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "영수증 떼야 하는데",
+      "alternatives": [
+        "영수증 떼야 하는데"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-024",
+      "site": "bank",
+      "intended": "이체 확인증 필요해",
+      "expect": "inquiry.statement",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "기차 확인 좀 필요해",
+      "alternatives": [
+        "기차 확인 좀 필요해",
+        "2차 확인 좀 필요해",
+        "이체 확인 좀 필요해",
+        "이차 확인 좀 필요해"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-025",
+      "site": "bank",
+      "intended": "전에 보낸 사람한테 또 보내려고",
+      "expect": "transfer.recent",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "전에 보낸 사람한테 또 보내려고",
+      "alternatives": [
+        "전에 보낸 사람한테 또 보내려고",
+        "전에 보낸 사람한테 또 보내라고"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-026",
+      "site": "bank",
+      "intended": "지난번 그 계좌",
+      "expect": "transfer.recent",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "지난번 그 계좌",
+      "alternatives": [
+        "지난번 그 계좌",
+        "지나온 그 계좌",
+        "지나면 그 계좌",
+        "지난번 그 계절",
+        "지난번 그 계정"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-027",
+      "site": "bank",
+      "intended": "나중에 보내기",
+      "expect": "transfer.reserve",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "나중에 보내기",
+      "alternatives": [
+        "나중에 보내기"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-028",
+      "site": "bank",
+      "intended": "날짜 정해서 보내고 싶어",
+      "expect": "transfer.reserve",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "날짜 정해서 보내고 싶어",
+      "alternatives": [
+        "날짜 정해서 보내고 싶어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-029",
+      "site": "bank",
+      "intended": "외국으로 보내야 해",
+      "expect": "transfer.overseas",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "외국어로 보내야 해",
+      "alternatives": [
+        "외국어로 보내야 해",
+        "외국으로 보내야 해"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-030",
+      "site": "bank",
+      "intended": "달러 보내기",
+      "expect": "transfer.overseas",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "달러 보내기",
+      "alternatives": [
+        "달러 보내기"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-031",
+      "site": "bank",
+      "intended": "한번에 여러 곳 보내기",
+      "expect": "transfer.bulk",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "한 번에 여러 번 보내기",
+      "alternatives": [
+        "한 번에 여러 번 보내기",
+        "한 번에 여러 곳 보내기",
+        "한 번에 여러 곡 보내기"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-032",
+      "site": "bank",
+      "intended": "적금 들고 싶어",
+      "expect": "product.savings",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "적금 들고 싶어",
+      "alternatives": [
+        "적금 들고 싶어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-033",
+      "site": "bank",
+      "intended": "이자 많은 거 뭐 있어",
+      "expect": "product.savings",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "",
+      "alternatives": [],
+      "confidence": 0,
+      "error": "timeout"
+    },
+    {
+      "promptId": "bank-034",
+      "site": "bank",
+      "intended": "돈 좀 빌리려고",
+      "expect": "product.loan",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "돈 좀 빌리라고",
+      "alternatives": [
+        "돈 좀 빌리라고",
+        "돈 좀 빌리려고"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-035",
+      "site": "bank",
+      "intended": "대출 알아보고 싶어",
+      "expect": "product.loan",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "대출 알아보고 싶어",
+      "alternatives": [
+        "대출 알아보고 싶어",
+        "제출 알아보고 싶어",
+        "대출 알아 보고 싶어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-036",
+      "site": "bank",
+      "intended": "체크카드 만들래",
+      "expect": "product.card",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "체크카드 만들래",
+      "alternatives": [
+        "체크카드 만들래",
+        "체크 카드 만들래"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-037",
+      "site": "bank",
+      "intended": "펀드 가입하려고",
+      "expect": "product.fund",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "펀드 가입하라고",
+      "alternatives": [
+        "펀드 가입하라고",
+        "펀드 가입하려고",
+        "현대 가입하라고"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-038",
+      "site": "bank",
+      "intended": "보험 들고 싶은데",
+      "expect": "product.insurance",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "보험 들고 싶은데",
+      "alternatives": [
+        "보험 들고 싶은데"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-039",
+      "site": "bank",
+      "intended": "노후 준비하려고",
+      "expect": "product.pension",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "누구 준비하려고",
+      "alternatives": [
+        "누구 준비하려고",
+        "누구 준비 하려고",
+        "누구 준비하라고"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-040",
+      "site": "bank",
+      "intended": "보낼 수 있는 금액 늘려줘",
+      "expect": "settings.limit",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "보낼 수 있는 금액 들려 줘",
+      "alternatives": [
+        "보낼 수 있는 금액 들려 줘",
+        "보낼 수 있는 금액 알려 줘"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-041",
+      "site": "bank",
+      "intended": "한도 올리고 싶어",
+      "expect": "settings.limit",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "산도 올리고 싶어",
+      "alternatives": [
+        "산도 올리고 싶어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-042",
+      "site": "bank",
+      "intended": "돈 들어오면 알려줘",
+      "expect": "settings.alarm",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "돈 들어오면 알려 줘",
+      "alternatives": [
+        "돈 들어오면 알려 줘"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-043",
+      "site": "bank",
+      "intended": "문자 알림 설정",
+      "expect": "settings.alarm",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "문자 알림 설정",
+      "alternatives": [
+        "문자 알림 설정"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-044",
+      "site": "bank",
+      "intended": "주소 바꿔야 해",
+      "expect": "settings.profile",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "주소 바꿔야 해",
+      "alternatives": [
+        "주소 바꿔야 해"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-045",
+      "site": "bank",
+      "intended": "글씨 크게 해줘",
+      "expect": "settings.display",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "글씨 크게 해 줘",
+      "alternatives": [
+        "글씨 크게 해 줘"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-046",
+      "site": "bank",
+      "intended": "사람이랑 통화하고 싶어",
+      "expect": "support.call",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "사람이랑 통화하고 싶어",
+      "alternatives": [
+        "사람이랑 통화하고 싶어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-047",
+      "site": "bank",
+      "intended": "상담원 연결해줘",
+      "expect": "support.call",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "상담원 연결해 줘",
+      "alternatives": [
+        "상담원 연결해 줘"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-048",
+      "site": "bank",
+      "intended": "공동인증서 갱신해야 하는데",
+      "expect": "auth.certificate",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "공동 인증서 갱신해야 하는데",
+      "alternatives": [
+        "공동 인증서 갱신해야 하는데"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-049",
+      "site": "bank",
+      "intended": "비밀번호 바꾸려고",
+      "expect": "auth.password",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "비밀번호 바꾸려고",
+      "alternatives": [
+        "비밀번호 바꾸려고"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "bank-050",
+      "site": "bank",
+      "intended": "지문 등록하고 싶어",
+      "expect": "auth.simple",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "지문 등록하고 싶어",
+      "alternatives": [
+        "지문 등록하고 싶어"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "negative-001",
+      "site": "any",
+      "intended": "날씨 어때",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "날씨 어때",
+      "alternatives": [
+        "날씨 어때"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "negative-002",
+      "site": "any",
+      "intended": "오늘 뉴스 좀 보여줘",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "오늘 뉴스 좀 보여 줘",
+      "alternatives": [
+        "오늘 뉴스 좀 보여 줘"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "negative-003",
+      "site": "any",
+      "intended": "김치찌개 끓이는 법",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "김치찌개 끓이는 법",
+      "alternatives": [
+        "김치찌개 끓이는 법"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "negative-004",
+      "site": "any",
+      "intended": "지하철 몇 시까지 다녀",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "지하철 몇 시까지 다녀",
+      "alternatives": [
+        "지하철 몇 시까지 다녀"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "negative-005",
+      "site": "any",
+      "intended": "아까 그거 다시",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "아까 그거 다시",
+      "alternatives": [
+        "아까 그거 다시"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "negative-006",
+      "site": "any",
+      "intended": "그거 있잖아 그거",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "그거 있잖아 그거",
+      "alternatives": [
+        "그거 있잖아 그거"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "negative-007",
+      "site": "any",
+      "intended": "음 저기 그",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "",
+      "alternatives": [],
+      "confidence": 0,
+      "error": "timeout"
+    },
+    {
+      "promptId": "negative-008",
+      "site": "any",
+      "intended": "어제 뭐 했더라",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "어제 뭐 했더라",
+      "alternatives": [
+        "어제 뭐 했더라"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "negative-009",
+      "site": "any",
+      "intended": "우리 딸 전화번호",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "우리 딸 전화번호",
+      "alternatives": [
+        "우리 딸 전화번호"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "negative-010",
+      "site": "any",
+      "intended": "노래 좀 틀어줘",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "노래 좀 틀어 줘",
+      "alternatives": [
+        "노래 좀 틀어 줘"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "negative-011",
+      "site": "any",
+      "intended": "여기 어디야",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "여기 어디야",
+      "alternatives": [
+        "여기 어디야"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "negative-012",
+      "site": "any",
+      "intended": "사진 보여줘",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "사진 보여 줘",
+      "alternatives": [
+        "사진 보여 줘"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "negative-013",
+      "site": "any",
+      "intended": "배고픈데",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "배고픈데",
+      "alternatives": [
+        "배고픈데"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "negative-014",
+      "site": "any",
+      "intended": "티비 켜줘",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "TV 켜 줘",
+      "alternatives": [
+        "TV 켜 줘"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "negative-015",
+      "site": "any",
+      "intended": "택시 불러줘",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "택시 불러 줘",
+      "alternatives": [
+        "택시 불러 줘"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "negative-016",
+      "site": "any",
+      "intended": "약 먹을 시간이야",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "약 먹을 시간이야",
+      "alternatives": [
+        "약 먹을 시간이야"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "negative-017",
+      "site": "any",
+      "intended": "손자 생일이 언제였지",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "손자 생일이 언제였지",
+      "alternatives": [
+        "손자 생일이 언제였지"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "negative-018",
+      "site": "any",
+      "intended": "병원 예약해줘",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "병원 예약해 줘",
+      "alternatives": [
+        "병원 예약해 줘"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "negative-019",
+      "site": "any",
+      "intended": "문자 보내줘",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "문자 보내 줘",
+      "alternatives": [
+        "문자 보내 줘"
+      ],
+      "confidence": 0.8704867362976074
+    },
+    {
+      "promptId": "negative-020",
+      "site": "any",
+      "intended": "알람 맞춰줘",
+      "source": "thirdparty-recorded",
+      "speaker": "B1",
+      "heard": "알람 맞춰 줘",
+      "alternatives": [
+        "알람 맞춰 줘"
+      ],
+      "confidence": 0.8704867362976074
+    }
+  ]
+}

@@ -1,11 +1,20 @@
 import type { MenuCatalog, MenuId } from "../types.js";
 import { normalize } from "./normalize.js";
+import { pronounce } from "./phonology.js";
 
 /** 메뉴 하나가 가진, 검색에 걸릴 수 있는 표현들. */
 export interface IndexedMenu {
   menuId: MenuId;
   /** 정규화된 표현들. label과 synonyms에서 온다. */
   terms: string[];
+  /**
+   * `terms`를 소리로 옮긴 것. **`terms`와 길이와 순서가 같다** (M21).
+   *
+   * <p>STT는 들은 것을 소리나는 대로 적는다 — "잔액 조회"가 `자낵조회`로 온다.
+   * 글자로는 다른 말이지만 소리로는 같은 말이므로, 같은 변환을 거친 두 문자열이
+   * 여기서 만난다. 색인할 때 한 번 계산해 두면 질의마다 다시 계산하지 않는다.
+   */
+  sounds: string[];
   /** 정규화된 카테고리. 되묻기 선택지를 만들 때 쓴다. */
   category: string;
   /** 원본 카테고리 — 사용자에게 보여줄 때 쓴다. */
@@ -45,10 +54,12 @@ export class MenuIndex {
 
     this.menus = catalog.map((menu) => ({
       menuId: menu.id,
-      terms: dedupe([
-        normalize(menu.label),
-        ...(menu.synonyms ?? []).map(normalize),
-      ]).filter((term) => term.length > 0),
+      ...withSounds(
+        dedupe([
+          normalize(menu.label),
+          ...(menu.synonyms ?? []).map(normalize),
+        ]).filter((term) => term.length > 0),
+      ),
       category: normalize(menu.category),
       categoryLabel: menu.category,
       path: menu.path ?? [],
@@ -76,4 +87,9 @@ export class MenuIndex {
 
 function dedupe(values: string[]): string[] {
   return [...new Set(values)];
+}
+
+/** 표현마다 소리를 짝지어 둔다. 두 배열의 i번째는 언제나 같은 표현을 가리킨다. */
+function withSounds(terms: string[]): { terms: string[]; sounds: string[] } {
+  return { terms, sounds: terms.map(pronounce) };
 }

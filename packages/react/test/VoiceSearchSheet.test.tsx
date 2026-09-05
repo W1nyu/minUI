@@ -67,11 +67,18 @@ interface HomeExtras {
   retrieve?: (query: string) => Promise<readonly { menuId: string; score: number }[]>;
   assist?: (query: string, candidates: string[]) => Promise<string | null>;
   neural?: Record<string, unknown>;
+  nbest?: Record<string, unknown>;
+  bias?: Record<string, unknown>;
 }
 
 function renderHome(stt?: MockSttProvider, extras: HomeExtras = {}) {
   const onAction = vi.fn();
-  const { retrieve, assist, neural } = extras;
+  const { retrieve, assist, neural, nbest, bias } = extras;
+  const search = {
+    ...(neural ? { neural: { enabled: true, ...neural } } : {}),
+    ...(nbest ? { nbest: { enabled: true, ...nbest } } : {}),
+    ...(bias ? { bias: { enabled: true, ...bias } } : {}),
+  };
   render(
     <MinUIProvider
       catalog={CATALOG}
@@ -81,7 +88,7 @@ function renderHome(stt?: MockSttProvider, extras: HomeExtras = {}) {
       fallback={<p>불러오는 중</p>}
       {...(retrieve ? { retrieve } : {})}
       {...(assist ? { assist } : {})}
-      {...(neural ? { config: { search: { neural: { enabled: true, ...neural } } } } : {})}
+      {...(Object.keys(search).length > 0 ? { config: { search } } : {})}
     >
       <MinUIHome catalog={CATALOG} {...(stt ? { stt } : {})} />
     </MinUIProvider>,
@@ -229,6 +236,86 @@ describe("음성 검색", () => {
 
     await screen.findByRole("region", { name: "다시 찾기" });
     expect(onAction).not.toHaveBeenCalled();
+  });
+
+  it("대안을 주지 않는 엔진에서도 지금까지와 똑같이 돈다 (M21)", async () => {
+    const stt = new MockSttProvider([{ text: "돈 보내기" }]);
+    const { onAction } = await openSearch(stt, { nbest: {} });
+
+    await userEvent.click(screen.getByRole("button", { name: /눌러서 말하기/ }));
+
+    await screen.findByRole("region", { name: "찾은 메뉴" });
+    expect(onAction).not.toHaveBeenCalled();
+  });
+
+  it("1순위를 헛들어도 대안에 있으면 찾아낸다 (M21)", async () => {
+    const stt = new MockSttProvider([
+      { text: "날씨 어때", alternatives: ["돈 보내기"] },
+    ]);
+    await openSearch(stt, { nbest: {} });
+
+    await userEvent.click(screen.getByRole("button", { name: /눌러서 말하기/ }));
+
+    await screen.findByRole("region", { name: "찾은 메뉴" });
+  });
+
+  it("대안에서 온 위험 메뉴도 사용자가 눌러야 열린다 ★ (M21)", async () => {
+    // §9.3의 안전 경계는 어느 가설에서 왔든 똑같이 걸린다.
+    const stt = new MockSttProvider([
+      { text: "날씨 어때", alternatives: ["돈 보내기"] },
+    ]);
+    const { onAction } = await openSearch(stt, { nbest: {} });
+
+    await userEvent.click(screen.getByRole("button", { name: /눌러서 말하기/ }));
+
+    await screen.findByRole("region", { name: "찾은 메뉴" });
+    expect(onAction).not.toHaveBeenCalled();
+  });
+
+  it("대안을 꺼 두면 1순위만 본다 — 스위치가 실제로 가른다 (M21)", async () => {
+    const stt = new MockSttProvider([
+      { text: "날씨 어때", alternatives: ["돈 보내기"] },
+    ]);
+    // 기본값이 켜져 있으므로(2026-09-05) 끈 상태를 직접 만든다.
+    await openSearch(stt, { nbest: { enabled: false } });
+
+    await userEvent.click(screen.getByRole("button", { name: /눌러서 말하기/ }));
+
+    await screen.findByRole("region", { name: "다시 찾기" });
+  });
+
+  it("마이크를 열기 전에 카탈로그를 인식기에 알려 준다 (M22)", async () => {
+    const stt = new MockSttProvider([{ text: "돈 보내기" }]);
+    await openSearch(stt, { bias: {} });
+
+    expect(stt.phrases).toHaveLength(0);
+    await userEvent.click(screen.getByRole("button", { name: /눌러서 말하기/ }));
+
+    expect(stt.phrases.length).toBeGreaterThan(0);
+    // 정규화된 형태가 아니라 사람이 말하는 원문이어야 한다.
+    expect(stt.phrases.map((p) => p.phrase)).toContain("계좌 이체");
+    for (const { boost } of stt.phrases) {
+      expect(boost).toBeGreaterThanOrEqual(0);
+      expect(boost).toBeLessThanOrEqual(10);
+    }
+  });
+
+  it("★ 편향에 개인 학습어를 넣지 않는다 — 기기를 떠나면 안 되는 값이다 (M22)", async () => {
+    const stt = new MockSttProvider([{ text: "돈 보내기" }]);
+    await openSearch(stt, { bias: {} });
+    await userEvent.click(screen.getByRole("button", { name: /눌러서 말하기/ }));
+
+    // 카탈로그에 없는 말은 하나도 나가지 않는다.
+    const known = new Set(CATALOG.flatMap((menu) => [menu.label, ...(menu.synonyms ?? [])]));
+    for (const { phrase } of stt.phrases) expect(known.has(phrase)).toBe(true);
+  });
+
+  it("편향을 켜지 않으면 아무것도 넘기지 않는다 — 기본 동작이 바뀌지 않는다 (M22)", async () => {
+    const stt = new MockSttProvider([{ text: "돈 보내기" }]);
+    await openSearch(stt);
+    await userEvent.click(screen.getByRole("button", { name: /눌러서 말하기/ }));
+
+    expect(stt.phrases).toHaveLength(0);
   });
 
   it("마이크 권한이 없으면 글로 입력하라고 안내한다", async () => {

@@ -19,11 +19,33 @@ export {
 } from "./search/LearnedTerms.js";
 export {
   SearchPipeline,
+  type Hypothesis,
   type MatchStage,
   type SearchCandidate,
   type SearchOptions,
   type SearchOutcome,
 } from "./search/SearchPipeline.js";
+export type { NbestSettings } from "./search/nbest.js";
+export {
+  FEATURE_NAMES,
+  dot,
+  extractFeatures,
+  type FeatureContext,
+  type FeatureName,
+  type Features,
+} from "./search/features.js";
+export { rerank, type RerankSettings } from "./search/rerank.js";
+export {
+  buildBiasPhrases,
+  type BiasPhrase,
+  type BiasSettings,
+} from "./search/bias.js";
+export {
+  applyPrior,
+  toPrior,
+  type MenuPrior,
+  type PriorSettings,
+} from "./search/prior.js";
 export { combineRisk, requiresConfirm } from "./risk.js";
 export {
   checkTransfer,
@@ -75,6 +97,17 @@ export {
   type PickOptions,
 } from "./search/slots.js";
 export { jamoDistance, jamoSimilarity, toJamo } from "./search/hangul.js";
+export { pronounce, type PhonologySettings } from "./search/phonology.js";
+export {
+  UNIFORM_COSTS,
+  alignJamo,
+  countConfusions,
+  weightedJamoSimilarity,
+  type AlignOp,
+  type ConfusionCosts,
+  type ConfusionTally,
+  type HeardPair,
+} from "./search/confusion.js";
 export {
   calendarFields,
   circularDayDistance,

@@ -2,13 +2,13 @@ import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
-  DEFAULT_CONFIG,
   MenuIndex,
   NgramTfIdfProvider,
   SearchPipeline,
   type MenuCatalog,
   type MenuId,
 } from "@minui/core";
+import { benchConfig, benchFlags } from "./config-flags.js";
 import { CATALOG } from "../../frontend/src/catalog.js";
 
 /**
@@ -39,7 +39,7 @@ const querySet = JSON.parse(
 function run(label: string, catalog: MenuCatalog, useEmbedding: boolean) {
   const index = new MenuIndex(catalog);
   const embedding = useEmbedding ? NgramTfIdfProvider.build(index.documents()) : undefined;
-  const pipeline = new SearchPipeline(index, DEFAULT_CONFIG, embedding);
+  const pipeline = new SearchPipeline(index, benchConfig(), embedding);
 
   let top1 = 0;
   let top3 = 0;
@@ -98,7 +98,7 @@ console.log(`\n${querySet.description}\n`);
 
 // 기획안 §14가 M4의 확인 항목으로 남긴 비교 — 의미 매칭이 실제로 값을 하는가.
 const withEmbedding = run("동의어 + 자모 + n-gram 유사도", CATALOG, true);
-run("동의어 + 자모만 (의미 매칭 없이)", CATALOG, false);
+run(`동의어 + 자모만 (의미 매칭 없이) — ${benchFlags()}`, CATALOG, false);
 
 const passed = withEmbedding.top1 / withEmbedding.total >= 0.75;
 console.log(

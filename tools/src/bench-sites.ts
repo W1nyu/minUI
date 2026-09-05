@@ -2,13 +2,13 @@ import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
-  DEFAULT_CONFIG,
   MenuIndex,
   NgramTfIdfProvider,
   SearchPipeline,
   type MenuCatalog,
   type MenuItem,
 } from "@minui/core";
+import { benchConfig, benchFlags } from "./config-flags.js";
 
 /**
  * 동의어를 누가 붙였을 때 가장 잘 찾는가.
@@ -88,7 +88,7 @@ function run(catalog: MenuCatalog, cases: readonly Case[]) {
   const index = new MenuIndex(catalog);
   const pipeline = new SearchPipeline(
     index,
-    DEFAULT_CONFIG,
+    benchConfig(),
     NgramTfIdfProvider.build(index.documents()),
   );
 

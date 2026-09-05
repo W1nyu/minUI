@@ -2,6 +2,8 @@ export {
   Listeners,
   type SttError,
   type SttErrorCode,
+  type SttHypothesis,
+  type SttPhrase,
   type SttProvider,
   type SttResult,
 } from "./SttProvider.js";

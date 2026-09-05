@@ -30,7 +30,16 @@
     "build:eval-queries": "tsx src/build-eval-queries.ts",
     "bench:neural": "tsx src/bench-neural.ts",
     "bench:reprompt": "tsx src/bench-reprompt.ts",
-    "link:docs": "tsx src/link-docs.ts"
+    "link:docs": "tsx src/link-docs.ts",
+    "diagnose:homophones": "tsx src/diagnose-homophones.ts",
+    "build:stt-prompts": "tsx src/build-stt-prompts.ts",
+    "fit:confusion": "tsx src/fit-confusion.ts",
+    "bench:voice": "tsx src/bench-voice.ts",
+    "bench:prior": "tsx src/bench-prior.ts",
+    "bench:correct": "tsx src/bench-correct.ts",
+    "tune:correct": "tsx src/tune-correct.ts",
+    "fit:rerank": "tsx src/fit-rerank.ts",
+    "bench:rerank": "tsx src/bench-rerank.ts"
   },
   "dependencies": {
     "@minui/core": "workspace:*",

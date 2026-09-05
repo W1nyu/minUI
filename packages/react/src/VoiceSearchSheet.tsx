@@ -27,8 +27,28 @@ export interface SttLike {
    * (기획안 §9.2). 끝을 본인이 정할 수 있으면 그 기다림이 사라진다.
    */
   finish?(): void | Promise<void>;
+  /**
+   * 이번 발화에서 나올 법한 말을 인식기에 미리 알려 준다 (M22). **선택 계약이다.**
+   *
+   * <p>`finish?()`와 같은 모양으로 둔다 — 있는 엔진에서만 걸리고, 없는 엔진에서는
+   * 화면이 지금까지와 똑같이 돈다.
+   */
+  setPhrases?(phrases: readonly { phrase: string; boost: number }[]): void;
+  /** 오디오가 기기를 떠나지 않는 인식을 쓸 수 있으면 쓴다 (M22). **선택 계약이다.** */
+  preferLocal?(value: boolean): void;
   onPartial(callback: (text: string) => void): () => void;
-  onFinal(callback: (result: { text: string; confidence: number }) => void): () => void;
+  onFinal(
+    callback: (result: {
+      text: string;
+      confidence: number;
+      /**
+       * 같은 발화에 대한 다른 후보들. 점수가 높은 것부터 (M21).
+       *
+       * <p><b>선택 계약이다.</b> 주지 않는 엔진에서는 지금까지처럼 1순위만 본다.
+       */
+      alternatives?: readonly { text: string; confidence: number }[];
+    }) => void,
+  ): () => void;
   onError(callback: (error: { code: string; message: string }) => void): () => void;
 }
 
@@ -313,9 +333,15 @@ export function VoiceSearchSheet({
          * **도우미(`assist`)는 여기서 부르지 않는다.** 지금까지 그랬고, 그 판단을 M11이
          * 바꾸지 않는다. 음성은 신뢰도가 함께 오고 §9.2가 그 값으로 되묻기를 정하는데,
          * 도우미를 끼우면 그 경로가 달라진다 — 재 보지 않고 바꿀 일이 아니다.
+         *
+         * **대안은 함께 넘긴다** (M21). 엔진이 안 주거나 기능이 꺼져 있으면
+         * `voiceActionFromHypotheses`가 지금까지와 <b>같은 것</b>을 돌려준다.
          */
+        const hypotheses = result.alternatives ?? [
+          { text: result.text, confidence: result.confidence },
+        ];
         void engine
-          .voiceActionWithRetrieval(result.text, result.confidence)
+          .voiceActionFromHypotheses(hypotheses, result.confidence)
           .then((action) => apply(action, result.text));
       }),
       stt.onError((error) => {
@@ -323,8 +349,8 @@ export function VoiceSearchSheet({
         setPhase({ kind: "idle" });
         setNotice(
           error.code === "permission-denied"
-            ? "마이크를 쓸 수 없습니다. 아래에 글로 입력해 주세요."
-            : "잘 들리지 않았습니다. 다시 말씀하시거나 글로 입력해 주세요.",
+            ? "마이크를 쓸 수 없어요. 글로 입력해 주세요."
+            : "잘 들리지 않았어요. 다시 말하거나 글로 입력해 주세요.",
         );
       }),
     ];
@@ -341,6 +367,20 @@ export function VoiceSearchSheet({
     listeningStartedAt.current = typeof performance !== "undefined" ? performance.now() : Date.now();
     setNotice(null);
     setPhase({ kind: "listening", heard: "" });
+
+    /*
+     * **마이크를 열기 직전에 카탈로그를 알려 준다** (M22).
+     *
+     * 여기서 하는 이유는 사전확률이 그때그때 다르기 때문이다 — 사용자가 방금 무엇을
+     * 했는지에 따라 편향할 말이 달라진다. 화면이 뜰 때 한 번 넘기고 말면 그 변화가 안 걸린다.
+     *
+     * 나가는 것은 공개 카탈로그의 이름뿐이다. 배운 말(M7)은 넣지 않는다 — 인식이 어디서
+     * 돌지는 `start()` 뒤에야 알 수 있는데, 그 전에 넣으면 기기를 떠날 수 있다(§11.1).
+     */
+    stt.preferLocal?.(engine.preferLocalAudio());
+    const phrases = engine.biasPhrases();
+    if (phrases.length > 0) stt.setPhrases?.(phrases);
+
     await stt.start();
   }
 
@@ -353,12 +393,12 @@ export function VoiceSearchSheet({
   async function finishListening() {
     if (!stt?.finish) return;
     setPhase({ kind: "idle" });
-    setNotice("들은 말을 옮기는 중이에요…");
+    setNotice("말을 옮기는 중");
     try {
       await stt.finish();
     } finally {
       setNotice((current) =>
-        current === "들은 말을 옮기는 중이에요…" ? null : current,
+        current === "말을 옮기는 중" ? null : current,
       );
     }
   }
@@ -417,7 +457,7 @@ export function VoiceSearchSheet({
               ? `"${phase.heard}"`
               : "말씀해 주세요"
             : asking
-              ? "찾아보는 중이에요…"
+              ? "찾는 중"
               : notice}
         </p>
 
@@ -527,7 +567,7 @@ export function VoiceSearchSheet({
             </ul>
             {onBrowseAll && (
               <button type="button" className="minui-search-browse" onClick={onBrowseAll}>
-                말 대신 전체 메뉴에서 직접 찾아볼래요
+                전체 메뉴에서 찾기
               </button>
             )}
           </section>

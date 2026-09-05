@@ -7,6 +7,12 @@
  */
 
 import type { NeuralSettings } from "./search/neural.js";
+import type { PhonologySettings } from "./search/phonology.js";
+import type { ConfusionCosts } from "./search/confusion.js";
+import type { NbestSettings } from "./search/nbest.js";
+import type { PriorSettings } from "./search/prior.js";
+import type { RerankSettings } from "./search/rerank.js";
+import type { BiasSettings } from "./search/bias.js";
 import type { RepromptSettings } from "./search/reprompt.js";
 
 export interface RankingWeights {
@@ -154,6 +160,54 @@ export interface MinUIConfig {
      */
     autoOpenConfidence: number;
     /**
+     * 발음 표기로 한 번 더 맞춰 보기 (M21, 기획안 §8.3 ④-2).
+     *
+     * <p>STT가 소리나는 대로 적은 말과 메뉴 라벨을 <b>같은 공간</b>에서 만나게 한다.
+     * 라벨에 없는 어휘를 만들어 내지 않으므로 §16의 세 실패가 부딪힌 벽을 넘지 않는다 —
+     * 소리는 이미 라벨 안에 있다.
+     */
+    phonology: PhonologySettings;
+    /**
+     * 코퍼스에서 학습한 자모 혼동 비용 (M21).
+     *
+     * <p><b>발음 표기와 별개의 지렛대다.</b> 처음에는 `phonology` 아래에 뒀는데, 실측이
+     * 그것이 틀린 자리임을 보였다 — Chrome의 ko-KR 인식기는 소리대로 적지 않고 실재하는
+     * 단어를 내놓는다. 실제 오류(`늘려`→`들려`, `새로`→`세로`, `모였어`→`모았어`)는
+     * <b>글자 갈래</b>에 살고, 비용은 거기에도 걸려야 한다.
+     *
+     * <p>비어 있으면 균일 편집거리와 값이 같다 — 배운 것이 없으면 아무것도 바뀌지 않는다.
+     * 표는 `pnpm --filter tools fit:confusion`이 만들고 엔진은 읽기만 한다.
+     */
+    confusion: ConfusionCosts;
+    /**
+     * 사전확률 `P(의도)` (M22).
+     *
+     * <p>M21이 잡음 채널의 가능도를 지었고 이것이 나머지 반쪽이다. 신호는 새로 모으지
+     * 않는다 — `RankingEngine`이 이미 내는 빈도·최신성·시간 맥락을 검색이 처음으로 쓴다.
+     */
+    prior: PriorSettings;
+    /**
+     * 학습된 후보 재순위 (M23).
+     *
+     * <p>실측이 가리킨 병목이다 — 실제 STT 출력 144줄에서 오답 28건 중 16건은
+     * <b>정답이 이미 후보 1~3위에 있었다.</b> 회수가 아니라 순서 문제다.
+     */
+    rerank: RerankSettings;
+    /**
+     * 인식기에 미리 알려 줄 말 (M22).
+     *
+     * <p>M21의 혼동 비용표가 <b>난 오류를 수선</b>한다면 이것은 <b>오류가 나기 전</b>에
+     * 개입한다. 카탈로그를 아는 쪽은 우리인데 인식기에게 한 번도 준 적이 없었다.
+     */
+    bias: BiasSettings;
+    /**
+     * 인식 대안을 함께 보기 (M21 N-best).
+     *
+     * <p>Web Speech는 순위가 매겨진 대안을 여러 개 준다. 지금까지 1순위만 받고 나머지를
+     * 버렸는데, 버린 것 안에 정답이 있는 경우가 <b>공짜로 얻을 수 있는 회수</b>다.
+     */
+    nbest: NbestSettings;
+    /**
      * 원격 신경망 검색 (M11, 기획안 §8.3 ③').
      *
      * <p>엔진은 이것이 무엇인지 모른다 — URL도 키도 모델 이름도 여기 없다. 있는 것은
@@ -281,6 +335,112 @@ export const DEFAULT_CONFIG: MinUIConfig = {
     semanticWeight: 0.85,
     termSpecificityFloor: 0.8,
     autoOpenConfidence: 0.9,
+    /*
+     * **기본으로 꺼져 있다.** `neural`과 같은 처분이다 — 사전 등록한 게이트를
+     * `bench:voice`가 통과시키기 전에는 켜지 않는다(§12).
+     */
+    phonology: {
+      enabled: true,
+      soundWeight: 0.95,
+    },
+    confusion: {
+      subs: {
+        "ᅧ>ᅡ": 0.844,
+        "ᅢ>ᅦ": 0.848,
+        "ᅦ>ᅢ": 0.792,
+      },
+      ins: {
+        "ᄅ": 0.841,
+        "ᅡ": 0.748,
+        "ᄀ": 0.79,
+        "ᅳ": 0.841,
+        "ᅵ": 0.841,
+        "ᄑ": 0.841,
+      },
+      del: {
+        "ᅥ": 0.598,
+        "ᄋ": 0.587,
+        "ᅵ": 0.63,
+        "ᅩ": 0.669,
+        "ᄂ": 0.676,
+        "ᄑ": 0.842,
+        "ᄊ": 0.682,
+        "ᄉ": 0.798,
+        "ᄀ": 0.71,
+        "ᄃ": 0.849,
+        "ᅳ": 0.85,
+        "ᄅ": 0.849,
+        "ᅡ": 0.749,
+        "ᆼ": 0.758,
+        "ᆫ": 0.706,
+        "ᆯ": 0.849,
+        "ᄆ": 0.798,
+        "ᅯ": 0.838,
+      },
+      defaultSub: 1,
+      defaultIns: 1,
+      defaultDel: 1,
+    },
+    /*
+     * **켜져 있다** (2026-09-05). 사전 등록 게이트를 홀드아웃에서 통과했다.
+     *
+     * `decayPerRank`는 아직 고른 값이 아니라 **자리를 잡아 둔 값**이다. STT가 1순위로
+     * 올린 것이 대체로 맞으므로 뒤 순위는 눌러야 하지만, 얼마나 눌러야 하는지는
+     * 코퍼스가 답한다.
+     */
+    /*
+     * **기본으로 꺼져 있다.** 사전 등록한 게이트를 넘기 전에는 켜지 않는다.
+     *
+     * `priorWeight`는 아직 고른 값이 아니라 자리를 잡아 둔 값이다. 문턱을 넘기는 힘이
+     * 애초에 없으므로(§`prior.ts`) 이 값이 정하는 것은 통과한 후보들 사이의 순서뿐이다.
+     */
+    prior: {
+      enabled: false,
+      priorWeight: 0.15,
+      floor: 0.05,
+    },
+    /*
+     * **기본으로 꺼져 있고 가중치가 비어 있다.** 둘 중 하나만으로도 입력과 바이트 동일하게
+     * 돈다 — 적합 전에 실수로 켜도 아무것도 안 바뀐다.
+     *
+     * `margin`은 아직 고른 값이 아니다. 0이면 아주 작은 차이로도 순서가 바뀌는데,
+     * 사용자에게는 이유 없이 순서가 달라지는 화면이 된다. `fit:rerank` 뒤에 저울을 본다.
+     */
+    rerank: {
+      enabled: false,
+      weights: {},
+      margin: 0.05,
+      /*
+       * 실측이 정한 값이다 — 전체를 다시 세우면 기존 사전식 규칙을 재현하지 못해
+       * 무너진다. 학습이 보탤 수 있는 자리는 점수가 거의 같은 곳뿐이다.
+       */
+      band: 0.05,
+    },
+    /*
+     * **기본으로 꺼져 있다.** 게이트를 넘기 전에는 켜지 않는다.
+     *
+     * `maxPhrases: 120`과 무게 둘은 **재서 고른 값이 아니다.** 브라우저가 300개까지
+     * 받는 것은 확인했지만(스파이크), 많이 넣을수록 편향이 희석되므로 짝지은 재낭독으로
+     * 저울을 봐야 한다. 무게 합(2+3=5)은 브라우저 상한 10 안에 넉넉히 든다.
+     */
+    bias: {
+      enabled: false,
+      maxPhrases: 120,
+      baseBoost: 2,
+      priorBoost: 3,
+      /*
+       * **켜지 않는다.** 오디오가 기기를 떠나지 않는 것은 분명한 이득이지만,
+       * 온디바이스는 <b>다른 모델</b>이라 정확도가 다르다. 재지 않은 채로 켜면
+       * 언어팩이 깔린 기기에서만 조용히 다른 검색 품질이 나간다.
+       * 켜려면 온디바이스 인식으로 코퍼스를 다시 받아 따로 판정해야 한다.
+       */
+      preferLocal: false,
+    },
+    nbest: {
+      enabled: true,
+      maxHypotheses: 3,
+      decayPerRank: 0.97,
+    },
     /*
      * **유도된 값이다. 고른 것이 아니다** (M11, `bench:neural`).
      *

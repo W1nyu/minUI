@@ -2,7 +2,7 @@ import type { MenuId } from "@minui/core";
 import { IndexedDbStorageAdapter, MinUIHome, MinUIProvider } from "@minui/react";
 import { makeStt } from "./stt.js";
 import type { ReactNode } from "react";
-import { useCallback, useId, useMemo, useState } from "react";
+import { Suspense, lazy, useCallback, useId, useMemo, useState } from "react";
 import { assistEndpoint, makeAssist } from "@host-ai/assist.js";
 import { makeClarify } from "@host-ai/clarify.js";
 import { makeCorrect } from "@host-ai/correct.js";
@@ -44,6 +44,20 @@ const ASSIST_URL = assistEndpoint();
  */
 const NEURAL = import.meta.env.VITE_MINUI_NEURAL === "1";
 
+/**
+ * 음성 코퍼스 수집 화면을 띄울 것인가 (M21). **개발 전용.**
+ *
+ * <p>`lazy`로 부르는 이유는 `NEURAL` 플래그와 같다 — 플래그가 없으면 이 화면의 코드가
+ * <b>프로덕션 번들에 아예 들어가지 않는다.</b> 심사자가 보는 배포물에는 개발 도구가
+ * 있을 자리가 없다.
+ *
+ * <p>켜려면: `MINUI_STT_LAB=1 VITE_MINUI_STT_LAB=1 pnpm --filter demos dev` → `/stt-lab`
+ */
+const STT_LAB = import.meta.env.VITE_MINUI_STT_LAB === "1";
+const SttLab = STT_LAB
+  ? lazy(() => import("./SttLab.js").then((module) => ({ default: module.SttLab })))
+  : null;
+
 export function App() {
   // 주소로만 들어간다. 탭 바에 두면 데모의 다섯 사이트와 성격이 섞인다 —
   // Studio는 "아직 없는 사이트를 얹어 보는 곳"이다.
@@ -59,6 +73,14 @@ export function App() {
   const [demoToolsOpen, setDemoToolsOpen] = useState(false);
   const demoToolsId = useId();
   const site = findSite(slug)!;
+
+  if (SttLab && currentRoute() === "stt-lab") {
+    return (
+      <Suspense fallback={<p>불러오는 중</p>}>
+        <SttLab />
+      </Suspense>
+    );
+  }
 
   if (studio) {
     return (

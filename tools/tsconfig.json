@@ -5,7 +5,8 @@
     "types": ["node"],
     "lib": ["ES2022", "DOM"],
     "paths": {
-      "@minui/core": ["../packages/core/src/index.ts"]
+      "@minui/core": ["../packages/core/src/index.ts"],
+      "@host-ai/*": ["../shared/host-ai/*"]
     }
   },
   "include": ["src/**/*"]
