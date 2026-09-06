@@ -104,8 +104,8 @@ const SCENARIOS: Scenario[] = [
         problems,
       );
       expect(
-        !(await seen(page.locator("[data-demo-tool=studio]"), 1_500)),
-        "숨긴 Studio 진입 버튼이 화면에 보인다",
+        await seen(page.locator("[data-demo-tool=studio]")),
+        "이식 통로(Studio) 버튼이 화면에 없다",
         problems,
       );
       expect(

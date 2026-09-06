@@ -22,10 +22,13 @@ describe("첫 화면 — 바깥 시연 도구", () => {
     expect(toggle).toHaveAttribute("aria-expanded", "false");
     fireEvent.click(toggle);
     expect(toggle).toHaveAttribute("aria-expanded", "true");
-    expect(screen.queryByRole("button", { name: "+다른 금융사 얹어 보기" })).not.toBeInTheDocument();
-    const studioEntry = document.querySelector<HTMLButtonElement>("[data-demo-tool=studio]");
-    expect(studioEntry).toBeTruthy();
-    expect(studioEntry).toHaveProperty("hidden", true);
+    // 이식 통로는 가상 이체 시연 바로 밑에 같이 산다.
+    const studioEntry = within(actions).getByRole("button", {
+      name: "+ 다른 금융사 얹어 보기",
+    });
+    expect(studioEntry).toHaveProperty("hidden", false);
+    const list = document.querySelector(".external-demo-actions-list")!;
+    expect([...list.children]).toEqual([bankEntry(), studioEntry]);
     expect(phone.contains(actions)).toBe(true);
   });
 
@@ -49,12 +52,11 @@ describe("첫 화면 — 바깥 시연 도구", () => {
     expect(screen.queryByRole("button", { name: /AI가 못 하는 것/ })).not.toBeInTheDocument();
   });
 
-  it("숨긴 Studio 진입 기능은 남겨 둔다", () => {
+  it("이식 통로를 누르면 Studio가 열린다", () => {
     render(<App />);
 
-    const studioEntry = document.querySelector<HTMLButtonElement>("[data-demo-tool=studio]");
-    expect(studioEntry).not.toBeNull();
-    fireEvent.click(studioEntry!);
+    const studioEntry = screen.getByRole("button", { name: "+ 다른 금융사 얹어 보기" });
+    fireEvent.click(studioEntry);
 
     expect(screen.getByRole("heading", { name: "MinUI Studio" })).toBeInTheDocument();
   });

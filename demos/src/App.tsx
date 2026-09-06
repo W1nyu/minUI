@@ -156,8 +156,8 @@ function ExternalDemoActions({
       </button>
       <div className="external-demo-actions-list" id={menuId}>
         <a href={routeHref("bank/")}>가상 이체 시연</a>
-        <button type="button" hidden data-demo-tool="studio" onClick={onOpenStudio}>
-          +다른 금융사 얹어 보기
+        <button type="button" data-demo-tool="studio" onClick={onOpenStudio}>
+          + 다른 금융사 얹어 보기
         </button>
       </div>
     </nav>
